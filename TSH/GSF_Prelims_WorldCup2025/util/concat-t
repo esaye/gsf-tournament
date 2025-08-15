@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# concatenate .t files for submission to the NSA
+
+for div in $@
+do
+  divname=`basename $div .t | tr a-z A-Z`
+  echo "#division $divname"
+  cat $div
+done  > all.t

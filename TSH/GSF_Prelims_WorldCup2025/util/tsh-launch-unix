@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# TSH launcher
+#
+# Usage: tsh event-name
+#
+# INSTRUCTIONS
+#
+# Install TSH on your Linux hosting account in ~/local/tsh
+#
+# Copy this file to somewhere in your path (e.g., ~/bin/tsh) to install:
+#
+#   cp ~/local/tsh/util/tsh-launch-unix ~/bin/tsh
+#
+# Create a shortcut file called ~/lib/tsh-shortcuts.txt where each line has
+# a short abbreviation, a space or tab, and then the name of an event folder
+# relative to local/tsh
+#
+#   echo 'nsc 2024-nsc' > ~/lib/tsh-shortcuts.txt
+#
+# Then you can run TSH from the command line just with (e.g.)
+#
+#   tsh nsc
+#
+# If it says 'tsh: not found', check your $PATH variable settings to make
+# sure they include ~/bin
+
+# save event name
+EVENT_NAME="$1"
+
+cd
+
+# try expanding short cuts using shortcuts file
+FULL=`grep -i "^$EVENT_NAME " lib/tsh-shortcuts.txt | tail -1 | sed -e 's/^[^ 	]*[ 	]//'`
+test X"$FULL" != X && EVENT_NAME="$FULL"
+
+# check to make sure event name is valid
+if test ! -d "local/tsh/$EVENT_NAME"
+  then
+  echo "There is no TSH folder called '$EVENT_NAME'."
+  exit 1
+  fi
+
+# kill previous session if any
+pkill -f -9 "/usr/bin/perl ./tsh.pl $EVENT_NAME"
+# change directory to TSH 
+cd $HOME/local/tsh
+# launch TSH at low priority in case of runaway process
+nice -15 ./tsh.pl "$EVENT_NAME"

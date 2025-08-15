@@ -1,0 +1,117 @@
+# This is a sample tsh.config file, used at BAT 2005.
+# 
+# This tournament is provided as an example of an event with a rotisserie.
+#
+# Lines that start with a '#' are comments, and are ignored by tsh.
+#
+# Each division must be declared using a line like the following.
+# The first word after 'division' is the name of the division.
+# Enter it in lower case and keep it short, as you'll need to enter
+# it often.  The next word is the name of the data file for that division.
+#
+config event_name = "test data" 
+config event_date = "test dates"
+# actually 2005 BAT
+config director_id = 'CM000003'
+config tournament_id = 1
+config director_name = "John Chew"
+division a a.t
+division b b.t
+division c c.t
+division d d.t
+division p p.t
+#
+# If you have a one-day tournament that overlaps with a longer main event,
+# you can "comment out" the one-day tournament when you don't need it.
+#
+division n n.t
+# Specify how many rounds your tournament will be
+config max_rounds = 15
+# Enable Gibsonization warnings
+config gibson = 1
+# Assign boards to tables
+config tables{'P'} = [ 1..8 ];
+config tables{'A'} = [ 1, 2, map { ($_, $_) } 3..100];
+config tables{'B'} = [ 1, 2, map { ($_, $_) } 3..100];
+config tables{'C'} = [ 1, map { ($_, $_) } 2..100];
+config tables{'D'} = [ 1, map { ($_, $_) } 2..100];
+config tables{'N'} = [ map { ($_, $_) } 1..100];
+# wheelchair player
+config reserved{'D'}[24] = 15
+config reserved{'D'}[33] = 17
+# automatically update web server
+# config html_directory = '/Library/WebServer/Documents/bat2005/';
+# uncomment the following line to keep track of who played first/second
+config track_firsts = 1
+# uncomment the following line to use only HTML files, no text files
+config no_text_files = 1
+# uncomment the following line to set up a rotisserie pool
+config rotofile = 'roto.txt'
+# automatic pairing instructions
+autopair a 0 1 if 3 a
+autopair b 0 1 if 3 b
+autopair c 0 1 if 3 c
+autopair d 0 1 if 3 d
+autopair p 0 1 rr p
+autopair n 0 1 if 3 n
+# session break after round 3
+autopair a 3 4 ns 0 3 a
+autopair a 3 5 ns 0 3 a
+autopair a 4 6 ns 0 4 a
+autopair a 5 7 ns 0 5 a
+autopair b 3 4 ns 0 3 b
+autopair b 3 5 ns 0 3 b
+autopair b 4 6 ns 0 4 b
+autopair b 5 7 ns 0 5 b
+autopair c 3 4 ns 0 3 c
+autopair c 3 5 ns 0 3 c
+autopair c 4 6 ns 0 4 c
+autopair c 5 7 ns 0 5 c
+autopair d 3 4 ns 0 3 d
+autopair d 3 5 ns 0 3 d
+autopair d 4 6 ns 0 4 d
+autopair d 5 7 ns 0 5 d
+autopair n 3 4 ns 0 3 n
+autopair n 3 5 ns 0 3 n
+# session break after round 7
+autopair a 7 8 ns 0 7 a
+autopair a 7 9 ns 0 7 a
+autopair a 8 10 ns 0 8 a
+autopair a 9 11 ns 0 9 a
+autopair b 7 8 ns 0 7 b
+autopair b 7 9 ns 0 7 b
+autopair b 8 10 ns 0 8 b
+autopair b 9 11 ns 0 9 b
+autopair c 7 8 ns 0 7 c
+autopair c 7 9 ns 0 7 c
+autopair c 8 10 ns 0 8 c
+autopair c 9 11 ns 0 9 c
+autopair d 7 8 ns 0 7 d
+autopair d 7 9 ns 0 7 d
+autopair d 8 10 ns 0 8 d
+autopair d 9 11 ns 0 9 d
+# session break after round 11
+autopair a 11 12 ns 0 11 a
+autopair a 11 13 ns 0 11 a
+autopair a 12 14 ns 0 12 a
+autopair b 11 12 ns 0 11 b
+autopair b 11 13 ns 0 11 b
+autopair b 12 14 ns 0 12 b
+autopair c 11 12 ns 0 11 c
+autopair c 11 13 ns 0 11 c
+autopair c 12 14 ns 0 12 c
+autopair d 11 12 ns 0 11 d
+autopair d 11 13 ns 0 11 d
+autopair d 12 14 ns 0 12 d
+# Repeats are allowed here only in the final round.  If you allow repeats
+# in an earlier round, be careful not to introduce them at the beginning
+# of a session that starts with two rounds paired based on the end of
+# the previous session.  (In the current example, that would mean that
+# you should not allow repeats starting Round 11.)  That's because doing
+# so will lead to a large number of back-to-back repeat pairings in the
+# first two rounds of the session, and to angry and confused players.
+autopair a 14 15 koth 1 14 a
+autopair b 14 15 koth 1 14 b
+autopair c 14 15 koth 1 14 c
+autopair d 14 15 koth 1 14 d
+autopair n 5 6 koth 1 5 n

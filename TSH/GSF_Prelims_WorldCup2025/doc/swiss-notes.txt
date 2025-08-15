@@ -1,0 +1,26 @@
+A brief introduction to Swiss pairings as implemented in tsh 3.070.
+
+Swiss pairings match players who have the same win-loss record with
+each other.  Players are divided into "win groups" according to the
+number of wins that they have scored so far, then the win groups
+are paired within themselves, alternately pairing the top group
+and the bottom group until all groups are paired.
+
+If the number of players in a group is odd, then one player is borrowed
+from the nearest unpaired group.  If a group cannot be paired without
+excessive rematches, additional players are borrowed two at a time
+until pairing is possible.
+
+To pair players within a group, the list of possible opponents
+for a player is prepared, then sorted according to number of
+repeat pairings, avoidance of consecutive repeats, balancing
+of number of times a player plays first, separation from ideal
+Swiss rank distance (half the size of the win group) and player
+rank.  Opponents are then assigned to each player beginning
+at the top of the group and backtracking to assign a second or
+lower choice if all first choices cannot be assigned simultaneously.
+For large groups of more than twelve players, players who have fewer
+possible opponents are assigned their opponents before players who
+have more possible opponents.
+
+For complete details and source code, please consult http://tsh.poslfit.com.

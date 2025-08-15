@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+# used for batch-setting classes
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () { 
+  my @class;
+  while (<STDIN>) {
+    my ($pn, $class) = split(/\s+/);
+    next unless $pn && $class;
+    die "$pn has two classes" if $class[$pn];
+    $class[$pn] = $class;
+    }
+  while (<>) {
+    if (my $class = $class[$.]) {
+      s/;\s*class\s+[^;]+/;class $class/;
+      print $_;
+      }
+    else {
+      print $_;
+      }
+    }
+  }

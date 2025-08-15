@@ -1,0 +1,49 @@
+#!/usr/bin/perl 
+
+# convert John Chew to Chew, John
+
+use strict;
+use warnings;
+use lib "./lib/perl";
+use FileHandle;
+use TFile;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  for my $ARGV (@::ARGV) {
+    my $oldfh = new FileHandle "<$ARGV";
+    my $newfn = $ARGV;
+    $newfn =~ s/\.t$/.new/ || die "Not a .t file: $ARGV";
+    my $newfh = new FileHandle ">$newfn";
+    while (<$oldfh>) {
+      my $p = TFile::ParseLine($_);
+      if ($p && ((my $name=$p->{'name'}) !~ /,/)) {
+        my (@name) = split(/\s+/, $name);
+	if ($name =~ /^(?:gloriosa ondoy agdeppa|mary ellen bergeron|robin pollock daniel|alice ann goodrich|julie ellen maria|ida ann shapiro|mary ellen weisskopf|dawn camille wisniew|\w \w+ \w+|\w+ \w \w+)$/) {
+	  splice(@name, 0, 2, join(' ', @name[0,1]));
+	  }
+	elsif ($name =~ /^(?:verna berg richards|caroline polak scowcroft|patricia saito stewart|john van pelt)$/) {
+	  splice(@name, 1, 2, join(' ', @name[1,2]));
+	  }
+	if (@name != 2) {
+	  warn "Not sure how to reverse: @name\n";
+	  my $surname = pop @name;
+	  $p->{'name'} = join(', ', $surname, join(' ', @name));
+	  }
+	else {
+	  $p->{'name'} = join(', ', @name[1,0]);
+	  }
+	print $newfh TFile::FormatLine($p);
+	next;
+	}
+      print $newfh $_; 
+      }
+    my $oldfn = $ARGV;
+    $oldfn =~ s/\.t$/.old/ || die;
+    rename $ARGV, $oldfn || die "rename failed: $!";
+    rename $newfn, $ARGV || die "rename failed: $!";
+    }
+  }

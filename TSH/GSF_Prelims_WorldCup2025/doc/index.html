@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>About tsh</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=here><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1 class=nobreak>About <cite>tsh</cite></h1>
+<p class=subtitle>... and its documentation.
+</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.320.</p>
+
+<p class=p1><cite>tsh</cite> is a Perl application for
+managing Scrabble tournaments, first written in 1999, continuously
+maintained since then and 
+freely distributed 
+for noncommercial use 
+by John Chew &lt;poslfit@gmail.com&gt;.
+This document and <cite>tsh</cite> are copyright &copy; 2025 John J. Chew, III.
+</p>
+<p class=p1><cite>tsh</cite> is a program that deals with 
+the logistics of running a tournament.
+With it, you can automatically or manually pair players, enter results,
+print standings, debug scorecard errors,
+estimate new player ratings and prepare data submissions for
+official ratings systems.
+<em>tsh</em> has been used at dozens of tournaments, 
+producing high-quality pairings and reports with 
+an estimated maximum operator:player ratio of 1:250 (1:1000 where configured for self-service data entry).
+Among the many events that have been run using <em>tsh</em> are:
+the World Championship, 
+the U.S. National Championship,
+the U.K. National Championship,
+the Canadian Championship, 
+the U.S. Players&rsquo; Championship,
+and the King&rsquo;s Cup
+as well as countless smaller weekend and one-day tournaments throughout
+the English, Italian, German, Polish and Norwegian Scrabble communities.
+</p>
+
+<p class=p1>
+<cite>tsh</cite> comes with detailed documentation describing all
+of its features.  Not everyone needs to read all of this document,
+and U.K. users in particular should begin by reading 
+Stewart Holden&rsquo;s <a href="tshguide.pdf">Beginners&rsquo; Guide to TSH</a>.
+NASPA users may benefit from reading
+Vince Castellano&rsquo;s <a href="gvcqs.html">TSH QuickStart</a>.
+</p>
+
+<p class=p1>
+If this is your first time using <cite>tsh</cite>, 
+or if you have not yet used version 3.000 or later,
+you must read the 
+<a href="intro.html">Introduction</a>.
+You may then continue with other sections listed at the top of this page.
+All users should at least skim the section on 
+<a href="commands.html">commands</a>.
+Data entry staff should read the sections on
+<a href="entry.html">data entry</a>,
+generating <a href="reports.html">generating reports</a>
+and
+<a href="trouble.html">troubleshooting</a>.
+At least one person at each tournament should have browsed all sections of
+the manual before the tournament begins, including those on
+<a href="install.html">installation</a>,
+<a href="config.html">configuration</a> and
+<a href="pairing.html">pairing theory</a>.
+If you want to print a copy for your reference during the tournament,
+the <a href="all.html">entire reference manual</a> is also available
+in one file.
+</p>
+
+<p class=p1>
+Before each tournament, you should update your copy of <cite>tsh</cite>
+and read the
+<a href="news.html">news</a> of what has changed in recent versions,
+and follow the links there to changes in the other manual sections.
+</p>
+
+<p class=p1>
+Free telephone or online support is available by prior arrangement.  If you are
+planning to use <cite>tsh</cite> at a tournament, please contact me 
+(John Chew)
+at least a few weeks in advance for help in setting up configuration 
+files, and to discuss your support needs.
+If there is a specific feature that you need added to <cite>tsh</cite>,
+or support for a new language, please ask for it as far in advance of your
+event as possible.
+<!--
+There is also a Yahoo group devoted to the needs of
+<a href="http://groups.yahoo.com/group/tsh-users"><cite>tsh</cite> users</a>.
+-->
+</p>
+
+<p class=sidebar>
+Thank you to recent donors
+Jason Idalski and Dallas Johnson, Ryan Fischer, and Larry Sherman
+for their generous support of <cite>tsh</cite> development.
+</p>
+<p class=p1>
+If you would like to make a donation to help make it possible
+for me to continue improving and supporting <cite>tsh</cite>,
+I welcome them via the &ldquo;Make A Donation&rdquo; PayPal
+button at the bottom of my <a href="http://www.poslfit.com/">poslfit
+home page</a>.
+I am also available for hire to help run or webcast tournaments and
+games, on site or remotely, but am frequently booked 6-12 months in advance.
+</p>
+
+<h2>System Requirements</h2>
+
+<p class=p1>
+<cite>tsh</cite> is written in Perl, the multiplatform scripting language.
+Every released version is tested with OS/X and Linux and should therefore also run
+on common versions of Unix.
+<cite>tsh</cite> versions are tested a few times a year with Windows,
+and whenever a user requests it.
+If you are using an operating system not mentioned here, 
+please allow a few extra weeks for any software changes
+that may be needed to bring the current version of
+<cite>tsh</cite> into compatibility with it.
+</p>
+
+<p class=p1>
+Disk space and memory requirements are minimal, a fairly small
+number of megabytes each.  
+One computer is recommended for every 250 or so players,
+and one networked printer per tournament,
+though having more of each will reduce data entry and report printing
+time and improve redundancy.
+</p>
+
+<p class=p1>
+If an Internet connection is available at the event site,
+<cite>tsh</cite> can be used to automatically update web coverage
+of the tournament, and last-minute patches to the program itself
+can be automatically downloaded.
+If not, <cite>tsh</cite> can run without these features.
+</p>
+
+</body>
+</html>
+

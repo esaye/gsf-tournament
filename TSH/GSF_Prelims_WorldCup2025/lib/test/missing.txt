@@ -1,0 +1,25 @@
+#begintest missing
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+config track_firsts = 1
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 3 0 1; 300 50
+Chew, Jamie 500    2 1 0; 200
+Chew, Liam 0       1 0 0; 100
+#endifile
+#begincommands
+missing 1
+missing 2
+q
+#endcommands
+#beginstdout
+Chew, John (#1) vs. Chew, Jamie (#3)
+Chew, Liam (#4)
+#endstdout
+#beginstderr
+#endstderr
+#endtest

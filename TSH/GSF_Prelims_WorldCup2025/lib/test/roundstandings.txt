@@ -1,0 +1,42 @@
+#begintest roundstandings
+#beginconfig
+division a a.t
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+rs 0
+rs 1
+rs 3
+q
+#endcommands
+#beginstdout
+Standings
+
+Rnk Won-Lost Sprd Player
+  1 0.0-0.0    +0 Chew, John (#1)
+  2 0.0-0.0    +0 Chew, Kristen (#2)
+  3 0.0-0.0    +0 Chew, Jamie (#3)
+  4 0.0-0.0    +0 Chew, Liam (#4)
+Round 1 Standings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 1.0-0.0  +300 Chew, John (#1)    W:400-100:#4
+  2 1.0-0.0  +100 Chew, Kristen (#2) W:300-200:#3
+  3 0.0-1.0  -100 Chew, Jamie (#3)   L:200-300:#2
+  4 0.0-1.0  -300 Chew, Liam (#4)    L:100-400:#1
+Round 3 Standings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 3.0-0.0  +600 Chew, John (#1)    W:400-300:#2
+  2 2.0-1.0  +200 Chew, Kristen (#2) L:300-400:#1
+  3 1.0-2.0  -200 Chew, Jamie (#3)   W:200-100:#4
+  4 0.0-3.0  -600 Chew, Liam (#4)    L:100-200:#3
+#endstdout
+#beginstderr
+#endstderr
+#endtest

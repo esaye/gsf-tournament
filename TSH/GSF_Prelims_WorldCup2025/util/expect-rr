@@ -1,0 +1,19 @@
+#!/usr/local/bin/perl -w
+
+unshift(@INC, "$ENV{HOME}/lib/perl");
+require 'ratings.pl';
+
+my @ratings = @ARGV;
+
+for my $i (0..$#ratings) {
+  my $myr = $ratings[$i];
+  printf "%4d: ", $myr;
+  my $totalo = 0;
+  for my $j (0..$#ratings) {
+    next if $j == $i;
+    my $thiso = (&outcome($myr, $ratings[$j]))[0];
+    printf "%4.2f ", $thiso;
+    $totalo += $thiso;
+    }
+  printf "= %4.2f\n", $totalo;
+  }

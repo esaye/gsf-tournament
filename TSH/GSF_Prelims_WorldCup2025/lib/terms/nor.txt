@@ -1,0 +1,900 @@
+code=1/2
+brief=1./2.
+type=label
+
+code=1st
+brief=1.
+type=label
+
+code=1stadv
+brief=1.-2.
+type=label
+
+code=1stadvantage
+brief=Fordelen til den første spilleren
+type=label
+
+code=1stplayerscore
+brief=Poengsummen til den første spilleren
+type=label
+
+code=1stsc
+brief=1st Score
+type=label
+
+code=1stwinp
+brief=Første spiller vinner %%
+type=label
+
+code=1stwp
+brief=1st W%%
+type=label
+
+code=2nd
+brief=2.
+type=label
+
+code=2ndplayerscore
+brief=Poengsummen til den andre spilleren
+type=label
+
+code=2ndsc
+brief=2nd Score
+type=label
+
+code=activeplayers
+brief=Aktive spillere
+type=label
+
+code=actvplayers
+brief=Aktive spillere
+type=label
+
+code=Agn
+brief=Agn
+type=label
+
+code=alpha-pairings
+brief=Alfabetiske paroppsett
+type=label
+
+code=Alphabetic_Pairings
+brief=Alfabetiske paroppsett
+type=label
+
+code=aos
+brief=Motstanders gjennomsnittlige poengsum
+type=label
+
+code=Average_Score
+brief=Gjennomsnittlig<br>poengsum
+type=label
+
+code=averages
+brief=Gjennomsnitt
+type=label
+
+code=B
+brief=B
+type=label
+
+code=Back_to_round_index
+brief=Tilbake til <a href="%s">turneringsoversikt</a>
+type=label
+
+code=Bd
+brief=Br
+type=label
+
+code=blurb
+brief=Denne rapporten ble generert av <cite>tsh</cite>, versjon %s.  For mer informasjon om <cite>tsh</cite>, ta kontakt med John Chew.
+type=label
+
+code=Board
+brief=Brett
+type=label
+
+code=bye
+brief=frirunde
+type=label
+
+code=Bye
+brief=Frirunde
+type=label
+
+code=Cash
+brief=Cash
+type=label
+
+code=Cl
+brief=C
+type=label
+
+code=Class
+brief=Klasse
+type=label
+
+code=columns
+brief=kolonner
+type=label
+
+code=Combined_Score
+brief=Sammenlagt<br>poengsum
+type=label
+
+code=CombinedS
+brief=CS
+type=label
+
+code=comma_space
+brief=,&#32;
+type=label
+
+code=Cumul
+brief=Kum
+type=label
+
+code=data_loaded
+brief=data lastet inn
+type=label
+
+code=Division
+brief=Divisjon
+type=label
+
+code=draws
+brief=trekker
+type=label
+
+code=EditScorecardTopNote
+brief=Click on the part of the scorecard you wish to change. Warning: this feature is still highly experimental. At present you can change a player's name, their rating, and their opponent's ratings.  When you're done, click the button above to end this edit session, then close the window to return to the tsh command line.
+type=label
+
+code=Enhanced-scoreboard
+brief=Enhanced Scoreboard
+type=label
+
+code=enhanced-scoreboard
+brief=Enhanced Scoreboard
+type=label
+
+code=event_coverage_index
+brief=Turneringsoversikt
+type=label
+
+code=EventDate
+brief=Arrangementsdato
+type=label
+
+code=EventDateNote
+brief=Denne datoen vil vises på de fleste utskriftene og nettsidene. For eksempel &ldquo;2010-06-02~2010-06-03&rdquo;, &ldquo;November 10&ndash;11, 2010&rdquo;, &ldquo;August 24, 2010&rdquo;.
+type=label
+
+code=EventID
+brief=Arrangements-ID
+type=label
+
+code=EventIDNote
+brief=Ditt nye arrangement vil lagres i arrangementsmappa di.  Det må ha en ID som er et gyldig mappenavn.
+type=label
+
+code=EventName
+brief=Arrangementsnavn
+type=label
+
+code=EventNameNote
+brief=Dette er navnet som vil være synlig på alle utskrifter og nettsider. For eksempel &ldquo;Toronto SCRABBLE&reg; Tournament&rdquo;, &ldquo;World Scrabble Championship&rdquo;.
+type=label
+
+code=EventsMenuNewItem
+brief=Lag et <a href="/events/new/index.html">nytt arrangement</a>.
+type=label
+
+code=EventsMenuOpenSub
+brief=Åpne et av de eksisterende arrangementene i arrangementmappa: %s.
+type=label
+
+code=EventsMenuOpenTop
+brief=Åpne en av de eksisterende arrangementene i <cite>tsh</cite>-mappa di: %s.
+type=label
+
+code=EventsMenuTitle
+brief=Lag/Åpne arrangement
+type=label
+
+code=F
+brief=F
+type=label
+
+code=faster
+brief=raskere
+type=label
+
+code=fewer
+brief=færre
+type=label
+
+code=first
+brief=starter
+type=label
+
+code=Firsts
+brief=Første
+type=label
+
+code=firsts
+brief=Første/Andre
+type=label
+
+code=For
+brief=For
+type=label
+
+code=gamesplayed
+brief=Totalt antall spilte partier
+type=label
+
+code=gamestied
+brief=Antall uavgjorte
+type=label
+
+code=gmsplayed
+brief=Antall spilte partier
+type=label
+
+code=gmstied
+brief=Antall uavgjorte
+type=label
+
+code=highcomb
+brief=Høyeste sammenlagte poengsum
+type=label
+
+code=higher
+brief=høyere
+type=label
+
+code=highloss
+brief=Høyeste tapspoengsum
+type=label
+
+code=highspread
+brief=Høyeste poengforskjell
+type=label
+
+code=highwin
+brief=Høyeste seierspoengsum
+type=label
+
+code=L
+brief=T
+type=label
+
+code=Last_G
+brief=Forrige parti
+type=label
+
+code=Last_Game
+brief=Forrige parti
+type=label
+
+code=Last_Game_sb
+brief=Forrige:
+type=label
+
+code=links_above
+brief=Lenkene ovenfor går til rapporter generert av turneringsprogrammet <a href="http://tsh.poslfit.com">tsh</a>.
+type=label
+
+code=Loser
+brief=Taper
+type=label
+
+code=LoserRating
+brief=Tapers<br>rating
+type=label
+
+code=Losing_Score
+brief=Tapers<br>poengsum
+type=label
+
+code=Losing_Spreads
+brief=Tapende marginer
+type=label
+
+code=LosingS
+brief=TP
+type=label
+
+code=Lost
+brief=Tapt
+type=label
+
+code=lower
+brief=lavere
+type=label
+
+code=lowloss
+brief=Laveste tapspoengsum
+type=label
+
+code=lowspread
+brief=Lav margin
+type=label
+
+code=lowwin
+brief=Laveste seierspoengsum
+type=label
+
+code=Lucky_Stiff
+brief=Sum av<br>marginer
+type=label
+
+code=luckystiff
+brief=Heldiggris
+type=label
+
+code=MainMenuEvent
+brief=Hvis du ønsker å lage et nytt arrangement (turnering) eller fortsette å arbeide med et eksisterende et, velg <a href="/events/">Arrangementer</a> ovenfor.
+type=label
+
+code=MainMenuFirst
+brief=Hvis dette er den første gangen du bruker <cite>tsh</cite>, vennligst les <a href="/doc/tutorial.html">innføringen</a>.
+type=label
+
+code=MainMenuHelp
+brief=Hvis du ønsker å lese bruksanvisningen, velg <a href="/doc/">Hjelp</a> ovenfor.
+type=label
+
+code=MainMenuTerms
+brief=Du bruker NASPA-utgaven av denne programvaren, som også er tilgjengelig i en <a href="/edition/absp">ABSP</a>-utgave og en <a href="/edition/deu">tysk</a> utgave. Vennligst <a href="/contact">kontakt oss</a> dersom du ønsker å hjelpe til med å lage en ny utgave. Diese Software gibt es auch in einer <a href="/edition/deu">deutschen Ausgabe</a>.
+type=label
+
+code=MainMenuTitle
+brief=Hovedmeny
+type=label
+
+code=MainMenuWelcome
+brief=Velkommen til <a href="http://tsh.poslfit.com/">tsh</a>, et program som hjelper deg med å arrangere en <a href="http://www.scrabbleplayers.org/">Scrabble</a>-turnering.
+type=label
+
+code=maximumrating
+brief=Høyeste rating
+type=label
+
+code=maxrating
+brief=Max rating
+type=label
+
+code=meanpoints
+brief=Gjennomsnittlig sammenlagt poengsum
+type=label
+
+code=meanpts
+brief=Mean Points
+type=label
+
+code=meanrating
+brief=Gjennomsnittsrating
+type=label
+
+code=meansprd
+brief=Gjennomsnittlig margin
+type=label
+
+code=meanspread
+brief=Gjennomsnittlig margin
+type=label
+
+code=medianrating
+brief=Medianrating
+type=label
+
+code=medrating
+brief=Med. rating
+type=label
+
+code=minimumrating
+brief=Laveste rating
+type=label
+
+code=minrating
+brief=Min. rating
+type=label
+
+code=mnrating
+brief=Gjennomsnittsrating
+type=label
+
+code=more
+brief=mer
+type=label
+
+code=must_be_different_event
+brief=Det må også være forskjellig fra alle dine eksisterende arrangement-ID-er: %s.
+type=label
+
+code=New_R
+brief=NewR
+type=label
+
+code=New_Rating
+brief=Ny<br>rating
+type=label
+
+code=NewEventsMenuBegin
+brief=For å begynne trenger vi litt grunnlegende informasjon om arrangementet.
+type=label
+
+code=NewEventsMenuTitle
+brief=Lag et nytt arrangement
+type=label
+
+code=next
+brief=neste
+type=label
+
+code=Next_Game
+brief=Neste parti
+type=label
+
+code=Next_Game_sb
+brief=Neste:
+type=label
+
+code=npeat
+brief=for %d. gang
+type=label
+
+code=NumberofRounds
+brief=Antall runder
+type=label
+
+code=NumberofRoundsNote
+brief=Du kan endre dette senere, men hvis du ikke er sikker på hvor mange partier hver av spillerne skal spille, skriv ditt beste gjett.
+type=label
+
+code=OAverage_Score
+brief=Motstanders<br>gjennomsnittlige<br>poengsum
+type=label
+
+code=Old_R
+brief=GammelR
+type=label
+
+code=Old_Rating
+brief=Gammel<br>rating
+type=label
+
+code=OldEventsMenuBegin
+brief=
+type=label
+
+code=OldEventsMenuOpenError
+brief=We kan ikke åpne turneringen i mappa &ldquo;%s&rdquo;. Turneringsmodulen rapporterer følgende feil: %s.
+type=label
+
+code=OldEventsMenuTitle
+brief=%s (%s)
+type=label
+
+code=Opp
+brief=Motsp
+type=label
+
+code=Opp_No
+brief=Motsp.<br>No.
+type=label
+
+code=Opp_Rating
+brief=Motsp.<br>rating
+type=label
+
+code=Opp_Score
+brief=Motsp.<br>score
+type=label
+
+code=OppNo
+brief=Motsp. #
+type=label
+
+code=Opponent
+brief=Motspiller
+type=label
+
+code=Opponent_Rating
+brief=Motspillers<br>rating
+type=label
+
+code=Opponent_Score
+brief=Motspillers<br>score
+type=label
+
+code=OpponentName
+brief=Motspillers navn
+type=label
+
+code=ord1st
+brief=%d.
+type=label
+
+code=ord2nd
+brief=%d.
+type=label
+
+code=ord3rd
+brief=%d.
+type=label
+
+code=order_id
+brief=Id
+type=label
+
+code=ordnth
+brief=%d.
+type=label
+
+code=pairings
+brief=Rangert paroppsett
+type=label
+
+code=pending
+brief=pågående
+type=label
+
+code=Photo
+brief=Foto
+type=label
+
+code=Player
+brief=Spiller
+type=label
+
+code=Player_Rosters
+brief=Deltagerliste
+type=label
+
+code=Player_Score
+brief=Spillers<br>poengsum
+type=label
+
+code=Players
+brief=Spillere
+type=label
+
+code=pointsscored
+brief=Totalt antall poeng
+type=label
+
+code=previous
+brief=forrige
+type=label
+
+code=prizes
+brief=Premietabell
+type=label
+
+code=ptsscored
+brief=Scorede poeng
+type=label
+
+code=Rank
+brief=Rang
+type=label
+
+code=Ranked_Pairings
+brief=Rangert paroppsett
+type=label
+
+code=Rankedwallchart
+brief=Rangert tabell
+type=label
+
+code=Rankings
+brief=Rangering
+type=label
+
+code=ranks
+brief=Ranger
+type=label
+
+code=Rating
+brief=Rating
+type=label
+
+code=Rating_Ch
+brief=+-R
+type=label
+
+code=Rating_Change
+brief=Rating-<br>endring
+type=label
+
+code=RatingDifference
+brief=Rating-<br>forskjell
+type=label
+
+code=ratingpointsperspread
+brief=Ratingpoeng per margin
+type=label
+
+code=Ratings
+brief=Ratinger
+type=label
+
+code=ratings
+brief=ratinger
+type=label
+
+code=Rec-ord
+brief=Rap-<br>port
+type=label
+
+code=refresh_now
+brief=oppdater nå
+type=label
+
+code=regdplayers
+brief=Påmeldte
+type=label
+
+code=registeredplayers
+brief=Registrerte spillere
+type=label
+
+code=repeat
+brief=for andre gang
+type=label
+
+code=Rnd
+brief=Rnd
+type=label
+
+code=Rnk
+brief=Rng
+type=label
+
+code=rosters
+brief=Deltagerliste
+type=label
+
+code=roto
+brief=Rotisserie Round %d
+type=label
+
+code=round
+brief=runde
+type=label
+
+code=Round
+brief=Runde
+type=label
+
+code=Round_Title
+brief=Runde %d %s
+type=label
+
+code=RoundP12
+brief=Runde 1./2.
+type=label
+
+code=Rounds
+brief=Runder
+type=label
+
+code=rows
+brief=rader
+type=label
+
+code=Rtng
+brief=Rtng
+type=label
+
+code=Score
+brief=Poeng
+type=label
+
+code=scoreboard_controls
+brief=scoreboard controls
+type=label
+
+code=scoredplayers
+brief=Deltatte spillere
+type=label
+
+code=scores
+brief=Resultater
+type=label
+
+code=scrdplayers
+brief=Deltatte spillere
+type=label
+
+code=scroll
+brief=bla
+type=label
+
+code=second
+brief=andre
+type=label
+
+code=Seconds
+brief=Andre
+type=label
+
+code=slower
+brief=saktere
+type=label
+
+code=SOS
+brief=SMP
+type=label
+
+code=Sprd
+brief=Forskj.
+type=label
+
+code=Spread
+brief=Poengforskjell
+type=label
+
+code=standings
+brief=Tabell
+type=label
+
+code=stats
+brief=Statistikk
+type=label
+
+code=Stats
+brief=Turneringsstatistikk
+type=label
+
+code=strongerwinp
+brief=Høyest ratede vinner %%
+type=label
+
+code=strongerwp
+brief=Stronger W%%
+type=label
+
+code=T
+brief=U
+type=label
+
+code=Table
+brief=Bord
+type=label
+
+code=tally-slips
+brief=Tally Slips
+type=label
+
+code=Tbl
+brief=Brd
+type=label
+
+code=Team
+brief=Lag
+type=label
+
+code=teams
+brief=Lag
+type=label
+
+code=thaipoints
+brief=Poeng
+type=label
+
+code=thaipts
+brief=P
+type=label
+
+code=Total_Score
+brief=Totalsum
+type=label
+
+code=Total_teams
+brief=Combined Teams
+type=label
+
+code=total_teams
+brief=Combined Teams
+type=label
+
+code=totalscore
+brief=Sammenlagt poengsum
+type=label
+
+code=Tuff_Luck
+brief=Sum av<br>marginer
+type=label
+
+code=tuffluck
+brief=Ulykkesfugl
+type=label
+
+code=UnknownQuery
+brief=Unknown query: %s
+type=label
+
+code=Unpaired
+brief=Fortsatt uten motspiller
+type=label
+
+code=unpaired
+brief=fortsatt uten motspiller
+type=label
+
+code=unratedplayers
+brief=Uratede spillere
+type=label
+
+code=unrplayers
+brief=Uratede
+type=label
+
+code=upsets
+brief=Overraskelsesseire
+type=label
+
+code=vs
+brief=mot
+type=label
+
+code=W
+brief=S
+type=label
+
+code=W_L
+brief=Seier-Tap
+type=label
+
+code=Wallchart
+brief=Oppslagstavle
+type=label
+
+code=wallchart
+brief=Oppslagstavle
+type=label
+
+code=was
+brief=var
+type=label
+
+code=Who_Plays_Whom
+brief=Hvem spiller mot hvem?
+type=label
+
+code=Winner
+brief=Vinner
+type=label
+
+code=WinnerRating
+brief=Vinners<br>rating
+type=label
+
+code=Winning_Score
+brief=Vinners<br>poengsum
+type=label
+
+code=Winning_Spreads
+brief=Vinnende marginer
+type=label
+
+code=WinningS
+brief=VP
+type=label
+
+code=Won
+brief=Vunnet
+type=label
+
+code=Won_Lost
+brief=Seier-Tap
+type=label
+
+code=wwyltd
+brief=Hva vil du gjøre?
+type=label
+

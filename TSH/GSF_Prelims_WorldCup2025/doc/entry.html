@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Data Entry</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=here><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Data Entry with <cite>tsh</cite></h1>
+<p class=subtitle>How to enter tournament results using <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<h2><a name="entry">Entering Results</a></h2>
+
+<p class=p1>
+<cite>tsh</cite> supports three styles of data entry, controlled by the 
+&ldquo;<code><a href="config.html#entry">config entry</a></code>&rdquo;
+configuration option.
+The default value of the option is
+&ldquo;<code>'scores'</code>&rdquo;,
+meaning that <cite>tsh</cite> keeps track of the number of points that
+each player has scored in each game.
+Another possible value is
+&ldquo;<code>'spread'</code>&rdquo;,
+meaning that <cite>tsh</cite> keeps track only of the difference between
+the two players&rsquo; scores in each game.
+The third possible value is
+&ldquo;<code>'both'</code>&rdquo;,
+meaning that you must enter both the scores and the correct spread for each 
+game.
+</p>
+<p class=p1>
+You should use whatever information players enter on their score slips.
+If you are free to specify what this is, I recommend either scores mode
+or both mode.  If you have staff to find players who have entered spread
+that does not correspond to scores, use both; if not, use scores.
+</p>
+
+<h3>Entering Scores</h3>
+
+<p class=p1><a name="ix_data_entry_1">At</a> the end of the round, have players
+or runners bring their scoreslips to you.  
+Sort them by division, and then for each division do the following.
+</p>
+<table border=0 cellpadding=0 cellspacing=12>
+  <tr>
+    <th width="33%">Scores Entry</th>
+    <th width="34%">Spread Entry</th>
+    <th width="33%">Both Entry</th>
+  </tr>
+  <tr>
+    <td valign=top>
+      <p class=p1>
+      Enter the command (e.g.) 
+      &ldquo;<code><a href="commands.html#addscore" name="ix_Addscore_1">a 3 d</a></code>&rdquo; 
+      to add Round 3 scores for Division D.
+      At the sub-prompt 
+      (which will look something like 
+      &ldquo;[D3]:pn1 ps1 pn2 ps2? (9 scores left)&rdquo;)
+      enter the numbers as they
+      appear on the score slip: player 1&rsquo;s number, player 1&rsquo;s score,
+      player 2&rsquo;s number, player 2&rsquo;s score.
+      Put spaces or periods between the numbers, press return at the end.  
+      If your entry is accepted, it will be repeated back to you with
+      the players&rsquo; names and new cumes and this game&rsquo;s spread
+      displayed, and
+      you&rsquo;ll get another prompt.  
+      If the player numbers don&rsquo;t match, you&rsquo;ll be told so.
+      If you enter a score that is too large or too small, it will be rejected;
+      if someone really does score more than 1500 points, you must enter the
+      result using &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo;. 
+      If you enter a score that is less than 100, you will be warned that the
+      score looks suspicious, and you should check to make sure you did not
+      leave out a digit.
+      </p>
+      <p class=p1>
+      If the player has not recorded their player number, or has misrecorded
+      it, you can enter their name instead of their number.
+      To do so, enter as much as is necessary of their last and first names
+      to disambiguate them from anyone else in the division, joined by a
+      comma, and with no spaces.
+      For example, you might enter &ldquo;<code>Chew,Jo 400 Chew,Ja 300</code>&rdquo;
+      if John and Jamie Chew left out their player numbers.
+      You may enter a name for one player and a number for the other.
+      If you don&rsquo;t enter enough of a player&rsquo;s name, a list of matching
+      player names will be shown and you will be asked to try again.
+      If a player has a sufficiently unique partial first or last name,
+      you may enter just that:
+      &ldquo;<code>John 400 Jamie 300</code>&rdquo; will work if there is
+      only one John and one Jamie.
+      </p>
+  </td>
+  <td valign=top>
+      <p class=p1>
+      Enter the command (e.g.) 
+      &ldquo;<code><a href="commands.html#addscore" name="ix_Addscore_2">a 3 d</a></code>&rdquo; 
+      to add Round 3 scores for Division D.
+      At the sub-prompt 
+      (which will look something like 
+      &ldquo;[D3]:winner loser spread? (9 scores left)&rdquo;)
+      enter the winner&rsquo;s number, 
+      the loser&rsquo;s number
+      and the game spread.
+      Put spaces or periods between the numbers, press return at the end.  
+      If your entry is accepted, 
+      it will be repeated back to you with the players&rsquo; names and
+      new cumes displayed,
+      and you&rsquo;ll get
+      another prompt.  If the player numbers don&rsquo;t match, you&rsquo;ll be told
+      so.  
+      If you enter a score that is negative or is too large,
+      it will be rejected;
+      if someone really does win a game by 1000 points, you must enter the
+      result using &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo;. 
+      </p>
+      <p class=p1>
+      If the player has not recorded their player number, or has misrecorded
+      it, you can enter their name instead of their number.
+      To do so, enter as much as is necessary of their last and first names
+      to disambiguate them from anyone else in the division, joined by a
+      comma, and with no spaces.
+      For example, you might enter &ldquo;<code>Chew,Jo Chew,Ja 100</code>&rdquo;
+      if John and Jamie Chew left out their player numbers.
+      You may enter a name for one player and a number for the other.
+      If you don&rsquo;t enter enough of a player&rsquo;s name, a list of matching
+      player names will be shown and you will be asked to try again.
+      If a player has a sufficiently unique partial first or last name,
+      you may enter just that:
+      &ldquo;<code>John Jamie 100</code>&rdquo; will work if there is
+      only one John and one Jamie.
+      </p>
+  </td>
+    <td valign=top>
+      <p class=p1>
+      Enter the command (e.g.) 
+      &ldquo;<code><a href="commands.html#addscore" name="ix_Addscore_1">a 3 d</a></code>&rdquo; 
+      to add Round 3 scores for Division D.
+      At the sub-prompt 
+      (which will look something like 
+      &ldquo;[D3]:pn1 ps1 pn2 ps2 spr? (9 scores left)&rdquo;)
+      enter the numbers as they
+      appear on the score slip: player 1&rsquo;s number, player 1&rsquo;s score,
+      player 2&rsquo;s number, player 2&rsquo;s score, spread (the signed difference between the two scores).
+      Put spaces or periods between the numbers, press return at the end.  
+      If your entry is accepted, it will be repeated back to you with
+      the player&rsquo;s names and new cumes and this game&rsquo;s spread
+      displayed, and
+      you&rsquo;ll get another prompt.  
+      If the player numbers don&rsquo;t match or the spread you entered
+      is incorrect, you&rsquo;ll be told so.
+      If you enter a score that is too large or too small, it will be rejected;
+      if someone really does score more than 1500 points, you must enter the
+      result using &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo;. 
+      If you enter a score that is less than 100, you will be warned that the
+      score looks suspicious, and you should check to make sure you did not
+      leave out a digit.
+      </p>
+      <p class=p1>
+      If the player has not recorded their player number, or has misrecorded
+      it, you can enter their name instead of their number.
+      To do so, enter as much as is necessary of their last and first names
+      to disambiguate them from anyone else in the division, joined by a
+      comma, and with no spaces.
+      For example, you might enter &ldquo;<code>Chew,Jo 400 Chew,Ja 300</code>&rdquo;
+      if John and Jamie Chew left out their player numbers.
+      You may enter a name for one player and a number for the other.
+      If you don&rsquo;t enter enough of a player&rsquo;s name, a list of matching
+      player names will be shown and you will be asked to try again.
+      If a player has a sufficiently unique partial first or last name,
+      you may enter just that:
+      &ldquo;<code>John 400 Jamie 300</code>&rdquo; will work if there is
+      only one John and one Jamie.
+      </p>
+  </td>
+  </tr>
+</table>
+
+<p class=sidebar>
+At NSA tournaments, bye and forfeit wins score +50, forfeit
+losses score &minus;50.
+At ABSP tournaments, use &plusmn;75.
+To record that a player&rsquo;s wins, losses and spread should
+remain unchanged, give them a bye with a spread of 0.
+</p>
+
+<p class=p1>
+If you want to enter a bye, just enter one player number and one score.
+(In most cases, tsh will automatically enter byes for you.)
+If you want to switch to entering results for a different division,
+enter the name of the division by itself.
+If you want to correct a mistake in the scores that you just entered,
+enter &ldquo;<code>es</code>&rdquo; (see <a href="#es">below</a>).
+If you want to see which results are still missing, enter
+&ldquo;<code><a href="commands.html#missing">missing</a></code>&rdquo; or just &ldquo;<code>m</code>&rdquo;.
+Whenever you want to save what you&rsquo;ve entered, press the <em>return</em>
+key without entering any scores to return to the 
+&ldquo;<code>tsh&gt; </code>&rdquo; prompt.
+You will also be returned to the
+&ldquo;<code>tsh&gt; </code>&rdquo; prompt
+if you enter something that <cite>tsh</cite> does not understand.
+</p>
+
+<p class=sidebar>
+<cite>tsh</cite> saves your data after every entry by default, or
+as specified by
+&ldquo;<code><a href="config.html#save_interval">config save_interval</a></code>&rdquo;.
+If you are running on a very old computer, you might want to increase this,
+especially if you are triggering a lot of actions with
+&ldquo;<code><a href="config.html#hook_addscore_flush">config hook_addscore_flush</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+If you have <cite>tsh</cite> set to 
+<a href="config.html#track_firsts">track</a> but not 
+<a href="config.html#assign_firsts">assign</a>
+who went first or second in
+each game, you must enter game scores in player order, with the number
+and score of the player who went first appearing first on the line.
+If <cite>tsh</cite> knows who was supposed to go first 
+(because that player had had fewer firsts than his/her opponent),
+then it will complain that the players determined who went
+first incorrectly.
+If it doesn&rsquo;t know, it will assume that you have entered them correctly and
+update its information about who went first.
+You can use the 
+&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command to edit 
+whom <cite>tsh</cite> thinks went first or should go first.
+</p>
+
+<p class=sidebar>
+<a name=tagged>There</a> are other, much less often used data entry styles.
+For example, if you are running a NASPA hybrid lexicon event,
+you would use 
+&ldquo;<code>'tagged'</code>&rdquo; which is like
+&ldquo;<code>'both'</code>&rdquo; but has you name the lexicon in 
+effect for the game at the end after the spread;
+this information is stored in the
+&ldquo;<a href="config.html#etc_tag">tag</a>&rdquo; extension field 
+in player data files.
+Also, if you specify
+&ldquo;<code><a href="config.html#entry_pairing">config entry_pairing = 1</a></code>&rdquo;,
+entering data for unpaired players will pair them without further validation.
+</p>
+
+<p class=p1>
+<a name=missing>When</a> you&rsquo;re close to having all the scores in for a round, entering
+&ldquo;<code>missing 6 b</code>&rdquo; (e.g.) will list all the results you&rsquo;re still missing
+for round 6 in division B.  Omitting the &ldquo;<code>b</code>&rdquo;
+will list missing players in all divisions.
+You can then ask a runner or word judge to politely
+ask the players to pause their post mortem long enough to fill out
+their paperwork.
+As noted above, you can also just
+enter &ldquo;<code>m</code>&rdquo; in <code>AddScore</code> mode.
+</p>
+
+<h2><a name=check>Checking and Correcting Results</a></h2>
+<p class=p1>
+<a name=es>If</a> you make a <b>mistake</b> entering the score 
+for division B player 4
+in round 3, enter &ldquo;<code><a href="commands.html#editscore">es b 4
+3</a></code>&rdquo;
+at the 
+&ldquo;<code>tsh&gt; </code>&rdquo; prompt.  You&rsquo;ll get 
+a mockup of the player&rsquo;s scorecard as it currently reads,
+a sub-prompt that gives you that player&rsquo;s score that round and their
+opponent&rsquo;s score that round, and you can then enter one
+of the following commands, or press enter to return to the
+main &ldquo;tsh&gt;&rdquo; prompt.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Sub-Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name>new-scores</td><td class=usage>ps os</td><td class=description>Set the player&rsquo;s score in the current round to <code>ps</code> and the opponent&rsquo;s score to <code>os</code>, if in scores data entry mode.</td></tr>
+  <tr><td class=name>new-spread</td><td class=usage>ps</td><td class=description>Set the player&rsquo;s spread in the current round to <code>ps</code> and the opponent&rsquo;s spread (if any) to <code>&minus;os</code>, if in spread data entry mode or if the player has a bye or forfeit.</td></tr>
+  <tr><td class=name>BOARD</td><td class=usage>BO b</td><td class=description>Place the current player at board <code>b</code>.</td></tr>
+  <tr><td class=name>CLASS</td><td class=usage>CLASS c</td><td class=description>Set the current player&rsquo;s class to <code>c</code>.</td></tr>
+  <tr><td class=name>D</td><td class=usage>D d</td><td class=description>Switch to editing the corresponding player in division <code>d</code>.</td></tr>
+  <tr><td class=name>FIRST</td><td class=usage>first</td><td class=description>Record that this player went first (started) this round, and their opponent (if any) went second (replied).</td></tr>
+  <tr><td class=name>GAMES</td><td class=usage>ga g</td><td class=description>Set this player&rsquo;s career game total prior to this tournament to <code>g</code>. This is necessary for accurate computation of some ratings.</td></tr>
+  <tr><td class=name>OFF</td><td class=usage>OFF s</td><td class=description>Mark this player inactive for pairings, and automatically assign them a spread of <code>s</code> in future.</td></tr>
+  <tr><td class=name>ON</td><td class=usage>ON</td><td class=description>Mark this player active for pairings.</td></tr>
+  <tr><td class=name>P</td><td class=usage>P p</td><td class=description>Switch to editing player number <code>p</code>.</td></tr>
+  <tr><td class=name>PENALTY</td><td class=usage>PEN p</td><td class=description>Assign a spread penalty to the current player in the current round: specify a positive value when compensating a player for a misadjudication, a negative value to penalize them for an infraction.</td></tr>
+  <tr><td class=name>R</td><td class=usage>R r</td><td class=description>Switch to editing the player&rsquo;s results in round <code>r</code>.</td></tr>
+  <tr><td class=name>RATING</td><td class=usage>RA r</td><td class=description>Set the player&rsquo;s pretournament rating to <code>r</code>.</td></tr>
+  <tr><td class=name>SECOND</td><td class=usage>second</td><td class=description>Record that this player went second (replied) this round, and their opponent (if any) went first (started).</td></tr>
+</table>
+
+<p class=p1>
+As indicated in the table,
+you can also use the 
+&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command to make corrections to player
+pretournament ratings and career game totals.
+If you have not entered any scores yet, you may ask to edit the scores for
+the fictitious &ldquo;Round 0&rdquo; in order to run the command.
+</p>
+<p class=p1>
+If you catch your mistake while you&rsquo;re still in &ldquo;<code>Addscore</code>&rdquo;
+mode, you can just enter &ldquo;<code>es</code>&rdquo; (without any additional arguments)
+at the &ldquo;<code>Addscore</code>&rdquo;
+prompt.  
+You&rsquo;ll go temporarily into &ldquo;<code>EditScore</code>&rdquo; mode, looking at the
+data that you just entered.
+When you leave &ldquo;<code>EditScore</code>&rdquo; mode, you will return to
+&ldquo;<code>Addscore</code>&rdquo; mode.
+</p>
+<p class=p1>
+Similarly, you can use the 
+&ldquo;<code><a href="commands.html#look">LOOK</a></code>&rdquo; command within
+&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; mode
+to adjudicate challenges.
+</p>
+
+<p class=p1>
+You may wish to check what you have entered against player scorecards
+or against the tournament wall charts.  
+See the section on <a href="reports.html#check">generating reports</a>
+and in particular the 
+&ldquo;<code><a href="reports.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command
+for information on how to do this.
+</p>
+
+<p class=p1>
+If you have a serious problem, you may need to
+<a href="trouble.html#editt">edit the tournament data files</a>
+directly.
+Pay particular attention to the information in the preceding link
+about how to find copies of older, journalled versions of data files.
+For example, if you find after entering half of the results for a round
+that the other half of the players used a different round&rsquo;s pairings to
+find their opponents, you will have some careful typing to do to fix the
+files.  (Not that this has ever happened to the author, though he has
+lain awake at night worrying about similar scenarios.)
+</p>
+
+<p class=p1>
+As soon as you have finished entering and checking results for a round,
+you should prepare and print all necessary <a href="reports.html">reports</a>
+for the next round.
+</p>
+
+<h2><a name=web>Web-Based Data Entry</a></h2>
+<p class=p1>
+TSH supports web-based data entry using QR codes on nametags, developed
+for the NASPA SPC. It currently requires a fair amount of server-side
+setup; contact John Chew well in advance of your event if you would like
+to use it.
+</p>
+<p class=p1>
+Backend code runs the 
+&ldquo;<code><a href="commands.html#addprovisionalscore">AddProvisionalScore</a></code>&rdquo; 
+command remotely (by enabling
+&ldquo;<code><a href="config.html#accept_remote_commands">config accept_remote_commands</a></code>&rdquo;)
+to record the score as reported by each player in a game;
+if these match, then the score is upgraded from a provisional score
+to a regular one.
+</p>
+<p class=p1>
+Provisional scores will appear in 
+&ldquo;<code><a href="commands.html#showscorecard">showScoreCard</a></code>&rdquo; 
+and
+&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; 
+with ? marks after them.  
+They will not appear on the scoreboard or in reports.
+</p>
+<p class=p1>
+If players can be trusted to enter scores correctly, the
+&ldquo;<code><a href="commands.html#confirmunconfirmedscores">ConfirmUnconfirmedScores</a></code>&rdquo; 
+command can be used to confirm all unconfirmed scores.
+Scores confirmed in this way will be logged to the file
+&ldquo;<code>autoconfirm.txt</code>&rdquo; for review in the
+case of a subsequent dispute.
+</p>
+
+</body>
+</html>
+

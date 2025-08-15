@@ -1,0 +1,101 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+sub PrintDivision ($);
+
+Main;
+
+sub Main () {
+  my (@divs);
+
+  {
+    my $header = scalar(<>);
+    if ($header !~ /^\*M.+/) {
+      warn "This does not look like a standard AUPAIR header, but skipping anyway:\n$header\n";
+      }
+  }
+  
+  my $state = 'init';
+  while (1) {
+    local($_) = scalar(<>);
+    if (!defined $_) {
+      last;
+      }
+    if ($state eq 'init') {
+      my $dname = 'A';
+      if (/^\*(\S+)\s*$/) { $dname = $1; }
+      else {
+	warn "Expected division subhead, instead got:\n$_\nSkipping this line and calling the division A.\n";
+        }
+      push(@divs, {'name'=>$dname, 'lines'=>[]});
+      $state = 'WantHW';
+      next;
+      }
+    if ($state eq 'WantHW') {
+      if (!/^\s*0\s*$/) {
+	warn "Expected high word line, got and am skipping:\n$_\n";
+        }
+      $state = 'WantP';
+      next;
+      }
+    if ($state eq 'WantP') {
+      if (/^\*(\S+)\s*$/) { 
+	push(@divs, {'name'=>$1, 'lines'=>[]}); 
+	$state = 'WantHW';
+	next;
+        }
+      push(@{$divs[-1]{'lines'}}, $_);
+      next;
+      }
+    die "State machine assertion failure, state=$state.\n";
+    }
+
+  if (@divs == 0) { 
+    die "No division data in input.\n";
+    }
+  if (@divs == 1) {
+    PrintDivision $divs[0]{'lines'};
+    }
+  else {
+    for my $div (@divs) {
+      my $name = $div->{'name'};
+      my $fname = "\L$name.t";
+      if (-e $fname) {
+	warn "File $fname already exists; please remove it and try again.\n";
+        }
+      else {
+	open my $fh, '>'. $fname or die "Can't open $fname: $!\nAborting";
+	select $fh;
+	PrintDivision $div->{'lines'};
+	close $fh;
+        }
+      }
+    }
+  }
+
+sub PrintDivision ($) {
+  my $rowsp = shift;
+  for (@$rowsp) {
+    next if /^[ *]/;
+    die "can't parse: $_" unless /^\D/;
+    s/^(.{20})// or die;
+    my $name = $1;
+    $name =~ s/\s+$//;
+    my (@wl, @scores, @opps, @p12);
+    while (/\S/) {
+      my ($wl, $score, $oid) = unpack('x1A1A3A4', $_);
+      substr($_, 0, 9) = '';
+      my $p12 = $oid =~ s/\+// ? 1 : 2;
+      $score =~ s/^\s+//;
+      $oid =~ s/^\s+//;
+      push(@wl, $wl);
+      push(@scores, $score);
+      push(@opps, $oid);
+      push(@p12, $p12);
+      }
+    print "$name 1200 @opps; @scores; p12 @p12\n";
+    }
+  }

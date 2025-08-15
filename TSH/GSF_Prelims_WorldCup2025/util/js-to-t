@@ -1,0 +1,70 @@
+#!/usr/bin/perl
+
+## Copyright (C) 2012 by John J. Chew, III.
+
+# written 2012-12-04 to celebrate a catastrophic data loss
+# this script reconstructs .t files from a tourney.js file
+
+use strict;
+use warnings;
+
+sub Main ();
+sub ParseHash ($);
+
+Main;
+
+sub Main () {
+  local ($/) = undef;
+  $_ = scalar(<>);
+  s/,{'etc':{/\n/g;
+  my (@players) = split(/\n/);
+  shift @players;
+  for my $p (@players) {
+    my ($datap, $etcp);
+    ($p, $etcp) = ParseHash $p;
+    $p =~ s/^},// or die;
+    ($p, $datap) = ParseHash $p;
+    print "$datap->{'name'} $datap->{'rating'} $datap->{'pairings'} ; $datap->{'scores'}";
+    for my $key (sort keys %$etcp) {
+      print " ; $key $etcp->{$key}";
+      }
+    print "\n";
+    }
+  }
+
+sub ParseHash ($) {
+  local ($_) = shift;
+  my %data;
+  while (!/^}/) {
+    s/^'([^']+)':// or die "Can't parse: $_";
+    my $key = $1;
+    my $value;
+    if (s/^'//) {
+      $value = '';
+      while (s/^([^'\\]+|\\'|\\\\)//) {
+	if ($1 eq "\\'") { $value .= "'"; }
+	elsif ($1 eq "\\\\") { $value .= "\\"; }
+	else { $value .= $1; }
+        }
+      die unless s/^',?//;
+      }
+    elsif (s/^(\d+),?//) {
+      $value = $1;
+      }
+    elsif (s/^undefined,?//) {
+      $value = undef;
+      }
+    elsif (s/^\[([,'\w]*)],?//) {
+      $value = $1;
+      # not quite right, could fail if unusual characters in data
+      $value =~ s/,/ /g;
+      $value =~ s/'//g;
+      }
+    else {
+      die "Can't parse: $_";
+      }
+    $data{$key} = $value if defined $value;
+    }
+  return ($_, \%data);
+  }
+

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<link rel="shortcut icon" href="http://www.poslarchive.com/math/software/tsh/doc/tsh.ico" type="image/x-icon">
+<title>About tsh</title>
+</head>
+<body bgcolor=white class=intro>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=here><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Introduction to <cite>tsh</cite></h1>
+<p class=subtitle>How to get started with
+<cite>tsh</cite>.
+</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<h2>Overview</h2>
+<p class=p1>
+<cite>tsh</cite> is a program for managing a Scrabble tournament.
+Preferably long before the tournament begins, you need to
+decide the basics of how the tournament will run: 
+how many players will play in how many separately paired divisions,
+how many rounds they will play, when any breaks will be, how
+the pairings will be determined and what prizes will be awarded.
+All of this information goes into an event 
+<a href="config.html#tshconfig">configuration file</a>.
+</p>
+<p class=p1>
+As players register for your tournament, you should enter their names
+and pretournament ratings (if any) into the appropriate division&rsquo;s
+data file.  When you have a reasonable number, you can start running
+mock tournaments to make sure that you are familiar with the software
+and that the pairing system you have chosen works the way you want it
+to.  If you are using <a href="http://www.cross-tables.com/">cross-tables.com</a>
+to keep track of registration, you can edit your player rosters there
+and
+<a href="commands.html#updateplayers">synch</a> them to <cite>tsh</cite>.
+If you are using a supported rating system, you can
+<a href="commands.html#updateratings">download</a> and
+<a href="commands.html#useratings">use</a> current ratings and
+check for membership status.
+</p>
+<p class=p1>
+The event configuration files and the division data files belong in
+an event subfolder (subdirectory) of your <cite>tsh</cite> folder.  
+You can and should use the 
+&ldquo;<a href="commands.html#update"><code>update</code></a>&rdquo; 
+command
+to update your <cite>tsh</cite> folder whenever you have an
+<a href="commands.html#network">Internet connection</a>; it will not overwrite data in your event
+subfolders.
+</p>
+<p class=p1>
+When all players are present or accounted for, you ask <cite>tsh</cite>
+for the 
+<a href="reports.html#showpairings">pairings</a> for the first round.  <cite>tsh</cite> will display
+them on your screen and save a copy of the pairings to a printable
+web page.  <cite>tsh</cite> saves a copy of most useful 
+<a href="reports.html">information that you&rsquo;ve asked for</a>
+in web pages.  You may use this just for
+printing, or you may specify a 
+<a href="config.html#html_directory">public location</a> for those files so that
+players and spectators can view the information directly.
+You can also <cite>tsh</cite> for a printable file
+containing <a href="reports.html#showdivisionscorecards">scorecards
+for all players</a>, including any pairings that have been computed.
+</p>
+<p class=p1>
+As games finish, players submit their scores to you.  You 
+<a href="entry.html">enter</a> them
+into <cite>tsh</cite> (having the players enter their scores themselves
+is possible for advanced users), correct them if necessary, and at the appropriate
+time ask for the next round&rsquo;s pairings.  This goes on until the
+end of your tournament.
+</p>
+<p class=p1>
+If you have prizes that can be automatically calculated (anything based
+on game scores, rather than individual plays or words), <cite>tsh</cite>
+will calculate them for you.
+If you are submitting your data for ratings purposes, <cite>tsh</cite>
+will prepare the data in the appropriate format.
+</p>
+
+<h2>Running <cite>tsh</cite></h2>
+
+<p class=p1>
+This section, dealing with how to actually run <cite>tsh</cite>
+once you have it set up on your computer, 
+is likely to be mostly unnecessary for most users
+and mystifying for many others, and is therefore addressed to
+those few who lie between.
+</p>
+
+<p class=p1>
+Once you have <a href="install.html">installed</a> and
+<a href="config.html">configured</a> <cite>tsh</cite>, 
+you&rsquo;re ready to run <cite>tsh</cite>.
+Now <cite>tsh</cite> is a Perl script that runs under many different operating
+systems, and each operating system has a different way of starting programs.
+Broadly speaking, we can divide them into graphical methods and
+command-line methods.
+With the graphical methods, you need to find the icon appropriate for
+your operating system and (typically) double-click on it with your mouse
+to launch <cite>tsh</cite>, which will behave as though it was run
+from the command line with no &ldquo;arguments&rdquo;.
+</p>
+<p class=p1>
+From the command line, you should in general enter some sort of
+incantation necessary to persuade your operating system to run
+<cite>tsh</cite>, followed by an optional &ldquo;argument&rdquo;
+giving the name of the subdirectory (folder) that contains the
+files for the event with which you want to work.
+If you do not specify an event, 
+<cite>tsh</cite> will look first for the most recently updated
+configuration file it can find, or if none are available the
+oldstyle 
+&ldquo;tsh.config&rdquo; file.
+Here&rsquo;s what to do for some popular operating systems.
+</p>
+<table border=1 cellspacing=0 cellpadding=0 class=byos>
+<tr>
+  <th class=os>Operating System</th>
+  <th class=how>Instructions</th>
+</tr>
+<tr>
+  <td class=os>(Mac) OS/X</td>
+  <td class=how>
+Either open a Finder window to your <cite>tsh</cite> folder
+and double-click on the &lsquo;osx-tsh.command&rsquo; icon,
+or follow the generic Unix command-line instructions.
+If you get a message saying that the file is not executable,
+see <a href="trouble.html">Troubleshooting</a>.
+  </td>
+</tr>
+<tr>
+  <td class=os>Classic MacOS</td>
+  <td class=how>
+I have not supported Classic MacOS since 2003.  If you need to use
+<cite>tsh</cite> with MacOS 9 or earlier, please contact me and I&rsquo;ll
+fix a number of compatibility issues and create
+a double-clickable icon for launching <cite>tsh</cite>.
+  </td>
+</tr>
+<tr>
+  <td class=os>Any Unix (including Linux)</td>
+  <td class=how>
+Open a shell (terminal) window, <code>cd</code>
+to your <cite>tsh</cite> directory and enter &ldquo;<code>./tsh.pl</code>&rdquo; (or
+just &ldquo;<code>tsh.pl</code>&rdquo; if your path permits)
+followed optionally by a space and the name of the 
+subdirectory with your event files.
+For example:
+&ldquo;<code>./tsh.pl toronto-2005</code>&rdquo;.
+  </td>
+</tr>
+<tr>
+  <td class=os>Windows</td>
+  <td class=how>
+Open a window to your <cite>tsh</cite> folder, then double-click on
+the &ldquo;tsh&rdquo; icon (if you have a properly installed version of
+Perl and a modern version of Windows) or
+&ldquo;dos-run.bat&rdquo; icon (otherwise).
+  </td>
+</tr>
+<tr>
+  <td class=os>DOS</td>
+  <td class=how>
+Type &ldquo;<code>perl tsh.pl</code>&rdquo;.
+If you want to override <cite>tsh</cite>&rsquo;s choice of event directory,
+enter it on the same line:
+&ldquo;<code>perl tsh.pl myevent</code>&rdquo;.
+(To get a DOS command window under Windows,
+Choose &ldquo;Run Command&rdquo; from the Windows Start menu, then enter &ldquo;command&rdquo;.)
+  </td>
+</tr>
+<tr>
+  <td class=os>Other</td>
+  <td class=how>
+    Check the &ldquo;perlrun(1)&rdquo; manual page concerning how to run
+    Perl programs.  Contact John Chew to have specific instructions
+    added to this document.
+  </td>
+</tr>
+</table>
+<p class=p1>
+If you get a message complaining that the configuration file can&rsquo;t be
+found, make sure that your 
+&lsquo;.t&rsquo; files and &lsquo;config.tsh&rsquo; file are together in
+one subdirectory, of the main 
+<cite>tsh</cite> directory.
+</p>
+
+<p class=p1>
+When you successfully start <cite>tsh</cite>, you should see a sequence
+of messages something like the following.
+</p>
+
+<pre>
+Loading configuration file test/config.tsh. [iloadcfg]
+Welcome to tsh version 3.200. [iwelcome]
+Loading division A. [iloaddiv]
+Loading division B. [iloaddiv]
+Loading division C. [iloaddiv]
+Event loaded: Anytown AS, 2007-12-25. [ievtname]
+tsh&gt;
+</pre>
+
+<p class=p1>The &ldquo;<code>tsh&gt;</code>&rdquo; is your 
+main <em>prompt</em>. 
+If you have a system which supports it,
+the prompt will be in a distinctive colour.
+When you see it, you can type a 
+<a href="commands.html">command</a>.
+After you type your command, don&rsquo;t forget to press the return key.</p>
+
+<h2><a name=workflow>Tournament Workflow</a></h2>
+
+<p class=p1>
+Here are the basic steps to follow in using <cite>tsh</cite> to run
+a tournament.
+</p>
+
+<ol>
+  <li>Use the &ldquo;<code><a href="reports.html#rosters">ROSTERS</a></code>&rdquo; command to generate and print a list of all your players, to check at registration time that everyone is accounted for.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#showpairings">ShowPairings</a></code>&rdquo; command to generate and display the next round&rsquo;s pairings.  For example, to show the first round pairings for Division A, enter &ldquo;<code>sp 1 a</code>&rdquo;</li>
+  <li>Use the &ldquo;<code><a href="reports.html#print">BrowseLast</a></code>&rdquo; command to open a browser window showing a nicely formatted version of the pairings you just created (enter: &ldquo;<code>bl</code>&rdquo;), and print it.</li>
+  <li>Use the &ldquo;<code><a href="entry.html#entry">Addscore</a></code>&rdquo; command to begin entering game scores.  Follow the link for detailed instructions, which vary according to your input options.</li>
+  <li>Use the &ldquo;<code><a href="entry.html#missing">MISSING</a></code>&rdquo; command if you want to see which results are still missing.</li>
+  <li>Use the &ldquo;<code><a href="entry.html#check">EditScore</a></code>&rdquo; command to correct scores.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command to prepare a list of entered scores for double-checking.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#print">BrowseLast</a></code>&rdquo; command to open a browser window showing a nicely formatted version of the scores you just listed (enter: &ldquo;<code>bl</code>&rdquo;), and print it.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#standings">RATings</a></code>&rdquo; command to prepare a report of the current standings.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#print">BrowseLast</a></code>&rdquo; command to open a browser window on the standings, and print them.</li>
+  <li>Optionally use the &ldquo;<code><a href="reports.html#statistics">STATisticS</a></code>&rdquo; command to update a large number of statistics, use the &ldquo;<code><a href="reports.html#print">Browse</a></code>&rdquo; command to list what's available, and print whichever you like.</li>
+  <li>If you&rsquo;re not at the end of the tournament, and are not using Portland pairings, go back to Step 2.</li>
+  <li>Use the &ldquo;<code><a href="reports.html#prizes">PRiZes</a></code>&rdquo; command at the end of the tournament to display a list of prizewinners.</li>
+</ol>
+<p class=p1>
+Make sure at a minimum that your data entry staff are well versed in
+using the commands listed above.  A technically minded but untrained
+person should require 10&ndash;15 minutes of initial training, and a half-day's
+worth of supervised data entry to acquire good fluency with the program.
+</p>
+
+</body>
+</html>

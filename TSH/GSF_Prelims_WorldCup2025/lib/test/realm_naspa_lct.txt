@@ -1,0 +1,29 @@
+#begintest realm=naspa-lct
+#beginconfig
+division a a.t
+config max_rounds = 4
+config colour = 'no'
+config realm = 'naspa-lct'
+#endconfig
+#beginifile a.t
+Chew, John 1800    2 ; 500
+Chew, Kristen 1300 1 ; 450
+Chew, Jamie 500    4 ; 400
+Chew, Liam 0       3 ; 400
+#endifile
+#begincommands
+rat
+q
+#endcommands
+#beginstdout
+Round 1 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 1.0-0.0   +50 1800 1801  +1 Chew, John (#1)    W:500-450:#2
+  2 0.5-0.5    +0  500  500  +0 Chew, Jamie (#3)   T:400-400:#4
+  2 0.5-0.5    +0    0  500     Chew, Liam (#4)    T:400-400:#3
+  4 0.0-1.0   -50 1300 1299  -1 Chew, Kristen (#2) L:450-500:#1
+#endstdout
+#beginstderr
+#endstderr
+#endtest

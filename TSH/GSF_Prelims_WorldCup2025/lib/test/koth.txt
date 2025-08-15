@@ -1,0 +1,147 @@
+#begintest koth
+#beginconfig
+division a a.t
+division b b.t
+division c c.t
+config gibson = 1
+config max_rounds = 4
+config prize_bands{'A'} = [1,2];
+config prize_bands{'B'} = [1,2];
+config prize_bands{'C'} = [1,2];
+config auto_koth_repeats = 2
+config force_koth = 4
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#beginifile b.t
+Player, A 1900 4 3 2 ; 400 400 400
+Player, B 1800 3 4 1 ; 302 300 300
+Player, C 1700 2 1 4 ; 201 200 200
+Player, D 1600 1 2 3 ; 100 500 100
+#endifile
+#beginifile c.t
+Player, E 1900
+Player, F 1800
+Player, G 1700
+Player, H 1600
+Player, I 1500
+Player, J 1400
+#endifile
+#begincommands
+debug CBPF 0
+debug GIB 0
+debug GRT 0
+debug KOTH 1
+koth 0 0 a
+koth 0 0 a
+koth 0 0 a
+sp 3 a
+koth 0 0 a
+koth 1 0 a
+koth 1 0 a
+koth 1 3 b
+rat b
+sp 4 b
+sp 1 c
+a 1 c
+1 454 2 418
+3 462 4 590
+5 338 6 309
+
+rat c
+sp 2 c
+a 2 c
+4 378 1 467
+5 399 6 289
+2 567 3 418
+
+rat c
+sp 3 c
+q
+#endcommands
+#beginstdout
+Debug: [KOTH] Computing KOTH pairings (repeats=0 sr0=-1 incomplete=)
+Debug: [KOTH] Computing KOTH pairings (repeats=0 sr0=-1 incomplete=)
+Debug: [KOTH] Computing KOTH pairings (repeats=0 sr0=-1 incomplete=)
+Division A Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (A1) vs. Chew, Liam (A4).
+   2  Chew, Kristen (A2) vs. Chew, Jamie (A3).
+Debug: [KOTH] Computing KOTH pairings (repeats=0 sr0=-1 incomplete=)
+Debug: [KOTH] Computing KOTH pairings (repeats=1 sr0=-1 incomplete=)
+Debug: [KOTH] Computing KOTH pairings (repeats=1 sr0=2 incomplete=)
+Division B Round 3 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 3.0-0.0  +600 1900 1918 +18 Player, A (B1) W:400-300:B2
+  2 1.0-2.0  -199 1800 1787 -13 Player, B (B2) L:300-400:B1
+  3 1.0-2.0  -200 1600 1599  -1 Player, D (B4) L:100-200:B3
+  4 1.0-2.0  -201 1700 1693  -7 Player, C (B3) W:200-100:B4
+Division B Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (B1) vs. Player, C (B3) repeat.
+   2  Player, B (B2) vs. Player, D (B4) repeat.
+Debug: [CP] 6 players and 4 round(s) left
+Debug: [CP] Using KOTH pairings.
+Debug: [KOTH] Computing KOTH pairings (repeats=2 sr0=-1 incomplete=)
+Division C Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, E (C1) vs. Player, F (C2).
+   2  Player, G (C3) vs. Player, H (C4).
+   3  Player, I (C5) vs. Player, J (C6).
+[C1]:pn1 ps1 pn2 ps2 (6 scores left)? #1 Player, E 454 (1.0 +36) - #2 Player, F 418 (0.0 -36): +36.
+[C1]:pn1 ps1 pn2 ps2 (4 scores left)? #3 Player, G 462 (0.0 -128) - #4 Player, H 590 (1.0 +128): -128.
+[C1]:pn1 ps1 pn2 ps2 (2 scores left)? #5 Player, I 338 (1.0 +29) - #6 Player, J 309 (0.0 -29): +29.
+[C1]:ES|L words|M|division|<return> (no scores left)? Division C Round 1 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 1.0-0.0  +128 1600 1618 +18 Player, H (C4) W:590-462:C3
+  2 1.0-0.0   +36 1900 1908  +8 Player, E (C1) W:454-418:C2
+  3 1.0-0.0   +29 1500 1512 +12 Player, I (C5) W:338-309:C6
+  4 0.0-1.0   -29 1400 1392  -8 Player, J (C6) L:309-338:C5
+  5 0.0-1.0   -36 1800 1792  -8 Player, F (C2) L:418-454:C1
+  6 0.0-1.0  -128 1700 1689 -11 Player, G (C3) L:462-590:C4
+Debug: [CP] 6 players and 3 round(s) left
+Debug: [CP] Using KOTH pairings.
+Debug: [KOTH] Computing KOTH pairings (repeats=2 sr0=0 incomplete=)
+Division C Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, H (C4) vs. Player, E (C1).
+   2  Player, I (C5) vs. Player, J (C6) repeat.
+   3  Player, F (C2) vs. Player, G (C3).
+[C2]:pn1 ps1 pn2 ps2 (6 scores left)? #4 Player, H 378 (1.0 +39) - #1 Player, E 467 (2.0 +125): -89.
+[C2]:pn1 ps1 pn2 ps2 (4 scores left)? #5 Player, I 399 (2.0 +139) - #6 Player, J 289 (0.0 -139): +110.
+[C2]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Player, F 567 (1.0 +113) - #3 Player, G 418 (0.0 -277): +149.
+[C2]:ES|L words|M|division|<return> (no scores left)? Division C Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 2.0-0.0  +139 1500 1524 +24 Player, I (C5) W:399-289:C6
+  2 2.0-0.0  +125 1900 1912 +12 Player, E (C1) W:467-378:C4
+  3 1.0-1.0  +113 1800 1800  +0 Player, F (C2) W:567-418:C3
+  4 1.0-1.0   +39 1600 1606  +6 Player, H (C4) L:378-467:C1
+  5 0.0-2.0  -139 1400 1384 -16 Player, J (C6) L:289-399:C5
+  6 0.0-2.0  -277 1700 1680 -20 Player, G (C3) L:418-567:C2
+Debug: [CP] 6 players and 2 round(s) left
+Debug: [CP] Using KOTH pairings.
+Debug: [KOTH] Computing KOTH pairings (repeats=2 sr0=1 incomplete=)
+Division C Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, I (C5) vs. Player, E (C1).
+   2  Player, F (C2) vs. Player, H (C4).
+   3  Player, J (C6) vs. Player, G (C3).
+#endstdout
+#beginstderr
+Error: Pairings failed. [epfail]
+Error: You cannot compute pairings for Round 5 because config max_rounds = 4. [ebigrd]
+#endstderr
+#endtest

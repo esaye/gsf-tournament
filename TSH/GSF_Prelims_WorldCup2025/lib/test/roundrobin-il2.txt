@@ -1,0 +1,25 @@
+#begintest roundrobin-il
+#beginconfig
+perl srand 127
+division a a.t
+config max_rounds = 12
+config assign_firsts = 1
+config colour = 'no'
+config interleave_rr = 2
+config final_draw = 1
+autopair a 0 1 rr 2 a
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+#endifile
+#begincommands
+smp 1-12 a
+q
+#endcommands
+#beginstdout
+#endstdout
+#beginstderr
+#endstderr
+#endtest

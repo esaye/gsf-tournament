@@ -1,0 +1,43 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub LoadRatings ($);
+sub Main ();
+
+Main;
+
+sub LoadRatings ($) {
+  my $ratings_file = shift;
+  my %rating;
+  open(RATINGS, "<$ratings_file") 
+    or die "Can't open $ratings_file: $!\n";
+  while (<RATINGS>) {
+    my ($name, $rating) = split(/\t/, $_, 3);
+    $rating{$name} = $rating;
+    }
+  close(RATINGS);
+  return \%rating;
+  }
+
+sub Main () {
+  my $ratings_file = shift @::ARGV;
+  die "Usage: $0 ratings-file [.t file]...\n" unless defined $ratings_file;
+  my $ratingsp = LoadRatings $ratings_file;
+  
+  while (<>) {
+    if (/^\s*#/) { print; next; }
+    my ($name, $rating, $rest) = /^(\D+[^\d\s])\s+(\d+)\s+(.*)$/;
+    die "Can't parse: $_\nAborting" unless defined $rest;
+    my $NAME = uc $name;
+    $NAME =~ s/,//;
+    if (defined $ratingsp->{$NAME}) {
+      print "$name $ratingsp->{$NAME} $rest\n";
+      }
+    else {
+      print "$name 0 $rest\n";
+      warn "Unrated: $name\n";
+      }
+    }
+  }

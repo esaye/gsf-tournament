@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# set up a reverse ssh tunnel so that this machine is reachable from
+# behind a firewall or router
+
+PORT=12345
+REMOTE_USER=foobar
+REMOTE_HOST=www.poslfit.com
+
+ssh -R $PORT:localhost:22 $REMOTE_USER@$REMOTE_HOST cat -
+
+# When this command is running, your machine can be reached by ssh 
+# from $REMOTE_HOST via 
+# ssh -p $PORT $LOCAL_USER@localhost

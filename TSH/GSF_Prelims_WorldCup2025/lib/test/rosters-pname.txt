@@ -1,0 +1,31 @@
+#begintest rosters-pname
+#beginconfig
+division a a.t
+config show_teams = 1
+## required for Unicode pnames
+config tfile_encoding = 'utf8'
+#endconfig
+#beginifile a.t
+Chew, John 1800    ; ; pname jjc3 ; team parents
+Chew, Kristen 1300 ; ; pname klc ; team parents
+Chew, Jamie 500    ; ; pname jjc4 ; team kids
+Chew, Liam 0       ; ; pname 竜榮 ; team kids
+#endifile
+#begincommands
+rosters
+quit
+#endcommands
+#beginstdout
+Player Rosters
+
+               Division A
+## Rtng Team    Player
+1 1800 parents jjc3
+2 1300 parents klc
+3  500 kids    jjc4
+4    0 kids    竜榮
+#endstdout
+#beginstderr
+#endstderr
+#endtest
+

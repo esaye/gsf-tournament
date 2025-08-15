@@ -1,0 +1,8 @@
+code=Player
+brief=Team
+type=label
+
+code=Class
+brief=Grade
+type=label
+

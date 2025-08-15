@@ -1,0 +1,27 @@
+#begintest roundratings-none
+#beginconfig
+division a a.t
+config rating_system = 'none'
+#endconfig
+#beginifile a.t
+Chew, John 180   4 3 2; 400 400 400
+Chew, Kristen 130 3 4 1; 300 300 300
+Chew, Jamie 50   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+rrat 2
+q
+#endcommands
+#beginstdout
+Round 2 Rankings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 2.0-0.0  +500 Chew, John (#1)    W:400-200:#3
+  2 2.0-0.0  +300 Chew, Kristen (#2) W:300-100:#4
+  3 0.0-2.0  -300 Chew, Jamie (#3)   L:200-400:#1
+  4 0.0-2.0  -500 Chew, Liam (#4)    L:100-300:#2
+#endstdout
+#beginstderr
+#endstderr
+#endtest

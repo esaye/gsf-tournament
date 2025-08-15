@@ -1,0 +1,241 @@
+#!/usr/bin/perl
+
+# not my finest piece of spaghetti
+
+use strict;
+use warnings;
+use FileHandle;
+use lib './lib/perl';
+use TFile;
+
+sub CalculatePlayerStandings (\%);
+sub LoadConfig ($\%);
+sub LoadGames (\%);
+sub Main ();
+sub ShowResults ($\%);
+
+Main;
+
+sub CalculatePlayerStandings (\%) {
+  my $datap = shift;
+
+  for my $dp (values %{$datap->{'divisions'}}) {
+    my $psp = $dp->{'players'};
+    for my $i (1..$#$psp) {
+      my $dpp = $psp->[$i];
+      my $pairingsp = $dpp->{'pairings'};
+      my $scoresp = $dpp->{'scores'};
+      my $wins = 0;
+      my $losses = 0;
+      my $cume = 0;
+      for my $r0 (0..$#$scoresp) {
+	my $ms = $scoresp->[$r0];
+	my $oid = $pairingsp->[$r0];
+	if ($oid) {
+	  my $os = $psp->[$oid]{'scores'}[$r0];
+	  my $spread = $ms - $os;
+	  $cume += $spread;
+	  my $wl = (($spread <=> 0) + 1) / 2;
+#	  print "$dpp->{'name'} $ms-$os ($wl) vs. $psp->[$oid]{'name'}\n" if $dpp->{'name'} =~ /Kant/;
+	  $wins += $wl;
+	  $losses += (1 - $wl);
+	  }
+	else {
+	  $cume += $ms;
+	  if ($ms > 0) { $wins++; }
+	  elsif ($ms < 0) { $losses++; }
+	  }
+	}
+#     print "$dpp->{'name'} is $wins-$losses $cume\n";
+      $dpp->{'wins'} = $wins;
+      $dpp->{'losses'} = $losses;
+      $dpp->{'spread'} = $cume;
+      my $ppp = $datap->{'players'}{$dpp->{'name'}};
+      if (exists $ppp->{'owners'}) {
+	for my $owner (@{$ppp->{'owners'}}) {
+	  my $ownerp = $datap->{'teams'}{$owner};
+	  $ownerp->{'wins'} += $wins;
+	  $ownerp->{'losses'} += $losses;
+	  $ownerp->{'spread'} += $cume;
+#	print "$owner now has $ownerp->{'wins'} wins\n";
+	  }
+	}
+      }
+    }
+  # check that all player names are spelled correctly
+  my $error = 0;
+  for my $pname (keys %{$datap->{'players'}}) {
+    my $pp = $datap->{'players'}{$pname};
+    unless (exists $pp->{'division'}) {
+      warn "Unknown player in roto roster: '$pname'\n";
+      $error++;
+      }
+    }
+  # check that all teams are the same size
+  my $team_size;
+  for my $team (values %{$datap->{'teams'}}) {
+    if (defined $team_size) {
+      my $this_team_size = scalar(@{$team->{'players'}});
+      if ($team_size != $this_team_size) {
+	warn "$team->{'owner'} has a different size from its predecessor\n";
+	$error++;
+	$team_size = $this_team_size;
+        }
+      }
+    else {
+      $team_size = scalar(@{$team->{'players'}});
+      }
+    }
+  $datap->{'team_size'} = $team_size;
+  exit 1 if $error;
+  }
+
+sub LoadConfig ($\%) {
+  my $fn = shift;
+  my $datap = shift;
+  my $fh = new FileHandle "<$fn" or die;
+  my $curowner = undef;
+  while (<$fh>) {
+    chomp;
+    next unless /\S/;
+    my ($command, $args) = split(/\s+/, $_, 2);
+    $command = lc $command;
+    if ($command eq 'division') {
+      my ($name, $dfn) = split(/\s+/, $args);
+      if (exists $datap->{'divisions'}{$name}) {
+	die "Duplicate division name: $name\n";
+        }
+      $datap->{'divisions'}{$name} = {
+	path => $dfn,
+	players => [],
+	};
+      }
+    elsif ($command eq 'owner') {
+      if (exists $datap->{'teams'}{$args}) {
+	die "Duplicate team name: $args\n";
+        }
+      $datap->{'teams'}{$args}
+        = {
+	  'owner' => $args,
+	  'wins' => 0,
+	  'losses' => 0,
+	  'spread' => 0,
+	  'players' => [],
+	  };
+      $curowner = $args;
+      }
+    elsif ($command eq 'player') {
+      if (!defined $curowner) {
+	die "Player $args is not owned by a team.\n";
+        }
+      push(@{$datap->{'teams'}{$curowner}{'players'}}, $args);
+      unless (exists $datap->{'players'}{$args}) { 
+	$datap->{'players'}{$args} = {
+	  owners => [],
+	  # also keys division and id if in a known division
+	  };
+	}
+      push(@{$datap->{'players'}{$args}{'owners'}}, $curowner);
+#     print "$args is owned by $curowner\n" if $args =~ /Tedesco|Horn/;
+      }
+    else {
+      die "Can't parse: $_\nAborting";
+      }
+    }
+  $fh->close();
+  }
+
+sub LoadGames (\%) {
+  my $datap = shift;
+  for my $dname (sort keys %{$datap->{'divisions'}}) {
+    my $tfh = new TFile $datap->{'divisions'}{$dname}{'path'}
+      or die "Can't open data file $datap->{'divisions'}{$dname}{'path'} for division $dname: $!\n";
+    while (my $line = $tfh->ReadLine()) {
+      $datap->{'divisions'}{$dname}{'players'}[$line->{'id'}] = $line;
+      if (exists $datap->{'players'}{$line->{'name'}}) {
+	if (exists $datap->{'players'}{$line->{'name'}}{'division'}) {
+	  die "Duplicate player: $line->{'name'}";
+	  }
+	else {
+	  $datap->{'players'}{$line->{'name'}}{'division'} = $dname;
+	  $datap->{'players'}{$line->{'name'}}{'id'} = $line->{'id'};
+	  }
+	}
+      }
+    $tfh->Close();
+    }
+  }
+
+sub Main () {
+  my $config_fn = 'multiroto.txt';
+  if (@::ARGV == 1) { $config_fn = shift @::ARGV; }
+  if (@::ARGV) { die "Usage: $0 [config-file]\n"; }
+  my %data;
+  LoadConfig $config_fn, %data;
+  LoadGames %data;
+  CalculatePlayerStandings %data;
+  ShowResults $config_fn, %data;
+  }
+
+sub ShowResults ($\%) {
+  my $config_fn = shift;
+  my $datap = shift;
+  my $team_size = $datap->{'team_size'};
+  $config_fn =~ s/\.txt$//;
+  $config_fn =~ s/$/.html/;
+  print "Creating $config_fn\n";
+  my $fh = new FileHandle ">$config_fn" or die "Can't create file: $!\n";
+  print $fh <<"EOF";
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head><title>Rotisserie Standings</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="tsh.css" type="text/css">
+</head>
+<body class="roto">
+<h1>Rotisserie Standings</h1>
+<table class="roto" align=center cellspacing=0>
+<tr class=top1>
+<th class=wins>Wins</th>
+<th class=spread>Spread</th>
+<th class=owner>Owner</th><th class=team colspan=$team_size>Team</th>
+</tr>
+EOF
+  for my $team (
+    sort {
+      $b->{'wins'} <=> $a->{'wins'}
+      || $a->{'losses'} <=> $b->{'losses'}
+      || $b->{'spread'} <=> $a->{'spread'}
+      } 
+      values %{$datap->{'teams'}}) {
+    my $teamwins = $team->{'wins'};
+    $teamwins =~ s/\.5/+/ or $teamwins .= ' ';
+    print $fh 
+      sprintf("<tr><td class=wins>%s</td>"
+        . '<td class=spread>%+d</td>'
+	. "<td class=owner>%s</td>\n" 
+	. ("<td class=team>%s</td>\n" x $team_size) . "</tr>\n",
+	$teamwins,
+	$team->{'spread'},
+	$team->{'owner'},
+	map { 
+	  my $pp = $datap->{'players'}{$_};
+	  my $dpp = $datap->{'divisions'}{$pp->{'division'}}{'players'}[$pp->{'id'}];
+	  sprintf("%s<br>%s%d %g%+d",
+	    $dpp->{'name'},
+	    $pp->{'division'},
+	    $pp->{'id'},
+	    $dpp->{'wins'},
+	    $dpp->{'spread'},
+	    );
+	  } @{$team->{'players'}});
+    }
+  print $fh <<"EOF";
+</table>
+<p class=notice>This report was generated using <cite>tsh</cite>.  
+For more information about <cite>tsh</cite>, please ask John Chew.
+</p></body></html>
+EOF
+  $fh->close();
+  }
+

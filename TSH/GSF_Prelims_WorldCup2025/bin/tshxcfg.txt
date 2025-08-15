@@ -1,0 +1,5 @@
+# DefineExternal 'update', 'update', [qw()];
+DefineExternal 'update-dict', 'update', [qw()], ['MANIDICT.txt'];
+DefineExternal 'nssc', 'nssc', [qw(Division)];
+DefineExternal 'nscroto', 'nscroto', [qw()];
+DefineExternal 'maketm', 'maketm', [qw(Division)];

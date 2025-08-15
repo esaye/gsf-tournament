@@ -1,0 +1,77 @@
+#begintest roundrobin-il
+#beginconfig
+perl srand 127
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config assign_firsts = 1
+config final_draw = 1
+config interleave_rr = 1
+autopair a 0 1 rr 1 a
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1600 
+Chew, Jamie 1500    
+Chew, Liam 1400    
+West, Daniel 1300
+West, Ross 1200
+#endifile
+#begincommands
+smp 1-5 a
+show12
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  West, Ross (#6) *first* vs. Chew, John (#1).
+   2  Chew, Jamie (#3) *first* vs. Chew, Kristen (#2).
+   3  Chew, Liam (#4) *first* vs. West, Daniel (#5).
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. West, Daniel (#5).
+   2  Chew, Kristen (#2) *first* vs. Chew, Liam (#4).
+   3  West, Ross (#6) *first* vs. Chew, Jamie (#3).
+Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. Chew, Liam (#4).
+   2  Chew, Kristen (#2) *first* vs. West, Ross (#6).
+   3  West, Daniel (#5) *first* vs. Chew, Jamie (#3).
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Jamie (#3) *first* vs. Chew, John (#1).
+   2  West, Daniel (#5) *first* vs. Chew, Kristen (#2).
+   3  Chew, Liam (#4) *first* vs. West, Ross (#6).
+Round 5 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Kristen (#2).
+   2  Chew, Jamie (#3) *draws* vs. Chew, Liam (#4).
+   3  West, Daniel (#5) *draws* vs. West, Ross (#6).
+Division A Pairings: Rounds 1-5
+
+## Player        1st 2nd R1    R2    R3    R4    R5
+1 Chew, John    0   0   6#2@1 5#1@1 4#1@1 3#2@1 2# @1
+2 Chew, Kristen 0   0   3#2@2 4#1@2 6#1@2 5#2@2 1# @1
+3 Chew, Jamie   0   0   2#1@2 6#2@3 5#2@3 1#1@1 4# @2
+4 Chew, Liam    0   0   5#1@3 2#2@2 1#2@1 6#1@3 3# @2
+5 West, Daniel  0   0   4#2@3 1#2@1 3#1@3 2#1@2 6# @3
+6 West, Ross    0   0   1#1@1 3#1@3 2#2@2 4#2@3 5# @3
+Firsts and Seconds
+
+## Player        1st 2nd Record of First and Seconds
+1 Chew, John    2   2   2112?
+2 Chew, Kristen 2   2   2112?
+3 Chew, Jamie   2   2   1221?
+4 Chew, Liam    2   2   1221?
+5 West, Daniel  2   2   2211?
+6 West, Ross    2   2   1122?
+#endstdout
+#beginstderr
+#endstderr
+#endtest

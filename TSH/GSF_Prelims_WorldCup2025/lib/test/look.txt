@@ -1,0 +1,40 @@
+#begintest look
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 3 4 1; 300
+Chew, Jamie 500    2 1 0; 200
+Chew, Liam 0       1 2 0; 100
+#endifile
+#begincommands
+look phocomelies
+look meterstick
+look qi
+look qi emo
+q
+#endcommands
+#beginstdout
+The play is acceptable in CSW2015.
+The play is acceptable in ODS5.
+The play is not acceptable in SSWL2016.
+The play is not acceptable in TWL2016.
+The play is acceptable in CSW2015.
+The play is not acceptable in ODS5.
+The play is acceptable in SSWL2016.
+The play is acceptable in TWL2016.
+The play is acceptable in CSW2015.
+The play is not acceptable in ODS5.
+The play is acceptable in SSWL2016.
+The play is acceptable in TWL2016.
+The play is acceptable in CSW2015.
+The play is not acceptable in ODS5.
+The play is acceptable in SSWL2016.
+The play is acceptable in TWL2016.
+#endstdout
+#beginstderr
+#endstderr
+#endtest

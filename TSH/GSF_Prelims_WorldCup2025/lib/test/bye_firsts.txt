@@ -1,0 +1,28 @@
+#begintest bye_firsts
+#beginconfig
+division a a.t
+config bye_firsts = 'alternate'
+config assign_firsts = 1
+config track_firsts = 1
+perl srand 123
+#endconfig
+#beginifile a.t
+Chew, John 1800    0 0 2 0 2; -50 -50 400 -50; p12 0 0 1 0
+Chew, Kristen 1300 3 4 1 4 1; 300 300 300 300; p12 1 1 2 2
+Chew, Jamie 500    2 0 4 0 4; 200 -50 200 -50; p12 2 0 1 0
+Chew, Liam 0       0 2 3 2 3; -50 100 100 100; p12 0 2 2 1
+#endifile
+#begincommands
+sp 5 
+q
+#endcommands
+#beginstdout
+Round 5 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Kristen (#2) *first* vs. Chew, John (#1) repeat.
+   2  Chew, Jamie (#3) *first* vs. Chew, Liam (#4) repeat.
+#endstdout
+#beginstderr
+#endstderr
+#endtest

@@ -1,0 +1,29 @@
+#begintest roundratings-winter
+#beginconfig
+division a a.t
+config alpha_rating_file = 'winter-fruit.txt'
+config alpha_rating_minimum = 0;
+config alpha_rating_maximum = 2300;
+#endconfig
+#beginifile a.t
+Zxqkj, Winter 1900    4 ; 400
+Abbasi, Shan 1800     3 ; 300
+Chew, John 1700       2 ; 200
+Ubeika, Shelley 1400  1 ; 100
+#endifile
+#begincommands
+rrat 1
+q
+#endcommands
+#beginstdout
+Round 1 Ratings
+
+Rnk Won-Lost Sprd     OldR                 NewR +-R Player               Last Game
+  1 1.0-0.0  +300 CELERIAC     CEDAR BAY CHERRY  +3 Winter (#1)          W:400-100:#4
+  2 1.0-0.0  +100    CHUFA CHRYSANTHEMUM LEAVES  +8 Abbasi, Shan (#2)    W:300-200:#3
+  3 0.0-1.0  -100 CUCUMBER      CURRY-LEAF TREE  -8 Chew, John (#3)      L:200-300:#2
+  4 0.0-1.0  -300  GUARANA                GUAVA  -3 Ubeika, Shelley (#4) L:100-400:#1
+#endstdout
+#beginstderr
+#endstderr
+#endtest

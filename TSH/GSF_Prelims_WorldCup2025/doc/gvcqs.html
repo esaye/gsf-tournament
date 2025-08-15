@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<TITLE>How-To for Running TSH</TITLE>
+<style type="text/css">
+<!--
+body
+{
+font-family:  Times;
+}
+table { margin: 1em 0em; }
+table td { vertical-align: top; }
+pre { margin-left: 2em; }
+-->
+</style>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 3.4  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="G. Castellano">
+	<META NAME="CHANGED" CONTENT="20121021;21003400">
+	<META NAME="CHANGEDBY" CONTENT="G. Castellano">
+</HEAD>
+<BODY>
+<UL>
+	<LI><A HREF="#Authorship_Datestamp">Authorship
+	&amp; Datestamp</A> 
+	
+	<LI> <A HREF="#How_To_for_Running_Tsh">How-To
+	for Running Tsh</A> 
+	
+	<UL>
+		<LI><A HREF="#Prerequisites">Prerequisites</A>
+				
+		<LI><A HREF="#Download_Locations">Download
+		Locations</A> 
+		
+		<LI><A HREF="#UpdateTheInstallation">Update
+		The Installation</A>
+		<LI><A HREF="#Initial_Setup">Initial
+		Setup</A> 
+		
+		<LI><A HREF="#TypographicalConventions">Typographical
+		Conventions</A>
+		<LI><A HREF="#Preparing_For_Your_Event">Preparing
+		For Your Event</A> 
+		
+		<LI><A HREF="#Entering_Scores">Entering
+		Scores</A> 
+		
+		<LI><A HREF="#Amending_Pairings_Due_to_a_Bye">Amending
+		Pairings Due to a Bye</A> 
+		
+		<LI><A HREF="#Check_Standings_Against_Wall_Cha">Check
+		Standings Against Wall Chart</A> 
+		
+		<LI><A HREF="#Finding_And_Correcting_a_Data_En">Finding
+		And Correcting a Data Entry Error</A> 
+		
+	</UL>
+	<LI><A HREF="#Command_Review">Command
+	Review</A> 
+	
+	<UL>
+		<LI><A HREF="#Generate_Display_Pairings">Generate/Display
+		Pairings</A> 
+		
+		<LI><A HREF="#Add_Scores">Add Scores</A>
+				
+		<LI><A HREF="#Show_Standings">Show
+		Standings</A> 
+		
+		<LI><A HREF="#WallChart">WallChart</A>
+				
+		<LI><A HREF="#Correct_a_Game_s_Score">Correct
+		a Game's Score</A> 
+		
+		<LI><A HREF="#Find_Whose_Scores_are_Missing">Find
+		Whose Scores are Missing</A> 
+		
+		<LI><A HREF="#Account_for_a_Dropout_Before_The">Account
+		for a Dropout/in</A>
+		<LI><A HREF="#To_Do">To-Do</A> 
+		
+	</UL>
+</UL>
+<H1><A NAME="Authorship_Datestamp"></A>Authorship &amp; Datestamp 
+</H1>
+<P>This version was created 2010-02-03 by G. Vincent Castellano, and
+last revised 2012-10-21. May be distributed freely without
+alteration.  Contact the author with any comments or corrections. 
+</P>
+<P>This document is compatible with <CODE CLASS="western">tsh</CODE>
+installation version 3.320 and later (but not <EM>too</EM> much
+later). 
+</P>
+<H1><A NAME="How_To_for_Running_Tsh"></A>How-To for Running Tsh 
+</H1>
+<H2 CLASS="western"><A NAME="Prerequisites"></A>Prerequisites 
+</H2>
+<P>Tsh requires fluency with command-line tools. In the dark ages
+before everything was done with a GUI and a mouse, command-line
+interfaces were the norm. You type a command, hit 'enter', and get a
+response back. If you're overly intimidated by this prospect you
+should stop now. 
+</P>
+<H2 CLASS="western"><A NAME="Download_Locations"></A>Download
+Locations 
+</H2>
+<OL>
+	<LI><P >If you are running Windows,
+	download and install the most recent version of ActiveState Perl
+	installer from <FONT COLOR="#000080"><U><A HREF="http://www.activestate.com/activeperl/downloads" TARGET="_top">http://www.activestate.com/activeperl/downloads</A>
+	</U></FONT>. 
+	</P>
+	<LI><P>Visit
+	<FONT COLOR="#000080"><U><A HREF="http://www.poslarchive.com/math/software/tsh/doc/install.html" TARGET="_top">http://www.poslarchive.com/math/software/tsh/doc/install.html</A>
+	</U></FONT>for instructions on downloading tsh itself. You can skip
+	the section on “Perl”--the previous step takes care of that. 
+	</P>
+</OL>
+<H2 CLASS="western"><A NAME="UpdateTheInstallation"></a>Update The Installation</H2>
+<P>If you are returning to use a tsh installation you had established
+previously, enter the <FONT FACE="DejaVu Sans Mono, monospace"><B>UPDATE</B></FONT>
+command to download the current version. You will of course need a
+working Internet connection to do this.</P>
+<H2 CLASS="western">Initial Setup 
+</H2>
+<P >Make a clean tournament sub-directory
+with a descriptive name: I recommend the date concatenated with a
+location, e.g., <CODE CLASS="western">2006-07-15-CCCC</CODE>. 
+</P>
+<TABLE border=1 cellspacing=0 cellpadding=6>
+	<TR>
+		<TD WIDTH="50%">
+			<P >
+			If you use Seth Lipkin’s <A HREF="http://www.cross-tables.com/">www.cross-tables.com</A>
+			website to host your pretournament player roster, do this: 
+			</P>
+		</TD>
+		<TD WIDTH=50% >
+			<P >If not, do
+			this: 
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD >
+			<P >
+			In that subdirectory, create a configuration file called
+			<CODE CLASS="western">config.tsh</CODE> which will look something
+			like: 
+			</P>
+			<PRE CLASS="western" >division a a.t
+division b b.t
+division c c.t
+
+config max_rounds = 7
+config cross_tables_id = 12345</PRE><P >
+			where the 7 should be replaced with the number of rounds that
+			players will play in your tournament, and the 12345 should be
+			replaced with the number that you see at the end of the website
+			address of your player roster. 
+			</P>
+		</TD>
+		<TD >
+			<P >
+			In that subdirectory, create a configuration file called
+			<CODE CLASS="western">config.tsh</CODE> which will look something
+			like: 
+			</P>
+			<PRE CLASS="western" >division a a.t
+division b b.t
+division c c.t
+
+config max_rounds = 7</PRE>
+			where the 7 should be replaced with the number of rounds that
+			players will play in your tournament. 
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=2 >
+			<P >
+			The first three lines tell TSH where to find the data for each
+			division. Here the division names are 'a', 'b', 'c', and their
+			data will be found respectively in <CODE CLASS="western">a.t</CODE>,
+			<CODE CLASS="western">b.t</CODE> and <CODE CLASS="western">c.t</CODE>.
+			(You will want to keep these division names simple and easy to
+			type, don't get cute and use names of breakfast cereals.) Division
+			names are case-insensitive. 
+			</P>
+			<P >
+			The contents of each division file (before pairings are set) are
+			lines like: 
+			</P>
+			<PRE CLASS="western" >Vince Castellano           1717</PRE><P >
+			The above line would indicate that there is a player named Vince
+			Castellano whose pre-tournament rating is 1717. 
+			</P>
+		</TD>
+	</TR>
+	<TR>
+		<TD >
+			<P >
+			The first time you run tsh, enter the command <CODE CLASS="western"><STRONG>U</STRONG></CODE><CODE CLASS="western">pdate</CODE><CODE CLASS="western"><STRONG>PLAY</STRONG></CODE><CODE CLASS="western">ers</CODE>
+			at the <CODE CLASS="western">tsh&gt; </CODE>prompt to download
+			your roster from Cross-Tables. If you subsequently have any roster
+			changes before your event starts, you can either edit them on
+			Cross-Tables and <CODE CLASS="western">UPLAY</CODE> again; or
+			follow the instructions on the right to edit your division data
+			files manually. 
+			</P>
+		</TD>
+		<TD >
+			<P >
+			Use a text editor (Notebook, Notepad, Vim, TextEdit, but not Word)
+			to edit the division (.t) and config.tsh files. 
+			</P>
+			<UL>
+				<LI><P >
+				Don't use tabs anywhere. 
+				</P>
+				<LI><P >
+				Don't use numbers in people's names. 
+				</P>
+				<LI><P >
+				For unrated players, use an initial rating of 0. 
+				</P>
+			</UL>
+		</TD>
+	</TR>
+</TABLE>
+<P>Next, you may wish to enhance these files with the pairing
+information: who plays whom. There are many ways to tell TSH want
+kind of pairings you want (manual, automatic, default), and many
+different kinds of pairing systems that TSH can compute (round robin,
+king-of-the-hill, Swiss, Chew, etc.). If you have no idea, and don't
+have an experienced director you can ask, then TSH will do its best
+to choose a sensible default. For example, if you tell it that you
+have 6 players who want to play 5 rounds, it will set up a round
+robin. 
+</P>
+<P>When pairings have been added, the division data lines will look
+like this. 
+</P>
+<PRE CLASS="western" >Vince Castellano       1717 11      9       7       5       3 ; </PRE><P>
+where the rating is followed by a list of space-delimited opponent
+numbers. You can enter or edit the opponent numbers manually, but the
+chances are that TSH already supports any pairing system that you
+want to use; and if not, you can request a new pairing system on a
+few weeks' notice. Note that when editing a division data file, you
+must make sure that TSH is not running, or else your changes may be
+ignored or deleted. 
+</P>
+<P>Run tsh.pl in the TSH directory, with the event sub-directory as
+the argument, using one of the following commands: 
+</P>
+<TABLE WIDTH=839 CELLPADDING=6 CELLSPACING=0>
+	<COL WIDTH=337>
+	<COL WIDTH=476>
+	<TR>
+		<TD WIDTH=337 >
+			<P >
+			<B>DOS or Windows</B></P>
+		</TD>
+		<TD WIDTH=476 >
+			<P ><B>Unix or
+			OS/X</B></P>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH=337 >
+			<PRE CLASS="western" >perl tsh.pl 2006-07-15-CCCC</PRE>
+		</TD>
+		<TD WIDTH=476 >
+			<PRE CLASS="western" >./tsh.pl 2006-07-15-CCCC</PRE>
+		</TD>
+	</TR>
+</TABLE>
+<P>If you get a <FONT FACE="DejaVu Sans Mono, monospace">tsh&gt;</FONT>
+prompt then no errors were found in the config file or divisions.
+Capital letters in the full names of commands are the short forms of
+the commands; and commands are case-insensitive. E.g., the command
+<CODE CLASS="western"><STRONG>R</STRONG></CODE><CODE CLASS="western">ound</CODE><CODE CLASS="western"><STRONG>R</STRONG></CODE><CODE CLASS="western">obin</CODE>
+is abbreviated <CODE CLASS="western">rr</CODE>. 
+</P>
+<H2 CLASS="western"><A NAME="TypographicalConventions"></a>Typographical Conventions</H2>
+<P>Text shown exactly as it is to be entered within tsh is shown in
+<FONT FACE="DejaVu Sans Mono, monospace">fixed-width</FONT>.</P>
+<P>Generic text intended to be replaced with specific values within
+tsh is shown in <FONT FACE="DejaVu Sans Mono, monospace"><I>fixed-width
+italic</I></FONT>. (E.g., <FONT FACE="DejaVu Sans Mono, monospace"><I>r</I></FONT>
+for a particular round number, or <FONT FACE="DejaVu Sans Mono, monospace"><I>d</I></FONT>
+for a particular division name.)</P>
+<P>Within this document, the short form of a command is shown as the
+bolded letters of the full command name.</P>
+<H2 CLASS="western"><A NAME="Preparing_For_Your_Event"></A>Preparing
+For Your Event 
+</H2>
+<P>This document is intended to be merely a road map for using <CODE CLASS="western">tsh</CODE>.
+If you are completely new to <CODE CLASS="western">tsh</CODE> you
+should plan on spending several hours with the program over a period
+of at least two weeks to become sufficiently acquainted. 
+</P>
+<P>(If you are conscientious enough to take this advice to heart, you
+will also what to review John Chew's <A HREF="http://www.poslarchive.com/math/scrabble/directing/" TARGET="_top">Checklist
+For Organizing Scrabble® Tournaments</A>.) 
+</P>
+<P>After setting up the divisions, you can use the following commands
+to simulate an event and validate your expectations of how the
+pairings and reporting functions work: 
+</P>
+<UL>
+	<LI><P ><STRONG><FONT FACE="DejaVu Sans Mono, monospace">DRY</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">run</FONT>:
+	<CODE CLASS="western">dry </CODE><CODE CLASS="western"><I>r d</I></CODE>
+		</P>
+	<UL>
+		<LI><P >Simulates an entire tournament
+		for a division using random data. 
+		</P>
+	</UL>
+	<LI><P ><STRONG><FONT FACE="DejaVu Sans Mono, monospace">RAND</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">omscores</FONT>:
+	<CODE CLASS="western">rand </CODE><CODE CLASS="western"><I>d</I></CODE></P>
+	<UL>
+		<LI><P >Give each player in division d a
+		random score, to help simulate a tournament’s pairing system. 
+		</P>
+	</UL>
+	<LI><P ><STRONG><FONT FACE="DejaVu Sans Mono, monospace">RESETEVERYTHING</FONT></STRONG>:
+	<CODE CLASS="western">reseteverything</CODE> 
+	</P>
+	<UL>
+		<LI><P>Delete scores and pairings data—rewinds the event to the
+		beginning. Use only to undo the effect of the above two commands,
+		after the tournament actually starts this command should not be
+		used. 
+		</P>
+	</UL>
+</UL>
+<P>Further information on the above and all <CODE CLASS="western">tsh</CODE>
+commands is available at
+<A HREF="http://www.poslarchive.com/math/software/tsh/doc/commands.html" TARGET="_top">http://www.poslarchive.com/math/software/tsh/doc/commands.html</A>,
+from whence the above descriptions were derived. 
+</P>
+<H2 CLASS="western"><A NAME="Entering_Scores"></A>Entering Scores 
+</H2>
+<P>Start adding scores for a division with the <FONT FACE="DejaVu Sans Mono, monospace"><B>A</B></FONT><FONT FACE="DejaVu Sans Mono, monospace">ddscore</FONT>
+command which takes the round and division as arguments. 
+</P>
+<P>For example, at the tsh&gt; prompt, enter: 
+</P>
+<PRE CLASS="western">tsh&gt; a 1 a
+     ^ ^ ^
+     | | +-- For Division A
+     | +---- For Round 1
+     +------ Add scores</PRE><P>
+You will see a prompt like: 
+</P>
+<PRE CLASS="western" >[A1]:pn1 ps1 pn2 ps2 (12 scores left)? </PRE><P>
+Meaning for Div A round 1, enter (separated by spaces) 
+</P>
+<PRE CLASS="western" >  Player1Num Player1Score Player2Num Player2Score</PRE><P>
+Depending on your configuration options, you may also be required to
+enter the game spread, or you might not be required to enter the
+scores. 
+</P>
+<P>followed by Enter. Player 1 is the player who went first, player 2
+went second. TSH will read scores until you hit Enter without
+entering anything. 
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western">tsh&gt; a 1 a
+[A1]:pn1 ps1 pn2 ps2 (12 scores left)? 12 384 2 467
+#12 Ronnie Thomas 384 (0.0 -83) - #2 Florence Spanfelner 467 (1.0 +83).
+[A1]:pn1 ps1 pn2 ps2 (10 scores left)? 3 453 9 435
+#3 Joanne Cohen 453 (1.0 +18) - #9 George Spanfelner 435 (0.0 -18).
+[A1]:pn1 ps1 pn2 ps2 (8 scores left)? 10 298 4 312
+#10 Rose Noel 298 (0.0 -14) - #4 Dave Engelhardt 312 (1.0 +14).
+[A1]:pn1 ps1 pn2 ps2 (6 scores left)? 5 352 7 407
+#5 Diana Grosman 352 (0.0 -55) - #7 Carole Denton 407 (1.0 +55).
+[A1]:pn1 ps1 pn2 ps2 (4 scores left)? 6 439 8 370
+#6 Dan Milton 439 (1.0 +69) - #8 Brian Bailey 370 (0.0 -69).
+[A1]:pn1 ps1 pn2 ps2 (2 scores left)?  
+Updating Division A.
+updating a.t</PRE><H3 CLASS="western">
+Notes</H3>
+<OL>
+	<LI><P >There was a bye this round due to
+	a late player. See below. 
+	</P>
+	<LI><P >The file &quot;a.t&quot; is
+	updated with scores. You can view this file to see how it is
+	updated. 
+	</P>
+	<LI><P >If you do not know a player’s
+	number, you can enter either <CODE CLASS="western">m</CODE> to see
+	all missing players remaining in this round, or enter an unambiguous
+	part of their name (e.g. <CODE CLASS="western">Joanne</CODE> instead
+	of their number). 
+	</P>
+	<LI><P>You can change divisions by entering just the name of the
+	division on its own line. 
+	</P>
+</OL>
+<H2 CLASS="western"><A NAME="Amending_Pairings_Due_to_a_Bye"></A>Amending
+Pairings Due to a Bye 
+</H2>
+<P>Now we will deal with the first-round bye (between player 1 and
+player 11), where Player 11 arrived late and forfeited her game. Use
+the <CODE CLASS="western"><STRONG>F</STRONG></CODE><CODE CLASS="western">orfeit</CODE><CODE CLASS="western"><STRONG>LOSS</STRONG></CODE>
+command: 
+</P>
+<PRE CLASS="western">tsh&gt; floss 11 1 
+Vince Castellano (A1) used to be paired to Lorraine Burton (A11). [iprwasp]
+Updating a.t</PRE><H2 CLASS="western">
+<A NAME="Check_Standings_Against_Wall_Cha"></A>Check Standings
+Against Wall Chart 
+</H2>
+<P>Now that you have entered round 1 data, you may wish to check
+standings against the wall chart. Do this with the <CODE CLASS="western"><STRONG>W</STRONG></CODE><CODE CLASS="western">all</CODE><CODE CLASS="western"><STRONG>C</STRONG></CODE><CODE CLASS="western">hart</CODE>
+command (follow &quot;wc&quot; with the division name): 
+</P>
+<PRE CLASS="western">tsh&gt; wc a
+Division A Wallchart
+
+Player                 Rd 01
+Vince Castellano         1.0 
+                         +50 
+Florence Spanfelner      1.0 
+                         +83 
+Joanne Cohen             1.0 
+                         +18 
+Dave Engelhardt          1.0 
+                         +14 
+Diana Grosman            0.0 
+                         -55 
+Dan Milton               1.0 
+                         +69 
+Carole Denton            1.0 
+                         +55 
+Brian Bailey             0.0 
+                         -69 
+George Spanfelner        0.0 
+                         -18 
+Rose Noel                0.0 
+                         -14 
+Lorraine Burton          0.0 
+                         -50 
+Ronnie Thomas            0.0 
+                         -83 </PRE><P>
+Repeat for each round and each division. 
+</P>
+<H2 CLASS="western"><A NAME="Finding_And_Correcting_a_Data_En"></A>Finding
+And Correcting a Data Entry Error 
+</H2>
+<P>Now before doing the final KOTH, check the wall chart. We have a
+discrepancy, with Carole Denton 4-1 +118, where the wall chart shows
+3-2 -70. There is probably another player with a win count error, and
+the matchup between these two was done wrong. tsh shows George
+Spanfelner at 1-4 -105 and the wall chart has him 2-3 +84. 
+</P>
+<P>Use the <FONT FACE="DejaVu Sans Mono, monospace"><B>S</B></FONT><FONT FACE="DejaVu Sans Mono, monospace">core</FONT><FONT FACE="DejaVu Sans Mono, monospace"><B>C</B></FONT><FONT FACE="DejaVu Sans Mono, monospace">ard</FONT>
+command to show a contestant score card for Carole (Player 7). It
+shows that the scores for these players were swapped and will have to
+be re-entered. 
+</P>
+<P>Then use the <FONT FACE="DejaVu Sans Mono, monospace"><B>E</B></FONT><FONT FACE="DejaVu Sans Mono, monospace">nter</FONT><FONT FACE="DejaVu Sans Mono, monospace"><B>S</B></FONT><FONT FACE="DejaVu Sans Mono, monospace">core</FONT>
+command to edit scores for Div A Player 7 Round 5: 
+</P>
+<PRE CLASS="western">tsh&gt; es a 7 5
+Player Scorecard: Carole Denton (A7) (1497)
+- Last score was entered 19 minutes ago.
+Rnd Brd Opp Rtng Opponent Name           Won-Lost For Agn Sprd Cumul 
+  1       5 1533 Diana Grosman           1.0- 0.0 407 352  +55   +55
+  2      11 1307 Lorraine Burton         2.0- 0.0 356 324  +32   +87
+  3       1 1717 Vince Castellano        2.0- 1.0 287 357  -70   +17
+  4       3 1618 Joanne Cohen            3.0- 1.0 335 328   +7   +24
+  5       9 1338 George Spanfelner       4.0- 1.0 423 329  +94  +118
+  6       2 1670 Florence Spanfelner   </PRE><P>
+The tsh view of the contestant scorecard is printed, and then you are
+prompted. Enter the scores for that round, separated by a space, with
+the player's being edited first: 
+</P>
+<PRE CLASS="western" >Carole Denton (A7) R5 [423 329 vs. George Spanfelner (A9)] (? for help) 329 423</PRE><P>
+The scorecard is reprinted. At this point is probably prudent to also
+print the opponent's scorecard. 
+</P>
+<H1><A NAME="Command_Review"></A>Command Review 
+</H1>
+<H2 CLASS="western"><A NAME="Generate_Display_Pairings"></A>Generate/Display
+Pairings 
+</H2>
+<P><CODE CLASS="western">smp </CODE><CODE CLASS="western"><EM>First-Last
+Div</EM></CODE><CODE CLASS="western"> </CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >smp 1-3 a</PRE><P>
+<STRONG><FONT FACE="DejaVu Sans Mono, monospace">S</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">how</FONT><STRONG><FONT FACE="DejaVu Sans Mono, monospace">M</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">ultiple</FONT><STRONG><FONT FACE="DejaVu Sans Mono, monospace">P</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">airings</FONT>
+for rounds <STRONG>1-3</STRONG> in division <STRONG>A</STRONG>.
+Produces output in HTML directory. Even if you only want to show
+pairings for a single round, you may like the formatting provided by
+this command. 
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >smp 3 a</PRE><H2 CLASS="western">
+<A NAME="Add_Scores"></A>Add Scores 
+</H2>
+<P><CODE CLASS="western">a </CODE><CODE CLASS="western"><EM>Round Div</EM></CODE><CODE CLASS="western">
+</CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >a 3 a</PRE><P>
+<STRONG><FONT FACE="DejaVu Sans Mono, monospace">A</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">ddscores</FONT>
+for round <STRONG>3</STRONG> in division <STRONG>A</STRONG>. Enter
+data for one or more rounds in the form: 
+</P>
+<P><CODE CLASS="western"><EM>Player1Num Player1Score Player2Num
+Player2Score</EM></CODE><CODE CLASS="western"> </CODE>
+</P>
+<P>Hit <CODE CLASS="western"><EM>Enter</EM></CODE><CODE CLASS="western">
+</CODE>with no data to return to the command prompt. 
+</P>
+<H2 CLASS="western"><A NAME="Show_Standings"></A>Show Standings 
+</H2>
+<P><CODE CLASS="western">st </CODE><CODE CLASS="western"><I>Div </I></CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >st a</PRE><P>
+<STRONG><FONT FACE="DejaVu Sans Mono, monospace">ST</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">andings</FONT>
+for division <STRONG>A</STRONG>, to the extent data has been entered.
+Produces output in HTML directory. If possible, don't post standings
+until all the scores have been entered. The exception to this will be
+near the end of an event when you are waiting for out-of-contention
+players to turn in their slips. 
+</P>
+<H2 CLASS="western"><A NAME="WallChart"></A><A NAME="_WallChart"></A>WallChart
+</H2>
+<P><CODE CLASS="western">wc </CODE><CODE CLASS="western"><EM>Div</EM></CODE><CODE CLASS="western">
+</CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >wc a</PRE><P>
+<STRONG><FONT FACE="DejaVu Sans Mono, monospace">W</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">all</FONT><STRONG><FONT FACE="DejaVu Sans Mono, monospace">C</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">hart</FONT>
+for division <STRONG>A</STRONG>, to the extent data has been entered.
+Produces output in HTML directory. Most useful for finding errors in
+data entry relative to a player's scorecard. (The <STRONG><FONT FACE="DejaVu Sans Mono, monospace">S</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">core</FONT><STRONG><FONT FACE="DejaVu Sans Mono, monospace">C</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">ard</FONT>
+command is also useful for this.) 
+</P>
+<H2 CLASS="western"><A NAME="Correct_a_Game_s_Score"></A>Correct a
+Game's Score 
+</H2>
+<P><CODE CLASS="western">es </CODE><CODE CLASS="western"><EM>Div
+Player Round</EM></CODE><CODE CLASS="western"> </CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >es a 17 3</PRE><P>
+<STRONG><FONT FACE="DejaVu Sans Mono, monospace">E</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">dit</FONT><STRONG><FONT FACE="DejaVu Sans Mono, monospace">S</FONT></STRONG><FONT FACE="DejaVu Sans Mono, monospace">core</FONT>
+for Player <STRONG>17</STRONG>, division <STRONG>A</STRONG>, Round <STRONG>3</STRONG>.
+You will then be prompted to enter this player's score and their
+opponent's score. Both players' records will then be updated. 
+</P>
+<H2 CLASS="western"><A NAME="Find_Whose_Scores_are_Missing"></A>Find
+Whose Scores are Missing 
+</H2>
+<P><CODE CLASS="western">missing </CODE><CODE CLASS="western"><EM>Round
+Div</EM></CODE><CODE CLASS="western"> </CODE>
+</P>
+<P>Example: 
+</P>
+<PRE CLASS="western" >missing 3 a</PRE><P>
+Shows who you have to go chase for tally slips. 
+</P>
+<H2 CLASS="western"><A NAME="Account_for_a_Dropout_Before_The"></A>Account
+for a Dropout/in</H2>
+<P>If you know that a player is going to be absent in future rounds,
+then you should mark them as inactive for pairings until they return,
+using the <CODE CLASS="western"><STRONG>E</STRONG></CODE><CODE CLASS="western">dit</CODE><CODE CLASS="western"><STRONG>S</STRONG></CODE><CODE CLASS="western">cores</CODE>
+command. When the command shows you its prompt, enter either <CODE CLASS="western">off
+-50</CODE> to assign an inactive player a forfeit loss with -50
+spread each round, or <CODE CLASS="western">on</CODE> to reactivate a
+returning player. 
+</P>
+<H2 CLASS="western"><A NAME="To_Do"></A>To-Do 
+</H2>
+<UL>
+	<LI><P >smp commands for init 
+	</P>
+	<LI><P>util/mirror-ftp 
+	</P>
+</UL>
+</BODY>
+</HTML>

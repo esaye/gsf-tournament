@@ -1,0 +1,175 @@
+#begintest help
+#beginconfig
+division a a.t
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+help
+help foo
+help index
+help bye
+q
+#endcommands
+#beginstdout
+Usage: help topic
+Detailed online help is available for the following commands (type "help"
+followed by one of these command names):
+  a a1 absp abspgrid addplayer addscore addscore1 adp aos assignteamssnaked ats
+  aupair ave averageopponentscores averages b basdf basdfinal basds basdsemi bl
+  boardpair bpair brack bracketpair browse browselast bug bugreport bye
+  cambridgepair camp checkroundscores chewpair comm commentary cp crs dc de
+  debug delete deletescore divisioncomplete doc documentation doubleelimination
+  dry dryrun editscore enhancedscoreboard es esb esbmsg eval exportratings
+  factorpair finalreport fix floss forfeitloss fp fr green grouproundrobin grr
+  guelph gui hc help highcombined highloss highratingchange highroundlosses
+  highroundwins highspread highwin hl hrc hrl hrw hs huh hw if initfontes json
+  koth lc listt listtourneys ll look lowcombined lowerroundrobins lowloss
+  lowspread lowwin lrr ls luckystiff lw maketm mirror miss missing moveplayer
+  mvp nast newswiss nexts nextsession ns nscroto nssc p1324 pair pair1324
+  pairmany pairmany12 pairquartiles pm pm12 ppsw pq prepreswiss presw preswiss
+  prizes prizes2 profile prz prz2 q quit rand randompair randomscores rat
+  ratings rbr rcrat removeplayer reseteverything resultsbyround rhc rmp rosters
+  roto roundclassratings roundhandicaps roundratings roundrobin roundstandings
+  rp rr rrat rs rwc s12 savejson sb sc scoreboard sdsc setesbmessage show12
+  showdivisionscorecards showmanypairings shownextpairings showpairings
+  showrankedwallchart showscorecard showwallchart smp snp sp spit spitroast st
+  standings statistics stats stiff stopm stopmirror submit sw swiss
+  teammultipleroundrobin teamroundrobin teamstandings tmrr topplayersonly
+  totalopponentscore totalscore totalteamstandings totos tots tpo trr
+  truncaterounds ts tts tuff tuffluck tweet tweetpairings twp unpairround
+  update update-dict updatepix updateplayers updateratings updatetest uplay upr
+  upset upsets useratings valet wc
+Usage: bye player-id score round
+
+This command is now deprecated.  It was formerly used to set up byes, but has
+been replaced by the PAIR and Addscore commands.  It will be removed entirely
+in a future version of this program. 
+#endstdout
+#beginstderr
+Error: parser says: You need to specify a help topic (or 'index' for a list).. [eparse]
+Error: There is no help topic called foo.  Enter 'help index' for a list of commands. [enohelp]
+#endstderr
+#plugins plus
+#beginstdout
+You need to specify a help topic (or 'index' for a list).
+Usage: help topic
+Detailed online help is available for the following commands (type "help"
+followed by one of these command names):
+  a a1 absp abspgrid addplayer addscore addscore1 adp aos assignteamssnaked ats
+  aupair ave averageopponentscores averages b basdf basdfinal basds basdsemi bl
+  boardpair bpair brack bracketpair browse browselast bug bugreport bye
+  cambridgepair camp checkroundscores chewpair comm commentary cp cross
+  crosstable crs dc de debug delete deletescore divisioncomplete doc
+  documentation doubleelimination dry dryrun editscore enhancedscoreboard es
+  esb esbmsg eval exportratings factorpair finalreport fix floss forfeitloss fp
+  fr green grouproundrobin grr guelph gui hc help highcombined highloss
+  highratingchange highroundlosses highroundwins highspread highwin hl hrc hrl
+  hrw hs huh hw if initfontes json koth lc lcv listt listtourneys ll
+  loadplayerscsv look lowcombined lowerroundrobins lowloss lowspread lowwin lrr
+  ls luckystiff lw maketm mcv mergeplayerscsv mirror miss missing moveplayer
+  mvp nast newswiss ns nscroto nssc p1324 pair pair1324 pairmany pairmany12
+  pairquartiles pm pm12 ppsw pq prepreswiss presw preswiss prizes prizes2
+  profile prz prz2 q quit rand randompair randomscores rat ratings rbr rcrat
+  removeplayer reseteverything resultsbyround rhc rmp rosters roto
+  roundclassratings roundhandicaps roundratings roundrobin roundstandings rp rr
+  rrat rs rwc s12 savejson saveplayerscsv sb sc scoreboard scv sdsc
+  selfservicedataentry setesbmessage show12 showdivisionscorecards
+  showmanypairings shownextpairings showpairings showrankedwallchart
+  showscorecard showwallchart smp snp sp spit spitroast ssde st standings
+  statistics stats stiff stopm stopmirror submit sw swiss
+  teammultipleroundrobin teamroundrobin teamstandings tmrr topplayersonly
+  totalopponentscore totalscore totalteamstandings totos tots tpo trr
+  truncaterounds ts tts tuff tuffluck tweet tweetpairings twp unpairround
+  update update-dict updatepix updateplayers updateratings updatetest uplay upr
+  upset upsets useratings valet wc
+Usage: bye player-id score round
+
+This command is now deprecated.  It was formerly used to set up byes, but has
+been replaced by the PAIR and Addscore commands.  It will be removed entirely
+in a future version of this program. 
+#endstdout
+#plugins thai
+#beginstdout
+You need to specify a help topic (or 'index' for a list).
+Usage: help topic
+Detailed online help is available for the following commands (type "help"
+followed by one of these command names):
+  a a1 absp abspgrid addplayer addscore addscore1 adp aos assignteamssnaked ats
+  aupair ave averageopponentscores averages b basdf basdfinal basds basdsemi bl
+  boardpair bpair brack bracketpair browse browselast bug bugreport bye
+  cambridgepair camp checkroundscores chewpair comm commentary cp crs dc de
+  debug delete deletescore divisioncomplete doc documentation doubleelimination
+  dry dryrun editscore enhancedscoreboard es esb esbmsg eval exportratings
+  factorpair finalreport fix floss forfeitloss fp fr green grouproundrobin grr
+  guelph gui hc help highcombined highloss highratingchange highroundlosses
+  highroundwins highspread highwin hl hrc hrl hrw hs huh hw if initfontes json
+  koth lc listt listtourneys ll look lowcombined lowerroundrobins lowloss
+  lowspread lowwin lrr ls luckystiff lw maketm mirror miss missing moveplayer
+  mvp nast newswiss ns nscroto nssc p1324 pair pair1324 pairmany pairmany12
+  pairquartiles pm pm12 ppsw pq prepreswiss presw preswiss prizes prizes2
+  profile prz prz2 q quit rand randompair randomscores rat ratings rbr rcrat
+  removeplayer reseteverything resultsbyround rhc rmp rosters roto
+  roundclassratings roundhandicaps roundratings roundrobin roundstandings rp rr
+  rrat rs rwc s12 savejson sb sc scoreboard sdsc setesbmessage show12
+  showdivisionscorecards showmanypairings shownextpairings showpairings
+  showrankedwallchart showscorecard showwallchart smp snp sp spit spitroast st
+  standings statistics stats stiff stopm stopmirror submit sw swiss
+  teammultipleroundrobin teamroundrobin teamstandings thaicash thaischoolpair
+  thaiseatsbynumber thsbn thsp tmrr topplayersonly totalopponentscore
+  totalscore totalteamstandings totos tots tpo trr truncaterounds ts tts tuff
+  tuffluck tweet tweetpairings twp unpairround update update-dict updatepix
+  updateplayers updateratings updatetest uplay upr upset upsets useratings
+  valet wc
+Usage: bye player-id score round
+
+This command is now deprecated.  It was formerly used to set up byes, but has
+been replaced by the PAIR and Addscore commands.  It will be removed entirely
+in a future version of this program. 
+#endstdout
+#plugins plus thai
+#beginstdout
+You need to specify a help topic (or 'index' for a list).
+Usage: help topic
+Detailed online help is available for the following commands (type "help"
+followed by one of these command names):
+  a a1 absp abspgrid addplayer addscore addscore1 adp aos assignteamssnaked ats
+  aupair ave averageopponentscores averages b basdf basdfinal basds basdsemi bl
+  boardpair bpair brack bracketpair browse browselast bug bugreport bye
+  cambridgepair camp checkroundscores chewpair comm commentary cp cross
+  crosstable crs dc de debug delete deletescore divisioncomplete doc
+  documentation doubleelimination dry dryrun editscore enhancedscoreboard es
+  esb esbmsg eval exportratings factorpair finalreport fix floss forfeitloss fp
+  fr green grouproundrobin grr guelph gui hc help highcombined highloss
+  highratingchange highroundlosses highroundwins highspread highwin hl hrc hrl
+  hrw hs huh hw if initfontes json koth lc lcv listt listtourneys ll
+  loadplayerscsv look lowcombined lowerroundrobins lowloss lowspread lowwin lrr
+  ls luckystiff lw maketm mcv mergeplayerscsv mirror miss missing moveplayer
+  mvp nast newswiss ns nscroto nssc p1324 pair pair1324 pairmany pairmany12
+  pairquartiles pm pm12 ppsw pq prepreswiss presw preswiss prizes prizes2
+  profile prz prz2 q quit rand randompair randomscores rat ratings rbr rcrat
+  removeplayer reseteverything resultsbyround rhc rmp rosters roto
+  roundclassratings roundhandicaps roundratings roundrobin roundstandings rp rr
+  rrat rs rwc s12 savejson saveplayerscsv sb sc scoreboard scv sdsc
+  selfservicedataentry setesbmessage show12 showdivisionscorecards
+  showmanypairings shownextpairings showpairings showrankedwallchart
+  showscorecard showwallchart smp snp sp spit spitroast ssde st standings
+  statistics stats stiff stopm stopmirror submit sw swiss
+  teammultipleroundrobin teamroundrobin teamstandings thaicash thaischoolpair
+  thaiseatsbynumber thsbn thsp tmrr topplayersonly totalopponentscore
+  totalscore totalteamstandings totos tots tpo trr truncaterounds ts tts tuff
+  tuffluck tweet tweetpairings twp unpairround update update-dict updatepix
+  updateplayers updateratings updatetest uplay upr upset upsets useratings
+  valet wc
+Usage: bye player-id score round
+
+This command is now deprecated.  It was formerly used to set up byes, but has
+been replaced by the PAIR and Addscore commands.  It will be removed entirely
+in a future version of this program. 
+#endstdout
+#endtest

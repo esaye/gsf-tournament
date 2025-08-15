@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Kenyan Users</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=here><a href="ken.html">Kenyan Users</a></div>
+</div>
+<h1><cite>tsh</cite> for Kenyan Users</h1>
+<p class=subtitle>Instructions specific to directors` who use <cite>tsh</cite> in Kenya.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+<p class=p1>
+This section discusses specific issues related to operating 
+<cite>tsh</cite> at Kenyan tournaments, 
+and may safely be ignored if you are not working in Kenya.
+</p>
+
+<h2>How to tell <cite>tsh</cite> that you are a Kenyan user</h2>
+
+<p class=p1>
+To enable Kenyan features in <cite>tsh</cite>, add the following line
+to your configuration file:
+</p>
+
+<pre>
+begin realm = 'ken'
+</pre>
+
+<p class=p1>
+This tells <cite>tsh</cite> to operate under the Kenyan realm.
+A realm is a set of default configuration values for a group of
+users.  In this case, <cite>tsh</cite> will know to do things such as:
+</p>
+
+<ul>
+  <li>use the Kenyan <a href="config.html#photo_database">photo database</a></li>
+  <li>use the Kenyan <a href="config.html#currency_symbol">currency_symbol</a> (K)</li>
+</ul>
+
+<h2>How to add photos to the Kenyan database</h2>
+
+<p class=p1>
+Adding photos to the Kenyan photo database requires access to 
+the database FTP server.  If you are not the designated photo
+administrator (as of 2018, Powell Cheruiyot), please contact
+them for assistance.  If you are the photo administrator, please
+keep reading.
+</p>
+
+<p class=p1>
+Kenyan users of <cite>tsh</cite> will have a local copy of the
+photo database in the &ldquo;lib/pix/ken&rdquo; subdirectory of
+your <cite>tsh</cite> directory (folder).  This gets updated from
+the primary copy on a webserver whenever they run the 
+&ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; command.
+</p>
+
+<p class=p1>
+The photo database consists of directories containing photos of
+the players, together with an index file called &ldquo;photos.txt&rdquo;
+that tells <cite>tsh</cite> which photo corresponds to which player name.
+You may freely choose how to organise the photos into subdirectories;
+it is of course best to do so systematically.
+</p>
+<p class=p1>
+Whenever you add, rename or delete photos, you must update the index
+file using WordPad (Windows), TextEdit (MacOS) or a similar tool.
+The index file has one line per player, and each line has three
+tab-separated fields. The first field is the player&rsquo;s given
+name (forename), the second field is their surname (family name),
+and the third field is the case-sensitive photo filename (possibly including 
+directory names if it is in a subdirectory).  So, for example, 
+if a player with a photo stored in &ldquo;lib/pix/ken/c/chew_john.jpg&rdquo; is listed in &ldquo;a.t&rdquo; this way:
+</p>
+<pre>
+Chew, John 1800 
+</pre>
+<p class=p2>
+then they should be listed in photos.txt this way:
+</p>
+<pre>
+John&lt;tab&gt;Chew&lt;tab&gt;c/chew_john.jpg
+</pre>
+
+<p class=p1>
+To update the primary copy on the webserver:
+</p>
+<ol>
+  <li>Make the changes to your local copy of the photo database, including the index file.</li>
+  <li>Use an FTP client to copy the files from your local copy to the webserver. If you need the username and password, contact John Chew at poslfit@gmail.com.</li>
+  <li>Run the <a href="http://poslarchive.com/cgi-bin/update-pdb-ken.pl">update script</a> on the server to register the changes.</li>
+  <li>Run the &ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; command to verify that the changes are available for download.
+</ol>
+
+</p>
+
+
+</body>
+</html>
+

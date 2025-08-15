@@ -1,0 +1,56 @@
+#begintest spread_cap
+#beginconfig
+division a a.t
+config spread_cap = 350
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 600 400 400
+Chew, Kristen 1300 3 4 1; 300 600 300
+Chew, Jamie 500   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+rs 1
+rs 2
+rs 3
+sc 1
+koth 1 3
+sp 4
+q
+#endcommands
+#beginstdout
+Round 1 Standings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 1.0-0.0  +350 Chew, John (#1)    W:600-100:#4
+  2 1.0-0.0  +100 Chew, Kristen (#2) W:300-200:#3
+  3 0.0-1.0  -100 Chew, Jamie (#3)   L:200-300:#2
+  4 0.0-1.0  -350 Chew, Liam (#4)    L:100-600:#1
+Round 2 Standings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 2.0-0.0  +550 Chew, John (#1)    W:400-200:#3
+  2 2.0-0.0  +450 Chew, Kristen (#2) W:600-100:#4
+  3 0.0-2.0  -300 Chew, Jamie (#3)   L:200-400:#1
+  4 0.0-2.0  -700 Chew, Liam (#4)    L:100-600:#2
+Round 3 Standings
+
+Rnk Won-Lost Sprd Player             Last Game
+  1 3.0-0.0  +650 Chew, John (#1)    W:400-300:#2
+  2 2.0-1.0  +350 Chew, Kristen (#2) L:300-400:#1
+  3 1.0-2.0  -200 Chew, Jamie (#3)   W:200-100:#4
+  4 0.0-3.0  -800 Chew, Liam (#4)    L:100-200:#3
+Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  600 100 +350  +350
+  2  ?   3  500 Chew, Jamie   2.0-0.0  400 200 +200  +550
+  3  ?   2 1300 Chew, Kristen 3.0-0.0  400 300 +100  +650
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Kristen (#2) repeat.
+   2  Chew, Jamie (#3) vs. Chew, Liam (#4) repeat.
+#endstdout
+#beginstderr
+#endstderr
+#endtest

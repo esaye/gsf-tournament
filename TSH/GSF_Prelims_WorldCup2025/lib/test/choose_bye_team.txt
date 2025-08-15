@@ -1,0 +1,41 @@
+#begintest choose_bye-team
+#beginconfig
+division a a.t
+config bye_method = 'top_down'
+config exagony = 1
+perl srand 123
+#endconfig
+#beginifile a.t
+Chew, John 1800    0 ;  50 ; team parents
+Chew, Kristen 1300 3 ; 300 ; team parents
+Chew, Jamie 1200   2 ; 200 ; team kids
+Chew, Liam 1100    5 ; 300; team kids
+Sagara, Gary 1000  4 ; 200; team kids
+#endifile
+#begincommands
+koth 0 1 a
+rat a
+sp 2 a
+q
+#endcommands
+#beginstdout
+Round 1 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 1.0-0.0  +100 1300 1312 +12 Chew, Kristen (#2) W:300-200:#3
+  1 1.0-0.0  +100 1100 1112 +12 Chew, Liam (#4)    W:300-200:#5
+  3 1.0-0.0   +50 1800 1800  +0 Chew, John (#1)    bye
+  4 0.0-1.0  -100 1200 1192  -8 Chew, Jamie (#3)   L:200-300:#2
+  4 0.0-1.0  -100 1000  992  -8 Sagara, Gary (#5)  L:200-300:#4
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Liam (#4): Bye.
+   1  Chew, Kristen (#2) vs. Sagara, Gary (#5).
+   2  Chew, John (#1) vs. Chew, Jamie (#3).
+#endstdout
+#beginstderr
+Team kids has more players, gets bye.
+#endstderr
+#endtest
+

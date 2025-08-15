@@ -1,0 +1,127 @@
+#begintest gvc-20150528
+#beginconfig
+ # Tests for gvc's wallchart_refresh, esb_geom, pname_from_sbname
+division a a.t
+config wallchart_refresh = 900
+config hook_division_update = 'wc $d;rwc $d'
+config max_rounds = 4
+config pname_from_sbname = 1
+config use_pname = 1
+config esb_geometry{'A'} = [[3,2]]
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400; ; sbname John
+Chew, Kristen 1300 3 4 1; 300 300 300 ; pname Kristen ; sbname KC
+Chew, Jamie 500   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+koth 1 3
+sp 4
+esb
+q
+#endcommands
+#beginstdout
+Wall Chart
+
+John         1.0  2.0  3.0
+            +300 +500 +600
+Kristen      1.0  2.0  2.0
+            +100 +300 +200
+Chew, Jamie  0.0  0.0  1.0
+            -100 -300 -200
+Chew, Liam   0.0  0.0  0.0
+            -300 -500 -600
+Ranked Wall Chart
+
+John         1.0  2.0  3.0
+            +300 +500 +600
+Kristen      1.0  2.0  2.0
+            +100 +300 +200
+Chew, Jamie  0.0  0.0  1.0
+            -100 -300 -200
+Chew, Liam   0.0  0.0  0.0
+            -300 -500 -600
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  John (#1) vs. Kristen (#2) repeat.
+   2  Chew, Jamie (#3) vs. Chew, Liam (#4) repeat.
+Wall Chart
+
+John         1.0  2.0  3.0
+            +300 +500 +600
+Kristen      1.0  2.0  2.0
+            +100 +300 +200
+Chew, Jamie  0.0  0.0  1.0
+            -100 -300 -200
+Chew, Liam   0.0  0.0  0.0
+            -300 -500 -600
+Ranked Wall Chart
+
+John         1.0  2.0  3.0
+            +300 +500 +600
+Kristen      1.0  2.0  2.0
+            +100 +300 +200
+Chew, Jamie  0.0  0.0  1.0
+            -100 -300 -200
+Chew, Liam   0.0  0.0  0.0
+            -300 -500 -600
+#endstdout
+#beginstderr
+#endstderr
+#beginofile html/A-wallchart.html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+
+<html><head><title>Rankedwallchart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<meta http-equiv=refresh content="900">
+<link rel="stylesheet" href="tsh.css" type="text/css">
+
+</head>
+<body class="wallchart nsa div_A">
+
+<h1>Rankedwallchart</h1>
+<table class="wallchart" align=center cellspacing=0>
+<tr class="top1"><th class="name">Player</th><th class="round">Round 1</th><th class="round">Round 2</th><th class="round">Round 3</th><th class="round">Round 4</th></tr>
+<tr><td class="name">1. John</td><td class="win"><div class=score>400-100</div><div class=pair><div class=opp><a href="#4.1" name="1.1">vs. 4</a></div></div><div class=record>1.0-0.0</div><div class=spread>+300 = +300</div></td><td class="win"><div class=score>400-200</div><div class=pair><div class=opp><a href="#3.2" name="1.2">vs. 3</a></div></div><div class=record>2.0-0.0</div><div class=spread>+200 = +500</div></td><td class="win"><div class=score>400-300</div><div class=pair><div class=opp><a href="#2.3" name="1.3">vs. 2</a></div></div><div class=record>3.0-0.0</div><div class=spread>+100 = +600</div></td><td class="loss"><div class=score>-</div><div class=pair><div class=opp><a href="#2.4" name="1.4">vs. 2</a></div></div><div class=record>-</div><div class=spread>=</div></td></tr>
+<tr><td class="name">2. Kristen</td><td class="win"><div class=score>300-200</div><div class=pair><div class=opp><a href="#3.1" name="2.1">vs. 3</a></div></div><div class=record>1.0-0.0</div><div class=spread>+100 = +100</div></td><td class="win"><div class=score>300-100</div><div class=pair><div class=opp><a href="#4.2" name="2.2">vs. 4</a></div></div><div class=record>2.0-0.0</div><div class=spread>+200 = +300</div></td><td class="loss"><div class=score>300-400</div><div class=pair><div class=opp><a href="#1.3" name="2.3">vs. 1</a></div></div><div class=record>2.0-1.0</div><div class=spread>-100 = +200</div></td><td class="loss"><div class=score>-</div><div class=pair><div class=opp><a href="#1.4" name="2.4">vs. 1</a></div></div><div class=record>-</div><div class=spread>=</div></td></tr>
+<tr><td class="name">3. Chew, Jamie</td><td class="loss"><div class=score>200-300</div><div class=pair><div class=opp><a href="#2.1" name="3.1">vs. 2</a></div></div><div class=record>0.0-1.0</div><div class=spread>-100 = -100</div></td><td class="loss"><div class=score>200-400</div><div class=pair><div class=opp><a href="#1.2" name="3.2">vs. 1</a></div></div><div class=record>0.0-2.0</div><div class=spread>-200 = -300</div></td><td class="win"><div class=score>200-100</div><div class=pair><div class=opp><a href="#4.3" name="3.3">vs. 4</a></div></div><div class=record>1.0-2.0</div><div class=spread>+100 = -200</div></td><td class="loss"><div class=score>-</div><div class=pair><div class=opp><a href="#4.4" name="3.4">vs. 4</a></div></div><div class=record>-</div><div class=spread>=</div></td></tr>
+<tr><td class="name">4. Chew, Liam</td><td class="loss"><div class=score>100-400</div><div class=pair><div class=opp><a href="#1.1" name="4.1">vs. 1</a></div></div><div class=record>0.0-1.0</div><div class=spread>-300 = -300</div></td><td class="loss"><div class=score>100-300</div><div class=pair><div class=opp><a href="#2.2" name="4.2">vs. 2</a></div></div><div class=record>0.0-2.0</div><div class=spread>-200 = -500</div></td><td class="loss"><div class=score>100-200</div><div class=pair><div class=opp><a href="#3.3" name="4.3">vs. 3</a></div></div><div class=record>0.0-3.0</div><div class=spread>-100 = -600</div></td><td class="loss"><div class=score>-</div><div class=pair><div class=opp><a href="#3.4" name="4.4">vs. 3</a></div></div><div class=record>-</div><div class=spread>=</div></td></tr>
+</table>
+<p class=notice>This report was generated by <cite>tsh</cite> version 3.340.  For more information about <cite>tsh</cite>, please contact John Chew.</p></body></html>
+#beginofile html/A-enhanced-scoreboard.html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+	"http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">
+
+<html><head><title>Enhanced Scoreboard</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tsh.js"></script>
+<script type="text/javascript" src="esb.js"></script>
+<link rel="stylesheet" href="tsh.css" type="text/css">
+
+</head>
+<body class="enhanced scoreboard nsa div_A">
+<p class=backref>Back to <a href="index.html">round index</a>.</p>
+
+<table class="enhanced_scoreboard" align=center cellspacing=0>
+</table>
+<div id='ESBMessageText' class=ESBMessageClass></div>
+<div id='sb'></div>
+<script type="text/javascript">
+  KeepLoadingScoreBoard({
+    
+    'columns':3,'rows':2,
+    'id' : 'sb',
+    'message_object' : document.getElementById('ESBMessageText'),
+    'root' : window.location.href.replace(/\?.*/,'').replace(/[^//]+$/, ''),
+    'division' : 'A',
+    });
+</script>
+<table>
+</table>
+<p class=notice>This report was generated by <cite>tsh</cite> version 3.340.  For more information about <cite>tsh</cite>, please contact John Chew.</p></body></html>
+#endofile
+#endtest

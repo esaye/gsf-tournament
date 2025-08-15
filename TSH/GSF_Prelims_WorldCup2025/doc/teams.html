@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Team Play</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=here><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Team Play using <cite>tsh</cite></h1>
+<p class=subtitle>Managing team tournaments with <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+<p class=p1>
+This section discusses specific issues related to running team tournaments
+using <cite>tsh</cite> and may safely be ignored if your tournament does not
+have teams.
+</p>
+
+<h2>What is a Team Tournament?</h2>
+
+<p class=p1>
+A team tournament is one in which each player may be affiliated with a team
+for the purposes of calculating pairings and standings.
+Don&rsquo;t confuse teams with what <cite>tsh</cite> calls classes
+or prize groups, which are used solely for calculating
+<a href="config.html#prizes">prize eligibility</a>.
+</p>
+<p class=p1>
+There are two types of team tournaments, which <cite>tsh</cite> handles 
+in the same way, except that some commands will not work very well with
+one type or the other.
+In some team tournaments, such as the World Championships, you will want
+to avoid having players from the same team play each other under some
+circumstances, and you will want to report on team standings, but your
+event is otherwise essentially an individual one.
+In others, such as interclub matches, the entire pairing schedule is
+based on who is on which team, and individual results are secondary
+to team results.
+</p>
+
+<h2>Setting up a Team Tournament</h2>
+
+<p class=p1>
+To begin, you will need to manually designate who is on which team.
+You do so by adding an extension field to your 
+<a href="config.html#tfiles">&ldquo;.t&rdquo; files</a>.
+Here is a very short example.
+</p>
+<pre>
+Man, Anpan   2000 ; ; team Good
+Ojisan, Jam  1500 ; ; team Good
+Man, Baikin  2000 ; ; team Evil
+Chan, Dokin  1800 ; ; team Evil
+</pre>
+
+<p class=p1>
+In your configuration file, you may want to use the
+&ldquo;<a href="config.html#initial_exagony"><code>config initial_exagony</code></a>&rdquo; option 
+to specify that teammates do not play each other in the first rounds (as at the Worlds),
+or the
+&ldquo;<a href="config.html#exagony"><code>config exagony</code></a>&rdquo; option 
+to specify that they should never do so.
+You should probably use the
+&ldquo;<a href="config.html#show_teams"><code>config show_teams</code></a>&rdquo; option 
+to specify that team names should be displayed along with player names where appropriate.
+You may want to have a prize configuration line awarding prizes for best
+<a href="config.html#prize_totalteam">team records</a>.
+</p>
+
+<h2><a name=pairings>Team Tournament Pairings</a></h2>
+
+<p class=p1>
+Most pairing commands that pair players in a single command will respect the
+exagony configuration options.
+These include the more commonly used commands:
+&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo;,
+&ldquo;<code><a href="commands.html#koth">KOTH</a></code>&rdquo;,
+&ldquo;<code><a href="commands.html#newswiss">NewSwiss</a></code>&rdquo;
+&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+Unless otherwise indicated, commands which pair multiple rounds do not currently obey the
+exagony configuration options.
+These include the more commonly used commands:
+&ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; and
+&ldquo;<code><a href="commands.html#roundrobin">RoundRobin</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+If you want something like initial Fontes pairings, you can use automatic pairings
+to specify three rounds of quartile pairings, pairing the top quartile successively
+with the bottom, third and second quartiles.  This will differ from initial Fontes
+pairings in that the pairings in those three rounds are independent and will typically
+not consist of round-robin groups of four; they will resemble initial Fontes pairings
+in that each player will face opposition of collectively similar strength.
+</p>
+
+<p class=p1>
+The usual round robin pairings are of course incompatible with team tournaments.
+Instead, you can use the
+&ldquo;<code><a href="commands.html#teamroundrobin">TeamRoundRobin</a></code>&rdquo; command 
+to generate
+<a href="pairing.html#teamroundrobins">team round robin</a> pairings: those in which
+each player plays everyone on every other team.
+</p>
+
+<h2>Team Tournament Reports</h2>
+
+<p class=p1>
+If you use the
+&ldquo;<a href="config.html#show_teams"><code>config show_teams</code></a>&rdquo; configuration option,
+then regular report-generating commands like
+&ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; 
+will display team names where player numbers are shown after player names.
+In the example above, you might see
+&ldquo;<code>Man, Anpan (#1/Good)</code>&rdquo;.
+If you use this example, it's a good idea to keep team names
+short: if your teams are countries, you could use ISO 3166-1 alpha-3 codes.
+</p>
+<p class=p1>
+In this case, the
+&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; 
+command will also generate a separate set of team pairings, which can be
+distributed to a team coach, so that they can tell all of their team
+members where to go and whom to play.
+</p>
+<p class=p1>
+In addition to the usual <cite>tsh</cite> commands, you may wish to use the
+&ldquo;<code><a href="commands.html#teamstandings">TeamStandings</a></code>&rdquo; command 
+to report on team standings on a division by division basis, or the
+&ldquo;<code><a href="commands.html#totalteamstandings">TotalTeamStandings</a></code>&rdquo; command 
+to do so for the tournament as a whole.
+</p>
+<h2>Caveat</h2>
+
+<p class=p1>
+A large majority of events run using <cite>tsh</cite> are not team tournaments.
+Please be sure to use the 
+&ldquo;<code><a href="commands.html#dryrun">DRYRUN</a></code>&rdquo; command 
+before your event to 
+<a href="commands.html#testing">make sure</a> that <cite>tsh</cite> does what you want it to do,
+and contact John Chew well in advance of your event if you need new features added.
+</p>
+
+</body>
+</html>
+

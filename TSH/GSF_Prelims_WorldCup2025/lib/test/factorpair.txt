@@ -1,0 +1,46 @@
+#begintest factorpair
+#beginconfig
+division a a.t
+config gibson = 1
+config max_rounds = 4
+config prize_bands{'A'} = [1,2];
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+debug CBPF 0
+debug GIB 0
+debug GRT 0
+fp 2 0 0 a
+sp 1 a
+fp 1 0 0 a
+sp 2 a
+fp 1 0 0 a
+sp 3 a
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Jamie (#3).
+   2  Chew, Kristen (#2) vs. Chew, Liam (#4).
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Kristen (#2).
+   2  Chew, Jamie (#3) vs. Chew, Liam (#4).
+Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Liam (#4).
+   2  Chew, Kristen (#2) vs. Chew, Jamie (#3).
+#endstdout
+#beginstderr
+#endstderr
+#endtest

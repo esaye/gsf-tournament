@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+
+# renumber a .t file by subtracting a fixed value from all pairings
+
+use strict;
+use warnings;
+
+sub Adjust ($$);
+sub Main ();
+sub Usage ();
+
+Main;
+
+sub Adjust ($$) {
+  my $offset = shift;
+  my $opps = shift;
+  my (@opps) = split(/\s+/, $opps);
+  for my $opp (@opps) { $opp -= $offset if $opp; }
+  $opps = join(' ', @opps);
+  return $opps;
+  }
+
+sub Main () {
+  my $offset = shift @::ARGV;
+  Usage unless $offset && $offset =~ /^-?\d+$/;
+  while (<>) {
+    s/^([^;]+[^ ;\d]\s+\d+\s+)([\s\d]*);/$1 . Adjust($offset,$2) . ';'/e
+      or die "Don't know what to do with:\n$_";
+    print;
+    }
+  }
+
+sub Usage () {
+  die "Usage: $0 offset file.t\n";
+  }

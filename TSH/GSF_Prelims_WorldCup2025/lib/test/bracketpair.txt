@@ -1,0 +1,94 @@
+#begintest bracketpair
+#beginconfig
+division a a.t
+config max_rounds = 15
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+config bracket_order = 'id'
+perl srand 123
+## autopair a 0 1 ns 0 0 a
+#endconfig
+#beginifile a.t
+Player, G 1200
+Player, B 1800
+Player, I 1000
+Player, E 1500
+Player, H 1100
+Player, F 1400
+Player, D 1600
+Player, A 1900
+Player, C 1700
+Player, J 900
+Player, K 800
+Player, L 700
+Player, M 600
+#endifile
+#begincommands
+brack 3 a
+rand a a a
+brack 3 a
+q
+#endcommands
+#beginstdout
+Debug: [BRACK] 1 bye: Player, G (#1)
+Debug: [BRACK] 2 bye: Player, B (#2)
+Debug: [BRACK] 3 bye: Player, I (#3)
+Debug: [BRACK] 4-13: Player, E (#4) vs. Player, M (#13)
+Debug: [BRACK] 5-12: Player, H (#5) vs. Player, L (#12)
+Debug: [BRACK] 6-11: Player, F (#6) vs. Player, K (#11)
+Debug: [BRACK] 7-10: Player, D (#7) vs. Player, J (#10)
+Debug: [BRACK] 8-9: Player, A (#8) vs. Player, C (#9)
+Player, G (#1): 50
+Player, B (#2): 50
+Player, I (#3): 50
+Player, E (#4): 607
+Player, H (#5): 477
+Player, F (#6): 561
+Player, D (#7): 429
+Player, A (#8): 389
+Player, C (#9): 425
+Player, J (#10): 328
+Player, K (#11): 518
+Player, L (#12): 360
+Player, M (#13): 288
+Player, G (#1): 50 50
+Player, B (#2): 50 50
+Player, I (#3): 50 50
+Player, E (#4): 607 380
+Player, H (#5): 477 295
+Player, F (#6): 561 505
+Player, D (#7): 429 431
+Player, A (#8): 389 333
+Player, C (#9): 425 351
+Player, J (#10): 328 313
+Player, K (#11): 518 313
+Player, L (#12): 360 518
+Player, M (#13): 288 177
+Player, G (#1): 50 50 50
+Player, B (#2): 50 50 50
+Player, I (#3): 50 50 50
+Player, E (#4): 607 380 529
+Player, H (#5): 477 295 458
+Player, F (#6): 561 505 534
+Player, D (#7): 429 431 529
+Player, A (#8): 389 333 448
+Player, C (#9): 425 351 528
+Player, J (#10): 328 313 258
+Player, K (#11): 518 313 316
+Player, L (#12): 360 518 361
+Player, M (#13): 288 177 397
+Debug: [BRACK] 4>13: Player, E (#4) advances 3-0 +654, Player, M (#13) does not
+Debug: [BRACK] 5>12: Player, H (#5) advances 2-1 -9, Player, L (#12) does not
+Debug: [BRACK] 6>11: Player, F (#6) advances 3-0 +453, Player, K (#11) does not
+Debug: [BRACK] 7>10: Player, D (#7) advances 3-0 +490, Player, J (#10) does not
+Debug: [BRACK] 9>8: Player, C (#9) advances 3-0 +134, Player, A (#8) does not
+Debug: [BRACK] 1-8: Player, G (#1) vs. Player, C (#9)
+Debug: [BRACK] 2-7: Player, B (#2) vs. Player, D (#7)
+Debug: [BRACK] 3-6: Player, I (#3) vs. Player, F (#6)
+Debug: [BRACK] 4-5: Player, E (#4) vs. Player, H (#5)
+#endstdout
+#beginstderr
+#endstderr
+#endtest
+

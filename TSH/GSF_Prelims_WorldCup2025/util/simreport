@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+# summarize the output of simwsc
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $last = '';
+  print "dep sec rnd\n";
+  while (<>) {
+    chomp;
+    if (/(\d+) second/) {
+      my $s = $1;
+      print '   ' unless $last =~ /leaders/;
+      printf "%4d", $s;
+      }
+    elsif (/(\d+) leaders/ && $last !~ /\d+ leaders/) {
+      printf "%3d", $1;
+      }
+    elsif (/Round (\d+) Pairings/) {
+      my $r = $1;
+      printf "%4d\n", $r;
+      }
+    else { 
+      if ((/--tourney\.pl--/..0) && (/^$/..0)) {
+	s/^\s*(\d+)// || next;
+	my $n = $1;
+	next if $n > 10;
+	printf "%2d: %s\n",  $n, join(' ', (sort /(?:[WLT](\d\d\d))/g)[0..15]);
+        }
+      next; 
+      }
+    $last = $_;
+    }
+  print "\n";
+  }

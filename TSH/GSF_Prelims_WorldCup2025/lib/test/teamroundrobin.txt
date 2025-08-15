@@ -1,0 +1,159 @@
+#begintest teamroundrobin
+#beginconfig
+perl srand 127
+division a a.t
+division b b.t
+config max_rounds = 10
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 1
+## config round_robin_order = [1,2,3,4,1,2,4,3]
+#endconfig
+#beginifile a.t
+Chew, Kristen 1300 ; ; team Chew
+Chew, Jamie 500 ; ; team Chew
+Chew, John 1800 ; ; team Chew
+Chew, Liam 0 ; ; team Chew
+West, Tom 1000 ; ; team West
+West, Daniel 1100 ; ; team West
+West, Ross 800 ; ; team West
+#endifile
+#beginifile b.t
+Boo, Bee 1300 ; ; team Boo
+Boo, Cee 1200 ; ; team Boo
+Coo, Bee 1300 ; ; team Coo
+Coo, Cee 1200 ; ; team Coo
+Goo, Bee 1300 ; ; team Goo
+Goo, Cee 1200 ; ; team Goo
+Loo, Bee 1300 ; ; team Loo
+#endifile
+#begincommands
+trr 2 a
+smp 1-8 a
+trr 1 b
+smp 1-6 b
+q
+#endcommands
+#beginstdout
+Division A Round 1 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Jamie (A2): Bye.
+   1  West, Tom (A5) *first* vs. Chew, John (A3).
+   2  West, Ross (A7) *first* vs. Chew, Kristen (A1).
+   3  Chew, Liam (A4) *first* vs. West, Daniel (A6).
+Division A Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Jamie (A2): Bye.
+   1  Chew, John (A3) *first* vs. West, Tom (A5) repeat.
+   2  Chew, Kristen (A1) *first* vs. West, Ross (A7) repeat.
+   3  West, Daniel (A6) *first* vs. Chew, Liam (A4) repeat.
+Division A Round 3 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Kristen (A1): Bye.
+   1  Chew, John (A3) *first* vs. West, Ross (A7).
+   2  Chew, Jamie (A2) *first* vs. West, Daniel (A6).
+   3  West, Tom (A5) *first* vs. Chew, Liam (A4).
+Division A Round 4 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Kristen (A1): Bye.
+   1  West, Ross (A7) *first* vs. Chew, John (A3) repeat.
+   2  West, Daniel (A6) *first* vs. Chew, Jamie (A2) repeat.
+   3  Chew, Liam (A4) *first* vs. West, Tom (A5) repeat.
+Division A Round 5 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, John (A3): Bye.
+   1  Chew, Kristen (A1) *first* vs. West, Daniel (A6).
+   2  Chew, Jamie (A2) *first* vs. West, Tom (A5).
+   3  Chew, Liam (A4) *first* vs. West, Ross (A7).
+Division A Round 6 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, John (A3): Bye.
+   1  West, Daniel (A6) *first* vs. Chew, Kristen (A1) repeat.
+   2  West, Tom (A5) *first* vs. Chew, Jamie (A2) repeat.
+   3  West, Ross (A7) *first* vs. Chew, Liam (A4) repeat.
+Division A Round 7 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Liam (A4): Bye.
+   1  Chew, John (A3) *first* vs. West, Daniel (A6).
+   2  Chew, Kristen (A1) *first* vs. West, Tom (A5).
+   3  Chew, Jamie (A2) *first* vs. West, Ross (A7).
+Division A Round 8 Ranked Pairings
+
+Board Who Plays Whom
+      Chew, Liam (A4): Bye.
+   1  West, Daniel (A6) *first* vs. Chew, John (A3) repeat.
+   2  West, Tom (A5) *first* vs. Chew, Kristen (A1) repeat.
+   3  West, Ross (A7) *first* vs. Chew, Jamie (A2) repeat.
+Division A Pairings: Rounds 1-8
+
+## Player        1st 2nd R1    R2    R3    R4    R5    R6    R7    R8
+1 Chew, Kristen 0   0   7#2@2 7#1@2 Bye   Bye   6#1@1 6#2@1 5#1@2 5#2@2
+2 Chew, Jamie   0   0   Bye   Bye   6#1@2 6#2@2 5#1@2 5#2@2 7#1@3 7#2@3
+3 Chew, John    0   0   5#2@1 5#1@1 7#1@1 7#2@1 Bye   Bye   6#1@1 6#2@1
+4 Chew, Liam    0   0   6#1@3 6#2@3 5#2@3 5#1@3 7#1@3 7#2@3 Bye   Bye
+5 West, Tom     0   0   3#1@1 3#2@1 4#1@3 4#2@3 2#2@2 2#1@2 1#2@2 1#1@2
+6 West, Daniel  0   0   4#2@3 4#1@3 2#2@2 2#1@2 1#2@1 1#1@1 3#2@1 3#1@1
+7 West, Ross    0   0   1#1@2 1#2@2 3#2@1 3#1@1 4#2@3 4#1@3 2#2@3 2#1@3
+Division B Round 1 Ranked Pairings
+
+Board Who Plays Whom
+      Boo, Bee (B1): Bye.
+   1  Goo, Cee (B6) *first* vs. Coo, Bee (B3).
+   2  Boo, Cee (B2) *first* vs. Loo, Bee (B7).
+   3  Goo, Bee (B5) *first* vs. Coo, Cee (B4).
+Division B Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Boo, Cee (B2): Bye.
+   1  Coo, Bee (B3) *first* vs. Goo, Bee (B5).
+   2  Loo, Bee (B7) *first* vs. Boo, Bee (B1).
+   3  Coo, Cee (B4) *first* vs. Goo, Cee (B6).
+Division B Round 3 Ranked Pairings
+
+Board Who Plays Whom
+      Coo, Bee (B3): Bye.
+   1  Coo, Cee (B4) *first* vs. Loo, Bee (B7).
+   2  Goo, Bee (B5) *first* vs. Boo, Cee (B2).
+   3  Boo, Bee (B1) *first* vs. Goo, Cee (B6).
+Division B Round 4 Ranked Pairings
+
+Board Who Plays Whom
+      Coo, Cee (B4): Bye.
+   1  Loo, Bee (B7) *first* vs. Coo, Bee (B3).
+   2  Boo, Bee (B1) *first* vs. Goo, Bee (B5).
+   3  Goo, Cee (B6) *first* vs. Boo, Cee (B2).
+Division B Round 5 Ranked Pairings
+
+Board Who Plays Whom
+      Goo, Bee (B5): Bye.
+   1  Coo, Bee (B3) *first* vs. Boo, Cee (B2).
+   2  Loo, Bee (B7) *first* vs. Goo, Cee (B6).
+   3  Boo, Bee (B1) *first* vs. Coo, Cee (B4).
+Division B Round 6 Ranked Pairings
+
+Board Who Plays Whom
+      Goo, Cee (B6): Bye.
+   1  Coo, Bee (B3) *first* vs. Boo, Bee (B1).
+   2  Goo, Bee (B5) *first* vs. Loo, Bee (B7).
+   3  Boo, Cee (B2) *first* vs. Coo, Cee (B4).
+Division B Pairings: Rounds 1-6
+
+## Player   1st 2nd R1    R2    R3    R4    R5    R6
+1 Boo, Bee 0   0   Bye   7#2@2 6#1@3 5#1@2 4#1@3 3#2@1
+2 Boo, Cee 0   0   7#1@2 Bye   5#2@2 6#2@3 3#2@1 4#1@3
+3 Coo, Bee 0   0   6#2@1 5#1@1 Bye   7#2@1 2#1@1 1#1@1
+4 Coo, Cee 0   0   5#2@3 6#1@3 7#1@1 Bye   1#2@3 2#2@3
+5 Goo, Bee 0   0   4#1@3 3#2@1 2#1@2 1#2@2 Bye   7#1@2
+6 Goo, Cee 0   0   3#1@1 4#2@3 1#2@3 2#1@3 7#2@2 Bye
+7 Loo, Bee 0   0   2#2@2 1#1@2 4#2@1 3#1@1 6#1@2 5#2@2
+#endstdout
+#beginstderr
+#endstderr
+#endtest

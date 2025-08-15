@@ -1,0 +1,28 @@
+# 2006 MWMST
+# This example demonstrates the use of player photos
+division a a.t
+division b b.t
+division c c.t
+division d d.t
+#
+config track_firsts = 1
+config assign_firsts = 0
+# config html_directory = '/Library/WebServer/Documents/mwmst/me/';
+config html_top = q(<h2 style="text-align: center; font-family: sans-serif">2006 Michael Wise Memorial Scrabble Tournament </h2>)
+config max_rounds = 12
+# first four five matter
+config prize_bands{A} = [1,2,3,4,5]
+config prize_bands{B} = [1,2,3,4,5]
+config prize_bands{C} = [1,2,3,4,5]
+config prize_bands{D} = [1,2,3,4,5]
+# uncomment the following line to use only HTML files, no text files
+config no_text_files = 1
+# use three rounds of fixed pairings
+config initial_schedule = 3
+# session breaks after these rounds
+config session_breaks = [3,7,10,11]
+config player_photos = 1;
+config director_name = "John Chew"
+config event_date = "September 16-17, 2006"
+config event_name = "Toronto ON"
+# config rating_system = "ABSP"

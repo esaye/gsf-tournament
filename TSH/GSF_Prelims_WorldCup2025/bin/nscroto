@@ -1,0 +1,36 @@
+#!/usr/bin/perl -w
+
+# undocumented script for updating USSO 2006roto pages
+
+use strict;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $html;
+  {
+    open(my $fh, '<usso/roto.html') or die "Can't open roto: $!\n";
+    while (<$fh>) {
+      next unless /^<h1/../^<\/table/;
+      if (/td class=team/) {
+	s/, /<br>/;
+	}
+      elsif (/<th/) {
+	s/Team/Team Members/;
+	s/Owner/Team Name - Owner/;
+        }
+      $html .= $_;
+      }
+    close $fh;
+  }
+  {
+    open(my $fh, ">usso/roto2.html") or die "Can't create roto2: $!\n";
+    print $fh $html;
+    close $fh;
+  }
+# system "ftp -u ftp://nscroto\@www.waukeshascrabble.com/roto.html nsc/roto2.html" 
+  system("scp usso/html/r* jjc\@poslfit.homeip.net:/Library/WebServer/Documents/usso/2006/")==0
+    or die "system() failed: $?";
+  }

@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use lib './lib/perl';
+
+sub Check ($$$);
+sub ESystem (@);
+sub Main ();
+sub UpdateAll ();
+
+$config::remote = 'ftp://poslfit@www.poslfit.com/event/bast2007';
+$config::local_html = '/Library/WebServer/Documents/bast';
+$config::local_tsh = '2007-bast';
+
+Main;
+
+sub Check ($$$) {
+  my $flag = shift;
+  my $local = shift;
+  my $remote = shift;
+  my $localage = -M $local;
+  my $flagage = -M $flag;
+  die "Can't stat $local" unless defined $localage;
+  if ((!defined $flagage) || $flagage > $localage) {
+#   warn "fage=$flagage lage=$localage\n";
+    warn "Posting $local to $remote.\n";
+    ESystem "ftp -V -u $remote $local" or return;
+    unlink $flag;
+    open my $fh, ">$flag" or die "Can't create $flag";
+    close $fh;
+    }
+  }
+
+sub ESystem (@) {
+  my (@argv) = @_;
+  my $rv = system @argv;
+  if ($rv == -1) { die ("system(" . join(',',@argv) . ") failed: $!\n"); }
+    return $rv;
+  }
+
+sub Main () {
+  while (1) {
+    UpdateAll;
+    print "Sleeping.\n";
+    sleep 60;
+    }
+  }
+
+sub UpdateAll () {
+  mkdir "$config::local_tsh/flags";
+  # post .t files
+  opendir my $dh, $config::local_tsh or die;
+  my @files = grep { /^\w+\.t$/ } readdir($dh);
+  closedir($dh);
+  my $i = 1;
+  for my $file (sort @files) {
+    Check "$config::local_tsh/flags/$file",
+      "$config::local_tsh/$file", "$config::remote/division/$i/round.t";
+    $i++;
+    }
+  $dh = undef;
+  opendir $dh, $config::local_html or die;
+  @files = grep { !-d "$config::local_html/$_" } readdir($dh);
+  closedir($dh);
+  for my $file (@files) {
+    Check "$config::local_tsh/flags/$file",
+      "$config::local_html/$file", "$config::remote/tsh/$file";
+    }
+  }
+
+

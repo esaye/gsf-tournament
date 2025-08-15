@@ -1,0 +1,25 @@
+#begintest teamstandings
+#beginconfig
+division a a.t
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400 ; team parents
+Chew, Kristen 1300 3 4 1; 300 300 300 ; team parents
+Chew, Jamie 500   2 1 0; 200 200 50 ; team kids
+Chew, Liam 0      1 2 0; 100 100 -50 ; team kids
+Player, A 10 0 0 0 ; 50 50 50
+#endifile
+#begincommands
+ts
+q
+#endcommands
+#beginstdout
+Round 3 Teams
+
+Rnk Won-Lost Spread Mean-WL   Mean-Spr W%VsO  Team    Mean-Rk Ranks
+  1 5.0-1.0    +800 2.50-0.50  +400.0  100.00 parents   2.00  1 3
+  2 1.0-5.0    -800 0.50-2.50  -400.0    0.00 kids      4.50  4 5
+#endstdout
+#beginstderr
+#endstderr
+#endtest

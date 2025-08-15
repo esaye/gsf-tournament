@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# simulate Oshawa ON 
+
+EVENTDIR=oshawa
+DIVISION=a
+util/truncate-t 0 < $EVENTDIR/$DIVISION.t > t
+mv t $EVENTDIR/$DIVISION.t
+# perl -d:DProf ./tsh.pl > sim.$$.out << EOF
+./tsh.pl $EVENTDIR > sim.$$.out << EOF
+debug CP 1
+sp 1 $DIVISION
+sp 2 $DIVISION
+sp 3 $DIVISION
+rand $DIVISION $DIVISION $DIVISION
+sp 4 $DIVISION
+sp 5 $DIVISION
+rand $DIVISION $DIVISION
+sp 6 $DIVISION
+rand $DIVISION
+sp 7 $DIVISION
+rand $DIVISION
+sp 8 $DIVISION
+sp 9 $DIVISION
+rand $DIVISION $DIVISION
+sp 10 $DIVISION
+rand $DIVISION
+sp 11 $DIVISION
+rand $DIVISION
+sp 12 $DIVISION
+EOF
+echo '--tourney.pl--' >> sim.$$.out
+tourney.pl -w 1000 $EVENTDIR/$DIVISION.t >> sim.$$.out
+# util/simreport sim.$$.out

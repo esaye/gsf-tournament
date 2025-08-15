@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Commands</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=here><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1><cite>tsh</cite> Commands</h1>
+<p class=subtitle>The basics of how to operate <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p> 
+
+<h2>How to Enter Commands</h2>
+
+<p class=p1>
+<cite>tsh</cite> is a <em>command shell</em>.  If you&rsquo;re familiar with
+using shells such as any Unix shell, <cite>OS/X Terminal</cite>
+or even DOS, you can skip this paragraph.
+A command shell is a no-frills way of interacting with a computer.
+In a large window, the computer displays a <em>prompt</em>,
+inviting you to type in a command that the computer understands. 
+When you do so and then press the &ldquo;return&rdquo; key
+(analogous to hitting your clock in Scrabble),
+the computer takes some action based on what you&rsquo;ve
+entered, then prompts you for your next command.
+Sometimes your command is <em>modal</em>, causing the computer to
+prompt for and
+expect a different set of commands until the mode is complete.
+</p>
+<p class=p1>Pay attention to the changing prompts, which indicate what information
+<cite>tsh</cite> needs.  
+Don&rsquo;t forget to press the &ldquo;return&rdquo; key to confirm each command.
+</p>
+<p class=p1>If you make a mistake and want to correct a previous command,
+or if you just want to repeat it, you may (depending on your system
+configuration) be able to <i>scroll back</i> by using the arrow keys
+on your keyboard.  If pressing the arrow keys instead adds garbage to
+your screen, you can&rsquo;t, but might consider installing the appropriate
+<code>Term::ReadLine</code> module that got left out of your Perl
+distribution (for OS/X users it's Term::ReadLine::Perl).
+</p>
+<p class=p1>
+If you want to enter more than one command on a line, separate them with
+semicolons.  Each one will be executed in turn before you are returned
+to the main prompt.
+</p>
+
+<h2>The Most Important Commands</h2>
+
+<p class=p1>
+The most important commands to remember are
+&ldquo;<code>quit</code>&rdquo;,  
+&ldquo;<code>help</code>&rdquo;
+and
+&ldquo;<code>huh</code>&rdquo;.
+</p>
+
+<h3><a name=quit>Quit</a></h3>
+<p class=p1>
+The 
+&ldquo;<code>quit</code>&rdquo;
+command makes <cite>tsh</cite> stop running.
+</p>
+
+<h3><a name=help>HELP</a></h3>
+<p class=p1>
+If you&rsquo;re not sure how to use a command, then try typing
+&ldquo;<code>help the-name-of-the-command</code>&rdquo;.
+Here&rsquo;s an example, showing what one version of <cite>tsh</cite>
+shows when you enter &ldquo;<code>help help</code>&rdquo;:
+</p>
+<pre>
+Usage: help topic
+
+Use this command to view built-in documentation.  For fuller details, please
+consult the HTML reference manual.  Enter &ldquo;help index&rdquo; to see a list of
+available commands, and &ldquo;help&rdquo; followed by a command name to find out more
+about that command. 
+</pre>
+
+<p class=p1>
+The first line tells you that when you use the 
+&ldquo;<code>help</code>&rdquo;
+command you are expected to enter a <i>topic</i> after the word
+&ldquo;help&rdquo; so that <cite>tsh</cite> will know what you are
+asking for help about.
+Most commands require some supplementary information (called arguments)
+such as a division name, round number or player number.
+</p>
+
+<p class=p1>
+The <a name=documentation>DOCumentation</a> command opens a web browser
+to this reference documentation.  If you enter 
+&ldquo;<code>doc</code>&rdquo;, a window should appear displaying
+this manual&rsquo;s introductory page.
+</p>
+
+<h3><a name=huh>HUH</a></h3>
+
+<p class=p1>
+If you&rsquo;re not sure what a message means, and it has a code in 
+[square brackets] after it, enter
+&ldquo;<code>huh the-message-code</code>&rdquo;.
+Again, messages are documented in this way, and soon all of them will be.
+If you enter
+&ldquo;<code>huh</code>&rdquo;
+on its own, the last message you saw will be explained.
+To take a mostly random example, if you saw the message
+&ldquo;<code>If you are sure you want to pair Round 12 based on Round 10,
+please specify config session_breaks. [eacpnsb]</code>&rdquo;
+you might want to know more and enter 
+&ldquo;<code>huh eacpnsb</code>&rdquo;.
+You would then see the message:
+</p>
+
+<pre>
+[eacpnsb] It looks like you are relying on the default Chew pairing system, but
+the program is not sure whether you wanted to compute pairings for the upcoming
+round based on the first or second preceding round.  You can resolve the
+ambiguity by setting a value for the configuration variable 'session_breaks' in
+your configuration file. 
+</pre>
+
+<p class=p1>
+This tries to explain the original, brief message.
+If neither the detailed explanation nor the related documentation is clear
+to you, please ask John to provide further clarification.
+</p>
+
+<h2><cite>tsh</cite> Command Reference</h2>
+<p class=p1>
+All currently 
+available <cite>tsh</cite> commands
+are listed below in tables for reference, 
+grouped by function.
+Most users will not use most of these commands.
+Each command has a name which verbosely describes its purpose, 
+but which can be abbreviated to the portion shown in capital letters
+as shown in its example.
+Most commands must be followed (on the same line, before pressing
+&ldquo;return&rdquo;) by one or more <em>arguments</em>.
+These arguments are represented in examples by names, which must be
+replaced by actual values.  
+If you don&rsquo;t enter correct arguments, <cite>tsh</cite> will tell you
+what the correct ones should be, and where it stopped understanding
+what you were typing.
+Within modal commands, the syntax of what you are supposed to type
+varies, but is usually shown in the prompt.
+</p>
+<p class=p1>
+To take one case, the example for the &ldquo;<code><a href="commands.html#roundstandings">RoundStandings</a></code>&rdquo;
+command, which displays standings in a division as of a specified
+round, reads <code>rs r d</code>.
+This means that &ldquo;<code>RoundStandings</code>&rdquo; can be abbreviated to its
+capitalised letters &ldquo;<code>rs</code>&rdquo;, and that it must be followed by
+a round number and a division name.
+You would enter &ldquo;<code>rs 5 b</code>&rdquo; and press the &ldquo;return&rdquo;
+key to ask for Division B standings as of Round 5.
+If you have only one division in your tournament, you may omit
+division names as arguments to commands.
+In the preceding example, you would just enter &ldquo;<code>rs 5</code>&rdquo;.
+</p>
+<p class=p1>
+If you can&rsquo;t remember a player number,
+you may enter enough of the player&rsquo;s
+last and/or first names to unambiguously identify them, joined by a comma.
+For example, if &ldquo;<code>Chew, John</code>&rdquo; is the only player
+who has &ldquo;<code>HEW</code>&rdquo; in their last name, then you can see his
+scorecard by typing 
+&ldquo;<code>sc hew,</code>&rdquo;.
+The comma is optional if you include at least two letters from one of the
+player&rsquo;s names.
+As of the current release, this is not consistently implemented in
+modal commands such as the
+&ldquo;<code>Addscore</code>&rdquo; command,
+where the comma is not optional.
+</p>
+
+<h3>Data Entry Commands</h3>
+<p class=p1>
+The following commands are used for 
+<a href="entry.html">entering tournament results</a>, 
+as well as checking and correcting them:
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=addprovisionalscore>AddProvisionalScore</a></td><td class=usage>aps pn1 ps1 pn2 ps2 r d</td><td class=description>Add a provisional score of <code>ps1-ps2</code> to the record of player <code>pn1</code> in Round <code>r</code> in Division <code>d</code> if they played player <code>pn2</code>. If player <code>pn2</code> had already entered a matching score, upgrade it to a regularly entered score. Used in <a href="entry.html#web">NASPA SPC QR code data entry</a>.</td></tr>
+  <tr><td class=name><a name=addscore>Addscore</a></td><td class=usage>a r d</td><td class=description>Begin entering new game scores for round <code>r</code>, division <code>d</code>. This command is <em>modal</em>, and keeps prompting for scores until you press &ldquo;return&rdquo; on a line without scores.</td></tr>
+  <tr><td class=name><a name=checkroundscores href="reports.html#checkroundscores">CheckRoundScores</a></td><td class=usage>crs r d</td><td class=description>List all entered scores for round <code>r</code>, division <code>d</code>, to facilitate checking of data entry.</td></tr>
+  <tr><td class=name><a name="confirmunconfirmedscores">ConfirmUnconfirmedScores</a></td><td class=usage>cus r d</td><td class=description>Confirm all unconfirmed <a href="#addprovisionalscore">provisional scores</a> in round <code>r</code> in division <code>d</code>, keeping a record of the action in a file called <code>autoconfirm.txt</code>.
+  <tr><td class=name><a name="deletescore">DELETEscore</a></td><td class=usage>delete p1 s1 p2 s2 r d</td><td class=description>Delete the previously entered scores <code>s1</code> for player <code>p1</code> and <code>s2</code> for player <code>p2</code> in round <code>r</code> division <code>d</code>.  To delete a forfeit or bye, enter the spread as <code>s1</code> and 0 for <code>p2</code> and <code>s2</code>. This syntax is intentionally verbose to discourage the use of this command.</td></tr>
+  <tr><td class=name><a name="editscore">EditScore</a></td><td class=usage>es d p r</td><td class=description>Begin editing previously entered game scores, starting with player <code>p</code> in round <code>r</code>, division <code>d</code>. This command is <em>modal</em> and fully documented in the <a href="entry.html#es">data entry section</a>. </td></tr>
+  <tr><td class=name><a name="fix">FIX</a></td><td class=usage>fix d p</td><td class=description>(Experimental) Begin graphically editing previously entered game scores for player <code>p</code> in division <code>d</code>.</td></tr>
+  <tr><td class=name><a name="forfeitloss">ForfeitLOSS</a></td><td class=usage>floss d pn r spr</td><td class=description>Delete any previous pairings for player <code>pn</code> in division <code>d</code> for round <code>r</code> and instead assign them a <a href="trouble.html#forfeit">forfeit</a> loss with a spread of <code>spr</code>. If the spread is omitted, use a default value</td></tr>
+  <tr><td class=name><a name=missing href="entry.html#missing">MISSING</a></td><td class=usage>missing r div</td><td class=description>List all players in division <code>div</code> whose round <code>r</code> scores have not yet been entered. If <code>div</code> is omitted, all divisions are included.</td></tr>
+  <tr><td class=name><a name=showscorecard>showScoreCard</a></td><td class=usage>sc d p</td><td class=description>Show the correct scorecard for player <code>p</code> in division <code>d</code>, for checking.</td></tr>
+</table>
+
+<h3>Roster Management Commands</h3>
+<p class=p1>
+The following commands are used for managing player rosters.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=addplayer>ADdPlayer</a></td><td class=usage>adp d p name [rating]</td><td class=description>Add player named <code>name</code> as #<code>p</code> ind division <code>d</code> with optional rating. Will refuse if it unsafe to do so, in which case you may have to quit TSH and <a href="trouble.html">manually edit</a> a &ldquo;.t&rdquo; file.</td></tr>
+  <tr><td class=name><a name=moveplayer>MoVePlayer</a></td><td class=usage>mvp fromd fromp [tod] [top]</td><td class=description>Move player <code>fromp</code> from division <code>fromd</code> to being player <code>top</code> in division <code>tod</code>. <code>top</code> defaults to the bottom of a division; <code>tod</code> defaults to <code>fromd</code>. Will refuse if it unsafe to do so, in which case you may have to quit TSH and <a href="trouble.html">manually edit</a> a &ldquo;.t&rdquo; file.</td></tr>
+  <tr><td class=name><a name=removeplayer>ReMovePlayer</a></td><td class=usage>rmp d p</td><td class=description>Remove player <code>p</code> from division <code>d</code>. Will refuse if it unsafe to do so, in which case you may have to quit TSH and <a href="trouble.html">manually edit</a> a &ldquo;.t&rdquo; file.</td></tr>
+  <tr><td class=name><a name=rosters href="reports.html#rosters">ROSTERS</a></td><td class=usage>rosters</td><td class=description>List all players, with their player numbers and ratings.</td></tr>
+</table>
+
+<h3><a name=reports>Report Generation Commands</a></h3>
+<p class=p1>
+The following commands generate <a href="reports.html">reports</a>
+based on tournament results.
+You can use the 
+&ldquo;<code><a href="#browse">Browse</a></code>&rdquo; command to
+open your web browser to an index page showing what reports you
+have generated so far.
+The
+&ldquo;<code><a href="#browselast">BrowseLast</a></code>&rdquo; command 
+opens your web browser to the most recent report that you requested,
+so that you can easily print it.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=abspgrid href="reports.html#abspgrid">ABSPgrid</a></td><td class=usage>absp [d...]</td><td class=description>Shows a <a href="reports.html#abspgrid">results grid</a> suitable for submission for ABSP ratings. Omit divisions unless you only want to submit results from some division.</td></tr>
+  <tr><td class=name><a name=aupair href="reports.html#aupair">AUPAIR</a></td><td class=usage>aupair d</td><td class=description>Creates a .TOU file named for the division, containing ratings input information in AUPAIR.EXE format.</td></tr>
+  <tr><td class=name><a name=averageopponentscores href="reports.html#averageopponentscores">AverageOpponentScores</a></td><td class=usage>aos div</td><td class=description>List average opponent scores for all players in a division.</td></tr>
+  <tr><td class=name><a name=averages href="reports.html#averages">AVErages</a></td><td class=usage>ave div</td><td class=description>List average scores for all players in a division.</td></tr>
+  <tr><td class=name><a name=commentary href="reports.html#commentary">COMMentary</a></td><td class=usage>comm r div</td><td class=description>Generate a commentary report describing exceptional achievements in a round in a division.</td></tr>
+  <tr><td class=name><a name=enhancedscoreboard href="reports.html#enhancedscoreboard">EnhancedScoreBoard</a></td><td class=usage>esb d</td><td class=description>Create an HTML-only scoreboard that uses AJAX technology to dynamically display division <code>d</code>. </td></tr>
+  <tr><td class=name><a name=highcombined href="reports.html#highcombined">HighCombined</a></td><td class=usage>hc n div</td><td class=description>List top n high combined scores (of both players in a game) in a division.</td></tr>
+  <tr><td class=name><a name=highloss href="reports.html#highloss">HighLoss</a></td><td class=usage>hl n div</td><td class=description>List top n high losing scores in a division.</td></tr>
+  <tr><td class=name><a name=highratingchanges href="reports.html#highratingchanges">HighRatingChanges</a></td><td class=usage>hrc div</td><td class=description>List the players whose ratings have increased by the most in a division.</td></tr>
+  <tr><td class=name><a name=highroundlosses href="reports.html#highroundlosses">HighRoundLosses</a></td><td class=usage>hrl r1-r2 div</td><td class=description>List the high losing score in each round in a range of rounds in a division.</td></tr>
+  <tr><td class=name><a name=highroundwins href="reports.html#highroundwins">HighRoundWins</a></td><td class=usage>hrl r1-r2 div</td><td class=description>List the high winning score in each round in a range of rounds in a division.</td></tr>
+  <tr><td class=name><a name=highspread href="reports.html#highspread">HighSpread</a></td><td class=usage>hs n div</td><td class=description>List top n high spreads (winning margins) in a division.</td></tr>
+  <tr><td class=name><a name=highwin href="reports.html#highwin">HighWin</a></td><td class=usage>hw n div</td><td class=description>List top n high winning scores in a division.</td></tr>
+  <tr><td class=name><a name=lowcombined href="reports.html#lowcombined">LowCombined</a></td><td class=usage>lc n div</td><td class=description>List top n low combined scores (of both players in a game) in a division.</td></tr>
+  <tr><td class=name><a name=lowloss href="reports.html#lowloss">LowLoss</a></td><td class=usage>ll n div</td><td class=description>List bottom n low losing scores in a division.</td></tr>
+  <tr><td class=name><a name=lowspread href="reports.html#lowspread">LowSpread</a></td><td class=usage>ls n div</td><td class=description>List top n low spreads (winning margins) in a division.</td></tr>
+  <tr><td class=name><a name=lowwin href="reports.html#lowwin">LowWin</a></td><td class=usage>lw n div</td><td class=description>List bottom n low winning scores in a division.</td></tr>
+  <tr><td class=name><a name=luckystiff href="reports.html#luckystiff">luckySTIFF</a></td><td class=usage>stiff n div</td><td class=description>List players according to the total of their n closest wins, the opposite of a TUFFluck prize.</td></tr>
+  <tr><td class=name><a name=performanceratings>PerformanceRATings</a></td><td class=usage>prat d</td><td class=description>Show current division standings (with performance ratings estimates) for division <code>d</code>. See the &ldquo;<code><a href="config.html#rating_system">config rating_system</a></code>&rdquo; option.</td></tr>
+  <tr><td class=name><a name=playingrecord href="reports.html#playingrecord">PlayingRECord</a></td><td class=usage>prec d</td><td class=description>List the win/loss/tie/etc. outcome of each game for each player.</td>
+  <tr><td class=name><a name=prizes href="reports.html#prizes">PRiZes</a></td><td class=usage>prizes d</td><td class=description>List all prizes to be awarded, based on current division standings, in a report file and in the form of a slideshow.</td>
+  <tr><td class=name><a name=ratings>RATings</a></td><td class=usage>rat d</td><td class=description>Show current division standings (with ratings estimates) for division <code>d</code>. See the &ldquo;<code><a href="config.html#rating_system">config rating_system</a></code>&rdquo; option.</td></tr>
+  <tr><td class=name><a name=resultsbyround>ResultsByRound</a></td><td class=usage>rbr r1-r2 d</td><td class=description>Rank players in division <code>d</code> based only on rounds <code>r1</code> through <code>r2</code>, typically to compute &ldquo;best results, day n&rdquo; prizes.</td></tr>
+  <tr><td class=name><a name=roto>ROTO</a></td><td class=usage>roto r</td><td class=description>List rotisserie standings as of round r (if omitted, the current round).</td></tr>
+  <tr><td class=name><a name=roundclassratings>RoundClassRATings</a></td><td class=usage>rcrat r1-r2 d</td><td class=description>Show standings with ratings estimates for division <code>d</code> as of round <code>r2</code>, and refresh report files for rounds <code>r1</code> through <code>r2-1</code>, grouping players by <a href="config.html#class">class</a>. The &ldquo;<code>r1-</code>&rdquo; is optional.</td></tr>
+  <tr><td class=name><a name=roundhandicap>RoundHandiCap</a></td><td class=usage>rhc r1-r2 d</td><td class=description>Show Thai handicaps in rounds <code>r1&ndash;r2</code> for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=roundperformanceratings>RoundPerformanceRATings</a></td><td class=usage>rprat r1-r2 d</td><td class=description>Show standings with performance ratings estimates for division <code>d</code> as of round <code>r2</code>, and refresh report files for rounds <code>r1</code> through <code>r2-1</code>. The &ldquo;<code>r1-</code>&rdquo; is optional.</td></tr>
+  <tr><td class=name><a name=roundratings>RoundRATings</a></td><td class=usage>rrat r1-r2 d [r]</td><td class=description>Show standings with ratings estimates for division <code>d</code> as of round <code>r2</code>, and refresh report files for rounds <code>r1</code> through <code>r2-1</code>. The &ldquo;<code>r1-</code>&rdquo; is optional.  A round may be specified to indicate pairing bars should apply to a round other than the latest for which pairings exist.</td></tr>
+  <tr><td class=name><a name=roundstandings>RoundStandings</a></td><td class=usage>rs r d</td><td class=description>Show standings for division <code>d</code> as of round <code>r</code>.</td></tr>
+  <tr><td class=name><a name=roundteamstandings href="reports.html#roundteamstandings">RoundTeamStandings</a></td><td class=usage>rts r d</td><td class=description>Show team standings as of round <code>r</code> for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=savejson>saveJSON</a></td><td class=usage>json d</td><td class=description>Used internally to store the state of a division on a web server, in a form usable by the &ldquo;<code><a href="#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command. Often used with the &ldquo;<code><a href="config.html#hook_addscore_flush">hook_addscore_flush</a></code>&rdquo; and &ldquo;<code><a href="config.html#hook_autopair">hook_autopair</a></code>&rdquo; options.</td></tr>
+  <tr><td class=name><a name=scoreboard href="reports.html#scoreboard">ScoreBoard</a></td><td class=usage>sb d rk1 rkn size cols secs</td><td class=description>Create an HTML-only scoreboard showing what is going on in division <code>d</code> between ranks <code>rk1</code> and <code>rkn</code> with player photos (where available) scaled to <code>size</code> pixels wide in <code>cols</code> columns refreshed automatically every <code>secs</code>seconds. Often used with the &ldquo;<code><a href="config.html#hook_addscore_flush">hook_addscore_flush</a></code>&rdquo; and &ldquo;<code><a href="config.html#hook_autopair">hook_autopair</a></code>&rdquo; options.</td></tr>
+  <tr><td class=name><a name=show12>SHOW12</a></td><td class=usage>show12 d</td><td class=description>List firsts and seconds for all players in a division.</td></tr>
+  <tr><td class=name><a name=showdivisionscorecards>ShowDivisionScoreCards</a></td><td class=usage>sdsc d</td><td class=description>Generate in HTML form the scorecards for every player in division <code>d</code>, for printing and distribution at the beginning of the tournament.</td></tr>
+  <tr><td class=name><a name=showdivisionscorecards2>ShowDivisionScoreCards2</a></td><td class=usage>sdsc2 d</td><td class=description>Generate in HTML form the scorecards for every player in division <code>d</code>, for printing and distribution at the beginning of the tournament, in a two page per sheet imposition.</td></tr>
+  <tr><td class=name><a name=showmanypairings>ShowManyPairings</a></td><td class=usage>smp r1-r2 d</td><td class=description>Show pairings for rounds <code>r1-r2</code>, division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=shownextpairings>ShowNextPairings</a></td><td class=usage>sp d</td><td class=description>Create an HTML report of <a href="reports.html#showpairings">pairings</a> for the "next" round in the specified division, where "next" is the round following the lastest one for which scores have been entered, or round 1 if none.  A single-round report of pairings for this round must already have been generated using <code>ShowPairings</code>.  This command is intended to be used in conjunction with <a href="config.html#pairings_refresh"><code>config pairings_refresh</code></a> and <a href="config.html#hook_division_update"><code>config hook_division_update</code></a> to provide an automatically-updating pairings display.</td></tr>
+  <tr><td class=name><a name=showpairings>ShowPairings</a></td><td class=usage>sp r d</td><td class=description>Show <a href="reports.html#showpairings">pairings</a> for round <code>r</code>, division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=standings>STandings</a></td><td class=usage>st d [r]</td><td class=description>Show current standings for division <code>d</code>.</td>  A round may be specified to indicate pairing bars should apply to a round other than the latest for which pairings exist.</tr>
+  <tr><td class=name><a name=showrankedwallchart>showRankedWallChart</a></td><td class=usage>rwc d</td><td class=description>Show ranked wall chart for division <code>d</code>, as a summary of the entire tournament state.</td></tr>
+  <tr><td class=name><a name=showwallchart>showWallChart</a></td><td class=usage>wc d</td><td class=description>Show correct wall chart for division <code>d</code>, to check against the physical chart.</td></tr>
+  <tr><td class=name><a name=spitroast href="reports.html#spitroast">SPITroast</a></td><td class=usage>spit r d</td><td class=description>List UK rotisserie standings for division d as of round r.</td></tr>
+  <tr><td class=name><a name=statistics href="reports.html#statistics">STATisticS</a></td><td class=usage>stats</td><td class=description>Report on summary statistics for a tournament.</td></tr>
+  <tr><td class=name><a name=teamstandings href="reports.html#teamstandings">TeamStandings</a></td><td class=usage>ts d</td><td class=description>Show current team standings for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=totalscore href="reports.html#totalscore">TOTalScore</a></td><td class=usage>tots div</td><td class=description>List players ranked according to the total number of points each has scored.</td></tr>
+  <tr><td class=name><a name=totalteamstandings href="reports.html#totalteamstandings">TotalTeamStandings</a></td><td class=usage>tts</td><td class=description>Show current total team standings across all divisions.</td></tr>
+  <tr><td class=name><a name=tuffluck href="reports.html#tuffluck">TUFFluck</a></td><td class=usage>tuff n div</td><td class=description>List players according to the total of their n closest losses, for the NSA&rsquo;s &ldquo;Tuff Luck&rdquo; prize.</td></tr>
+  <tr><td class=name><a name=upsets>UPSETs</a></td><td class=usage>upset d</td><td class=description>Show ratings upsets for division <code>d</code>.</td></tr>
+</table>
+
+<h3><a name=pairing>Pairing Commands</a></h3>
+<p class=p1>
+The following commands are used mainly for 
+<a href="config.html#manual_pairings">manually pairing</a> rounds.
+You will need to know about them if you are 
+<a href="config.html">configuring</a> <cite>tsh</cite>
+before a tournament,
+or if you encounter an unexpected 
+pairing situation and want
+to override <a href="config.html#automatic_pairings">automatic pairings</a>.
+See the section on 
+<a href="pairing.html#systems">pairing theory</a>
+for more detailed information about pairing systems.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=assignteamssnaked>AssignTeamsSnaked</a></td><td class=usage>ats r n d</td><td class=description>Assign players to <a href="teams.html">teams</a>, usually so that you can then avoid pairing them with each other in early rounds using the &ldquo;<code><a href="config.html#exagony">exagony</a></code>&rdquo; configuration option. You might instead want to use the <a href="#teamroundrobin">TeamRoundRobin</a> or <a href="#teammultipleroundrobin">TeamMultipleRoundRobin</a> commands to have each player play players on other teams. The <code>n</code> teams will be called &lsquo;GrpA&rsquo;, &lsquo;GrpB&rsquo;, &lsquo;GrpC&rsquo;, ... in snaked (boustrophedonic) order (i.e., the top <code>n</code> players in division <code>d</code> as of round <code>r</code> (0 for pre-event seedings) are assigned to teams in order, the next <code>n</code> in reverse order, then forward again, etc.).</td></tr>
+  <tr><td class=name><a name=basdfinal>BASDFinal</a></td><td class=usage>basdf r d</td><td class=description>Add Round <code>r</code> of <a href="pairing.html#basd">BASD final pairings</a> to division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=basdsemi>BASDSemi</a></td><td class=usage>basds d</td><td class=description>Add three rounds of <a href="pairing.html#basd">BASD semifinal pairings</a> to division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=bracketpair>BRACKetpair</a></td><td class=usage>brack n d</td><td class=description>Set up pairings for <a href="pairing.html#bracket">single-elimination</a> with <code>n</code> repeated pairings in each stage for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=byeall>ByeALL</a></td><td class=usage>ball r d</td><td class=description>Assign byes to all players who are unpaired in round <code>r</code> in division <code>d</code>; used in pairing events where most players are not active in most rounds.</td></tr>
+  <tr><td class=name><a name=cambridgepair>CAMbridgePair</a></td><td class=usage>camp d</td><td class=description>Set up seven-round pairings as used in Cambridge ON for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=chewpair>ChewPair</a></td><td class=usage>cp sr d</td><td class=description>Set up <a href="pairing.html#chew">Chew Pairings</a> in division <code>d</code> based on round <code>sr</code> standings.</td></tr>
+  <tr><td class=name><a name=doubleelimination>DoubleElimination</a></td><td class=usage>de d</td><td class=description>Set up <a href="pairing.html#de">double elimination pairings</a> in division <code>d</code> based on current standings.</td></tr>
+  <tr><td class=name><a name=factorpair href="pairing.html#factored">FactorPair</a></td><td class=usage>fp rd rpt sr d</td><td class=description>Pair players permitting rpt repeats based on sr standings in division d, optimally matching players whose ranks differ by rd.</td></tr>
+  <tr><td class=name><a name=green>GREEN</a></td><td class=usage>green d</td><td class=description>Set up pairings as used by John Green for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=guelph>GUELPH</a></td><td class=usage>guelph d</td><td class=description>Set up pairings as used in Guelph ON CAN for division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=initfontes>InitFontes</a></td><td class=usage>if nr d</td><td class=description>Set up fixed pairings for <code>nr</code> rounds (typically 3) in division <code>d</code> to give later Fontes pairings a place to start.  Players are randomly chosen from quartiles and paired in round-robin quads.</td></tr>
+  <tr><td class=name><a name=koth>KOTH</a></td><td class=usage>koth rpt sr d</td><td class=description>Add <a href="pairing.html#koth">king-of-the-hill</a> pairings allowing <code>rpt</code> repeats (0 for none, 1 for simple repeats, 2 for threepeats), based on round <code>sr</code> standings in division <code>d</code>. To restrict the number of repeats after a certain round, e.g., KOTH pairings based on round 10 standings with no repeats after round 8, use <code>koth 0&gt;8 10 a</code>. If a classname is specified in braces after the division (&ldquo;<code>d{class}</code>&rdquo;), then only players in that class will be paired.</td></tr>
+  <tr><td class=name><a name=lowerroundrobins>LowerRoundRobins</a></td><td class=usage>lrr rk rds d</td><td class=description>Add <code>rds</code> rounds of <a href="pairing.html#lowerroundrobins">round robin groups</a> pairings to division <code>d</code> starting at rank <code>rk</code>, allowing any number of repeats.</td></tr>
+  <tr><td class=name><a name=nast>NAST</a></td><td class=usage>nast d</td><td class=description>Add 4 or 5 rounds of fixed <a href="pairing.html#nast">NAST pairings</a>.</td></tr>
+  <tr><td class=name><a name=newswiss>NewSwiss</a></td><td class=usage>ns rpt sr d</td><td class=description>Add a round of Swiss pairings. See KOTH above for descriptions of arguments.</td></tr>
+  <tr><td class=name><a name=pair>PAIR</a></td><td class=usage>pair p1 p2 r d</td><td class=description>Manually pair players <code>p1</code> and <code>p2</code> in round <code>r</code>, division <code>d</code>. Use &ldquo;<code>0</code>&rdquo; as the player number of the opponent of a player with no opponent.</td></tr>
+  <tr><td class=name><a name=pair1324>Pair1324</a></td><td class=usage>p1324 rpt sr d</td><td class=description>Pair 1&ndash;3, 2&ndash;4, 5&ndash;7, 6&ndash;8, and so on, i.e., factored pairings with factor two. Some people call it QOTH or Queen-of-the-Hill pairings. See KOTH above for descriptions of arguments.</td></tr>
+  <tr><td class=name><a name=pairmany>PairMany</a></td><td class=usage>pm r d</td><td class=description>Begin manually pairing a large number of players in round <code>r</code>, division <code>d</code>. This command does not assign firsts, use <code><a href="#pairmany12">PairMany12</a></code> if you need to specify the order of play.  This command is <em>modal</em>.</td></tr>
+  <tr><td class=name><a name=pairmany12>PairMany12</a></td><td class=usage>pm12 r d</td><td class=description>Begin manually pairing a large number of players in round <code>r</code>, division <code>d</code>. If you are tracking firsts and seconds, the first player entered goes first. This command is <em>modal</em>.</td></tr>
+  <tr><td class=name><a name=pairquartiles>PairQuartiles</a></td><td class=usage>pq q rpt r d</td><td class=description>Pair the top quartile at random against quartile <code>q</code>, based on round <code>r</code>, with at most <code>rpt</code> repeats, in division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=randompair>RandomPair</a></td><td class=usage>rp rpt sr d</td><td class=description>Add a round of random pairings to a division. If a classname is specified in braces after the division (&ldquo;<code>d{class}</code>&rdquo;), then only players in that class will be paired.</td></tr>
+  <tr><td class=name><a name=roundrobin>RoundRobin</a></td><td class=usage>rr n d</td><td class=description>Add a full round robin to a division. If n is specified, it is the number of times each player should play each opponent consecutively; n defaults to the value 1.</td></tr>
+  <tr><td class=name><a name=teamroundrobin href="pairing.html#teamroundrobins">TeamRoundRobin</a></td><td class=usage>trr n d</td><td class=description>Pair each player in division <code>d</code> with every player on every other team.  If <code>n</code> is specified, have them play each other <code>n</code> times in succession. <cite>tsh</cite> will use a fixed algorithm to schedule players; you can shuffle this by specifying an order other than &ldquo;1,2,3,...,2t&rdquo; for the value of the &ldquo;<a href="config.html#round_robin_order"><code>config round_robin_order</code></a>&rdquo; configuration option.</td></tr>
+  <tr><td class=name><a name=teammultipleroundrobin href="pairing.html#teamroundrobins">TeamMultipleRoundRobin</a></td><td class=usage>tmrr rpt n d</td><td class=description>Divide each team in division <code>d</code> into squads by standing as of round <code>n</code>, then pair each player with every player in the corresponding squad of every other team, in a round robin schedule that runs for <code>n</code> rounds. You should normally do this when the last paired round is fully paired; if it is partially paired, only the unpaired players will be involved in the team multiple round robins.</td></tr>
+  <tr><td class=name><a name=unpairplayer>UnPairPlayer</a></td><td class=usage>upp p r d</td><td class=description>Unpair player <code>p</code> in round <code>r</code> in division <code>d</code>. Only the last round&rsquo;s pairings may be deleted, and only if no scores have been entered. Use <a href="#deletescore"><code>DELETEscore</code></a> to delete scores, or <a href="trouble.html#editt">edit the &ldquo;.t&rdquo; files</a> directly.</td></tr>
+  <tr><td class=name><a name=unpairround>UnPairRound</a></td><td class=usage>upr r d</td><td class=description>Delete all round <code>r</code> pairings from division <code>d</code>. Only the last round&rsquo;s pairings may be deleted, and only if no scores have been entered. Use <a href="#deletescore"><code>DELETEscore</code></a> to delete scores, or <a href="trouble.html#editt">edit the &ldquo;.t&rdquo; files</a> directly.</td></tr>
+</table>
+
+<p class=p1>
+The following pairing commands are deprecated, but are listed in case
+there is anyone who is still using them.  
+All of these commands have been replaced by improved commands as indicated.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name>BYE</td><td class=usage>bye p s r d</td><td class=description>Deprecated: use <code>PAIR</code> and <code>Addscore</code> instead.</td></tr>
+  <tr><td class=name>PrePreSwiss</td><td class=usage>ppsw rpt p1 p2 d</td><td class=description>Deprecated: use <code>NewSwiss</code> instead.</td></tr>
+  <tr><td class=name>PRESWiss</td><td class=usage>ppsw rpt p1 p2 d</td><td class=description>Deprecated: use <code>NewSwiss</code> instead.</td></tr>
+  <tr><td class=name><a name=swiss>SWiss</a></td><td class=usage>sw rpt sr d</td><td class=description>Deprecated: use <code>NewSwiss</code> instead.</td></tr>
+</table>
+
+<h3><a name=testing>Testing Commands</a></h3>
+
+<p class=p1>
+The following commands are used mostly for testing your <cite>tsh</cite>
+configuration before your tournament begins.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=debug>DEBUG</a></td><td class=usage>debug code level</td><td class=description>Turns debugging for sections labelled with  <code>code</code> on if <code>level</code> is 1 or off if 0. Examine the <cite>tsh</cite> source code to find applicable codes.</td></tr>
+  <tr><td class=name><a name=dryrun>DRYrun</a></td><td class=usage>dry r d</td><td class=description>Simulates an entire tournament for a division, using random data and whatever pairings you have configured. If you specify a round number, the simulation begins after that round, and you must have exactly that many rounds completed in your data files.  If you omit the round number or give it as 0, the simulation begins at the start of the tournament.</td></tr>
+  <tr><td class=name><a name=eval>EVAL</a></td><td class=usage>eval code</td><td class=description>Evaluate arbitary perl code.  Use only if you know what you&rsquo;re doing.</td></tr>
+  <tr><td class=name><a name=randomscores>RANDomscores</a></td><td class=usage>rand d...</td><td class=description>Give each player in division <code>d</code> a random score, to help simulate a tournament&rsquo;s pairing system. Entering more than one division acts on each division, entering a division name more than once adds more than one round&rsquo;s worth of random data.</td></tr>
+  <tr><td class=name><a name=reseteverything>RESETEVERYTHING</a></td><td class=usage>reseteverything</td><td class=description>Delete all pairings, scores, start information and board assignments from tournament data files, and delete all journal and print files. Use with extreme caution.</td></tr>
+  <tr><td class=name><a name=truncaterounds>TRUNCATEROUNDS</a></td><td class=usage>truncaterounds r d</td><td class=description>Discards all data in a division after the given round (if 0, discard all data).  Use with caution.</td></tr>
+  <tr><td class=name><a name=truncatescores>TRUNCATESCORES</a></td><td class=usage>truncatescores r d</td><td class=description>Discards all scores in a division after the given round (if 0, discard all data).  Use with caution.</td></tr>
+</table>
+
+<h3><a name=network>Network Commands</a></h3>
+<p class=p1>
+The following commands require a network connection to a remote server.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name rowspan=2><a name=bugreport>BUGreport</a></td><td class=usage>bug note describing what went wrong</td><td class=description>Uploads <a href="config.html#archive">information</a> about your TSH event to a webserver, along with a note explaining the problem, which all then gets sent to John Chew.</td></tr>
+    <tr><td class=usage>bug --nosend note describing what went wrong</td><td class=description>Creates an archive containing <a href="config.html#archive">information</a> about your TSH event, but does not upload it.</td></tr>
+  <tr><td class=name><a name="listtourneys">LISTTourneys</a></td><td class=usage>listt</td><td class=description>List all pending unrated tournaments (in <a href="config.html#realm">realms</a> that support this), so that you can find a value for the &ldquo;<a href="config.html#tournament_id"><code>tournament_id</code></a>&rdquo; configuration parameter.</td></tr>
+  <tr><td class=name><a name=mirror>MIRROR</a></td><td class=usage>mirror</td><td class=description>Launch the FTP <a href="#mirror_ftp">mirror</a> utility, if supported, to keep your web files synchronized with a remote server.</td></tr>
+  <tr><td class=name><a name=pausemirror>PAUSEMirror</a></td><td class=usage>pausem</td><td class=description>Pause the FTP <a href="#mirror_ftp">mirror</a> utility, so that you can check pairings before releasing them.</td></tr>
+  <tr><td class=name><a name=resumemirror>RESumeMirror</a></td><td class=usage>resm</td><td class=description>Resume (un-pause) the FTP <a href="#mirror_ftp">mirror</a> utility.</td></tr>
+  <tr><td class=name><a name=stopmirror>STOPMirror</a></td><td class=usage>stopm</td><td class=description>Stop the FTP <a href="#mirror_ftp">mirror</a> utility.</td></tr>
+  <tr><td class=name><a name=submit href="reports.html#submit">SUBMIT</a></td><td class=usage>submit</td><td class=description>Submit <a href="config.html#archive">ratings data</a> to the NASPA or ABSP web sites.</td></tr>
+  <tr><td class=name><a name=tweet>TWEET</a></td><td class=usage>tweet d p1 p2</td><td class=description>Report to twitter about how players ranked <code>p1</code> through <code>p2</code> are doing in division <code>d</code>.</td></tr>
+  <tr><td class=name><a name=tweetpairings>TWeetPairings</a></td><td class=usage>twp r d</td><td class=description>Send a <a href="config.html#twitter_dm_command">Twitter DM</a> to every player with a known Twitter Handle in division <code>d</code> telling them who they play in round <code>r</code> and what <a href="config.html#start_times">time</a> it starts.</td></tr>
+  <tr><td class=name><a name=update>UPDATE</a></td><td class=usage>update</td><td class=description>Update <cite>tsh</cite> software using a web connection.</td></tr>
+  <tr><td class=name><a name="updatepix">UPDATEPIX</a></td><td class=usage>updatepix</td><td class=description>Update the local photo database used by the &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command. Photos are copied from the local photo database into the &lsquo;pix&rsquo; subdirectory of the event&rsquo; HTML directory when <cite>tsh</cite> starts up.</td></tr>
+  <tr><td class=name><a name="updateplayers">UpdatePLAYers</a></td><td class=usage>uplay</td><td class=description>Update the player roster by referring to cross-tables.com. This will replace both player names and ratings; you may then wish to use the <a href="#useratings" class=command>USERATINGS</a> command to update just the ratings, if they haven&rsquo;t yet been updated on cross-tables.com.</td></tr>
+  <tr><td class=name><a name="updateratings">UPDATERATINGS</a></td><td class=usage>updateratings</td><td class=description><a href="install.html#updateratings">Update</a> the <a href="ratings.html#files">ratings database</a> used by the &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command, currently available for the NASPA (NSA) and ABSP realms.</td></tr>
+  <tr><td class=name><a name="useratings">USERATINGS</a></td><td class=usage>useratings</td><td class=description>Update all player ratings using the ratings database most recently updated by the &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command.</td></tr>
+</table>
+
+<h3><a name=misc>Miscellaneous Commands</a></h3>
+<p class=p1>
+And here all the commands which don&rsquo;t fit into one of the above categories:
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=browse>Browse</a></td><td class=usage>b</td><td class=description>Opens your web browser to the tournament <a href="#reports">report</a> index.</td></tr>
+  <tr><td class=name><a name=browselast>BrowseLast</a></td><td class=usage>bl</td><td class=description>Opens your web browser to the last <a href="#reports">report</a> you generated.</td></tr>
+  <tr><td class=name><a name="divisioncomplete">DivisionComplete</a></td><td class=usage>dc b</td><td class=description>Manually triggers the commands given in the &ldquo;<code><a href="config.html#hook_division_complete">config hook_division_complete</a></code>&rdquo; configuration option.</td></tr>
+  <tr><td class=name><a name="exportratings" href="ratings.html#manual">EXPORTRATINGS</a></td><td class=usage>exportratings</td><td class=description>Creates a copy of the ratings database used by the &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command including the results of the current tournament.</td></tr>
+  <tr><td class=name><a name=help>HELP</a></td><td class=usage>help topic</td><td class=description>Displays builtin documentation.  <code>topic</code> is typically a command name.</td></tr>
+  <tr><td class=name><a name=huh>HUH</a></td><td class=usage>huh code</td><td class=description>Give a detailed explanation of a diagnostic message that included a [code].</td></tr>
+  <tr><td class=name><a name=look>LOOK</a></td><td class=usage>l word</td><td class=description>Look up <code>word</code> in dictionary. CSW 2012 and TWL 2006 lexicon files available as a separate download. See also the &ldquo;<code><a href="config.html#count_good_words">count_good_words</a></code>&rdquo; configuration option.</td></tr>
+  <tr><td class=name rowspan=2><a name=profile>PROFILE</a></td><td class=usage>profile set key value</td><td class=description>Set the value of configuration option &ldquo;key&rdquo; to &ldquo;value&rdquo; in your <a href="config.html#profile">user profile</a>.</td></tr>
+    <tr><td class=usage>profile show</td><td class=description>Show all configuration options and values defined in your <a href="config.html#profile">user profile</a>.</td></tr>
+  <tr><td class=name><a name=quit>Quit</a></td><td class=usage>q</td><td class=description><a href="#quit">Quit</a> <cite>tsh</cite>.</td></tr>
+  <tr><td class=name><a name=setesbmessage>setESBMeSsaGe</a></td><td class=usage>esbmsg set Games resume after lunch at 3:15</td><td class=description>Display a message on the Enhanced Scoreboard which optionally hides the ESB if the message mode is set to "hide" (the default mode is "reveal").  Three subcommands are recognized:  "set" sets the message text; "mode" followed by "hide" or "reveal" sets the message mode;  "off" turns off the message and reveals the ESB if it was hidden.  Without any subcommand, reveals the current state of the ESB message.</td></tr>
+  <tr><td class=name><a name="valet">VALET</a></td><td class=usage>valet d p r</td><td class=description>(Experimental) Open a browser window for data entry.</td></tr>
+</table>
+
+<h3>Plug-In Commands</h3>
+<p class=p1>
+There may also be external (plug-in) commands installed in your particular
+copy of <cite>tsh</cite>. 
+These will be in a directory called &lsquo;bin&rsquo;,
+and listed in a configuration file there called &lsquo;tshxcfg.txt&rsquo;.
+They have been tested with OS/X (and should therefore work with most 
+other flavours of Unix) and Windows XP, but may not work with more
+primitive operating systems.
+If not, you may still be able to use externals by running them separately
+from the command line.
+The following externals are part of the default distribution.
+</p>
+<table class=commands border=0 cellspacing=0>
+<tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+<tr><td class=name>maketm</td><td class=usage>maketm div</td><td class=description>Make a TourneyMan data file for a division.</td></tr>
+<tr><td class=name>nssc</td><td class=usage>nssc div</td><td class=description>List School Championship prizes for a division.</td></tr>
+<tr><td class=name><a name="update_dict">update-dict</a></td><td class=usage>update-dict</td><td class=description>Update the lexica (word lists) used by the LOOK command.</td></tr>
+</table>
+
+Some commands come bundled in 
+<a href="install.html#plugin">plug-in modules</a>:
+<table class=commands border=0 cellspacing=0>
+<tr><th class=module>Module</th><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+<tr><td class=module>TSH+</td><td class=name><a name="loadplayerscsv">LoadplayersCsV</td><td class=usage>lcv d</td><td class=description>Load division data from an appropriately named CSV data file.</td></tr>
+<tr><td class=module>TSH+</td><td class=name><a name="mergeplayerscsv">MergeplayersCsV</td><td class=usage>mcv d</td><td class=description>Merge division data from an appropriately named CSV data file.</td></tr>
+<tr><td class=module>TSH+</td><td class=name><a name="saveplayerscsv">SaveplayersCsV</td><td class=usage>scv d</td><td class=description>Save division data to an appropriately named CSV data file.</td></tr>
+</table>
+
+<h3><a name=utility>Utility Commands</a></h3>
+<p class=p1>
+There are also a number of standalone utilities found in the 
+&ldquo;util/&rdquo; directory, which are currently provided on
+an as-is basis.  They are &lsquo;standalone&rsquo; in that they
+have to be run in a separate window from <cite>tsh</cite>.
+Documentation will be provided here for any command upon request.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+<tr><th class=name>Command</th><th class=usage>Example</th><th class=description>Description</th></tr>
+<tr><td class=name><a name=mirror_ftp>mirror-ftp</a></td><td class=usage>mirror-ftp -u username -p password event-name...</td><td class=description>
+    <p class=p2>This separate program will mirror (constantly copy as needed) your TSH report files to your webserver using the FTP protocol. Use it to publish your tournament&rsquo;s results live to the Internet. If you do not have a webserver, email poslfit@gmail.com to have one set up for your event.</p>
+    <p class=p1>Because this is a separate program, you will typically need to run it in a separate window (COMMAND/DOS in Windows, Terminal in OS/X, some sort of term window in other flavours of Unix). Windows users should try running one of the .bat script files in the util folder (such as mirror-ftp.bat); others should open a window, cd to the <cite>tsh</cite> directory, and run &ldquo;<code>util/mirror-ftp</code>&rdquo; with command-line arguments as described below. Under most circumstances, the program will keep running without further attention. You should kill it when you are done with it (typically using Control+C); if you change Internet connections while it is running, you may need to kill and rerun it.</p>
+    <p class=p1>This script needs to know five things to run. They can be specified in various ways.</p>
+    <dl>
+      <dt>Tournament(s)</dt>
+      <dd>Specify this the same way as when you are running <cite>tsh</cite>.  If you don&rsquo;t specify a tournament, the one whose config.tsh file is newest will be used. To explicitly specify one or more tournaments, list their directory names at the end of the command line (this only works when invoking the program from the command line). Unlike <cite>tsh</cite>, this program can work with multiple simultaneous tournaments.
+      </dd>
+      <dt>FTP Host</dt>
+      <dd>You must specify your FTP host name (or IP address) in your config.tsh file using the &ldquo;<code><a href="config.html#ftp_host">ftp_host</a></code>&rdquo; configuration parameter.</dd>
+      <dt>FTP Path</dt>
+      <dd>You must specify the directory path of your TSH coverage folder/directory on your webserver&rsquo;s FTP system in your config.tsh file using the &ldquo;<code><a href="config.html#ftp_path">ftp_path</a></code>&rdquo; configuration parameter. Your files will be copied into a subfolder/subdirectory of this path, named the same as the folder/directory containing your local copy of your event.</dd>
+      <dt>FTP Username</dt>
+      <dd>You may specify the username that you use to log onto your FTP account in three ways: using the &ldquo;<code><a href="config.html#ftp_username">ftp_username</a></code>&rdquo; configuration parameter, using the &ldquo;<code>-u MYUSERNAME</code>&rdquo; command-line option, or having the program prompt you for your username. The last way is the most secure; the second way is secure if your local computer is secure.</dd>
+      <dt>FTP Password</dt>
+      <dd>You may specify the password that you use to log onto your FTP account in three ways: using the &ldquo;<code><a href="config.html#ftp_password">ftp_password</a></code>&rdquo; configuration parameter, using the &ldquo;<code>-p MYPASSWORD</code>&rdquo; command-line option, or having the program prompt you for your password. The last way is the most secure; the second way is secure if your local computer is secure; the first way exposes your password to the Internet and is not recommended.</dd>
+    </dl>
+    <p class=p1>
+    &ldquo;util/mirror-ftp&rdquo; uploads the following files: the event config.tsh file, each division&rsquo;s &lsquo;.t&rsquo; file, and the contents of the directory specified by the &lsquo;<code><a href="config.html#html_directory">html_directory</a></code>&rsquo; configuration option.  Files ending in &lsquo;.css, &lsquo;.html&rsquo;, &lsquo;.htm&rsquo;, &lsquo;.t&rsquo; or &lsquo;.txt&rsquo; are sent in text (ASCII) mode; others are transmitted in binary mode.  &ldquo;util/mirror-ftp&rdquo; decides whether or not a file is stale and needs to be transmitted by comparing it to a zero-size file of the same name in &lsquo;<a name=flags>flags</a>/event-name&rsquo; in the tsh directory.
+  </p>
+</td></tr>
+</table>
+
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+#begintest randompair
+#beginconfig
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+config tables{'A'} = [2,2];
+perl srand(123);
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+rp 0 0 a
+sp 1 a
+rp 1 0 a
+sp 2 a
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Table Who Plays Whom
+   2  Chew, John (#1) *draws* vs. Chew, Kristen (#2).
+   2  Chew, Jamie (#3) *draws* vs. Chew, Liam (#4).
+Round 2 Ranked Pairings
+
+Table Who Plays Whom
+   2  Chew, John (#1) vs. Chew, Kristen (#2) repeat.
+   2  Chew, Jamie (#3) vs. Chew, Liam (#4) repeat.
+#endstdout
+#beginstderr
+#endstderr
+#endtest

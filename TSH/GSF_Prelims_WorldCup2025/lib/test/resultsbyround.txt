@@ -1,0 +1,26 @@
+#begintest resultsbyround
+#beginconfig
+division a a.t
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+rbr 2-3 a
+q
+#endcommands
+#beginstdout
+Division A Partial Results, Rounds 2-3
+
+Rnk Prv New Won-Lost Spread Rtng Player
+  1   1 1    2.0-0.0   +300 1800 Chew, John (#1)
+  2   2 2    1.0-1.0   +100 1300 Chew, Kristen (#2)
+  3   3 3    1.0-1.0   -100 500  Chew, Jamie (#3)
+  4   4 4    0.0-2.0   -300 0    Chew, Liam (#4)
+#endstdout
+#beginstderr
+#endstderr
+#endtest

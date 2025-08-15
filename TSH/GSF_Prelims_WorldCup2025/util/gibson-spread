@@ -1,0 +1,48 @@
+#!/usr/bin/perl
+
+# calculate reasonable Gibsonization thresholds
+#
+# Usage: bin/munge-scores whatever.t | util/gibson-spread
+
+sub Main ();
+sub ReadData ();
+sub Spread ($$);
+
+Main;
+
+sub Main () {
+  $spreadsp = ReadData;
+  for my $n (1..10) { Spread $n, $spreadsp; }
+  }
+
+sub ReadData () {
+  my @spreads;
+  while (<>) {
+    my (@s) = split(/\t/, $_, 3);
+    for my $s (@s[0,1]) {
+      die "bad score ($s)" unless $s =~ /^-?\d+$/;
+      }
+    push(@spreads, $s[0]-$s[1]);
+    }
+  return \@spreads;
+  }
+
+sub Spread ($$) {
+  my $n = shift;
+  my $ssp = shift;
+  my @samples;
+  for my $i (1..10000) {
+    my $sample = 2 * $ssp->[rand(@$ssp)];
+    for my $j (2..$n) {
+      $sample += $ssp->[rand(@$ssp)] + $ssp->[rand(@$ssp)];
+      }
+    push(@samples, $sample);
+    }
+  @samples = sort { $a <=> $b } @samples;
+  print "Rounds: $n\n";
+  for my $pct (98, 99) {
+    my $threshold = $samples[100*$pct];
+    printf "  %2d%% < %4d (%3d/round)\n", $pct, $threshold, $threshold/$n;
+    }
+  }
+

@@ -1,0 +1,135 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use lib './lib/perl';
+
+sub Check ($$$);
+sub ESystem (@);
+sub Main ();
+sub UpdateAll ();
+
+$config::remote = 'ftp://foo@www.poslfit.com/dallas/2008/event/';
+$config::remote_tsh = 'ftp://foo@www.poslfit.com/dallas/2008/tsh/';
+# $config::remote = 'scp://foo@live.wscgames.com:';
+# $config::remote_tsh = 'scp://foo@live.wscgames.com:b/tsh/';
+$config::local_html = '/Library/WebServer/Documents/dallas';
+$config::local_tsh = '2008-do';
+
+Main;
+
+=item $rv = Check($flagpath, $localpath, $rempath);
+
+If $localpath is newer than $flagpath, copy $localpath to $rempath
+and touch $flagpath.
+
+Return 0 if nothing needed to be done, 1 if an update took place,
+and -1 on error.
+
+=cut
+
+sub Check ($$$) {
+  my $flag = shift;
+  my $local = shift;
+  my $remote = shift;
+  my $localage = -M $local;
+  my $flagage = -M $flag;
+  unless (defined $localage) {
+    warn "Can't stat $local ($!) - was it deleted?\n";
+    return -1;
+    }
+  if ((!defined $flagage) || $flagage > $localage) {
+#   warn "fage=$flagage lage=$localage\n";
+    warn "Posting $local to $remote.\n";
+    if ($remote =~ s(^scp://)()) {
+      my $rv = ESystem "scp $local $remote";
+      $rv >>= 8;
+      if ($rv) {
+	warn "system returned $rv\n";
+	return -1;
+        }
+      }
+    else {
+      my $rv = ESystem "ftp -V -u $remote $local";
+      $rv >>= 8;
+      if ($rv != 255) {
+	warn "system returned $rv\n";
+	return -1;
+        }
+      }
+    unlink $flag;
+    open my $fh, ">$flag" or die "Can't create $flag";
+    close $fh;
+    return 1;
+    }
+  return 0;
+  }
+
+sub ESystem (@) {
+  my (@argv) = @_;
+  my $rv = system @argv;
+  if ($rv == -1) { die ("system(" . join(',',@argv) . ") failed: $!\n"); }
+    return $rv;
+  }
+
+sub Main () {
+  my $lastchanged = 1;
+  while (1) {
+    my $changed = UpdateAll;
+    if ($changed) {
+      print "Updated, rechecking.\n";
+      sleep 1;
+      next;
+      }
+#   print "Not updated.\n";
+    if ($lastchanged) {
+      print "Sleeping.\n";
+      }
+    else {
+#     print "Still sleeping.\n";
+      }
+    sleep 10;
+    $lastchanged = $changed;
+    }
+  }
+
+=item UpdateAll;
+
+Check all files to see if they need to be updated.
+Return true if any files were successfully updated.
+
+=cut
+
+sub UpdateAll () {
+  my $updated = 0;
+  mkdir "$config::local_tsh/flags";
+  # post .t files
+  opendir my $dh, $config::local_tsh or die;
+  my @files = grep { /^\w+\.t$/ } readdir($dh);
+  closedir($dh);
+  my $i = 1;
+  if (defined $config::remote) {
+    for my $file (sort @files) {
+      if (0 < Check "$config::local_tsh/flags/$file",
+	"$config::local_tsh/$file", "${config::remote}division/$i/round.t") {
+	$updated = 1;
+	}
+      $i++;
+      }
+    }
+  $dh = undef;
+  opendir $dh, $config::local_html or die;
+  @files = grep { !-d "$config::local_html/$_" } readdir($dh);
+  closedir($dh);
+  my $remotetsh = $config::remote_tsh || "${config::remote}tsh/";
+  for my $file (@files) {
+    if (0 < Check "$config::local_tsh/flags/$file",
+      "$config::local_html/$file", "${config::remote_tsh}$file") {
+      $updated = 1;
+      }
+    }
+  return $updated;
+  }
+
+

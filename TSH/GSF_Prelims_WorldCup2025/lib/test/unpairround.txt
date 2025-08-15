@@ -1,0 +1,64 @@
+#begintest unpairround
+#beginconfig
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+config prize_bands{'A'} = [1,2]
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+debug CP 0
+debug CBPF 0
+debug GIB 0
+sp 1 a
+debug CP 0
+a 1 a
+1 400 4 100
+2 300 3 200
+
+a 2 a
+3 400 1 200
+4 300 2 100
+
+a 3 a
+1 400 2 300
+3 200 4 100
+
+sp 4 a
+upr 4
+sp 4 a
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Liam (#4).
+   2  Chew, Kristen (#2) *draws* vs. Chew, Jamie (#3).
+[1]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (1.0 +300) - #4 Chew, Liam 100 (0.0 -300): +300.
+[1]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Chew, Kristen 300 (1.0 +100) - #3 Chew, Jamie 200 (0.0 -100): +100.
+[1]:ES|L words|M|division|<return> (no scores left)? [2]:pn1 ps1 pn2 ps2 (4 scores left)? #3 Chew, Jamie 400 (1.0 +100) - #1 Chew, John 200 (1.0 +100): +200.
+[2]:pn1 ps1 pn2 ps2 (2 scores left)? #4 Chew, Liam 300 (1.0 -100) - #2 Chew, Kristen 100 (1.0 -100): +200.
+[2]:ES|L words|M|division|<return> (no scores left)? [3]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (2.0 +200) - #2 Chew, Kristen 300 (1.0 -200): +100.
+[3]:pn1 ps1 pn2 ps2 (2 scores left)? #3 Chew, Jamie 200 (2.0 +200) - #4 Chew, Liam 100 (1.0 -200): +100.
+[3]:ES|L words|M|division|<return> (no scores left)? Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Jamie (#3) repeat.
+   2  Chew, Kristen (#2) *draws* vs. Chew, Liam (#4) repeat.
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Jamie (#3) repeat.
+   2  Chew, Kristen (#2) *draws* vs. Chew, Liam (#4) repeat.
+#endstdout
+#beginstderr
+#endstderr
+#endtest

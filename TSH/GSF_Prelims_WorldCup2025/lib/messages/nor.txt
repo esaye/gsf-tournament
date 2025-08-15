@@ -1,0 +1,1114 @@
+code=itestmsg
+brief=Testmelding
+detail=Denne meldingen brukes for å teste UserMessage.pm-modulen.
+type=note
+
+code=iwelcome
+brief=Velkommen til tsh, version %s.
+detail=Denne meldingen forteller deg hvilken versjon av tsh du kjører. For å oppdatere til den seneste versjonen, bruke 'update'-kommandoen mens du har forbindelse til Internett.
+type=note
+
+code=enohelp
+brief=Det finnes ikke noe hjelpeemne kalt %s.  Skriv 'help index' for en liste med kommandoer.
+detail=Ikke alle kommandoer har detaljert hjelpetekst ennå. Hvis du ikke finner det du leter etter med 'help'-kommandoen, se i bruksanvisningen for tsh.
+type=error
+
+code=iloadcfg
+brief=Laster konfigurasjonsfil %s.
+detail=Hvis du ikke spesifiserte en konfigurasjonsfil da du kjørte tsh, valgte tsh den sist endrede konfigurasjonsfileni en undermappe av programmappa.
+type=note
+
+code=ebadapc
+brief=Unsupported autopair pairing system: %s.
+detail=Not all pairing commands are yet supported for autopairing, but most are.  It's likely that you mistyped an autopairing command, so check your configuration file carefully.  If there is a command that you need added to the autopairing system, please contact John Chew.
+type=error
+
+code=ebadap
+brief=Can't parse 'autopair %s' in %s.
+detail=tsh could not understand an autopair line in its configuration file. Please consult the reference manual and correct the offending line.
+type=error
+
+code=ebadcfg
+brief=Can't parse configuration line: %s.
+detail=tsh could not understand a line in its configuration file, and is ignoring the offending line. One common reason for this is referring to nonexistent divisions. Please consult the reference manual and correct the line.
+type=error
+
+code=iloaddiv
+brief=Laster inn divisjon %s.
+detail=tsh is about to try to load the named division.  If you see no further messages, then it was able to successfuly read the division's .t file.
+type=note
+
+code=enopairboth
+brief=config pairing_system='none' and config entry='both' are incompatible, assuming entry='scores'.
+detail=If players are not paired with each other (e.g., at a Sudoku competition), then it makes no sense to try to enter both the scores of the players involved in a game and their game spread. 
+type=error
+
+code=enopryet
+brief=Det finnes ikke noe paroppsett for divisjon %s, runde %d ennå.
+detail=You have asked to see pairings for a round for which tsh does not yet have any pairings information.  If you are auto-pairing, you have not yet finished entering results from the round on which this round's pairings depend.  If not, you need to enter a manual pairing command before viewing the pairings.
+type=error
+
+code=wsmtfmt
+brief=config table_format is too small and has been widened.
+detail=The narrowest possible width for a table number is three characters.  Please correct this in your configuration file.  In the meantime, table_format has been set to '%3s'.
+type=warning
+
+code=ebadpair
+brief=#%s %s is paired to #%s %s who is paired to #%s %s.
+detail=Your pairings are inconsistent and you must fix them using the 'pair' command.
+type=error
+
+code=eselpair
+brief=#%s %s er satt opp mot seg selv.
+detail=Your pairings are inconsistent and you must fix them using the 'pair' command.
+type=error
+
+code=eneed_max_rounds
+brief=Du må spesifisere config max_rounds for å bruke denne kommandoen.
+detail=Some commands require the 'config max_rounds' command in your configuration file, and in future its use may be mandatory for all events.  At present, Chew Pairings need it to calculate who can catch up to whom before the end of the tournament, NAST pairings need it to know which schedule to use, and the following commands and configuration settings also require it: DRYrun, FinalResults, PRiZes, config gibson = 1.
+type=error
+
+code=ebigrd
+brief=Du kan ikke regne ut noe paroppsett for runde %d fordi config max_rounds = %d.
+detail=The max_rounds configuration parameter sets the largest allowable round number.  If you need to exceed this, change your configuration.
+type=error
+
+code=wwant_prize_bands
+brief=Du bør spesifisere config prize_bands for å bruke denne kommandoen.
+detail=For å regne ut chewsk paroppsett eller sjekke gibsonisering, må tsh vite hvilke endelige plasseringer som er likeverdige, noe du bør spesifisere ved hjelp av kommandoen 'config prize_bands' i konfigurasjonsfila.  For å si at første og andre plass er likeverdige i divisjon A, og at plasseringene 3-10 er det samme, bruke linja: config prize_bands{'A'} = [2,10].  Hvis du ikke gjør dette, vil tsh anta at verdien er [antall spillere delt på fire] for divisjonen: det vil si at alt som har noe å si er hvorvidt en spiller ender blant den beste fjerdedelen av deltagerne.
+type=warning
+
+code=ealpaird
+brief=No players need to be paired in Round %d.
+detail=You should probably contact John Chew if you see this message. In technical terms, it means that when a pairings algorithm requested a list of players who needed to be paired, it was given an empty list.  Unless the division has fewer than two players, it's hard to imagine how this might happen.
+type=error
+
+code=eallsin
+brief=All scores have been entered for Division %s in Round %d.
+detail=If you need to edit scores that have already been entered, use the EditScores command.
+type=error
+
+code=emisss
+brief=Some scores are still missing for Division %s in Round %d, including one for %s.
+detail=You cannot enter any scores for one round before all the scores for the preceding round are entered.  You should either set the score slips for the next round aside until this round's slips are all located, or enter provisional information for this round and correct it later using EditScores.
+type=error
+
+code=enosuchp
+brief=Det finnes ingen spiller #%d.
+detail=Kontroller at du har skrevet riktig. Sannsynligvis har du skrevet divisjonsnavnet eller spillernummeret galt.
+type=error
+
+code=enotabye
+brief=%s hadde ikke frirunde i runde %d.
+detail=Du skrev bare inn en enkelt poengsum for en spiller. Dette kan du bare gjøre hvis spilleren hadde en frirunde - i det tilfellet skal den innskrevne poengsummen være spillerens poengsumsjustering for den runden.  Hvis du mente å skrive inn en frirunde, kontroller at du skrev inn det riktige spillernummeret og at spilleren er satt opp til å ha frirunde denne runden.
+type=error
+
+code=ehass
+brief=%s har allerede en poengsum (%d).
+detail=You cannot enter a score for a player who already has a score. This is to prevent you from accidentally overwriting valid information. To change an existing score, use the EditScores command.  To delete a score entirely, use the DELETEscore command.
+type=error
+
+code=emisss2
+brief=Enkelte poengsummer mangler fremdeles for divisjon %s i runde %d, medregnet en for %s.
+detail=You cannot automatically generate pairings until the round on whose standings you are basing your pairings has a complete set of scores.  You should finish entering the necessary scores, or enter provisional information and correct it later using EditScores.
+type=error
+
+code=eapwrr
+brief=Kan ikke generere automatisk paroppsett for runde %d: neste runde til å settes opp er %d.
+detail=You can't generate the pairings for a round until the pairings for all preceding rounds are ready.  Ask for the earlier pairings first.
+type=error
+
+code=iautopr
+brief=Automatisk paroppsett.
+detail=You have triggered automatic computation of pairings as set up in your configuration file.  Pairings are computed when all of the results for the source round have been entered and the pairings for a new round are requested.
+type=note
+
+code=eapfail
+brief=Kommandoen "%s" for automatisk paroppsett virket ikke.
+detail=I was unable to run the requested auto-pairing command.  John Chew would be interested to learn how you managed to trigger this error message.
+type=error
+
+code=euprnop
+brief=Det finnes ikke noe paroppsett ennå for divisjon %s.
+detail=You cannot delete pairings from a division which does not have them. Check which division you were trying to delete pairings from and try again.
+type=error
+
+code=euprwrr
+brief=Du kan bare oppheve paroppsettet for den siste runden, nemlig runde %d.
+detail=If you want to delete more than one round's pairings from a division, delete the last one first.  If you have a lot of deleting to do, consider editing the .t file or reverting to an earlier journalled copy.
+type=error
+
+code=euprhass
+brief=Du kan ikke oppheve paroppsettet for runde %d fordi det er registrert en poengsum for %s og muligens andre spillere.
+detail=You must delete all scores from a round before deleting its pairings. Use the DELETEscore command or edit the .t file.
+type=error
+
+code=iuprok
+brief=Sletter paroppsett for divisjon %s, runde %d.
+detail=You are successfully deleting the pairings you asked for.  No further action is required on your part, unless you didn't mean to delete the pairings, in which case you should recover the appropriate journalled .t file.
+type=note
+
+code=idone
+brief=Ferdig.
+detail=The lengthy or verbose action that you requested has completed successfully.
+type=note
+
+code=insok
+brief=Regner ut sveitsisk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d med %d tillatte repetisjoner.
+detail=I have begun calculating the Swiss pairings you asked for.
+type=note
+
+code=iswok
+brief=Regner ut sveitsisk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d med %d tillatte repetisjoner.
+detail=I have begun calculating the Swiss pairings you asked for.
+type=note
+
+code=ippswok
+brief=Regner ut sveitsisk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d med %d tillatte repetisjoner.
+detail=I have begun calculating the Swiss pairings you asked for.
+type=note
+
+code=ip1324ok
+brief=Regner ut paroppsettet 1-3 2-4 for divisjon %s, runde %d, basert på stillingen etter runde %d med %d tillatte repetisjoner.
+detail=I have begun calculating the 1-3 2-4 pairings you asked for.
+type=note
+
+code=ipreswok
+brief=Regner ut sveitsisk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d med %d tillatte repetisjoner.
+detail=Jeg har begynt å regne ut det sveitsiske paroppsettet du ba om.
+type=note
+
+code=iguelphok
+brief=Regner ut guelphsk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d.
+detail=I have begun calculating the Guelph pairings you asked for.
+type=note
+
+code=enomod
+brief=kan ikke laste inn modulen %s: %s.
+detail=The action you required cannot be performed because the named Perl library module could not be loaded.  You should try using the 'update' command to make sure that you have a complete current tsh distribution before reporting the problem to John Chew.
+type=error
+
+code=ebadp
+brief=Det finnes ingen spiller: %d.
+detail=You mistyped either a player number or division name. Please check it and reenter your command.
+type=error
+
+code=ebadhuh
+brief=Det finnes ingen slik meldingskode: %s.
+detail=You asked for an explanation of a message but entered a nonexistent code. Please check it carefully and reenter it.
+type=error
+
+code=iquit
+brief=tsh avslutter.
+detail=Du ba om at tsh skulle avslutte, noe det gjorde. Hvis du vil at det skal gjøre noe annet, kjør programmet på nytt.
+type=note
+
+code=eacpnsb
+brief=Hvis du er sikker på at du ønsker at paroppsettet for runde %d skal være basert på runde %d, vennligst spesifiser config session_breaks.
+detail=It looks like you are relying on the default Chew pairing system, but the program is not sure whether you wanted to compute pairings for the upcoming round based on the first or second preceding round.  You can resolve the ambiguity by setting a value for the configuration variable 'session_breaks' in your configuration file.
+type=error
+
+code=eacpbadr
+brief=Kan ikke generere automatisk paroppsett for runde %d basert på runde %d.
+detail=You may only pair a round based on standings from either of the two preceeding rounds.  Please enter some more scores before asking before that round's pairings again.
+type=error
+
+code=easbad12
+brief=%s was supposed to go %s.
+detail=tsh is keeping track of firsts and seconds (starts and replies) because you have the configuration option "track_firsts = 1" set, but not assigning firsts and seconds because you did not set "assign_firsts = 1".  In this case, tsh uses the order in which you enter scores to determine who actually played first.  Sometimes tsh can tell by counting firsts and seconds that the wrong player went first.  If this happens a lot, you should caution the players involved.
+type=error
+
+code=eacprnsb
+brief=Pairings after Round %d session break must be based on Round %d.
+detail=After a session break, you must use the preceding round's results.  That's the definition of a session break.  You should either finish entering the results from the last round before the session, or correct the value of the session_breaks configuration variable.
+type=error
+
+code=wevalarg
+brief=EVAL arguments don't match: '%s' vs. '%s'.
+detail=You should never see this message. If you do, please contact John Chew and describe to him the circumstances under which it appeared.
+type=warning
+
+code=idebug0
+brief=Debugging for '%s' is now off.
+detail=You will no longer see debugging messages associated with the code you gave.
+type=note
+
+code=idebug1
+brief=Debugging for '%s' is now on.
+detail=You will now start seeing debugging messages associated with the code you gave.
+type=note
+
+code=edeprec
+brief=Denne kommandoen er foreldet og vil kanskje ikke være med i den neste versjonen av tsh. Bruk %s istedenfor.
+detail=Hvis du er avhengig av denne kommandoen og ikke ønsker at den skal forvsinne fra den neste versjonen av tsh, kontakt John Chew med en gang.
+type=error
+
+code=iifok
+brief=Regner ut innledende pre-Fontes paroppsett for divisjon %s.
+detail=I have begun calculating the pre-Fontes pairings you asked for.
+type=note
+
+code=eifnotodd
+brief=Antallet innledende runder må være odde.
+detail=If the number of initial rounds were even, the current scheme of round robin groups would have one bye in each round robin group, which would be near pessimal.  If you can think of a situation in which you absolutely must have a fixed initial schedule lasting an even number of rounds, contact me (John Chew) and I'll come up with something appropriate.
+type=error
+
+code=elrrnotodd
+brief=Antallet alle-mot-alle-runder må være odde.
+detail=Alle-mot-alle-turneringer har alltid et odde antall runder. Ikke be om et partall.
+type=error
+
+code=eifnot3
+brief=Number of initial rounds must be three with config allow_gaps.
+detail=This case is unimplemented due to a lack of user demand.
+type=error
+
+code=ievtname
+brief=Arrangement lastet inn: %s.
+detail=If this is not the event you wanted to load, quit tsh and load a different one.  If you do not specify an event to load, tsh will look for the most recently changed configuration file.
+type=note
+
+code=irandok
+brief=Legger til tilfeldige poengsummer for divisjon %s.
+detail=I am adding the random scores you asked for.  If you need to delete them, you should either revert to an older journalled copy of the .t file, or edit the .t file by hand.
+type=note
+
+code=erotocfg
+brief=Ingen roto-fil definert.
+detail=You must set "config rotofile" before using the ROTO command.  That option specifies the location of the rotisserie team file, and must be read before the command can list standings.
+type=error
+
+code=erotoope
+brief=Kan ikke åpne %s: %s
+detail=I was unable to open the rotofile that you specified.  Please check that the filename is specified correctly in your configuration file, that the file exists in your event folder, and is readable.
+type=error
+
+code=erotoown
+brief=Lag %d har to eiere: %s og %s.
+detail=There must only be one "owner" line in each team.  You either ran two teams together, or listed more than one owner.  Please fix the rotofile.
+type=error
+
+code=erotounp
+brief=Lag %d har en ukjent spiller: %s.
+detail=Player names must be spelled exactly as in the ".t" file.  Please check the spelling of this player and correct it.
+type=error
+
+code=erotodup
+brief=Lag %d har en dobbelt spiller: %s.
+detail=Each player can appear on a team only once.  Please remove the duplicate entry.
+type=error
+
+code=erotosyn
+brief=Forstår ikke: %s
+detail=rotofile lines must be blank or begin with the word "owner" or "player".  Please correct this line.
+type=error
+
+code=erotosiz
+brief=%s har %d spiller(e), ikke %d.
+detail=All teams should have the same number of players, but I have just noticed that two consecutive teams have differing numbers of players.  Please correct this.
+type=error
+
+code=errpartp
+brief=Can't add round robin pairings: last round is partly paired.
+detail=If you are sure that you want to add round robin pairings to this division, either complete the last round's pairings with another command, or delete them with UnPairRound.
+type=error
+
+code=eprbadr
+brief=The next round of pairings that player #%d needs is %d, not %d.
+detail=You can't leave gaps in the pairing schedule. If you're not sure why you're getting this message, it's possible that your tournament data doesn't read the way you think it does.  Try using the ShowscoreCard command to look at the player in question, or the ShowPairings command to look at all the pairings for the round.  If you're still not sure why you're seeing this message, please send a copy of your .t file to John Chew.
+type=error
+
+code=iprwasp
+brief=%s var satt opp mot %s.
+detail=You've asked for the pairings for the first named player to be changed, and I am telling you to whom they used to be paired in case you want to undo the change.
+type=note
+
+code=elooknod
+brief=Ingen ordlister er tilgjengelige. Prøv 'update-dict'-kommandoen.
+detail=Dictionaries for 'tsh' are obtained separately from the main distribution, because of their size.  If you have an Internet connection, use the 'update-dict' command to download them now, then rerun tsh.
+type=error
+
+code=irpok
+brief=Regner ut tilfeldig paroppsett for divisjon %s, runde %d, og tildeler om nødvendig frirunde basert på stillingen etter runde %d, med %d tillatte repetisjoner.
+detail=I have begun calculating the random pairings you asked for.
+type=note
+
+code=irsem
+brief=Avoiding pairing players from the same team this round.
+detail=Because you have specified exagony or initial_exagony in your configuration file, I will not pair players from the same team (as specified in the "team" extension field in your .t file) this round.
+type=note
+
+code=epfail
+brief=Paroppsettet mislyktes.
+detail=I can't compute the pairings you asked for. Try increasing the number of allowable repeats or do at least some of the pairings manually using the PAIR command.  If you asked me not to pair team members together, make sure everyone belongs to a team.
+type=error
+
+code=ebadscore
+brief=%s er ikke en gyldig poengsum.
+detail=Scores may currently range from -150 to 1500. If you absolutely must enter a score out of this range, you should edit the .t file directly.
+type=error
+
+code=ikothok
+brief=Calculating King-Of-The-Hill pairings for Division %s Round %d, based on Round %d standings, with %d repeats allowed.
+detail=I have begun calculating the King-Of-The-Hill pairings you asked for.
+type=note
+
+code=edivbad12
+brief=Firsts/seconds inconsistent for %s and %s in Round %d.
+detail=tsh is keeping track of firsts and seconds (starts and replies) because you have the configuration option "track_firsts = 1" set, but it has inconsistent information about the named players.  In the .t file, if one of the players has their p12 value for this round set to 1 (they played first), the other must be 2; if one is set to 3 (they must draw), so must the other.  You should correct the situation either by editing the .t file or using the EditScores command (and its "first" and "second" subcommands), and if the problem is the result of a bug in tsh bring it to John Chew's attention.
+type=error
+
+code=enodivs
+brief=Ingen divisjoner er definert i konfigurasjonsfilen!
+detail=You must enter lines of the form "division a a.t" in your config.tsh file, one per division.  tsh was unable to find any correctly formatted lines of this form.  Some older versions of tsh may give this message if they are unable to read your config.tsh file because it doesn't have the correct line-break characters.
+type=error
+
+code=emultmatch
+brief=Det finnes mer enn en spiller som passer med %s: %s.
+detail=If "Chew, John" is the only player in your tournament who has a J in his given name and a C in his surname, then you can refer to him as "C,J" in command lines rather than using his player number.  You must type enough of a player's name to disambiguate her from all other players.
+type=error
+
+code=emanymatch
+brief=Det finnes mer enn ti spillere som passer med %s.
+detail=If "Chew, John" is the only player in your tournament who has a J in his given name and a C in his surname, then you can refer to him as "C,J" in command lines rather than using his player number.  You must type enough of a player's name to disambiguate him from all other players.
+type=error
+
+code=enomatch
+brief=Det finnes ingen spillere som passer med %s.
+detail=If "Chew, John" is the only player in your tournament who has a J in his given name and a C in his surname, then you can refer to him as "C,J" in command lines rather than using his player number.  You must type enough of a player's name to disambiguate him from all other players.
+type=error
+
+code=wsetassignfirsts
+brief=Config entry = 'spread' overrides config assign_firsts = 0.
+detail=Spread data entry mode requires that you assign starts and replies to players, as this information is not accepted when scores are entered.  Your configuration file is inconsistent and one line must therefore be ignored.  If you do not wish to see this warning in future, please correct your configuration file.
+type=warning
+
+code=wsettrackfirsts
+brief=Config entry = 'spread' overrides config track_firsts = 0.
+detail=Spread data entry mode requires that you track starts and replies to players, as this information is not accepted when scores are entered.  Your configuration file is inconsistent and one line must therefore be ignored.  If you do not wish to see this warning in future, please correct your configuration file.
+type=warning
+
+code=ebadconfigbracket_order
+brief=Bad value for config bracket_order: %s
+detail=You have specified an unacceptable value for config bracket_order in your configuration file.  Acceptable values are 'id' and 'rating'.  This run of tsh will take place with config entry = 'id'.  Please correct your configuration file next time.
+type=error
+
+code=ebadconfigentry
+brief=Bad value for config entry: %s
+detail=You have specified an unacceptable value for config entry in your configuration file.  Acceptable values are 'both', 'scores' and 'spread'.  This run of tsh will take place with config entry = 'scores'.  Please correct your configuration file next time.
+type=error
+
+code=ebadconfigpairing
+brief=Bad value for config pairing_system: %s
+detail=You have specified an unacceptable value for config pairing_system in your configuration file.  Acceptable values are 'auto', 'basd', 'chew', 'manual' and 'nast'.  This run of tsh will take place with config pairing_system = 'auto'.  Please correct your configuration file next time.
+type=error
+
+code=ebadconfigrealm
+brief=Bad value for config realm: %s
+detail=You have specified an unacceptable value for config realm in your configuration file.  Acceptable values include 'absp', 'caspa', 'deu', 'nsa', 'sgp' and 'wespa'.  This run of tsh will take place with config pairing_system = 'nsa'.  Please correct your configuration file next time.
+type=error
+
+code=ebadconfigrating
+brief=Bad value for config rating_system: %s
+detail=You have specified an unacceptable value for config rating_system in your configuration file.  Acceptable values are 'absp', 'nsa', 'nsa lct' and 'none'.  This run of tsh will take place with config rating_system = 'nsa'.  Please correct your configuration file next time.
+type=error
+
+code=ebadconfigterms
+brief=Bad value for config terminology: %s
+detail=You have either specified an unacceptable value for config terminology in your configuration file ('nsa' should be safe), or your tsh installation is missing required files.  In the former case, please correct your configuration file (in almost all cases, you should not specify terminology directly, but rather use the default value for your realm); in the latter case, please run an update to obtain the necessary files.
+type=error
+
+code=irrtok
+brief=Calculating precomputed round robin pairings for Division %s (multiple=%d).
+detail=I have begun calculating the round robin pairings you asked for.  I know am using a precomputed round robin schedule built into tsh.
+type=note
+
+code=irrcok
+brief=Regner ut alle-mot-alle-paroppsett for divisjon %s.
+detail=I have begun calculating the round robin pairings you asked for, using a modified Berger schedule.
+type=note
+
+code=eplyrror
+brief=Cannot set %s for %s in Round %d to %s: round number is out of range.
+detail=I tried to set the value of some player data but was unable to do so because the round number involved was too far in the future.  This error can only be caused by an unforeseen error in tsh and should be reported to John Chew as soon as possible.
+type=error
+
+code=eplyrbv
+brief=Cannot set %s for %s in Round %d to %s: bad value.
+detail=I tried to set the value of some player data but was unable to do so because I noticed that the value in question was not permissible.  This error can only be caused by an unforeseen error in tsh and should be reported to John Chew as soon as possible.
+type=error
+
+code=etshtpon
+brief=Cannot start tsh in server mode: %s.
+detail=This message indicates that you have come across a system configuration in which tsh cannot launch in server mode. Remove the "config port" line from your config.tsh file to launch directly into interactive mode. Please report the circumstances under which you saw this message to John Chew, in as much detail as you can.
+type=error
+
+code=eneedename
+brief=You must specify config event_name before using this command.
+detail=The AUPAIR command needs an event name to save in its .TOU file.  Please edit your configuration settings to include one.
+type=error
+
+code=eneededate
+brief=You must specify config event_date before using this command.
+detail=The AUPAIR command needs an event date to save in its .TOU file.  Please edit your configuration settings to include one.
+type=error
+
+code=eboardfull
+brief=I %d, %s skal være ved bord %d, som allerede brukes av %s og %s.
+detail=There is an inconsistency in the assignment of players to boards.  The most likely cause of this is a corrupt hand-edited .t file, which should be edited by hand if tsh is unable to automatically resolve the problem.  If this problem occurs spontaneously, please contact John Chew.
+type=error
+
+code=eboarddiff
+brief=%s og %s spiller mot hverandre, men på forskjellige bord.
+detail=There is an inconsistency in the assignment of players to boards.  You should never see this message.  If you do, it means that not only is your .t file corrupt, but tsh was unable to detect or correct the corruption.  Please send a copy of the bad .t file, then manually edit it to correct the problem before continuing with your tournamnet.
+type=error
+
+code=ebadtpn
+brief=Noe er galt i .t-filen: spiller #%d er satt opp til å spille mot den ikke-eksisterende spilleren #%d.
+detail=You should edit the pairings for the player in question and have him/her play a legitimate player.
+type=error
+
+code=esnop
+brief=%s har en poengsum, men ingen motstander i runde %d.
+detail=You should not see this message unless you manually edited your .t files or there is a serious bug in tsh.  If you suspect the latter, contact John Chew.
+type=error
+
+code=enoos
+brief=%s har en poengsum i runde %d, men mostanderen (#%d) har det ikke.
+detail=You should not see this message unless you manually edited your .t files or there is a serious bug in tsh.  If you suspect the latter, contact John Chew.
+type=error
+
+code=enoms
+brief=%s har ingen poengsum i runde %d, men det har motspilleren (#%d) (%d).
+detail=Du skal ikke se denne meldingen med mindre du redigerte .t-filene manuelt eller det er en alvorlig programmeringsfeil i tsh.  Hvis du mistenker at det siste er tilfelle, kontakt John Chew.
+type=error
+
+code=euprhas1s
+brief=Du kan ikke oppheve paroppsettet til spiller %d i runde %d fordi han/hun allerede har en poengsum.
+detail=You must delete scores before deleting pairings. Use the DELETEscore command or edit the .t file.
+type=error
+
+code=iupr1ok
+brief=... %d unpaired from %d.
+detail=You have successfully deleted a pairing you asked for.  No further action is required on your part, unless you didn't mean to delete the pairing, in which case you should recover the appropriate journalled .t file.
+type=note
+
+code=idivupdok
+brief=Oppdaterer %s.
+detail=You have changed the data for the given file, and it is being updated. A copy of the previous version of the file will be saved in the journalling directory, usually called 'old'.
+type=note
+
+code=edivupdcre
+brief=Kan ikke opprette divisjonsfila %s (%s).
+detail=The indicated error has occurred while tsh was trying to create a new copy of a .t file.  The most likely cause is that the event directory either disappeared or has the wrong access permissions.  You must have permission to create new files in the event directory.
+type=error
+
+code=edivupdbak
+brief=Kan ikke sikkerhetskopiere divisjonen til %s (%s).
+detail=The indicated error has occurred while tsh was trying to save a backup copy of a .t file.  The most likely cause is that the backup directory either disappeared or has the wrong access permissions.  If you rerun tsh, it will try to recreate the backup directory with correct permissions.  If this does not work, try creating it manually and let John Chew know what happened.
+type=error
+
+code=icpok
+brief=Regner ut chewsk paroppsett for divisjon %s, runde %d, basert på stillingen etter runde %d.
+detail=I have begun calculating the Chew pairings you asked for.
+type=note
+
+code=enoop
+brief=%s har ingen motspiller i runde %d, men noen har ham eller henne som en motspiller.
+detail=You should not see this message unless you manually edited your .t files or there is a serious bug in tsh.  If you suspect the latter, contact John Chew.
+type=error
+
+code=erpowp
+brief=%s var allerede satt opp mot spiller #%d i runde %d, og settes nå opp mot spiller #%d.
+detail=You should not see this message unless there is a serious bug in tsh. Please check your pairings and contact John Chew.
+type=error
+
+code=ernos
+brief=Du trenger fremdeles resultatene for runde %d.
+detail=The pairings that you have requested cannot be computed until results are in for the specified round.
+type=error
+
+code=eapbr
+brief=Bad autopair line begins "autopair %s %d %d...": source round must be less than target round.
+detail=In your configuration file, the first number on an autopair line is the round on whose standings the pairings will be based, and the second number is the round whose pairings need to be computed.  The first number must be less than the second number, so please edit your configuration file to fix the problem.
+type=error
+
+code=eifpppo
+brief=Can't pair odd number of partly-paired players in round %d.
+detail=Under some circumstances, tsh can set up InitFontes pairings even when some players have been assigned pairings in the first three rounds.  It does so by trying to pair players who have some assigned pairings in those rounds with each other.  It can't do so if the number of such players is odd in any round.  Please adjust the pairings so that the number is always even.
+type=error
+
+code=eifstuck
+brief=Got stuck pairing partly-paired players: %s.
+detail=Under some circumstances, tsh can set up InitFontes pairings even when some players have been assigned pairings in the first three rounds.  It does so by trying to pair players who have some assigned pairings in those rounds with each other.  In this case, tsh appears to have painted itself into a corner trying to do so.  You might try running the command again, as there is a random component to the pairings, or you might just finish manually pairing the partly-paired players with each other.
+type=error
+
+code=ebaddiv
+brief=Divisjonen finnes ikke: %s.
+detail=The given string was entered where a division was expected, perhaps in a prize list.  It should be changed to be the correct name of a division.
+type=error
+
+code=ebadcmd
+brief=Kommandoen finnes ikke: %s.
+detail=The command you entered is unknown to tsh.  Please check your typing and reenter it.
+type=error
+
+code=econfcmd
+brief=Command name conflict for: %s. Some commands may not be available.
+detail=This message should not appear unless you have installed your own commands. Talk to John Chew about this one.
+type=error
+
+code=eloadxcmd
+brief=Kan ikke laste inn eksterne kommandoer fra %s: %s.
+detail=Something went unexpectedly wrong when loading external commands.  The only user-correctable cause of this would be an aborted partial installation of tsh.  If you suspect this, try updating your copy of tsh; otherwise contact John Chew.
+type=error
+
+code=enopixind
+brief=Can't load photo index '%s': %s. Try running updatepix.
+detail=An error occurred while tsh was trying to load the index of player photos. You should either run updatepix to fetch a correct version of the index, or not specify config player_photos.
+type=error
+
+code=ebadpixind
+brief=Error reading photo index at line %d.  Try running updatepix.
+detail=An error occurred while tsh was trying to read the index of player photos. You should either run updatepix to fetch a correct version of the index, or not specify config player_photos.
+type=error
+
+code=enopic
+brief=The photo for '%s' is indexed but missing. Try running updatepix.
+detail=The photo for the named player is listed in the index of player photos, so it should be in your photo library, but it isn't. Try running updatepix to rebuild the library.
+type=error
+
+code=ecopypic
+brief=Kan ikke kopiere fotografi '%s': %s.
+detail=The named player photo could not be copied for the stated reason. The most common reason for this is lack of disk space.
+type=error
+
+code=wentryabsp
+brief="config entry='absp'" is deprecated.  Please use "config entry='spread'".
+detail=Spread-based entry is no longer universal at ABSP tournaments, so the value of the configuration parameter has been changed, and the old value will be unacceptable in future.
+type=warning
+
+code=wentrynsa
+brief="config entry='nsa'" is deprecated.  Please use "config entry='scores'".
+detail=Scores-based entry is not exclusive to the NSA, so the value of this configuration parameter has been changed, and the old value will be unacceptable in future.
+type=warning
+
+code=wmanpair
+brief="config manual_pairings = 1" is deprecated.  Please use "config pairing_system='manual'".
+detail=The number of different pairing systems is gradually increasing, and we want to minimize the number of different configuration variables it is necssary to support. The old style configuration of manual pairings will become unacceptable in future, so please stop using it now.
+type=warning
+
+code=ebtabmet
+brief=Bad value for "config table_method": '%s'.
+detail=The only acceptable value for table_method is: 'consecutive'. Please correct your configuration.
+type=error
+
+code=eclassdiv
+brief=Unknown division in "classes" command in configuration file: '%s'.
+detail=You must declare divisions using the "division" command before you use the "classes" command to declare their classes.  Please correct your configuration file.
+type=error
+
+code=eclassnum
+brief=Bad number in "classes" command in configuration file: '%s'.
+detail=The syntax for the "classes" command consists of the word "classes", a space, the name of a previously declared division, a space, and an integer in the range [2,26].  Please correct your configuration file.
+type=error
+
+code=itruncs
+brief=Data for Division %s has been truncated to %s rounds.
+detail=As per your request, the division data has been truncated. To recover it, look through the journalled files in the 'old' subdirectory.
+type=note
+
+code=wtruncf
+brief=Ikke noe data trengte å trunkeres; ingenting ble gjort.
+detail=You asked for division data to be truncated after a certain round, but no data had been entered or generated past that round, so no changes were made.
+type=warning
+
+code=warnhied
+brief=You have asked for HTML files in your event directory together with player photos, but only the HTML files in your web (html) directory will have working photos.
+detail=config player_photos and config html_in_event_directory are currently incompatible.  Remove one if you do not wish to see this message.
+type=warning
+
+code=eabspr
+brief=Ikke alle resultatene for runde %d har blitt rapportert.
+detail=You should not prepare the ratings grid until all results have been entered. Any grid file prepared should be discarded and not submitted.
+type=error
+
+code=iabspok
+brief=Grid created.
+detail=A grid file, suitable for submission to the ABSP, has been created.
+type=note
+
+code=enohtml
+brief=The web page you want to see does not exist yet.
+detail=Web pages are created automatically by report commands. Please use one to generate a report before asking to see it.
+type=error
+
+code=eresconf
+brief=Bordreservasjonene til spillerne %s og %s strider mot hverandre.
+detail=You have stationed the players at different fixed boards using "config reserved", but they have to play each other.  If it is impossible for them to play each other, you'll have to manually change your pairings; otherwise one will have to play away from their home table.
+type=error
+
+code=wlowscore
+brief=%d er en mistenkelig lav poengsum, men har blitt akseptert.
+detail=Two-digit scores are uncommon, and may be entered when a digit is omitted from a three-digit score. Please check your data entry and use the EditScores command to correct any errors.
+type=warning
+
+code=espitcfg
+brief=No spit roast file defined.
+detail=You must set "config spitfile" before using the SPITroast command.  That option specifies the location of the spit roast team file, and must be read before the command can list standings.
+type=error
+
+code=espitope
+brief=Kan ikke åpne %s: %s
+detail=I was unable to open the spitfile that you specified.  Please check that the filename is specified correctly in your configuration file, that the file exists in your event folder, and is readable.
+type=error
+
+code=espitsyn
+brief=Forstår ikke: %s
+detail=spitfile lines must look something like: 1 2 4 5 6 7 3 8; John Chew; John's First Picks.  Please correct the offending line.
+type=error
+
+code=espit2t
+brief=Det finnes to lag med navnet '%s'.
+detail=Each line in your spitfile should define a team with a different name. Please correct your spitfile and try again.
+type=error
+
+code=espit2p
+brief=Lag %s har valgt spiller %d to ganger.
+detail=A team's picks should list each player in the division only once. Please correct your spitfile and try again.
+type=error
+
+code=espitbp
+brief=Team %s has a bad player number: %d.
+detail=A team's picks must be valid player numbers. Please correct your spitfile and try again.
+type=error
+
+code=espitmp
+brief=Lag %s mangler spiller #%d.
+detail=A team's picks must list all players in the division. Please check your spitfile and try again.
+type=error
+
+code=ebadp12
+brief=%s was supposed to go second vs. %s in Round %s.
+detail=A player either misrecorded who went first, or went first inappropriately. If the same player repeats the offence, they should be investigated.
+type=error
+
+code=ebadp12l
+brief=%s should have replied in Round(s): %s.
+detail=A player either misrecorded who went first, or went first inappropriately. If the same player repeats the offence, they should be investigated.
+type=error
+
+code=enorank
+brief=Finner ikke rangen for %s i runde %d: rangen har ennå ikke blitt regnet ut.
+detail=This error indicates a program bug in tsh. Please contact John Chew and tell him as much about the circumstances as possible.
+type=error
+
+code=iodddiv
+brief=Det er et odde antall aktive spillere (%d) i divisjon %s.
+detail=If the number of players in a division is odd, one of them will have to sit out (receiving a bye) each round. If you have two odd divisions, you may want to move a player to even them out.
+type=note
+
+code=inullok
+brief=No additional pairings needed to be computed.
+detail=You asked for pairings to be computed, but after checking for byes and possibly Gibsonization, nothing needed to be done.
+type=note
+
+code=wprzprov
+brief=%s har ingen resultater i runde %d, så premietildelingen kan komme til å endres.
+detail=The named player (and possibly others) does not have a score yet in the given round, so the prize assignments displayed may change by the time all results are in.
+type=warning
+
+code=edivpart
+brief=%s har ingen resultater i runde %d, så resultatene er midlertidige.
+detail=The named player (and possibly others) does not have a score yet in the given round, so the results shown may change when additional scores are entered.
+type=error
+
+code=eneedport
+brief=You cannot view the GUI without "config port".
+detail=The "port" configuration option specifies the port on which your tsh GUI server will run.  Good numbers to pick are four digits and greater than 1024.
+type=error
+
+code=edryne
+brief=Dry run can't be run without overwriting existing data.
+detail=To prevent you from clobbering live data, tsh will not let you do a dry run in a division that already has pairings data in the rounds you want to simulate. If you are sure you want to do a dry run, use the TRUNCATEROUNDS command to remove the existing data before trying the dry run again.
+type=error
+
+code=edryapf
+brief=Det har ikke blitt konfigurert et paroppsett for runde %d.
+detail=If you are using automatic pairings, you should review the autopair instructions in your configuration file and add an instruction for the missing round. If you are using manual pairings, you should not try to do a dry run. If neither is the case, please contact John Chew.
+type=error
+
+code=epabr
+brief=%d er for stort til å være et rundenummer.
+detail=Maximum round numbers are determined by config max_rounds and config max_div_rounds.  You should either correct the number you entered or adjust your configuration.
+type=error
+
+code=epabre
+brief=%d er for stort til å være antall repetisjoner.
+detail=Maximum round numbers (and hence number of repeats) are determined by config max_rounds and config max_div_rounds.  You should either correct the number you entered or adjust your configuration.
+type=error
+
+code=ehaspair
+brief=Divisjon %s har allerede et paroppsett.
+detail=Some pairings algorithms can only be run at the beginning of a tournament, before any other pairings are computed.  You should either remove the existing pairings data (e.g. using TruncateRound or UnPairRound) or choose a different pairing algorithm.
+type=error
+
+code=enastsix
+brief=Satellitturneringer for NAST må ha mellom fem og åtte runder.
+detail=You must specify 'config max_rounds' to use NAST pairings, and the number of rounds you specify for a NAST satellite event must be 5, 6, 7 or 8.
+type=error
+
+code=inastok
+brief=Regner ut NAST-paroppsett for divisjon %s.
+detail=I have begun calculating the NAST pairings you asked for.
+type=note
+
+code=enastnp
+brief=Kan ikke regne ut NAST-paroppsett for %d spillere.
+detail=NAST pairings can only be calculated for certain division sizes, as described at the NAST web site.  Please adjust the number of players in your division and try again.
+type=error
+
+code=igpcok
+brief=Calculating %s pairings for Division %s Round %d, based on Round %d standings, with %d repeats allowed.
+detail=I have begun calculating the pairings you asked for.
+type=note
+
+code=easa
+brief=Please check your data entry: %d-%d=%d, not %d.
+detail=If you correctly entered what the players wrote on the score slip, point the error out to them and have them correct it.
+type=error
+
+code=eanotopp
+brief=%s og %s spilte ikke mot hverandre i runde %d.
+detail=Check to make sure you entered your player numbers correctly. If you did, you may have to use the PAIR command to manually correct pairings.
+type=error
+
+code=esnos
+brief=%s har ikke noen poengsum i runde %d ennå.
+detail=Please enter scores first before trying to edit them.
+type=error
+
+code=esnopp
+brief=%s is not yet paired in Round %d.
+detail=Please pair players first before trying to edit their scores.
+type=error
+
+code=iupr1bad
+brief=%s hadde ingen motspiller i runde %d.
+detail=You asked for pairings to be deleted for the given round, but that player had no opponent.  You do not need to take further action.
+type=note
+
+code=wsubmitnone
+brief=Not submitting ratings for Division %s.
+detail=Please set config division_rating_system{divname} or rating_system to something other than 'none' and rerun tsh before trying this again, if you really want to rate this division.
+type=warning
+
+code=esubmitabsp
+brief=ABSP rating submission is not yet implemented.
+detail=Please ask John Chew to implement it.
+type=error
+
+code=isubmitnsa
+brief=Submitting ratings data for division(s) %s.
+detail=Check config division_rating_system{divname} if any divisions are missing, or set config rating_system if you did not want NSA ratings.
+type=note
+
+code=etrrlame
+brief=TeamRoundRobin does not support your team configuration yet.
+detail=The TeamRoundRobin command currently only supports two teams of almost equal size.  If you would like it to support another tournament format, please ask John Chew for it.
+type=error
+
+code=itrrok
+brief=Calculating team round robin pairings for Division %s.
+detail=I have begun calculating the team round robin pairings you asked for.
+type=note
+
+code=ebadprzf
+brief=Incorrect prize specification in configuration file, missing %s in: prize %s.
+detail=I could not parse your prize specification, which should contain the following fields in order: type, subtype, division, value.
+type=error
+
+code=ebadprzt
+brief=Incorrect prize specification in configuration file, cannot parse "%s" at end of: prize %s.
+detail=I could not parse the optional fields at the end of your prize specification, which should look like: key='value'.
+type=error
+
+code=edivwrite
+brief=Error writing to %s, data not saved: %s.
+detail=An unexpected error occurred updating your division's '.t' file.  Try deleting files if your disk is full.  Remember that the previous version of the file can be found in the backup directory (usually called 'old').
+type=error
+
+code=edivmirror
+brief=Error writing to %s, data not mirrored: %s.
+detail=An unexpected error occurred copying your division's '.t' file.  Try deleting files if your disk is full.  The main copy of your data should not be affected.
+type=error
+
+code=edeletenotbye
+brief=%s hadde ikke frirunde i runde %d.  Ingen poengsummer ble slettet.
+detail=Enter both player numbers and player scores when deleting a scored game.
+type=error
+
+code=edeletewasbye
+brief=%s hadde frirunde i runde %d.  Ingen poengsummer ble slettet.
+detail=To delete a bye, enter 0 for the player's opponent number.
+type=error
+
+code=edeletewrongscore
+brief=%s hadde poengsummen %d, ikke %d.
+detail=To make sure you are deleting the right scores, tsh requires that you correctly enter the scores you want to delete.
+type=error
+
+code=edeletewrongpair
+brief=%s og %s spilte ikke mot hverandre i runde %d.
+detail=To make sure you are deleting the right scores, tsh requires that you do so in pairs according to the entered pairings.
+type=error
+
+code=imissingnot
+brief=Alle poengsummer har blitt skrevet inn; ingen mangler.
+detail=You don't have to look for more scores to enter, but you could try using the CRS command now to print up a sheet to check your data entry.
+type=note
+
+code=euseropen
+brief=Kan ikke åpne ratingfila %s: %s.
+detail=The necessary ratings file could not be opened for the reason given. The most likely cause is that you have not yet installed a ratings file using UPDATERATINGS.
+type=error
+
+code=euseramb
+brief=Klarer ikke skille spillerne: %s.
+detail=The ratings file does not label last names and first names separately, and you have two players whose names would be identical without their comma. One of them must be renamed to earn an NSA rating.
+type=error
+
+code=irratok
+brief=Regner ut og lagrer, men viser ikke, ratingene for runde %d.
+detail=If you ask for multiple rounds of ratings, only the last one is displayed, although all are saved in reports.
+type=note
+
+code=ebasd20
+brief=Big Apple Showdown pairings are for 20 players, not %d.
+type=error
+detail=Check your .t file to make sure you have only 20 players, removing any inactive ones. If you want pairings that are similar to Big Apple Showdown pairings, but for a different number of players, please talk to John Chew.
+
+code=ebasdfr
+brief=Big Apple Showdown Final pairings are for rounds 13-17, not %d.
+detail=If you want a modified version of BASD pairings, please ask John Chew.
+type=error
+
+code=ibasdfok
+brief=Calculating BASD final pairings for Division %s Round %d based on Round %d standings.
+detail=I have begun calculating the Swiss pairings you asked for.
+type=note
+
+code=ibasdsok
+brief=Calculating BASD semifinal pairings for Division %s Round %d based on Round %d standings.
+detail=I have begun calculating the Swiss pairings you asked for.
+type=note
+
+code=enoctid
+brief=You must specify config cross_tables_id to use this command.
+detail=You can find the cross-tables.com ID for your tournament by looking at its cross-tables.com URL. The ID is the number that follows 'u='.
+type=error
+
+code=efetchct
+brief=Unable to obtain player roster cross-tables.com.
+detail=Check your Internet connection and your cross-tables.com id.
+type=error
+
+code=iconnct
+brief=Connecting to %s to fetch player roster.
+detail=I am trying to connect to the web site to get your player roster.
+type=note
+
+code=iconnrat
+brief=Connecting to server %s to update %s.
+detail=Oppretter forbindelse til sørveren %s for å oppdatere %s.
+type=note
+
+code=igotct
+brief=Fetched player roster.
+detail=I have fetched a player roster and am about to parse it.
+type=note
+
+code=elongct
+brief=Too many divisions in cross-tables.com roster, some players omitted.
+detail=There were more divisions in your cross-tables.com roster than you declared in your config.tsh. You should either reduce the number of divisions in the former or increase the number in the latter.
+type=error
+
+code=iupdabort
+brief=Avbrutt.
+detail=Your update process was aborted, please try again.
+type=note
+
+code=iupdnone
+brief=Ingen filer trenger å oppdateres.
+detail=The files you have do not need to be updated.  
+type=note
+
+code=iupdok
+brief=Oppdateringen er fullført. Vennligst avslutt tsh og start om igjen.
+detail=To complete the update you requested, you must rerun tsh.
+type=note
+
+code=iuplayok
+brief=Player roster updated.
+detail=I have successfully updated your player roster from cross-tables.com.
+type=note
+
+code=ectscores
+brief=Division %s has scores. Please delete them before trying to replace its players.
+detail=You can delete scores using RESETEVERYTHING or TRUNCATEROUNDS.
+type=error
+
+code=econfigerr
+brief=Configuration error: "%s".  Press enter (return) to exit.
+detail=Your event configuration file had an error in it and tsh did not know what to do. Please check it carefully, or refer it to John Chew for correction.
+type=error
+
+code=ienterhelp
+brief=Enter 'help' for help.
+detail=You entered an unknown command.  If you are not sure how to use tsh, a good place to start is the 'help' command.
+type=note
+
+code=eparseload
+brief=Error instantiating parser of class '%s': %s.
+detail=You should not see this error message unless you have a corrupt copy of tsh. Try updating or re-downloading tsh, and if that fails, contact John Chew.
+type=error
+
+code=euplayget
+brief=The server returned an error message (%s) instead of the expected data file.
+detail=You should check to make sure your cross-tables.com event ID is correct, and that cross-table.com is up.
+type=error
+
+code=euplay2md
+brief=The server listed more divisions than you have configured.
+detail=You should check to make sure your cross-tables.com event ID is correct, and that you have the same number of divisions configured locally and on the server.  For now, any extra divisions have not been downloaded.
+type=error
+
+code=ibrackok
+brief=Calculating bracket pairings for Division %s Round %d based on Round %d standings.
+detail=I have begun calculating the bracket pairings you asked for.
+type=note
+
+code=eduppass
+brief=%s and %s have the same password.  %s will not be able to use self-service data entry.
+detail=Each player has to have a unique password, used to identify them when they enter their own scores.  Please use the EditScores command to change one of the duplicate passwords.
+type=error
+
+code=egenpass
+brief=I can't make a password for %s: something seems wrong with your random number generator.
+detail=I have tried ten times, and each time I've generated a password that was already in use.  Please contact John Chew, and in the meantime try adding passwords by hand.
+type=error
+
+code=eneedtwitu
+brief=Du må spesifisere config twitter_username før du kan bruke denne kommandoen.
+detail=The TWEET command needs to log onto a twitter server to post its tweet.  Please edit your configuration settings to include one.
+type=error
+
+code=eneedtwitp
+brief=Du må spesifisere config twitter_password før du kan bruke denne kommandoen.
+detail=The TWEET command needs to log onto a twitter server to post its tweet.  Please edit your configuration settings to include one.
+type=error
+
+code=wtweettrunc
+brief=Your tweet was truncated to 140 characters.
+detail=Twitter.com imposes a 140-character maximum on tweets, truncating anything over that limit. You should ask for less information to be tweeted.
+type=warning
+
+code=itweetok
+brief=Du tvitret: %s.
+detail=You sent a message to the twitter.com twitterfeed that you configured, as a result of manually or automatically running the TWEET command.
+type=note
+
+code=wuserexp
+brief=NASPA-medlemskapet til %s er utløpt.
+detail=You will not be able to SUBMIT ratings data for this tournament before this membership is renewed.
+type=warning
+
+code=wuserexp7
+brief=NASPA-medlemskapet til %s vil løpe ut innen en uke.
+detail=You will not be able to SUBMIT ratings data if this membership expires before the end of your tournament.
+type=warning
+
+code=wusernotm
+brief=%s er ikke et ratet medlemn av NASPA.
+detail=You will not be able to SUBMIT ratings data for this tournament before this player purchases a NASPA membership.  If this player is an unrated member, you may disregard this message.
+type=warning
+
+code=igreenok
+brief=Calculating Green pairings for Division %s Round %d based on Round %d standings.
+detail=I have begun calculating the Green pairings you asked for.
+type=note
+
+code=wuserunr
+brief=%s er ratet %d i .t-fila, men står ikke i ratinglistene.
+detail=Check the spelling of the player's name; their original rating remains in the .t file.
+type=warning
+
+code=eahuh
+brief=Hæ?
+detail=What you entered did not look like a valid game result to me.
+type=error
+
+code=iexratok
+brief=The new rating file %s has successfully been created.
+detail=You asked to export rating data. The newly created file contains your most recently downloaded ratings, updated by the results of your tournament.
+type=note
+
+code=wusersusp
+brief=%s has a suspended NASPA membership.
+detail=You will not be able to SUBMIT ratings data for this tournament because this player's membership is under suspension.  See http://www.scrabbleplayers.org/w/Players_under_suspension for details.
+type=warning
+
+code=eautokoth
+brief=Ignoring force_koth for automatic pairings.
+detail=If you want to have KOTH pairings in the final round of automatic pairings, insert the appropriate autopair configuration commands.  Better yet, use default pairings.
+type=error
+
+code=egrreven
+brief=Round robins take place over an odd number of rounds; %d is not an odd number.
+detail=Please choose an odd number of rounds for each group's round robin schedule, to conform with what is combinatorially possible.
+type=error
+
+code=egrrbad
+brief=%d players can't be divided into %d groups of %d or %d players.
+detail=The players can't be divided into groups whose sizes are equal to either the number of rounds or the number of rounds plus one.  Please rethink your pairing strategy or choose a different number of players to place in this division.
+type=error
+
+code=eaupunk
+brief=%s played player %d in round %d, but that player did not play any games.
+detail=Your .t file is inconsistent, probably as a result of manual editing. Please check it carefully and correct it before trying this command again.
+type=error
+
+code=eabbye
+brief=%s-%s is an extremely unlikely game score: you probably want to assign the players byes instead. (Enter HUH EABBYE at the tsh> prompt for details.)
+detail=The scores you entered look like you're trying to enter a bye or forfeit. If you want to do so, you must use the PAIR command to assign each player a bye (opponent 0) before entering each player's bye spread.  Not doing so is likely to result in incorrect ratings and players receiving multiple byes. See the Troubleshooting section of the manual (use the DOC command) for more information and examples.  (If this is not a bye/forfeit situation, you can manually enter the score using the EditScore command.)
+type=error
+
+code=efilecre
+brief=Kan ikke opprette fila %s (%s).
+detail=The indicated error has occurred while tsh was trying to create a file.  The most likely cause is that the target directory either disappeared or has the wrong access permissions.  You must have permission to create new files in the target directory.
+type=error
+
+code=efilecp
+brief=Kan ikke kopiere fila %s til %s (%s).
+detail=The indicated error has occurred while tsh was trying to copy a file.  The most likely cause is that the target directory either disappeared or has the wrong access permissions.  You must have permission to create new files in the target directory.
+type=error
+
+code=esavejson
+brief=Kan ikke lagre turneringsdataene i JSON-format (%s).
+detail=The indicated error has occurred while tsh was trying to save your tournament data.  Web services which rely on JSON data will not have access to current data, but tsh's internal copy of the data is intact.
+type=error
+
+code=ibye
+brief=Ga en frirunde til %s i runde %d.
+detail=Because there were an odd number of players, the named player will not be paired with an opponent in this round.
+type=note
+
+code=irecomprat
+brief=Recomputing Round %d ratings for division %s.
+detail=Recomputing ratings for many rounds can take a lot of time. If you see this message too often, please let John Chew know the circumstances.
+type=note
+
+code=irecomprank
+brief=Recomputing Round %d rankings for division %s.
+detail=Recomputing rankings for many rounds can take a lot of time. If you see this message too often, please let John Chew know the circumstances.
+type=note

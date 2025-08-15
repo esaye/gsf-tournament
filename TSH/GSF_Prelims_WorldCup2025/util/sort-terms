@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  local($/) = undef;
+  my $slurp = <>;
+  for my $recp ( sort { lc($a->{'code'}) cmp lc($b->{'code'}) } map { { map { split(/=/, $_, 2) } split(/\s*\n\s*/, $_) } } split(/\n\s*\n\s*/, $slurp)) {
+    for my $key (sort { $a eq 'code' ? -1 : $b eq 'code' ? 1 : $a cmp $b } keys %$recp) {
+      print "$key=$recp->{$key}\n";
+      }
+    print "\n";
+    }
+  }

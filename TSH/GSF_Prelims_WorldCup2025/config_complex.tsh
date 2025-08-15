@@ -1,0 +1,57 @@
+division a a.t
+config event_name = "GSF National Preliminary Tournament for World Scrabble Championship 2025"
+config event_date = "August 15-17, 2025"
+# used toward end to accelerate pairings
+config track_firsts = 1
+config assign_firsts = 1
+config show_teams = 1
+config initial_exagony = 1
+config scoreboard_teams = 1
+config board_stability = 1
+config no_text_files = 1
+config session_breaks = [1,8,14]
+config force_koth = 1
+config gibson = 1
+# config realm = 'gmb'  # Comment out unknown realm
+config prize_bands{'A'} = [1..3]
+config gibson_groups{'A'} = [[1,2]]
+config max_rounds = 30
+# config tables{'A'} = [1,map {$_,$_} 2..50]
+# config gmb_points = 1  # Comment out unknown points system
+# config reserved{'A'}[58] = 31
+config port = 8088
+config alpha_pair_page_break = 21
+config prizes_page_break = 16
+# config rating_system = 'wespa'
+config initial_random = 1
+config html_top = '<div class=noprint><table align=center border=0 cellpadding=3 cellspacing=0><tr><td rowspan=2><a href="http://www.cyberdict.com/"><img border=0 src="http://www.poslfit.com/images/logos/cyberdict-144.jpg"></a></td><td><font size="+2"><b>The 21st CyberDict<br>Crossword Game<br>International Youth</b></td><td rowspan=2><a href="http://thaicrossword.com/"><img border=0 src="http://www.poslfit.com/images/logos/tca-144.gif"></a></td><tr><td><font size="+1"><b>November 28&ndash;29, 2009</b></font></td></tr></table></div>'
+# config html_top = '<h1>2009 Brand&rsquo;s Crossword Game King&rsquo;s Cup</h1>'
+config player_photos = 1
+# config photo_database = 'gambia'
+config check_by_winner = 1
+config hook_addscore_flush = 'sb 1 100 48 30'
+config hook_autopair = 'sb 1 100 48 30'
+# config hook_division_complete{'A'} = 'tweet a 1 10'
+# config currency_symbol = '&dalasis;';
+# automatic FTP update
+config sftp_host ='sftp.ebrimasaye.com'
+config sftp_username = 'ebrimasaye'
+config sftp_path ='htdocs/tournament'
+
+# Automatic pairing for Swiss tournament
+# Use initial fixed pairing for first few rounds, then Swiss
+autopair a 0 1 if 3 a
+autopair a 3 4 ns 0 3 a
+autopair a 4 5 ns 0 4 a
+autopair a 5 6 ns 0 5 a
+autopair a 6 7 ns 0 6 a
+autopair a 7 8 ns 0 7 a
+autopair a 8 9 ns 0 8 a
+autopair a 9 10 ns 0 9 a
+autopair a 10 11 ns 0 10 a
+autopair a 11 12 ns 0 11 a
+autopair a 12 13 ns 0 12 a
+autopair a 13 14 ns 0 13 a
+autopair a 14 15 ns 0 14 a
+autopair a 15 30 koth 1 15 a
+

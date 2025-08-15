@@ -1,0 +1,22 @@
+#begintest hook_division_update
+#beginconfig
+division a a.t
+config hook_division_update = 'eval print 123'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+pair 1 4 1
+q
+#endcommands
+#beginstdout
+1231
+#endstdout
+#beginstderr
+#endstderr
+#endtest
+

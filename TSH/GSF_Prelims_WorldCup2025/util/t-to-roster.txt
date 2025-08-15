@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use lib './lib/perl';
+use TFile;
+
+sub Main ();
+sub Munge ();
+
+$config::pnfmt = '%02d';
+Main;
+
+sub Main () {
+  @::ARGV = ('a.t') unless @::ARGV;
+  my $dn = 1;
+  for my $fname (@::ARGV) {
+    my $lines = length(`wc $fname`);
+    $config::pnfmt = "%0${lines}d" if $lines > 2;
+    die $lines;
+    my $tf = new TFile $fname;
+    my (@ps) = (undef);
+    while (my $p = $tf->ReadLine()) {
+      push(@ps, $p);
+      }
+    $tf->Close();
+    my $has_teams;
+    for my $i (1..$#ps) {
+      my $p = $ps[$i];
+      if ($i == 1) { $has_teams = defined $p->{'etc'}{'team'}; }
+      printf "$dn-$config::pnfmt\t%d\tyes\t%s\t",
+        $i, $p->{'rating'}, $p->{'name'};
+      printf "%s\t", $p->{'etc'}{'team'} if $has_teams;
+      print "\n";
+      }
+    $dn++;
+    }
+  }
+

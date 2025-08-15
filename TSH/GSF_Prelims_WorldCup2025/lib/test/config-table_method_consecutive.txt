@@ -1,0 +1,51 @@
+#begintest config table_method consecutive
+#beginconfig
+division a a.t
+division b b.t
+division c c.t
+perl srand 123
+config max_rounds = 10
+config table_method = 'consecutive'
+#endconfig
+#beginifile a.t
+Player, A 1200
+Player, B 1100
+Player, C 1000
+#endifile
+#beginifile b.t
+Player, D 1300
+Player, E 1200
+Player, F 1100
+Player, G 1000
+#endifile
+#beginifile c.t
+Player, H 1100
+Player, I 1000
+#endifile
+#begincommands
+debug CP 0
+sp 1 a
+sp 1 b
+sp 1 c
+q
+#endcommands
+#beginstdout
+Division A Round 1 Ranked Pairings
+
+Table Who Plays Whom
+      Player, A (A1): Bye.
+   1  Player, B (A2) vs. Player, C (A3).
+Division B Round 1 Ranked Pairings
+
+Table Who Plays Whom
+   2  Player, D (B1) vs. Player, G (B4).
+   3  Player, E (B2) vs. Player, F (B3).
+Division C Round 1 Ranked Pairings
+
+Table Who Plays Whom
+   4  Player, H (C1) vs. Player, I (C2).
+#endstdout
+#beginstderr
+#endstderr
+#endtest
+

@@ -1,0 +1,28 @@
+#begintest highloss
+#beginconfig
+division a a.t
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+highloss a
+q
+#endcommands
+#beginstdout
+High Losses
+
+Rnd  LS  WS Loser              Winner
+  3 300 400 Chew, Kristen (#2) Chew, John (#1)
+  1 200 300 Chew, Jamie (#3)   Chew, Kristen (#2)
+  2 200 400 Chew, Jamie (#3)   Chew, John (#1)
+  1 100 400 Chew, Liam (#4)    Chew, John (#1)
+  2 100 300 Chew, Liam (#4)    Chew, Kristen (#2)
+#endstdout
+#beginstderr
+#endstderr
+#endtest

@@ -1,0 +1,167 @@
+#!/usr/bin/perl 
+
+use strict;
+use warnings;
+
+# script for converting ABSP grids back into .t files, with some loss
+# of information, occasionally required by Bob Jackman for rating
+# ABSP games run without tsh
+
+my $ngames = 0;
+my $state = 0;
+my @players;
+
+sub Main ();
+sub State0 ($);
+sub State1 ($);
+sub State2 ($);
+sub State3 ($);
+sub State4 ($);
+sub State5 ($);
+sub Write ();
+
+Main;
+
+sub Main () {
+  my (@dispatch) = (\&State0,\&State1,\&State2,\&State3,\&State4,\&State5);
+  while (<>) {
+    my $sub = $dispatch[$state];
+    &$sub($_);
+    }
+  Write;
+  }
+
+sub State0 ($) {
+  local($_) = shift;
+  if (/^Results grid after round (\d+)\s*$/) {
+    $ngames = $1;
+    $state++;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub State1 ($) {
+  local($_) = shift;
+  if (/^\s*$/) {
+    $state++;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub State2 ($) {
+  local($_) = shift;
+  my $rounds = join('|', (map { sprintf('Rnd%2d', $_) } 1..$ngames), '');
+  if (s/^Name\s*\|// && $_ =~ /^$rounds\s*$/) {
+    $state++;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub State3 ($) {
+  local($_) = shift;
+  if (/^-+\|(?:-----\|){$ngames}\s*$/) {
+    $state++;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub State4 ($) {
+  local($_) = shift;
+  if (/^\s*(\d+): ([^\|]*[^\|\s])\s*\|((?:[RS]\s*[-+]\d+\|){$ngames})\s*$/) {
+    my $id = $1;
+    my $given = $2;
+    my $records = $3;
+    die "bad id ($id)" unless $id == @players + 1;
+    my (%data) = (
+      'given' => $given,
+      'p12' => [],
+      'scores' => [],
+      'pairings' => [],
+      'wl' => []
+      );
+    push(@players, \%data);
+    for my $record (split(/\|/, $records)) {
+      if ($record =~ /^([RS])\s*([-+])(\d+)$/) {
+        push(@{$data{'p12'}}, $1 eq 'R' ? 2 : 1);
+        push(@{$data{'wl'}}, $2);
+        push(@{$data{'scores'}}, $2 eq '+' ? $3 : 0);
+        }
+      else {
+        die "Can't parse record: $record";
+        }
+      }
+    $state++;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub State5 ($) {
+  local($_) = shift;
+  if (/^\s*(\d+) ([^\|]*[^\|\s])\s*\|((?:[-+]\s*\d+\|){$ngames})\s*$/) {
+    my $wins = $1;
+    my $surname = $2;
+    my $records = $3;
+    my $counted_wins = 0;
+    my $r0 = 0;
+    my $datap = $players[-1];
+    $datap->{'surname'} = $surname;
+    for my $record (split(/\|/, $records)) {
+      if ($record =~ /^([-+])\s*(\d+)$/) {
+        if ($datap->{'wl'}[$r0] ne $1) {
+	  die "inconsistent wl";
+	  }
+	$counted_wins++ if $1 eq '+';
+        push(@{$datap->{'pairings'}}, $2);
+        }
+      else {
+        die "Can't parse record: $record";
+        }
+      $r0++;
+      }
+    die "incorrect wins: $wins != $counted_wins" unless $wins == $counted_wins;
+    $state=3;
+    }
+  else {
+    die "parse failed: state=$state line=$_";
+    }
+  }
+
+sub Write () {
+  for my $p (@players) {
+    print $p->{'surname'};
+    print ', ';
+    print $p->{'given'};
+    print ' ';
+    print '180'; # faked rating
+    print ' ';
+    for my $oid (@{$p->{'pairings'}}) {
+      print $oid;
+      print ' ';
+      }
+    print ';';
+    print ' ';
+    for my $score (@{$p->{'scores'}}) {
+      print $score;
+      print ' ';
+      }
+    print ';';
+    print ' ';
+    print 'p12';
+    print ' ';
+    for my $p12 (@{$p->{'p12'}}) {
+      print $p12;
+      print ' ';
+      }
+    print "\n";
+    }
+  }

@@ -1,0 +1,24 @@
+# provisional configuration for 2006-03 Dallas TX USA
+division a a.t
+config event_name = "2006 Dallas"
+config track_firsts = 1
+config assign_firsts = 0
+config no_text_files = 1
+config session_breaks = [4,8,12,13]
+config prize_bands{'A'} = [1,2]
+config max_rounds = 14
+config rating_system = 'nsa';
+# automatic pairing instructions
+# we don't include any, because we are using default pairings.
+autopair a 0 1 if 3 a
+autopair a 2 4 cp 2 a
+autopair a 4 5 cp 4 a
+autopair a 4 6 cp 4 a
+autopair a 5 7 cp 5 a
+autopair a 6 8 cp 6 a
+autopair a 8 9 cp 8 a
+autopair a 8 10 cp 8 a
+autopair a 9 11 cp 9 a
+autopair a 10 12 cp 10 a
+autopair a 12 13 cp 12 a
+autopair a 13 14 cp 13 a

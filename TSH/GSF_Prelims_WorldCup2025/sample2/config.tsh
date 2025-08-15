@@ -1,0 +1,40 @@
+# This is a sample tsh.config file, used at the BAT 2005 Early Bird,
+# a no-frills tournament of eight six-player round-robins.
+# 
+# This event is also being used as a test bed for the new web interface.
+#
+# Lines that start with a '#' are comments, and are ignored by tsh.
+#
+# Each division must be declared using a line like the following.
+# The first word after 'division' is the name of the division.
+# Enter it in lower case and keep it short, as you'll need to enter
+# it often.  The next word is the name of the data file for that division.
+#
+division a eba.t
+division b ebb.t
+division c ebc.t
+division d ebd.t
+division e ebe.t
+division f ebf.t
+division g ebg.t
+# division h ebh.t
+# uncomment the following line to keep track of who played first/second
+config track_firsts = 1
+config assign_firsts = 1
+# uncomment the following line to use only HTML files, no text files
+config no_text_files = 1
+# automatic pairing instructions
+autopair a 0 1 rr a
+autopair b 0 1 rr b
+autopair c 0 1 rr c
+autopair d 0 1 rr d
+autopair e 0 1 rr e
+autopair f 0 1 rr f
+autopair g 0 1 if 3 g
+autopair g 3 4 p1324 0 3 g
+autopair g 4 5 koth 1 4 g
+config port = 7778
+config event_name = "Sample Tournament #2"
+config max_rounds = 6
+config director_name = "John Chew"
+config event_date = "January 1, 2007"

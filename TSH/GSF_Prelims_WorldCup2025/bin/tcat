@@ -1,0 +1,55 @@
+#!/usr/bin/perl
+
+# tcat - simple table formatter
+
+# $Header: tcat,v 1.1 95/04/13 02:44:36 jjchew Locked $
+
+# Copyright (C) 1994 by John J. Chew, III.  All Rights Reserved.
+
+require 'getopts.pl';
+
+unless (&Getopts('a:c:g:NOt:'))
+  { 
+  print STDERR "Usage: $0 [-a alignments] [-c comment|-N] [-O|-t field-sep] [-g gap] [file...]\n"; 
+  exit 2; 
+  }
+
+$align = 'l';
+$align = $opt_a if defined $opt_a;
+$sep = ($opt_t || "\t");
+$sep = '\|' if $opt_O;
+$com = $opt_N ? '\#' : $opt_c;
+$gap = ' ';
+$gap = $opt_g if defined $opt_g;
+
+@align = split(/ */, $align);
+
+unshift(@ARGV, '-') if $#ARGV < $[;
+while ($ARGV = shift) {
+  open(ARGV, $ARGV);
+  @file = <ARGV>;
+  foreach $line (@file) {
+    next if ($com && $line =~ /^$com/o);
+    chop $line;
+    @fields = split(/$sep/o, $line);
+    $i = $[;
+    foreach $field (@fields) {
+      $lengths[$i] = length($field)
+        if (length($field) > $lengths[$i]);
+      $i++;
+      }
+    }
+  for $i (0..$#lengths) {
+    $align = $align[$i <= $#align ? $i : $#align];
+    $fmt .= $align eq 'l' ? "%-$lengths[$i]s$gap" : "%$lengths[$i]s$gap";
+    }
+  $fmt =~ s/$gap$//;
+  foreach $line (@file) {
+    if ($com && $line =~ /^$com/o) { print $line; }
+    else {
+      @fields = split(/$sep/o, $line);
+      ($out = sprintf($fmt, @fields)) =~ s/\s+$//;
+      print "$out\n";
+      }
+    }
+  }

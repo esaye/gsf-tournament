@@ -1,0 +1,4 @@
+osascript \
+  -e 'tell application "Safari"' \
+  -e 'print "::Users:jjc:local:bat:tsh:A-pairings.html" as alias' \
+  -e 'end tell'

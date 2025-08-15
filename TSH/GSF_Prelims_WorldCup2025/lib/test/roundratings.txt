@@ -1,0 +1,26 @@
+#begintest roundratings
+#beginconfig
+division a a.t
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 4; 200 200 200
+Chew, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+rrat 2
+q
+#endcommands
+#beginstdout
+Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 2.0-0.0  +500 1800 1801  +1 Chew, John (#1)    W:400-200:#3
+  2 2.0-0.0  +300 1300 1303  +3 Chew, Kristen (#2) W:300-100:#4
+  3 0.0-2.0  -300  500  498  -2 Chew, Jamie (#3)   L:200-400:#1
+  4 0.0-2.0  -500    0  543     Chew, Liam (#4)    L:100-300:#2
+#endstdout
+#beginstderr
+#endstderr
+#endtest

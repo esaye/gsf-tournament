@@ -1,0 +1,47 @@
+#begintest spitroast
+#beginconfig
+division a a.t
+config colour = 'no'
+config max_rounds = 3
+config rotofile = 'roto.txt'
+config spitfile{'A'} = 'spit.txt'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#beginifile spit.txt
+1 2 3 4; John Chew; John A
+1 2 4 3; John Chew; John B
+2 1 3 4; Kristen Chew; Kristen A
+1 2 3 4; Kristen Chew; Kristen B
+4 3 2 1; Liam Chew; Liam A
+#endifile
+#begincommands
+spit 2 a
+spit 3 a
+q
+#endcommands
+#beginstdout
+Division A Rotisserie Standings After Round 2
+
+Rank Score Picks   Owner        Team
+   1     0 1 2 3 4 John Chew    John A
+   1     0 1 2 3 4 Kristen Chew Kristen B
+   3     2 1 2 4 3 John Chew    John B
+   3     2 2 1 3 4 Kristen Chew Kristen A
+   5     8 4 3 2 1 Liam Chew    Liam A
+Division A Rotisserie Standings After Round 3
+
+Rank Score Picks   Owner        Team
+   1     0 1 2 3 4 John Chew    John A
+   1     0 1 2 3 4 Kristen Chew Kristen B
+   3     2 1 2 4 3 John Chew    John B
+   3     2 2 1 3 4 Kristen Chew Kristen A
+   5     8 4 3 2 1 Liam Chew    Liam A
+#endstdout
+#beginstderr
+#endstderr
+#endtest

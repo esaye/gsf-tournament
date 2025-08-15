@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# simulate PC 2007 division 1
+
+# perl -d:DProf ./tsh.pl > sim.$$.out << EOF
+./tsh.pl pc1 > sim.$$.out << EOF
+debug CP 1
+truncaterounds 0
+rat
+sp 1
+sp 2
+sp 3
+rand
+rat
+rand
+rat
+sp 4
+rand
+rat
+rand
+rat
+sp 5
+sp 6
+rand
+rat
+sp 7
+rand
+rat
+rand
+rat
+sp 8
+sp 9
+rand
+rat
+sp 10
+rand
+rat
+sp 11
+rand
+rat
+rand
+rat
+sp 12
+sp 13
+rand
+rat
+sp 14
+rand
+rat
+rand
+rat
+sp 15
+sp 16
+rand
+rat
+sp 17
+rand
+rat
+sp 18
+rand
+rat
+rand
+rat
+sp 19
+sp 20
+rand
+rat
+sp 21
+rand
+rat
+rand
+rat
+sp 22
+sp 23
+rand
+rat
+sp 24
+rand
+rat
+sp 25
+rand
+rat
+rand
+rat
+sp 26
+sp 27
+rand
+rat
+sp 28
+rand
+rat
+rand
+rat
+sp 29
+sp 30
+rand
+rat
+rand
+rat
+sp 31
+rand
+rat
+EOF
+echo '--tourney.pl--' >> sim.$$.out
+tourney.pl -w 1000 pc1/a.t >> sim.$$.out
+util/simreport sim.$$.out

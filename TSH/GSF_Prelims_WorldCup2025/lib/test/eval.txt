@@ -1,0 +1,22 @@
+#begintest eval
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 3 4 1; 300
+Chew, Jamie 500    2 1 0; 200
+Chew, Liam 0       1 2 0; 100
+#endifile
+#begincommands
+eval 1+1
+q
+#endcommands
+#beginstdout
+2
+#endstdout
+#beginstderr
+#endstderr
+#endtest

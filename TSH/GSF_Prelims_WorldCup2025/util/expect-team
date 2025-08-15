@@ -1,0 +1,35 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use vars qw(@ARGV);
+
+unshift(@INC, "$ENV{HOME}/lib/perl");
+require 'ratings.pl';
+
+my $n = 1 + int($#ARGV/2);
+my @ratings;
+$ratings[0] = [@ARGV[0..$n-1]];
+$ratings[1] = [@ARGV[$n..$#ARGV]];
+my @teamtotal = (0,0);
+
+for my $p (0..$n-1) {
+	for my $t (0..1) {
+		my $thistotal = 0;
+		my $myr = $ratings[$t][$p];
+		printf "%d-%02d (%4d): ", $t, $p, $myr;
+		for my $opp (0..$n-1) {
+			my $outcome 
+				= &outcome_cached($myr-$ratings[1-$t][$opp]);
+			printf "%4.2f ", $outcome;
+			$thistotal += $outcome;
+			}
+		printf "= %4.2f\n", $thistotal;
+		$teamtotal[$t] += $thistotal;
+		}
+	}
+
+
+for my $t (0..1) {
+	printf "Team %d: %5.2f\n", $t, $teamtotal[$t];
+	}

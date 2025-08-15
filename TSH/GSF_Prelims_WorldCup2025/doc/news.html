@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: What&rsquo;s New</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=here><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>What&rsquo;s New in <cite>tsh</cite></h1>
+<p class=subtitle>A chronological list of changes to <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-07-24T13:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<p class=p1>Changes are made to <cite>tsh</cite> for just about every
+tournament at which it is used.  This means two things: firstly,
+you should be sure to 
+<a href="install.html#update">update</a> to the most recent version before your
+tournament; and secondly, if there&rsquo;s a feature that you&rsquo;d like added
+please be sure to mention it, preferably with about a month&rsquo;s lead time.
+</p>
+
+<table class=news border=0 cellspacing=0>
+
+<tr><th class=version>Version</th><th class=event>Event</th><th class=change>Changes</th></tr>
+
+<tr><td class=version>3.350</td><td class=event>Development</td>
+  <td class=change><ul>
+    <!-- documented down to here -->
+    <li>&ldquo;<code><a href="config.html#unfair_byes">config unfair_byes{'A'} = 2</a></code>&rdquo; will restrict byes to the bottom two players in division A (Ravee Joradol).</li>
+    <li>&ldquo;<code><a href="commands.html#mirror">MIRROR</a></code>&rdquo; command works now with Strawberry Perl (Greg Golding).</li>
+    <li>&ldquo;<code><a href="commands.html#browselast">BrowseLast</a></code>&rdquo; command works now with Strawberry Perl (Greg Golding).</li>
+    <li>The &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command now assigns CSS classes to player IDs even in ranked pairings (Wali Muhammad).</li>
+    <li>The &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command now assigns CSS classes to player IDs even in ranked pairings (Wali Muhammad).</li>
+    <li>The <a href="config.html#hook_division_update">config hook_division_update</a> configuration option is now parsed for expressions involving $r, not just $d.</li>
+    <li>The <a href="config.html#hook_addscore_flush">config hook_addscore_flush</a> configuration option is now parsed for expressions involving $r, not just $d. (Ravee Joradol)</li>
+  </ul></td>
+</tr>
+
+<tr><td class=version>3.340</td><td class=event>The occasion on 2025-05-22 of John Chew having enough time to catch up on documentation</td>
+  <td class=change><ul>
+    <li>Added new &ldquo;<code><a href="config.html#pname_from_sbname">config pname_from_sbname = 1</a></code>&rdquo; configuration option for having pname default to sbname (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#wallchart_refresh">config wallchart_refresh = 1</a></code>&rdquo; configuration option for browser refresh of wallcharts (Vince Castellano).</li>
+    <li>Enhanced scoreboard pairing mode display fixes (Vince Castellano).</li>
+    <li>Enhanced scoreboard German localisation (Alex Gast).</li>
+    <li>Web updates a little more tolerant of proxies (Vince Castellano).</li>
+    <li>The &ldquo;<code><a href="commands.html#roto">ROTO</a></code>&rdquo; command generates JSON output. (Ryan Fischer)</li>
+    <li>The &ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; supports banners again.</li>
+    <li>The &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command&rsquo;s knows about Pakistan ratings (Wali Muhammad Bhaila).</li>
+    <li>The &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command zeroes unrated players (Wali Muhammad Bhaila).</li>
+    <li>&ldquo;<code><a href="config.html#rating_page_break">config rating_page_break = 40 </a></code>&rdquo; specifies the number of players to show on each page of a rating report (Shelley Ubeika).</li>
+    <li>The new &ldquo;<code><a href="commands.html#removeplayer">ReMovePlayer</a></code>&rdquo; command removes a player from a tournament (John Chew).</li>
+    <li>Photo database index file encoding matches &ldquo;<code><a href="config.html#tfile_encoding">config tfile_encoding</a></code>&rdquo; if set, else isolatin1 as before (Taral Seierstad).</li>
+    <li>The &ldquo;<code><a href="commands.html#rosters">ROSTERS</a></code>&rdquo; command is internationalised (Taral Seierstad).</li>
+    <li>The &ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command is internationalised (Taral Seierstad).</li>
+    <li>The &ldquo;<code><a href="commands.html#showrankedwallchart">showRankedWallChart</a></code>&rdquo; command is internationalised (Taral Seierstad).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'absp'</a></code>&rdquo; now sets data entry mdoe to <li>&ldquo;<code>'both'</code>&rdquo;</li> per ABSP request (Steve Perry).</li>
+    <li>The &ldquo;<code><a href="config.html#max_score">config max_score = 9999</a></code>&rdquo; specifies maximum score value that may be entered (Kent).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'absp'</a></code>&rdquo; now specifies a default bye_spread of 100 per WESPA Rules Version 3 (Jessica Pratesi).</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command correctly reports details of a lowroundwin (Josh Greenway).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command can send data to the ABSP (Rachel Bingham).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command ABSP outout is filtered, and a webpage is opened on success (Rachel Bingham).</li>
+    <li>Added &ldquo;<code><a href="config.html#player_nicknames">config player_nicknames = "nicknames.txt"</a></code>&rdquo; configuration option to provide a persistent means of specifying alternate scoreboard names (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#suppress_results_in_pairings">config suppress_results_in_pairings = 1</a></code>&rdquo; configuration option to hide results in Pairings Mode ESB (Vince Castellano).</li>
+    <li>Pairing commands which allow specifying a round as basis will prompt if there are more recent rounds completed than the one indicated (Vince Castellano).</li>
+    <li>The &ldquo;<code><a href="commands.html#pairmany">PairMany</a></code>&rdquo; command will not take the order of entry as the order of play even if firsts are being assigned (Vince Castellano).</li>
+    <li>The &ldquo;<code><a href="commands.html#pairmany12">PairMany12</a></code>&rdquo; command provides the old semantics of <code>PairMany</code> with respect to the assignment of firsts and seconds (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#overseed_tiebroken_by_spread">config overseed_tiebroken_by_spread = 1</a></code>&rdquo; configuration option to indicate ties for the overseed prize should be broken by spread in preference to initial ranking (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#pairing_bars">config pairing_bars = 1</a></code>&rdquo; configuration option to enable an experimental facility for graphically illustrating pairings in console output (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#standings_hotlink_target">config standings_hotlink_target = "format-string"</a></code>&rdquo; configuration option to customize the target of the hyperlink behind player names in HTML standings (Vince Castellano).</li>
+    <li>Try to purge all reports which are invalidated by the deletion of data (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#prize_bands_from_prizes">config prize_bands_from_prizes = 1</a></code>&rdquo; configuration option to indicate that the <code><a href="config.html#prize_bands">prize_bands</a></code> config parameter is to be inferred from the number of rank prizes designated for each division (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#account_for_h2h_sr">config account_for_h2h_sr = 1</a></code>&rdquo; configuration option to indicate that players' head-to-head record of firsts and seconds is to be taken into account when assigning firsts (Vince Castellano).</li>
+    <li>&ldquo;<code>util/aupair-to-t</code>&rdquo; works with multi-division events (Wali Muhammad).</li>
+    <li>German scoreboard terminology bug fixes (Alex Gast).</li>
+    <li>Scoreboard message bouncing bug fixed (John Chew).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command will use pairing information to disambiguate partially named plaeyrs (John Chew)</li>
+    <li>The new &ldquo;<code><a href="commands.html#addplayer">ADdPlayer</a></code>&rdquo; command adds a player to a tournament (John Chew).</li>
+    <li>The new &ldquo;<code><a href="commands.html#moveplayer">MoVePlayer</a></code>&rdquo; command renumbers a player and/or moves them to another division (John Chew).</li>
+    <li>The &ldquo;<code><a href="commands.html#lowerroundrobins">LowerRoundRobins</a></code>&rdquo; command pairs 2N players for N rounds as two groups, not one (Ross Mackenzie).</li>
+    <li>Internationalization changes affecting mainly Polish users (Adam Klimont).</li>
+    <li>Auto-pairing is never interrupted by prompts. (David Wilson)</li>
+    <li>Added &ldquo;<code><a href="config.html#ignore_stale_source_round">config ignore_stale_source_round = 1</a></code>&rdquo; configuration option to suppress recently added code prompting directors when pairing based on stale source rounds (David Wilson).</li>
+    <li>&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo; pairing command works better when some players have been manually paired (John Chew).</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command permits a player to belong to multiple classes (e.g., B,Senior) (John Chew).</li>
+    <li>&ldquo;<code>config allow_gaps = 1</code>&rdquo; support improved (Steve Perry).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command supports round ranges for highroundloss (John Chew).</li>
+    <li>&ldquo;<code><a href="commands.html#lowerroundrobins">LowerRoundRobins</a></code>&rdquo; command supports &ldquo;<code><a href="config.html#random_rr_order">config random_rr_order = 1</a></code>&rdquo; (Ross Mackenzie).</li>
+    <li>Enhanced scoreboard settings pane closes when escape key pressed (John Chew).</li>
+    <li>Enhanced scoreboard shows number of scores entered so far (Dan Stock).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command calculation of upsets supports exclusive tag (Josh Greenway).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command ABSP target host name updated (Rachel Bingham).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command ABSP target host name updated more (Jessica Pratesi).</li>
+    <li>&ldquo;<code><a href="config.html#gibson_spread">config gibson_spread = [250,175,150]</a></code>&rdquo; configuration option default value changed to [500].</li>
+    <li>Added &ldquo;<code><a href="config.html#swiss_ignores_repeats">config swiss_ignores_repeats = 1</a></code>&rdquo; configuration option to make Swiss pairing code ignore repeats - actually added a while back.</li>
+    <li>Added &ldquo;<code><a href="config.html#swiss_ignores_firsts">config swiss_ignores_firsts = 1</a></code>&rdquo; configuration option to make Swiss pairing code ignore firsts and seconds (Wolfram Poh).</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command heavily rewritten to eliminate rare bugs (John Chew)</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command calculation of upsets supports first and last round specifiers (Josh Greenway).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command code refactored for consistent support of round, first and last options across high/low win/loss (Josh Greenway).</li>
+    <li>&ldquo;<code><a href="commands.html#rosters">ROSTERS</a></code>&rdquo; command now warns user if there are no players, or no active players (Calum Edwards).</li>
+    <li>&ldquo;<code><a href="config.html#interleave_rr">config interleave_rr = 2</a></code>&rdquo; (or greater) specifies a number of times round-robin opponents will face each other before moving on to the next opponent.  &ldquo;<a href="commands.html#roundrobin"><code>RR 3</code></a>&rdquo; in this case would mean everyone plays each opponent twice in turn, then repeats the same round robin two more times for a total of six (Kieran O'Connor).</li>
+    <li>&ldquo;<code><a href="commands.html#deletescore">DELETEscore</a></code>&rdquo; command does not delete wrong score when asked to delete a final unscored bye (Vince Castellano).</li>
+    <li>&ldquo;<code><a href="config.html#esb_lite">config esb_lite = 1</a></code>&rdquo; Suppresses last opponent photo, last opp. 1st/2nd, round-by-round W/L and 1/2 history in ESB to economize on screen real estate.(Vince Castellano).</li>
+    <li>A bye is no longer counted as a game played for purposes of determining the ESB pairing mode display's round.(Vince Castellano).</li>
+    <li>&ldquo;<code><a href="commands.html#pairmany">PairMany</a></code>&rdquo; and &ldquo;<code><a href="commands.html#pairmany12">PairMany12</a></code>&rdquo; no longer allow pairings to be changed for rounds in which a player being modified has a score.(Vince Castellano).</li>
+    <li>&ldquo;<code><a href="config.html#consecutive_repeats">config consecutive_repeats = [0,0,1,1,2,3]</a></code>&rdquo; specifies the number of times a player may be paired consecutively (back-to-back) with the same opponent in each successive round (Wali Muhammad Bhaila)</li>
+    <li>The &ldquo;<code><a href="commands.html#forfeitloss">ForfeitLOSS</a></code>&rdquo; command now checks to make sure the forfeit winner is still paired with the forfeit loser before adjusting his record (Craig Beevers).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command will correctly diagnose the situation where you correctly identify one player, but give a partial name that does not match their opponent. (Powell Cheruiyot)</li>
+    <li>&ldquo;<code><a href="commands.html#teamroundrobin">TeamRoundRobin</a></code>&rdquo; command works for 5 teams of 3 players.  (Powell Cheruiyot)</li>
+    <li>Better handling for unknown player photos in nonstandard realms (Pramod Pivithuru)</li>
+    <li>&ldquo;<code><a href="config.html#error_colour">config error_colour = 'yellow'</a></code>&rdquo; makes errors appear in yellow (Pete Thorpe).</li>
+    <li>&ldquo;<code><a href="config.html#quiet_hooks">config quiet_hooks = 1</a></code>&rdquo; runs hooks without displaying command output (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#addscore_prompt">config addscore_prompt = 'games'</a></code>&rdquo; tells &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; with number of games (rather than scores) remaining (Vince Castellano).</li>
+    <li>Update code checks to make sure that downloaded Perl scripts actually look like Perl scripts (rather than say CAPTCHAS) (Jayaska Barange).</li>	
+    <li>&ldquo;<code><a href="config.html#sb_banner_url">config sb_banner_url</a></code>&rdquo; specifies a banner to display above the enhanced scoreboard (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#prize_page_break">config prize_page_break = 12</a></code>&rdquo; specifies number of prize rows per page (John Chew).</li>
+    <li>&ldquo;<code><a href="commands.html#show12">Show12</a></code>&rdquo; command understands that divisions can have differing numbers of rounds (John Chew).</li>
+    <li>Documented &ldquo;<code><a href="config.html#numeric_pairing_display">config numeric_pairing_display=1</a></code>&rdquo; configuration option to sort pairings by player ID rather than name (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#team_pair_page_break">config team_pair_page_break = 12</a></code>&rdquo; breaks a page after every 12 teams in team pairings reports (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#team_pair_first_page_break">config team_pair_first_pagep_break = 10</a></code>&rdquo; breaks the first page after the 10th team (presumably to allow for an extra heading) in team pairings reports (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#team_pair_always_break">config team_pair_always_break = 1</a></code>&rdquo; always breaks a page after each team in team pairings reports (John Chew).</li>
+    <li>Documented &ldquo;<code><a href="config.html#tally_slips_page_break">config tally_slips_page_break=15</a></code>&rdquo; configuration option to limit tally slips per page (John Chew).</li>
+    <li>Documented &ldquo;<code><a href="config.html#tally_slips_blanks">config tally_slips_blanks=1</a></code>&rdquo; configuration option to include an area for blank designation on tally slips (John Chew).</li>
+    <li>Documented &ldquo;<code><a href="config.html#tally_slips_challenges">config tally_slips_challenges=1</a></code>&rdquo; configuration option to include an area for listing challenged words on tally slips (John Chew).</li>
+    <li>Documented &ldquo;<code><a href="config.html#tally_slips_no_spread">config tally_slips_no_spread=1</a></code>&rdquo; configuration option to suppress the area for entering spread on tally slips (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#show_roster_photos">config show_roster_photos = 1</a></code>&rdquo; configuration option displays player photos in tournament rosters, overriding &ldquo;<code><a href="config.html#player_photos">config player_photos</a></code>&rdquo;.</li>
+    <li>&ldquo;<code><a href="config.html#roster_order">config roster_order = 'team-class'</a></code>&rdquo; configuration option added, sorts roster players in order of team, then class.</li>
+    <li>&ldquo;<code><a href="config.html#minimum_prize_team">config minimum_prize_team = 3</a></code>&rdquo; configuration option added, specifies minimum team size eligibility for team prizes.</li>
+    <li>Added &ldquo;<code><a href="config.html#bye_method">config bye_method = 'top_down'</a></code>&rdquo; configuration option to assign byes downward from the top of the field (Ben Berger, Kieran O'Connor, Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#team_quotas">config team_quotas = { 'AUS'=>13, 'AUT'=>2, 'BHR'=>2, 'CAN'=>9 }</a></code>&rdquo; configuration option to calculate team standings based on WSC quota formula.</li>
+    <li>Added &ldquo;<code><a href="config.html#squads">config squads = 1</a></code>&rdquo; configuration option to calculate team vs. team W/L and spread.</li>
+    <li>Added &ldquo;<code><a href="config.html#pairing_caption_pipe">pairing_caption_pipe = 'pbcopy'</a></code>&rdquo; configuration variable to have the &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command pipe a copy of its output through a designated command.</li>
+    <li>The list of players without photos generated by the &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command will now display table numbers instead of board numbers, if they are available; it will also now include player opponents.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command gives a more helpful error message if you enter a single word that it cannot parse.</li>
+    <li>Created Nigerian photo database and realm (Lukeman Owolabi).</li>
+    <li>Added support for the new KEN rating system (Powell Cheruiyot).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command code now supports displaying prizes in a different order from the one in which they were computed.</li>
+    <li>Fixed a bug involving tied rankings and exclusion in the &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command (Katie Bernardina and Kieran O'Connor).</li>
+    <li>Added reload rate settings item to scoreboard (Vince Castellano).</li>
+    <li>Improved handling of players whose names have suffixes (Kieran O'Connor).</li>
+    <li>&ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command&rsquo;s supports HTTPS redirects (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="commands.html#commentary">COMMentary</a></code>&rdquo; command understands that last round is different from rest.</li>
+    <li>&ldquo;<code><a href="config.html#prize_bands">config prize_bands</a></code>&rdquo; parsing made slightly robuster (Ryan Fischer).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command accepts more lower case input (Peter Thorpe).</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command can now compute <a href="config.html#prize_overexp">overexp</a> (over rating expectation) prizes (Kieran O'Connor).</li>
+    <li>Corrected an issue where index pages in compact mode showed no headings (John Chew).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command can be used to set a player&rsquo;s class (Tony Leah).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command&rsquo;s built-in documentation is clearer and more complete (Jason Broersma).</li>
+    <li>The configuration variable &ldquo;<code><a href="config.html#cross_tables_id">config cross_tables_id</a></code>&rdquo; can now be set to a list value such as &ldquo;<code>[14772,14772,14773]</code>&rdquo; to specify a different cross-tables ID for each division (David Pearl).</li>
+    <li>The command &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; now tries to connect to cross-tables.com using TLS 1.2 security (as required by the server since December 2018), and emits a warning if this is not installed (Seth Lipkin).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command calculates but does not show pairings if &ldquo;<code><a href="config.html">config no_pairings_output = 1</a></code>&rdquo; is in effect (for minimizing simulation runtime).</li>
+    <li>The &ldquo;<code><a href="commands.html#dryrun">DRYrun</a></code>&rdquo; command runs faster now if &ldquo;<code><a href="config.html#dryrun_quiet">config dryrun_quiet = 1</a></code>&rdquo; is specified, by not generating pairing and rating reports.</li>
+    <li>Improved player random tiebreak algorithm (C&eacute;sar Del Solar)</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command also makes a slide show (idea from someone at the HKPSA that I have to track down to credit properly).</li>
+    <li>&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; will attempt to perform validity and consistency check between config, server and data before submitting (gvc).</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; data entry will use ReadLine for recall (gvc).</li>
+    <li>The configuration variable &ldquo;<code><a href="config.html#html_page_break_top">html_page_break_top</a></code>&rdquo; can be used to set a different HTML header for continuation pages (gvc).</li>
+    <li>Prize slide shows can have title frames.</li>
+    <li>&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; validation checks do not depend on JSON.pm (Kieran O'Connor)</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#byeall">ByeALL</a></code>&rdquo;, for assigning byes to all unpaired players, for use in sparsely paired competitive activities.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#playingrecord">PlayingRECord</a></code>&rdquo;, for tabulating wins, losses, byes, forfeits, etc. in complicated sparse events (Ravee Joradol).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'kenya'</a></code>&rdquo; has a more extensive set of values (Powell Kiplagat).</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command&rsquo;s luckystiff prizes can are now based on the a number of rounds specified by &ldquo;<code>rounds=6</code>&rdquo; defaulting to six. (Colin Viebrock)).</li>
+    <li>&ldquo;<code>config bye_method = 'german'</code>&rdquo; starts assigning byes n players from the bottom in nth round from last (Stefan Merx).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command uses microsecond timing if available. (Jamie and Liam Chew)</li>
+    <li>The &ldquo;<code><a href="config.html#numeric_pairing_display">config numeric_pairing_display=1</a></code>&rdquo; configuration option displays first player on left in ranked pairings (Ravee Joradol).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#showdivisionscorecards2">ShowDivisionScoreCards2</a></code>&rdquo;, for rendering all scorecards in a two page per sheet imposition (Vince Castellano).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#pausemirror">PAUSEMirror</a></code>&rdquo; which pauses a mirror feed (Vince Castellano).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#resumemirror">RESumeMirror</a></code>&rdquo; which command resumes a paused mirror feed (Vince Castellano).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#unpairplayer">UnPairPlayer</a></code>&rdquo; which deletes a single pairing (Vince Castellano).</li>
+    <li>TSH has more chance of loading completely if a minor error is made in a terminology or message file (Ravee Joradol).</li>
+    <li>The new &ldquo;<code><a href="commands.html#truncatescores">TRUNCATESCORES</a></code>&rdquo; command removes specified rounds' worth of scores from a division (Ravee Joradol).</li>
+    <li>HTTP chunked data transfer no longer fails when a chunk takes more than a second to arrive over a slow connection. (Kieran O'Connor).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command calculation of upsets works again (Kieran O'Connor).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'take5'</a></code>&rdquo; provides support for the card game Take 5 (6 nimmt!) (Ian Chew).</li>
+    <li>TSH optionally checks for updates at launch (Kieran O'Connor).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command&rsquo;s name changes take immediate effect (Clay Daniel).</li>
+    <li>Added experimental &ldquo;<code><a href="config.html#consecutive_repeats">config consecutive_repeats = 0</a></code>&rdquo; configuration option to limit consecutive repeat pairings in all pairings (Wali Muhammad)</li>
+    <li>Added experimental &ldquo;<code><a href="config.html#hypexagony">config hypexagony = 1</a></code>&rdquo; configuration option to limit pairings among teammates (Wali Muhammad)</li>
+    <li>Added experimental &ldquo;<code>div{class}</code></code>&rdquo; syntax to pair only members of a class, currently only works for KOTH (Wali Muhammad)</li>
+    <li>Added experimental &ldquo;<code>div{class}</code></code>&rdquo; syntax support to RandomPair command (Wali Muhammad)</li>
+    <li>Added CSS tags to pairing table rows to help identify bye rows (Wali Muhammad)</li>
+    <li>Silenced precedence warning (Kieran O'Connor)</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command&rsquo;s highratingchange prizes now accepts * as a wildcard division, and has an optional unratedok=1 parameter to include unrated players (Tim Fukawa-Connelly).</li>
+    <li>The <a href="reports.html#aupair">&ldquo;<code>AUPAIR</code>&rdquo;</a> command does not invert names in the Nigerian realm. (Harry Daturoko)</li>
+    <li>&ldquo;<code><a href="commands.html#bugreport">BUGreport</a> --nosend</code>&rdquo; generates an archive but does not submit it (Cesar del Solar).</li>
+    <li>Added new internal-use command &ldquo;<code><a href="commands.html#addprovisionalscore">AddProvisionalScore</a></code>&rdquo;, for entering a score attested to by only one player; enhanced support for remote command input.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command now defaults to a save interval of 1, not 10, because it is no longer 1998. (Jason Broersma)</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#roundteamstandings">RoundTeamStandings</a></code>&rdquo; command (Harry Daturoko).</li>
+    <li>&ldquo;<code><a href="config.html#save_interval">config save_interval</a></code>&rdquo; default changed from 10 to 1 (Jason Broersma)</li>
+    <li>Corrected the &ldquo;<code><a href="commands.html#totalteamstandings">TotalTeamStandings</a></code>&rdquo; command&rsquo;s handling of team caps when teams have different sizes across divisions (Tan Chen Hui).</li>
+    <li>Tag NASPA ID if present in scoreboard, to facilitate CSS styling (Kieran O'Connor).</li>
+    <li>Minor HTML formatting changes to pairings output (Ravee Joradol).</li>
+    <li>Added &ldquo;<code><a href="config.html#html_parent_directory">config html_parent_directory = '/home/wherever/www/tsh/eventname'</a></code>&rdquo;, &ldquo;<code><a href="config.html#html_parent_title">config html_parent_title = 'Collective Event Name'</a></code>&rdquo;, &ldquo;<code><a href="config.html#html_child_prefix">config html_child_prefix = 'subevent-dir'</a></code>&rdquo; configuration options to support creating a parent index for a tournament spread across multiple TSH events. (Ravee Joradol)</li>
+    <li>Boards are now called tables in the Pakistani realm (Wali Muhammad)</li>
+    <li>Support for the &ldquo;<code>naspa2024</code>&rdquo; rating system added.</li>
+    <li>&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo; pairing command bug fixed for five-player groups (Ravee Joradol).</li>
+    <li>Support for the &ldquo;<code>?nomsg=1</code>&rdquo; scoreboard URL param added (Kieran O'Connor).</li>
+    <li>Avoid trying to open browser when running TSH remotely on NASPA server (Cornelia Guest).</li>
+    <li>Fix password hiding bug on NASPA server (Cornelia Guest).</li>
+    <li>DD2023 code base merged (Art Moore).</li>
+    <li>Accidentally deleted squad code restored (Powell Cheruiyot).</li>
+    <li>Instructions added for how to deal with Windows Error 12039 (Waseem Khatri).</li>
+    <li>Corrected one HTTPS redirect error in WebUpdate code (Jon Aam Svendsen).</li>
+    <li>Flag get-tsh.pl as temporarily not likely to work (Jon Aam Svendsen).</li>
+    <li>Added util/tsh-launch-unix Unix TSH command line launcher (Wali Muhammad Khubaib)</li>
+    <li>Added &ldquo;<code><a href="config.html#bad_class_endagony">config bad_class_endagony = 1</a></code>&rdquo; configuration option to support the bad idea of having players only play opponents in the same class. (Wali Muhammad Khubaib)</li>
+    <li>&ldquo;<code><a href="commands.html#missing">MISSING</a></code>&rdquo; command now reports unconfirmed remote scores (Bill Cole).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command tie bug fixed (Kieran O'Connor).</li>
+    <li>&ldquo;<code><a href="commands.html#confirmunconfirmedscores">ConfirmUnconfirmedScores</a></code>&rdquo; command added, auto-confirms and logs all partially entered scores (Bill Cole).</li>
+    <li>&ldquo;<code><a href="commands.html#roundrobin">RoundRobin</a></code>&rdquo; command supports the &ldquo;<code><a href="config.html#final_draw">config final_draw = 1</a></code>&rdquo; option (Eric Harshbarger).</li>
+    <li>&ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command distinguishes between byes and unpaired players. (Ravee Joradol)</li>
+    <li>&ldquo;<code>Added <a href="commands.html#performanceratings">PerformanceRATings</a></code>&rdquo;, <a href="commands.html#roundperformanceratings">RoundPerformanceRATings</a></code>&rdquo; commands. (Kieran O'Connor)</li>
+    <li>&ldquo;<code><a href="config.html#unfair_byes">config unfair_byes{'A'} = 1</a></code>&rdquo; can now be specified on a per-division basis (Powell Cheruiyot).</li>
+    <li>&ldquo;<code><a href="config.html#pairing_bars">config pairing_bars = 1</a></code>&rdquo; configuration option shows number of byes for player with current bye (Vince Castellano).</li>
+    <li>The &ldquo;<code><a href="commands.html#totalteamstandings">TotalTeamStandings</a></code>&rdquo; command no longer behaves weirdly if a division hasno players (John Chew).</li>
+    <li>&ldquo;<code><a href="config.html#interleave_rr">config interleave_rr{'A'} = 2</a></code>&rdquo; can now be specified on a per-division basis. (Eric Harshbarger)</li>
+    <li>Corrected logic for config parameters that can be specified globally or per-division (Colin Viebrock)</li>
+  </ul></td></tr>
+
+<tr><td class=version>3.330</td><td class=event>2015 NASSC</td>
+  <td class=change><ul>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command will complain specifically if you enter an invalid player number. (Steve Perry)</li>
+    <li>&ldquo;<code><a href="commands.html#randomscores">RANDomscores</a></code>&rdquo; will not crash if you specify ratings with leading zeroes (Jack Hoch).</li>
+    <li>The OS/X launcher works even if you manage to deselect it before it runs (Jack Hoch).</li>
+    <li>The &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command works when there are more rounds paired than scored, does not run if the round is incompletely scored, and gives more data again (Vince Castellano).</li>
+    <li>The &ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; command works correctly even when only some players have classes (Jack Hoch).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command now generates team pairing reports if &ldquo;<code><a href="config.html#show_teams">show_teams</a></code>&rdquo; configuration option is in effect.</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command division-switching data entry bug introduced in last version corrected.</li>
+    <li>Added new &ldquo;<code><a href="config.html#fat_tweets">config fat_tweets = 1</a></code>&rdquo; configuration option for Facebook posting (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#next_round_style">config next_round_style = 'brief'</a></code>&rdquo; configuration option for adjusting reporting of next round in rating reports (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#player_id_first">config player_id_first = 1</a></code>&rdquo; configuration option for specifying player ID appearing ahead of name (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#scorecards_refresh">config scorecards_refresh = 1</a></code>&rdquo; configuration option for browser refresh of scorecards (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#standings_hotlink">config standings_hotlink = 1</a></code>&rdquo; configuration option for linking standing reports to scorecards (Vince Castellano).</li>
+    <li>Added new &ldquo;<code><a href="config.html#standings_with_ratings">config standings_with_ratings = 1</a></code>&rdquo; configuration option for displaying ratings even in standing reports (Vince Castellano).</li>
+    <li>&ldquo;<code><a href="commands.html#randomscores">RANDomscores</a></code>&rdquo; now uses normally distributed scores for Glixo/Elo-rated events.</li>
+    <li>Initial round robins are not generated in default pairings after the first round, nor are they triggered in an unpaired division if you ask for pairings for a round after the first (Roy Kading).</li>
+    <li>&ldquo;<code><a href="config.html#roster_order">config roster_order = 'seed'</a></code>&rdquo; configuration option added, sorts roster players in seed order.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#commentary">COMMentary</a></code>&rdquo; to automatically generate event commentary (John Chew).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#tweetpairings">TWeetPairings</a></code>&rdquo; to automatically tweet pairings (John Chew).</li>
+    <li>Added new &ldquo;<code><a href="config.html#alpha_rating_file">config alpha_rating_file = 'winter-fruit.txt'</a></code>&rdquo;, &ldquo;<code><a href="config.html#alpha_rating_minimum">config alpha_rating_minimum = 0</a></code>&rdquo; and &ldquo;<code><a href="config.html#alpha_rating_maximum">config alpha_rating_maximum = 2300</a></code>&rdquo; configuration option for fruit ratings (Winter).</li>
+    <li>Tinkered with initial round robin/schedule logic. (John Chew)</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#mirror">MIRROR</a></code>&rdquo; to launch mirror-ftp in another window (John Chew).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#shownextpairings">ShowNextPairings</a></code>&rdquo; to show next pairings after current ones (Vince Castellano).</li>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; uses more modern command-line option parsing.</li>
+    <li>Added new &ldquo;<code><a href="config.html#team_rank_count_cap">config team_rank_count_cap = 5</a></code>&rdquo; configuration option for limiting number of ranks that count toward team standings.</li>
+    <li>Improved &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command&rsquo;s to set player classes without reload (Jason Broersma)</li>
+    <li>Corrected bug in Glixo rating code that would occasionally cause divide-by-zeroes.</li>
+    <li>Corrected usage of verb "un-pair" to indicate unacceptability in Scrabble lexica (Mauro Pratesi).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command substantially rewritten, includes new control panel with several new settings.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#stopmirror">STOPMirror</a></code>&rdquo; to stop mirror-ftp (John Chew).</li>
+    <li>Added new &ldquo;<code><a href="config.html#html_doctype">config htm_doctype = '<!DOCTYPE html>'</a></code>&rdquo; configuration option for specifying the HTML doctype of generated reports.</li>
+    <li>Added new &ldquo;<code><a href="config.html#scoreboard_links">config scoreboard_links= '<!DOCTYPE html>'</a></code>&rdquo; configuration option to enable HTML links between players in scoreboard scorecards.</li>
+    <li>mirror-ftp uses a local temporary directory for Windows users (James Burley).</li>
+    <li>Documented &ldquo;<code><a href="config.html#swiss_max_consecutive_repeats">config swiss_max_consecutive_repeats= [0,1,1,2]</a></code>&rdquo; configuration option to limit consecutive repeat pairings in Swiss code (Wali Muhammad)</li>
+  </ul></td></tr>
+
+<tr><td class=version>3.320</td><td class=event>2013 SCT</td>
+  <td class=change><ul>
+    <li>&ldquo;<code><a href="config.html#interleave_rr">config interleave_rr = 1</a></code>&rdquo; specifies that multiple round robins be interleaved, not paired with players playing each other repeatedly, for directors that like to slow down their schedule (Ryan Fischer).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#listtourneys">LISTTourneys</a></code>&rdquo; to list your pending unrated NASPA tournaments (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command now shows division name in multidivision events (Andy Saunders).</li>
+    <li>Guelph pairing system (&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'guelph'</a></code>&rdquo;) now works for six or ten players (Andy Saunders).</li>
+    <li>Added new pairing system (&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'none'</a></code>&rdquo;) for Sudoku tournaments (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'sudoku'</a></code>&rdquo; (Amnuay Ploysangngam).</li>
+    <li>It's easier to suppress index entries with CSS now. (Tim Fukawa-Connelly)</li>
+    <li>Added new &ldquo;<code><a href="config.html#zero_byes_tie">config zero_byes_tie = 1</a></code>&rdquo; (Friedrich Engelke).</li>
+    <li>Added more Norwegian vocabulary (Taral Seierstad).</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'naspa-csw'</a></code>&rdquo; (John Chew).</li>
+    <li>The &ldquo;<code><a href="commands.html#koth">KOTH</a></code>&rdquo; command no longer crashes if called partway through data entry (Dan Stock).</li>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; reports the target host when a connection fails.</li>
+    <li>Update scripts do not create empty files on download failure (Joel Sherman).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command rewritten for code clarity, minor cosmetic improvements.</li>
+    <li>&ldquo;<code><a href="commands.html#teamroundrobin">TeamRoundRobin</a></code>&rdquo; command works for even numbers of teams greater than two (Igho Fregene).</li>
+    <li>&ldquo;<code><a href="config.html#tables">config tables = [1..5]</a></code>&rdquo; is deprecated, but no longer crashes when the division is omitted in a single-division tournament (Andy Saunders).</li>
+    <li>Many reports have alternate lines shaded using CSS, more will follow (Taral Seierstad).</li>
+    <li>&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo; pairing command works better now when number of players is not divisible by four.</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'pol'</a></code>&rdquo; added (Adam Klimont).</li>
+    <li>&ldquo;<code><a href="config.html#sum_before_spread">config sum_before_spread = 1</a></code>&rdquo; specifies that players should be ranked on W-L, then total points scored, then spread, is default in Poland (Adam Klimont).</li>
+    <li>&ldquo;<code><a href="config.html#tfile_encoding">tfile_encoding = 'utf8'</a></code>&rdquo; specifies that &lsquo;.t&rsquo; files should be read in the utf8 encoding, not isolatin1 (Adam Klimont).</li>
+    <li>&ldquo;<code><a href="config.html#message_encoding">message_encoding = 'utf8'</a></code>&rdquo; specifies that international terminology files should be read in the utf8 encoding, not isolatin1 (Adam Klimont).</li>
+    <li>Added new &ldquo;<code><a href="config.html#encoding">encoding</a></code>&rdquo; configuration directive for changing the character encoding of the remainder of the configuration file.</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'absp'</a></code>&rdquo; now specifies <code><a href="config.html#no_index_tally_slips">config no_index_tally_slips = 1</a></code>&rdquo; (Rick Blakeway).</li>
+    <li>The value of the <a href="config.html#hook_division_complete">config hook_division_complete{'A'}</a> configuration option is now parsed for expressions involving $d and $r, which are replaced respectively by the division and round number that have just completed (Rick Blakeway).</li>
+    <li>Added new &ldquo;<code><a href="commands.html#divisioncomplete">DivisionComplete</a></code>&rdquo; command that manually triggers the commands given in the <a href="config.html#hook_division_complete">config hook_division_complete</a> configuration option, for use after corrections are made to a division (Rick Blakeway).</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'naspa'</a></code>&rdquo; (Dallas Johnson).</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'naspa-lct'</a></code>&rdquo; (Dallas Johnson).</li>
+    <li>&ldquo;<code><a href="config.html#rating_system">config rating_system = 'naspa'</a></code>&rdquo; is translated internally to &ldquo;<code>config rating_system = 'nsa2008'</code>&rdquo;, likewise for LCT rating system.</li>
+    <li>Some configuration values that must be lists are now ignored if another data type is given instead (Mike Frentz).</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_seat">seat</a></code>&rdquo; extension field in preparation for Thai school pairings (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#index_top_extras">config index_top_extras = {'label' => 'URL', ...}</a></code>&rdquo; configuration option for adding links to the top of the coverage index (Nawapadol Sayavesa).</li>
+    <li>Corrected Collins lexicon, removing RECOLOUR+ and URIBILINOGEN+. (Rowan Webb).</li>
+    <li>Corrected &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command&rsquo;s auto-capitalisation of &ldquo;Mack&rdquo;(Andy Saunders)</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#highratingchanges">HighRatingChanges</a></code>&rdquo; to prepare new report (Jared Robinson).</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command can now compute highratingchange prizes (Jared Robinson).</li>
+    <li>The &ldquo;<code><a href="commands.html#averages">AVErages</a></code>&rdquo; command defaults to showing all players, not top 20 (Ross Brown).</li>
+    <li>&ldquo;<code><a href="commands.html#guelph">GUELPH</a></code>&rdquo; pairings corrected for 6- and 10-player divisions (Brett Constantine).</li>
+    <li>Improved documentation print formatting (Joe Petree).</li>
+    <li>Added new &ldquo;<code><a href="config.html#rating_fields">config rating_fields = [qw(rank newr name team)]</a></code>&rdquo; configuration option for customizing rating reports (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#seats">config seats = 1</a></code>&rdquo; configuration option for enabling seat number display (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#no_random">config no_random = 1</a></code>&rdquo; configuration option for disabling random tie-breaks of players tied in standings (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#top_down_swiss">config top_down_swiss = 1</a></code>&rdquo; configuration option for bidirectional optimization of Swiss pairings (Ravee Joradol).</li>
+    <li>Added new &ldquo;<code><a href="config.html#show_inactive">config show_inactive = 1</a></code>&rdquo; configuration option for displaying inactive players in rating lists (Ravee Joradol).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'pol'</a></code>&rdquo; now sets  &ldquo;<code><a href="config.html#all_byes_tie">config all_byes_tie = 1</a></code>&rdquo; and &ldquo;<code><a href="config.html#bye_spread">config bye_spread = 300</a></code>&rdquo; (Adam Klimont).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command will automatically enter bye scores if it looks like it can safely do so (Chris Cree).</li>
+    <li>&ldquo;<code><a href="config.html#prize_note">note</a></code>&rdquo; prize type added.</li>
+    <li>Configuration error reporting is a skosh clearer (Scott Jackson).</li>
+    <li>Bug fixes for events with capped spread (Vince Castellano).</li>
+    <li>CSS body class identifies division (Ross Brown).</li>
+    <li>&ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; round-off error that caused bad pairings for some large schedules fixed (Ryan Fischer).</li>
+    <li>Corrected text output of &ldquo;<code><a href="commands.html#rosters">ROSTERS</a></code>&rdquo; command (Ross Brown).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; renders better now in iOS Safari.</li>
+    <li>&ldquo;<code><a href="config.html#gibson_spread">config gibson_spread = [250,175,150]</a></code>&rdquo; configuration option added.</li>
+    <li>&ldquo;<code><a href="config.html#no_boards">config no_boards = 0</a></code>&rdquo; enables display of boards, when using tables (Chris Lennon).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#assignteamssnaked">AssignTeamsSnaked</a></code>&rdquo; to support SWILLLNS pairings (Chris Cree).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#teammultipleroundrobin">TeamMultipleRoundRobin</a></code>&rdquo; to support SWILLLNS pairings (Chris Cree).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command lets you enter scores separated by dots again (Reese Daniel).</li>
+    <li>&ldquo;<code><a href="config.html#alpha_pair_first_page_break">config alpha_pair_first_page_break = 10 </a></code>&rdquo; specifies the number of pairings to show on the first page of alpha pairings, if it differs from subsequent pages. (Dan Stock)</li>
+    <li>A plug-in architecture has been developed and implemented.  Some features will be excluded from the general distribution, usually because they are of limited interest.</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; features a compact display mode, dims moving boxes.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command accepts reentered scores with a warning.</li>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command is affected by a new configuration parameter <a href="config.html#chew_no_swiss_all">config chew_no_swiss_all = 1</a>, which overrides the default behaviour of switching to Swiss pairing when all unpaired players are contenders (useful if the top players have been left unpaired for more accurate pairings).</li>
+    <li>The &ldquo;<code><a href="commands.html#exportratings">EXPORTRATINGS</a></code>&rdquo; and &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; commands support a CSV-style file header specifying field order.</li>
+    <li>The &ldquo;<code><a href="commands.html#look">LOOK</a></code>&rdquo; command supports CSW2012, no longer supports SOWPODS2003.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#profile">PROFILE</a></code>&rdquo; to edit persistent configuration options.</li>
+    <li>&ldquo;<code><a href="config.html#auto_koth_repeats">config auto_koth_repeats = 2</a></code>&rdquo; says that any final KOTH rounds forced in Chew pairings will have the specified number of repeats rather than the default unlimited (Llewellin Jegel)</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command correctly handles ties in exclusive prizes (Tony Leah).</li>
+    <li>&ldquo;<code><a href="config.html#html_index_recent_first">config html_index_recent_first = 1</a></code>&rdquo; lists the most recent rounds at the top of the index page, instead of the oldest.</li>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; no longer fails if it temporarily loses its Internet connection in the middle of an upload.</li>
+    <li>&ldquo;<code><a href="config.html#bracket_prelims">config bracket_prelims = 3</a></code>&rdquo; specifies three rounds of preliminary InitFontes pairings before brackets begin.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#lowspread">LowSpread</a></code>&rdquo; to list games with lowest spread.</li>
+    <li>Made substantial cosmetic changes to HTML index appearance.</li>
+    <li>The &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command combines multi-division tournaments into one file (Bob Jackman).</li>
+    <li>&ldquo;<code><a href="config.html#swiss_order">config swiss_order = 'koth'</a></code>&rdquo; changes the ordering of pairings within Swiss win groups to KOTH (Llewellin Jegels).</li>
+    <li>Internationalization changes affecting mainly Polish users (Adam Klimont).</li>
+    <li>&ldquo;<code><a href="config.html#round_robin_order">config round_robin_order</a></code>&rdquo; also applies, with slightly different syntax, to team round robins. (Jason Keller)</li>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command works better with Polish-style sum rankings (Adam Klimont).</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_initrec">initrec</a></code>&rdquo; extension field to support tournaments in which a player may arrive with a prior record of wins, losses, spread, capped spread or score sum (Ravee Joradol, Adam Klimont).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#setesbmessage">setESBMeSsaGE</a></code>&rdquo; to display announcements on the scoreboard (Vince Castellano).</li>
+    <li>&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo; pairing command draws more randomly (Ross Brown).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#roundclassratings">RoundClassRATings</a></code>&rdquo; (Craig Beevers).</li>
+    <li>&ldquo;<code><a href="config.html#html_suffix">config html_suffix = '.shtml'</a></code>&rdquo; changes default suffix for created HTML files.</li>
+    <li>The &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command conforms to Aardvark standards for forfeits and byes (Elie Dangoor).</li>
+    <li>Impossible exagony is detected and reported rather than freezing (Muraguri Peter).</li>
+    <li>&ldquo;<code><a href="config.html#swiss_order">config swiss_order = ['id','koth']</a></code>&rdquo; is now of type array (Llewellin Jegels).</li>
+    <li>Tweeting is now possible again for the first time since Twitter changed its security system, but with a different configuration command. You'll need to install your own command-line twitter tool (I like ttytter on OS X) and then name it like this &ldquo;<code><a href="config.html#twitter_command">config twitter_command = 'ttytter -silent -status="%s"'</a></code>&rdquo; (John Chew).</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_twitter">twitter</a></code>&rdquo; extension field for identifying a player's Twitter handle.</li>
+    <li>&ldquo;<code><a href="config.html#rating_list">config rating_system = 'aus'</a></code>&rdquo; no longer enables acceleration or feedback points (Vali Muhammad Bhaila).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command has new Blink mode, autohides controls, and buttons to move more quickly up and down the ranks.</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'pak'</a></code>&rdquo; has a 500-point rating floor (Vali Muhammad Bhaila).</li>
+    <li>Added &ldquo;<code><a href="commands.html#averageopponentscores">AverageOpponentScores</a></code>&rdquo; command (Brian Bowman).</li>
+    <li>Utility code changes for more robust file saving and mirroring in Windows (Chris Wiegand)</li>
+    <li>&ldquo;<code><a href="config.html#prize_overseed">overseed</a></code>&rdquo; prize type now has a tie-break of final player rank (Pramit Kamath).</li>
+    <li>&ldquo;<code><a href="config.html#show_honourable_mention">config show_honourable_mention = 1</a></code>&rdquo; configuration option added, shows honourable mentions in prize reports (Vince Castellano).</li>
+    <li>&ldquo;<code><a href="config.html#roster_order">config roster_order = 'alpha'</a></code>&rdquo; configuration option added, sorts roster players in alphabetical order</li>
+    <li>&ldquo;<code><a href="config.html#roster_order">config roster_order = 'team'</a></code>&rdquo; configuration option added, sorts roster players in team order (Vali Muhammad Bhaila)</li>
+    <li>Added &ldquo;<code><a href="config.html#entry_tags">config entry_tags = { 'c' => 'csw', 'csw' => 'csw', 't' => 'twl', 'twl' => 'twl'}</a></code>&rdquo; configuration option for tagging games by lexicon (Winter).</li>
+    <li>Added &ldquo;<code><a href="config.html#entry">config entry = 'tagged'</a></code>&rdquo; entry system for tagged games (Winter).</li>
+    <li>Gibsonization now respects &ldquo;<code><a href="config.html#exagony">config exagony = 1</a></code>&rdquo; configuration option (Lisa Kessler).</li>
+    <li>Enhanced scoreboard works even when reloaded in recent versions of Google Chrome with the XHR caching bug (Lisa Kessler).</li>
+    <li>Enhanced scoreboard handles showing games recorded against inactive opponents without error (Lisa Kessler).</li>
+    <li>&ldquo;<code>config initial_schedule</code>&rdquo; value may be any positive integer up to a full round robin length.</li>
+    <li>&ldquo;<code>config initial_schedule</code>&rdquo; value may be any positive integer (Vince Castellano).</li>
+    <li>Using pairing commands to pair players due to go first (or second) with each other will cause an adjustment of firsts/seconds (Vince Castellano).</li>
+    <li>Hooks are no longer reentrant (Vince Castellano).</li>
+    <li>When switching enhanced scoreboard to normal mode, rows are reduced to 10 (formerly 5) if necessary (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#esb_geometry">config esb_geometry{'A'} = [[5,6,0]]</a></code>&rdquo; configuration parameter for specifying enhanced scoreboard geometry (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#standings_refresh">config standings_refresh = 10</a></code>&rdquo; configuration parameter for specifying how often standings files should refresh in browser (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="config.html#unfair_byes">config unfair_byes = 1</a></code>&rdquo; configuration parameter for specifying that byes should always be awarded based on standing, not number of byes already awarded (Ravee Joradol).</li>
+    <li>Rating reports now give first/second and location assignments for next rounds if known.</li>
+    <li>&ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; now does multiples of round robin lengths too.</li>
+    <li>Better handling of non-Unicode consoles (Ravee Joradol).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command no longer exits on garbled input.</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#bugreport">BUGreport</a></code>&rdquo; to email tournament data and a note to John Chew.</li>
+  </ul></td></tr>
+
+<tr><td class=version>3.310</td><td class=event>2010 European Open</td>
+  <td class=change><ul>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command works with exagony.</li>
+    <li>Bye assignment works better with exagony.</li>
+    <li>Added experimental new &ldquo;<code><a href="config.html#begin">begin</a></code>&rdquo; configuration directive for giving commands to run at the beginning of each session.</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command works better with Kingston Cup.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command lets you enter scores that look like byes or forfeits if you are in spread entry mode.</li>
+    <li>The &ldquo;<code><a href="commands.html#look">LOOK</a></code>&rdquo; command reports how many words were correct if &ldquo;<code><a href="config.html#count_good_words">config count_good_words = 1</a></code>&rdquo; is in effect.</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command can now compute luckystiff prizes (Dave Kulansky).</li>
+    <li>Added support for the new NASPA CSW rating system.</li>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command correctly handles the situation where the third-ranked player has clinched a place in the top three and might still make it to second (Rajiv Antao).</li>
+    <li>Added G. Vince Castellano&rsquo;s <a href="gvcqs.html">TSH QuickStart</a>.</li>
+    <li>Added informal description of Chew pairings (Carla Cree).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command creates tally slips as an experimental side effect (Andy Saunders).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#forfeitloss">ForfeitLOSS</a></code>&rdquo; to simply the process of entering a forfeit loss (Ryan Fischer).</li>
+    <li>Added experimental new command &ldquo;<code><a href="commands.html#fix">FIX</a></code>&rdquo; for graphically editing scorecard.</li>
+    <li>Tweaked the &ldquo;<code><a href="commands.html#totalteamstandings">TotalTeamStandings</a></code>&rdquo; command.</li>
+    <li>Combined realm-dependent CSS stylesheets into one master stylesheet.</li>
+    <li>&ldquo;<code><a href="config.html#exagony">config exagony = [1,2,3]</a></code>&rdquo; alternate syntax now lists rounds with exagony.</li>
+    <li>&ldquo;<code><a href="commands.html#showwallchart">showWallChart</a></code>&rdquo; displays teams (Vince Castellano).</li>
+    <li>Added experimental new command &ldquo;<code><a href="commands.html#valet">VALET</a></code>&rdquo; for entering game results at table-side.</li>
+    <li>Added &ldquo;<code><a href="config.html#no_index_tally_slips">config no_index_tally_slips = 1</a></code>&rdquo;, suppresses listing of tally slips in event web coverage index (Heinz-J&uuml;rgen Michel)</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command is internationalized for German (Heinz-J&uuml;rgen Michel).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command can now scroll much more slowly (Andy Saunders).</li>
+    <li>&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command works with capped spread.</li>
+    <li>&ldquo;<code><a href="config.html#spread_cap">config spread_cap</a></code>&rdquo; can now be set to a list of values.</li>
+    <li>&ldquo;<code><a href="config.html#show_roster_classes">config show_roster_classes = 1</a></code>&rdquo; configuration option displays player classes in tournament rosters.</li>
+    <li>&ldquo;<code><a href="commands.html#rosters">ROSTERS</a></code>&rdquo; command shows a lot more information now.</li>
+    <li>Improved &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command to better cope with errors in cross-tables.com data (Andy Saunders)</li>
+    <li>The &ldquo;<code><a href="commands.html#nast">NAST</a></code>&rdquo; command features the newer pairings for seven and eight rounds (Steve Pellinen).</li>
+    <li>&lsquo;photos.txt&rsquo; may contain blank lines (Heinz-J&uuml;rgen Michel)</li>
+    <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command is internationalized for German users (Heinz-J&uuml;rgen Michel).</li>
+    <li>Added &ldquo;<code><a href="config.html#locale">config locale</a></code>&rdquo; configuration option to control collation order.</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'pak'</a></code>&rdquo; (Waseem Khatri).</li>
+    <li>&ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; command now only loads photos in database specified by current realm.</li>
+    <li>Added new &ldquo;<code><a href="config.html#realm">config realm = 'go'</a></code>&rdquo; (Willemien).</li>
+    <li>&ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; now does two-round schedules, as well as any odd.</li>
+    <li>&ldquo;<code><a href="config.html#flight_cap">config flight_cap</a></code>&rdquo; may now be an array, not just a predefined sub.</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'nor'</a></code>&rdquo; added (Taral Seierstad).</li>
+    <li>Round robin pairings now have more balanced starts and replies.</li>
+    <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command now correctly computes median (Taral Seierstad).</li>
+    <li>Corrected &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command&rsquo;s handling of expired NASPA members (Andy Saunders).</li>
+    </ul>
+  </td>
+</tr>
+
+<tr><td class=version>3.300</td><td class=event>WSC 2009</td>
+  <td class=change><ul>
+    <li>Documentation cleanup, <a href="teams.html">Team Play</a> section added.</li>
+    <li>The &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command omits players who did not play any games from its output (Bob Jackman).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command no longer lets you enter scores that look like byes or forfeits without pairing the players appropriately (Nigel Richards).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'thai'</a></code>&rdquo; added, uses Thai rating system, rating list, bye spread, etc.</li>
+    <li>The &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command correctly handles players who had byes in divisions that had no-shows (Nigel Richards, Bob Jackman).</li>
+    <li>&ldquo;<code><a href="config.html#division_label">config division_label{'A'} = 'Jim Thorpe Division'</a></code>&rdquo; overrides default division naming convention (Matthew Hodges).</li>
+    <li>&ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; and &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; commands should now work in ABSP realm.</li>
+    <li>The Elo rating code is more numerically stable when newcomer vs. newcomer games predominate (Rich Engelke).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'deu'</a></code>&rdquo; now specifies the newly created &ldquo;<code><a href="config.html#realm">config rating_system = 'deu'</a></code>&rdquo; rating system, which includes experimental support for capping ratings of newcomers who have not played established opponents (Rich Engelke).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'deu'</a></code>&rdquo; now specifies a separate value for &ldquo;<code><a href="config.html#message_file">config message_file</a></code>&rdquo; in preparation for UI localisation.</li>
+    <li>Internal rating calculation code no longer emits some spurious warning messages (Tapani Lindgren).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command input speed scorekeeping does not crash when a game is entered in zero seconds.</li>
+    <li>Cosmetic changes to make regression tests [a-e]* work again.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command input speed scorekeeping does not misbehave when run interactively, outside of a regression test (Bryan Pepper).</li>
+    <li>&ldquo;<code><a href="config.html#spread_cap">config spread_cap = 350</a></code>&rdquo; limits earnable spread per game and is a Thai realm default (Moomin Doramon).</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_pname">pname</a></code>&rdquo; extension field to allow names to be printed using Unicode characters not available at the console.</li>
+    <li>Changed parsing of extension fields to permit backslashes to escape backslashes or semicolons, and to disregard &lsquo;#&rsquo; comments unless at the beginning of the line (modulo white space).</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command now tries to expand just about anything that doesn't look like a score into a name, including Unicode strings (Charlie Reams, Heinz-J&uuml;rgen Michel).</li>
+    <li>Experimental &ldquo;<code><a href="config.html#windows_console_unicode">config windows_console_unicode = 1</a></code>&rdquo; added, permits the use of non-ASCII characters in player names on a Windows console (Heinz-J&uuml;rgen Michel)</li>
+    <li>&ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command corrects some names from NASPA database spellings to WESPA rating spellings (Bob Jackman).</li>
+    <li>Changes to German lexicon (Friedrich Engelke).</li>
+    <li>Code cleanup to fix regression tests.</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command no longer accepts dots as synonyms for spaces during data entry. If anyone was actually using this feature, let me know and I&rsquo;ll make it an option.</li>
+    <li>&lsquo;.t&rsquo; files are now assumed to be in the ISO Latin-1 encoding.</li>
+    <li>Experimental &ldquo;<code><a href="config.html#use_windows_code_page">config use_windows_code_page = 1</a></code>&rdquo; added, enables the use of non-ASCII characters on a Windows console (Heinz-J&uuml;rgen Michel)</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command allows the &ldquo;<code>exclusive</code>&rdquo; parameter to specify groups of prizes from which a player is eligible to win at most one.</li>
+    <li>Added new &ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles</a></code>&rdquo; pairing command (Philip Nelkon).</li>
+    <li>Added new &ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command.</li>
+    <li>&ldquo;<code><a href="commands.html#teamstandings">TeamStandings</a></code>&rdquo; command displays more statistics (Philip Nelkon).</li>
+    <li>Substantial internal changes to improve performance; ratings and ranks after each round are now cached in division data files.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr><td class=version>3.290</td><td class=event>Correction to 3.280</td>
+  <td class=change><ul>
+    <li>The &ldquo;<code><a href="commands.html#koth">KOTH</a></code>&rdquo; command now accepts an optional &ldquo;repeats since round&rdquo; subparameter to (Hubrecht Luyk).</li>
+    <li>Posted documentation for 3.280.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr><td class=version>3.280</td><td class=event>2009 Toronto SCRABBLE Tournament</td>
+  <td class=change><ul>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command handles ties better (Ross Brown).</li>
+    <li>The &ldquo;<code><a href="commands.html#nast">NAST</a></code>&rdquo; command works with all well-defined seven- and eight-round events (Steve Pellinen).</li>
+    <li>&ldquo;<code><a href="config.html#oppless_spread">config oppless_spread = 1</a></code>&rdquo; indicates that spread calculations should ignore opponent scores (and therefore be just the sum of a player&rsquo;s own scores (Johann-Georg Dengel).</li>
+    <li>&ldquo;<code><a href="config.html#prize_separator">separator</a></code>&rdquo; prize type no longer uses up a prize number (Ross Brown).</li>
+    <li>&ldquo;<code><a href="commands.html#showwallchart">showWallChart</a></code>&rdquo; displays paired unscored rounds, supports terminology internationalization (Johann-Georg Dengel).</li>
+    <li>Added &ldquo;<code><a href="commands.html#showrankedwallchart">showRankedWallChart</a></code>&rdquo; command (Johann-Georg Dengel).</li>
+    <li>&ldquo;<code><a href="config.html#no_boards">config no_boards = 1</a></code>&rdquo; suppresses only boards, not tables (to avoid tables, don&rsquo;t use &ldquo;<code><a href="config.html#tables">config tables</a></code>&rdquo;.</li>
+    <li>The &ldquo;<code><a href="config.html#realm">absp</a></code>&rdquo; realm now uses &ldquo;<code><a href="config.html#entry">config entry = 'scores'</a></code>&rdquo; as its default (Stewart Holden).</li>
+    <li>Non-ASCII characters in foreign terminology are reduced to ASCII for console output.</li>
+    <li>&ldquo;<code><a href="commands.html#standings">STandings</a></code>&rdquo; command output looks more like &ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; command output (Johann-Georg Dengel).</li>
+    <li>Changed &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command to better cope with errors in cross-tables.com data (Ryan Fischer)</li>
+    <li>Updated &ldquo;<code><a href="commands.html#abspgrid">ABSPgrid</a></code>&rdquo; command, which now combines divisions (all, if none are specified) into one grid. (John Grayson, Stewart Holden)</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command can now read group members from a file.</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command group members no longer have to all belong to the same division.</li>
+    <li>Updated &ldquo;<code><a href="commands.html#roto">ROTO</a></code>&rdquo; command, which now accepts an optional round number</li>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; no longer gives up if it has no Internet connection.</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command correctly places players at tables by rank even when School SCRABBLE capped standings are in effect (Joey Krafchick).</li>
+    <li>The &ldquo;<code><a href="config.html#currency_symbol">currency_symbol</a></code>&rdquo; configuration option can now override the default dollar sign in scoreboards.</li>
+    <li>Tweaked &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command to improve pairings specifically for 12-round events with 14-18 players. The leader/nonleader split now always includes at least 4 leaders where possible, and the faint hope clause now applies in the penultimate round as well as the last.</li>
+    <li>The &ldquo;<code><a href="commands.html#pairmany">PairMany</a></code>&rdquo; command now accepts player names (Art Moore).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command now lets you manually assign board numbers.</li>
+    <li>The &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command allows the &ldquo;<code>winner</code>&rdquo; parameter to override a computed winner, which can be useful in events with a separate finals round.</li>
+    <li>The &ldquo;<code><a href="commands.html#roundhandicap">RoundHandiCap</a></code>&rdquo; command reports on King's Cup-style handicaps.</li>
+    <li>The &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command works better when displaying a group that isn't at the top of the field.</li>
+    <li>The &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command has specific knowledge of Thai names, and Malaysian/Singaporean names of Chinese origin, and renders them appropriately.</li>
+    <li>The &ldquo;<code><a href="install.html#plugin">THAICASH</a></code>&rdquo; command reports on King's Cup-style winner's bonuses.</li>
+    <li>The &ldquo;<code><a href="config.html#force_koth">config force_koth</a></code>&rdquo; configuration parameter will accept greater values than 1, and set up that many final rounds of KOTH.</li>
+    <li>The &ldquo;<code><a href="config.html#player_photo_aspect_ratio">config player_photo_aspect_ratio</a></code>&rdquo; configuration parameter specifies aspect ratio of player photos (Stewart Holden).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command now sends data to NASPA, not the NSA.</li>
+    <li>The &ldquo;<code><a href="config.html#director_id">config director_id</a></code>&rdquo;, &ldquo;<code><a href="config.html#director_password">config director_password</a></code>&rdquo; and &ldquo;<code><a href="config.html#tournament_id">config tournament_id</a></code>&rdquo; configuration parameters have been added and are what are now required for automatic ratings submission to NASPA.</li>
+    <li>The &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command works with NASPA ratings (Andy Saunders).</li>
+    <li>The &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command warns about player NASPA membership status (Andy Saunders).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command prompts for a password if it does not find one in the configuration file (not yet tested under Windows) (Andy Saunders).</li>
+    <li>The &ldquo;<code><a href="commands.html#pairmany">PairMany</a></code>&rdquo; command records firsts and seconds if &ldquo;<code><a href="config.html#track_firsts">config track_firsts = 1</a></code>&rdquo; is in effect (Mauro Pratesi).</li>
+    <li>The &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; command omits byes/forfeits rather than faking them as ties if &ldquo;<code><a href="config.html#no_aupair_bye_ties">config no_aupair_bye_ties = 1</a></code>&rdquo; is in effect (Henry Yeo).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command prompts for a password if it does not find one in the configuration file, even under Windows (Bryan Pepper).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command generates a complete all.tsh file even if the network connection fails (Carole Denton).</li>
+    <li>The new &ldquo;<code><a href="commands.html#green">GREEN</a></code>&rdquo; command generates 6-round pairings for 6-8 players as specified by John C. Green (John C. Green).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command does not abort as often on incorrect input (Andy Saunders).</li>
+    <li>The &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command correctly handles the case where a player has a rating in the data file but not in the rating list.</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command now lets you assign spread penalties (Andy Saunders).</li>
+    <li>The &ldquo;<code><a href="config.html#final_draw">config final_draw = 1</a></code>&rdquo; option specifies that even when firsts and seconds are assigned, players with even records in the last round will be instructed to draw randomly to see who starts (Ian Weinstein).</li>
+    <li>&ldquo;<code><a href="config.html#rating_system">config rating_system = 'thai'</a></code>&rdquo; gives a rating system equivalent to NSA 2008 that does not count tie games (Ravee Joradol).</li>
+    <li>The &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command keeps track of input speed.</li>
+    <li>The &ldquo;<code><a href="commands.html#exportratings">EXPORTRATINGS</a></code>&rdquo; command exports a new rating list, for those using tsh to maintain a rating system (Ravee Joradol).</li>
+    <li>The &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command warns about suspended player NASPA membership status (JC Green).</li>
+    <li>Trying to use &ldquo;<code><a href="config.html#force_koth">config force_koth</a></code>&rdquo; with automatic pairings gives an error message, may abort tsh in future (Bryan Pepper).</li>
+    <li>The &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command works with nonstandard filenames (Dave Johnson).</li>
+    <li>&ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; command now does not show the rating difference column for ABSP users (Stewart Holden).</li>
+    <li>&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command does not include future rounds in counting repeats (John O'Laughlin).</li>
+    <li>Cosmetic improvements to the &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command (Ross Brown).</li>
+    <li>Cosmetic improvements to cross-tables, scorecards and wall charts.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr><td class=version>3.270</td><td class=event>Toronto School SCRABBLE Championship</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; is easy to configure (Jared Robinson).</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command now lets you edit byes (Dallas Johnson).</li>
+    <li>The &ldquo;<code><a href="commands.html#nast">NAST</a></code>&rdquo; command works with five-round events (Sherrie Saint John).</li>
+    <li>&ldquo;<code><a href="config.html#rating_system">config rating_system = 'elo'</a></code>&rdquo; indicates that Elo ratings should be computed without NSA bugs.</li>
+    <li>Many more NSA rating system bugs are more correctly duplicated.</li>
+    <li>&ldquo;<code><a href="config.html#rating_list">config rating_list = 'deu'</a></code>&rdquo; specifies the use of the German ratings list.</li>
+    <li>&ldquo;<a href="reports.html#upsets"><code>UPSETs</code></a>&rdquo; command displays decimal ratings differences correctly (Stewart Holden).</li>
+    <li>Improved  &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command, applies pairings cap to players within one win of last prize in the last round, effectively extending the KOTH group in the default situation.</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command can now compute prizes based on results of a selected range of rounds.</li>
+    <li>&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command displays team flags if available, design improvements.</li>
+    <li>new rating systems and rating lists, details to follow.</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'deu'</a></code>&rdquo; added, uses German ratings list, rating system and some terminology in common reports (Heinz-J&uuml;rgen Michel).</li>
+    <li>&ldquo;<code><a href="config.html#rating_list">config rating_system = 'wespa'</a></code>&rdquo; specifies the use of the WESPA rating system.</li>
+    <li>&ldquo;<code><a href="config.html#rating_list">config rating_system = 'aus'</a></code>&rdquo; specifies the use of the Australian rating system.</li>
+    <li>&ldquo;<code><a href="config.html#rating_list">config rating_system = 'nsa2008'</a></code>&rdquo; specifies the use of the new NSA rating system.</li>
+    <li>&ldquo;<code><a href="config.html#gibson">config gibson = 'strict'</a></code>&rdquo; pairs Gibsons with the highest player out of contention, no matter how many times they have played the Gibson (Jim Hughes).</li>
+    <li>&ldquo;<code><a href="commands.html#mirror_ftp">util/mirror-ftp</a></code>&rdquo; automatically copies tsh reports to an FTP server whenever they change.</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command correctly reports updated win total on entering a scoreless bye (Stewart Holden).</li>
+    <li>Added new command &ldquo;<code><a href="commands.html#guelph">GUELPH</a></code>&rdquo; to support new pairing system (&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'guelph'</a></code>&rdquo;) used in Guelph, Ontario, Canada (Andy Saunders).</li>
+    <li>Corrected the calculation of local club ratings that change across multiplier boundaries.</li>
+    <li>Corrected the calculation of ABSP ratings in nonfinal rounds.</li>
+    <li>HTTP clients now try to reconnect 25 times rather than giving up right away.</li>
+    <li>Computed new ratings are saved in .t files (as newr).</li>
+    <li>Ratings for the default 'nsa' realm are now computed using the new logistic rating curve.</li>
+    <li>Fixed bugs in &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; command (Andy Saunders)</li>
+    <li>Fixed bug in bye-assignment algorithm that could cause a crash if data files were manually edited outside of <cite>tsh</cite> (Rajiv Antao).</li>
+    <li>&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command correctly displays half-win banners (Ross Brown).</li>
+    <li>&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command respects &ldquo;<code><a href="config.html#no_boards">config no_boards = 1</a></code>&rdquo; (Ross Brown).</li>
+    <li>&ldquo;<code><a href="config.html#hook_division_update">config hook_division_update = 'command1;command2;...'</a></code>&rdquo; fires on any update of any division data file (Ross Brown).</li>
+    <li>Corrected &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command to handle configuration files that do not end in a newline character (Carla Cree).</li>
+    <li>&ldquo;<code><a href="commands.html#mirror_ftp">util/mirror-ftp</a></code>&rdquo; can be run from its subdirectory (Stewart Holden).</li>
+    <li>&ldquo;<code><a href="commands.html#highcombined">HighCombined</a></code>&rdquo; command shows classes for both players (Stewart Holden).</li>
+    <li>&ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo; complains and does not try to update data files if cross-tables.com returns an error message (Ryan Fischer).</li>
+    <li>&ldquo;<code>util/mirror-ftp.bat</code>&rdquo; added for Windows users (Stewart Holden).</li>
+    <li>Negative prize ranks count from the bottom of the field (Ryan Fischer).</li>
+    <li>&ldquo;<code>util/mirror-ftp</code>&rdquo; syntax changed to permit specifying both username/password and event list on command line (Andy Saunders).</li>
+    <li>Corrected two serious bugs in the &ldquo;<code><a href="commands.html#koth">KOTH</a></code>&rdquo; command that could cause incorrect pairings in divisions with odd numbers of players, and failure to detect Gibsonization (Stewart Holden).</li>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command now works better with &ldquo;<code><a href="config.html#exagony">config exagony = 1</a></code>&rdquo; (Ryan Fischer).</li>
+    <li>Added &ldquo;<code><a href="config.html#html_index_bottom">config html_index_bottom</a></code>&rdquo; and &ldquo;<code><a href="config.html#html_bottom">config html_bottom</a></code>&rdquo;, to offer customisation of web report footers (Ryan Fischer).</li>
+    <li>Added &ldquo;<code><a href="config.html#custom_stylesheet">config custom_stylesheet</a></code>&rdquo; to specify an event-specific CSS stylesheet to override defaults in the standard <cite>tsh</cite> stylesheet (Ryan Fischer).</li>
+    <li>Corrected a bug in the &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command that caused rare crashes during Gibsonisation (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="commands.html#randomscores">RANDomscores</a></code>&rdquo; generates reasonable scores for ABSP divisions even when the ratings are unreasonable (Ryan Fischer).</li>
+    <li>Cleaned up and documented the  &ldquo;<code><a href="config.html#prize_overseed">overseed</a></code>&rdquo; prize type (Ryan Fischer).</li>
+    <li>Added the &ldquo;<code><a href="config.html#prize_separator">separator</a></code>&rdquo; prize type (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; outputs a blank prize chart if run at the beginning of the tournament (Ryan Fischer).</li>
+    <li>Added &ldquo;<code><a href="commands.html#bracketpair">BRACKetpair</a></code>&rdquo; command and &ldquo;<code><a href="config.html#bracket_order">config bracket_order</a></code>&rdquo;, &ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'bracket'</a></code>&rdquo; and &ldquo;<code><a href="config.html#bracket_repeats">config bracket_repeats = 3</a></code>&rdquo; configuration options to support single-elimination pairings (Jason Idalski).</li>
+    <li>Corrected a bug in format of POSTed data in HTTP client code.</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_password">password</a></code>&rdquo; extension field in preparation for self-service scoring.</li>
+    <li>Added the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command and the <a href="config.html#twitter_username">config twitter_username</a>, <a href="config.html#twitter_password">config twitter_password</a>, <a href="config.html#twitter_prefix">config twitter_prefix</a> and <a href="config.html#hook_division_complete">config hook_division_complete{'A'}</a> configuration options.</li>
+    <li>Added the &ldquo;<code><a href="commands.html#totalteamstandings">TotalTeamStandings</a></code>&rdquo; command to list total standings for a team with members in multiple divisions.</li>
+    <li>Added the &ldquo;<code><a href="config.html#prize_totalteam">totalteam</a></code>&rdquo; prize type.</li>
+    <li>&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command displays players out of contention in blue (Ross Brown, implemented by Ross Brown).</li>
+    <li>Documented the &ldquo;<code><a href="config.html#bracket_cap">bracket_cap</a></code>&rdquo; configuration option.</li>
+    <li>Documented the &ldquo;<code><a href="config.html#bracket_noncon_pairings">bracket_noncon_pairings</a></code>&rdquo; configuration option.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr><td class=version>3.260</td><td class=event>2008 Big Apple ST</td>
+  <td class=change><ul>
+  <li>Added &ldquo;<code><a href="config.html#division_rating_system">config division_rating_system{'A'} = 'none'</a></code>&rdquo; which overrides &ldquo;<code><a href="config.html#rating_system">config rating_system</a></code>&rdquo; on a per-division basis (Andy Saunders).</li>
+  <li>Removed &ldquo;<code>config max_name_length</code>&rdquo;, which is no longer necessary as all tables are dynamically formatted.</li>
+  <li>Removed &ldquo;<code>config name_format</code>&rdquo;, which is no longer necessary as all tables are dynamically formatted.</li>
+  <li>&ldquo;<code><a href="commands.html#reseteverything">RESETEVERYTHING</a></code>&rdquo; also deletes &lsquo;prizes.doc&rsquo; (Brad Mills).</li>
+  <li>&ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; command now uses vulgar fractions, correctly handles empty divisions, correctly handles &ldquo;<code><a href="config.html#no_boards">config no_boards = 1</a></code>&rdquo;.</li>
+  <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command now correctly handles &ldquo;<code><a href="config.html#no_boards">config no_boards = 1</a></code>&rdquo;.</li>
+  <li>Commands triggered by hooks do not change which report &ldquo;<code><a href="commands.html#browselast">BrowseLast</a></code>&rdquo; displays.</li>
+  <li>&ldquo;<code><a href="config.html#avoid_sr_runs">config avoid_sr_runs = 1</a></code>&rdquo; is now the default setting in the ABSP <a href="config.html#realm">realm</a> (Paul Thomson).</li>
+  <li>Added experimental new command &ldquo;<code><a href="commands.html#updateplayers">UpdatePLAYers</a></code>&rdquo;, which uses the new configuration variable &ldquo;<code><a href="config.html#cross_tables_id">config cross_tables_id</a></code>&rdquo; to choose and download a player roster from cross-tables.com.</li>
+  </ul></td>
+</tr>
+
+<tr><td class=version>3.250</td><td class=event>2008 MWMST</td>
+  <td class=change><ul>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command now lets you set a player&rsquo;s life games total (necessary for accurate computation of NSA ratings) using the &ldquo;<code>GAMES</code>&rdquo; keyword (Leonora Labog).</li>
+    <li>Added &ldquo;<code><a href="commands.html#basdsemi">BASDSemi</a></code>&rdquo; and &ldquo;<code><a href="commands.html#basdfinal">BASDFinal</a></code>&rdquo; commands, and &ldquo;<code><a href="config.html#basd_pairings">config pairing_system = 'basd'</a></code>&rdquo; configuration option (Ira Freehof).</li>
+    <li>Added &ldquo;<code><a href="config.html#round_robin_order">config round_robin_order</a></code>&rdquo;, which lets you explicitly specify a nonstandard order for the top player&rsquo;s opponents in a round robin (Ira Freehof).</li>
+    <li>Corrected some serious issues affecting Gibsonization mainly for UK directors (Richard Blakeway).</li>
+    <li>Corrected some less serious issues affecting Gibsonization: <cite>tsh</cite> could crash if all players in a division were involved in Gibsonization, especially in a small division (Richard Blakeway).</li>
+    <li>Adjusted the threshold at which tsh will refuse to merge contenders and (six or fewer) contenders (who cannot be paired without repeats) from C&le;NC to C&le;2NC (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; can be invoked on any paired round, not just a scored rond.</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command now has new &ldquo;<code>class</code>&rdquo; extra item for designating class prize eligibility.</li>
+    <li>Redesigned the &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command and added the <a href="config.html#hook_autopair">config hook_autopair</a> configuration option.</li>
+    <li>NSA ratings computed while results are being entered are no longer computed incorrectly for players whose results have not yet been entered (Sal Desiato).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; used to not show pairings immediately after computing them if everyone was a gibson, a victim or a bye.</li>
+    <li>&ldquo;<code><a href="commands.html#teamroundrobin">TeamRoundRobin</a></code>&rdquo; command works if one team has one less player than the other (Mike Frentz).</li>
+  </ul></td></tr>
+
+<tr><td class=version>3.240</td><td class=event>US NSC 2008</td>
+  <td class=change><ul>
+    <li>&ldquo;<code><a href="commands.html#showscorecard">showScoreCard</a></code>&rdquo; command indicates repeat pairings (Stewart Holden)</li>
+    <li>Added &ldquo;<code><a href="commands.html#teamroundrobin">TeamRoundRobin</a></code>&rdquo; command.</li>
+    <li>Corrected &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command to handle .t files with missing final newlines (Brett Constantine).</li>
+    <li>Improved  &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command, runs faster for large divisions by doing even fewer unnecessary best-possible-finish computations.</li>
+    <li>&ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command no longer displays inactive players.</li>
+    <li>Added &ldquo;<code><a href="config.html#html_index_top">config html_index_top</a></code>&rdquo;, which provides an alternate HTML heading to be used for the Event Coverage Index.</li>
+    <li>Added &ldquo;<code><a href="config.html#bye_firsts">config bye_firsts = 'alternate'</a></code>&rdquo;, to support new NSA scheme for assigning firsts and seconds to players who have had byes, is now default for realm 'nsa'.</li>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command no longer cares if you put extra zeroes in front of player numbers (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command now has a relatively easy configuration syntax and supports several new prizes for the NSC.</li>
+    <li>&ldquo;<code><a href="commands.html#highroundlosses">HighRoundLosses</a></code>&rdquo; command replaces earlier &ldquo;<code>high-loss-round</code>&rdquo; external command (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="commands.html#highroundwins">HighRoundWins</a></code>&rdquo; command replaces earlier &ldquo;<code>high-win-round</code>&rdquo; external command (Jeremy Brooke).</li>
+    <li>Regression testing works better under Windows now.</li>
+    <li>Added &ldquo;<code><a href="config.html#mirror_directories">config mirror_directories = [qw(path1 path2)]</a></code>&rdquo;, to automatically copy &lsquo;.t&rsquo; files to other directories.</li>
+    <li>The &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; and &ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; commands no longer display division names with player numbers if there is only one division in the event (Jeremy Brooke).</li>
+    <li>An error is reported at run time if a division has an odd number of active (formerly active or inactive) players (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="commands.html#deletescore">DELETEscore</a></code>&rdquo; command can now be used to delete byes, giving an opponent number of 0 (Jeremy Brooke).</li>
+    <li>&ldquo;<code>UnPairRound</code>&rdquo; command works correctly with players who have a scored bye in the round being unpaired (Jeremy Brooke).</li>
+    <li>&ldquo;<code>UPDATE</code>&rdquo; command is now internal, should no longer fail to report its progress for Windows Users (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; alpha pairings indicate firsts and seconds more clearly (Mary Rhoades).</li>
+    <li>&ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; command is now internal and has lost its hyphen.</li>
+    <li>&ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; command now accepts a range of rounds to compute (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="commands.html#show12">SHOW12</a></code>&rdquo; command is now internal and slightly enhanced (Jeremy Brooke).</li>
+    <li>Pairings commands now correctly detect triple Gibsonization (Bryan Pepper).</li>
+    <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command reports total number of points scored and games played (Patty Hocker).</li>
+    <li>Added &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command (Jeremy Brooke).</li>
+    <li>Added &ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command (Jeremy Brooke).</li>
+    <li>&ldquo;<code><a href="config.html#initial_snaked">config initial_snaked = 1</a></code>&rdquo; behaviour corrected in case where you are just one player short of the right number (Johann-Georg Dengel).</li>
+  </ul></td></tr>
+
+<tr><td class=version>3.230</td><td class=event>2008 CNSC, BAT, etc.</td>
+  <td class=change><ul>
+    <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command largely rewritten, now accepts &lsquo;.&rsquo; as equivalent to &lsquo; &rsquo; (space) to facilitate numeric keypad data entry, reports computed spread when entering scores, also supports new &ldquo;<code><a href="config.html#entry">config entry = 'both'</a></code>&rdquo; to require the entry of entry of both scores and spread.</li>
+    <li>Fixed a bug that could cause tsh to crash if it tried to pair an empty flight, as could happen if all players were part of a Gibsonisation process (Ryan Fischer).</li>
+    <li>&ldquo;<code><a href="config.html#gibson_class">config gibson_class = 'A'</a></code>&rdquo; restricts Gibson opponents to the named class (Stewart Holden).</li>
+    <li>The U.K. now has a separate player photo database (Stewart Holden).</li>
+    <li>Added the &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command and the <a href="config.html#hook_addscore_flush">config hook_addscore_flush</a> configuration option that enables its automatic invocation.</li>
+    <li>Corrected recently introduced serious errors in &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; affecting default flight cap pairing in final round, and late rounds with odd numbers of contenders.</li>
+    <li>&ldquo;<code><a href="commands.html#highwin">HighWin</a></code>&rdquo; and similar commands now display player classes if available.</li>
+    <li>&ldquo;<code><a href="config.html#initial_snaked">config initial_snaked = 1</a></code>&rdquo; causes &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; to snake players boustrophedonically into groups, rather than assigning them randomly by quartile (Yeo Kien Hung).</li>
+    <li>&ldquo;<code><a href="config.html#standings_spread_cap">config standings_spread_cap = [100, 150, 250, 250, 250, 250]</a></code>&rdquo; caps allowed spread per round for standings purposes, for the U.S. NSSC.</li>
+  <li>&ldquo;<code><a href="config.html#alpha_pair_single_column">config alpha_pair_single_column = 1</a></code>&rdquo; displays alpha pairings in one column (Ben Greenwood).</li>
+  <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; runs a little faster now by not checking Gibsonization below last prize rank.</li>
+  <li>Division names appearing in configuration variables can be in lower case. (Mary Rhoades)</li>
+  <li>The &ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command no longer gives spurious error messages if invoked with no arguments (Ryan Fischer).</li>
+  <li>Multiple commands may now be entered on a line, separated by semicolons.</li>
+  <li>Added experimental &ldquo;<code><a href="commands.html#lowerroundrobins">LowerRoundRobins</a></code>&rdquo; command to implement a very poorly thought out pairing system, formerly popular at the U.S. NSC (Kien Hung Yeo, Chris Lennon).</li>
+  <li>Fixed a bug that caused &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; to crash if scores for the previous round were entered before Fontes pairings were generated (Mary Rhoades).</li>
+  <li>Added &ldquo;<code><a href="commands.html#rosters">ROSTERS</a></code>&rdquo; command (Mary Rhoades).</li>
+  <li>Altered &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; to raise the threshold from four to six at which a number of noncontenders forced to repeat pairings by being prevented from playing with contenders are allowed to play with them after all (Mary Rhoades).</li>
+  <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; now mentions repeat pairings (Mary Rhoades).</li>
+  <li>Fixed a bug in &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; that would cause it to hang if the top flight had to include someone who couldn't catch up to the player above them (Mary Rhoades).</li>
+  <li>Corrected &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; CR LF problem (Yeo Kien Hung).</li>
+  <li>&ldquo;<code><a href="config.html#rating_system">config rating_system = 'none'</a></code>&rdquo; indicates that no ratings should be calculated (Karey Heard).</li>
+  <li>Corrected &ldquo;<code><a href="commands.html#statistics">STATistics</a></code>&rdquo; command to run correctly when division names are numerical (Karey Heard).</li>
+  </ul></td></tr>
+<tr><td class=version>3.220</td><td class=event>2008 Dallas Open</td>
+  <td class=change><ul>
+      <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command now invokes all other statistics commands (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="config.html#assign_firsts">config assign_firsts = 1</a></code>&rdquo;, &ldquo;<code><a href="config.html#html_in_event_directory">config html_in_event_directory = 1</a></code>&rdquo; &ldquo;<code><a href="config.html#track_firsts">config track_firsts = 1</a></code>&rdquo; are now default in ABSP realm (Stewart Holden).</li>
+      <li>Corrected &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; to handle ties correctly (Bob Jackman).</li>
+      <li>Some browsers were not correctly rendering empty cells in tabular reports. (Ricky Purnomo).</li> 
+      <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; was incorrectly estimating contention in many cases, resulting in unnecessary late round repeats (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; now checks to see if four non-contenders can't be paired without repeats, not just two (Glenn Dunlop).</li>
+      <li>Added &ldquo;<code><a href="config.html#avoid_sr_runs">config avoid_sr_runs = 1</a></code>&rdquo;, which tries to minimise runs of starts and replies before randomly assigning them to players whose records are equal.</li>
+      <li>Experimental Linux browser support added (Prithwiraj Mukherjee).</li>
+      <li>&ldquo;<code><a href="commands.html#reseteverything">RESETEVERYTHING</a></code>&rdquo; was incorrectly deleting &lsquo;tsh.css&rsquo; (Ryan Fischer, issue <a href="issues.html#86">86</a>).</li>
+      <li>&ldquo;<code><a href="config.html#no_initial_rr">config no_initial_rr = 1</a></code>&rdquo; tells Chew pairings not to start with initial round robins, even if there are enough rounds to do so (Stewart Holden).</li>
+      <li>Rewrote round robin code to use Berger schedule.  &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; now accepts any odd number as its first parameter, not just three (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="commands.html#factorpair">FactorPair</a></code>&rdquo; supports Gibsonization (Carla Cree).</li>
+      <li>Ratings no longer have to be whole numbers (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="config.html#random_rr_order">config random_rr_order = 1</a></code>&rdquo; puts round robin pairings in random order (Ronan Webb).</li>
+      <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command suppresses meaningless figures depending on &ldquo;<code><a href="config.html#assign_firsts">config assign_firsts</a></code>&rdquo; and &ldquo;<code><a href="config.html#track_firsts">config track_firsts</a></code>&rdquo;(Stewart Holden).</li>
+      <li>The HTML index will include possibly blank rows for each round if &ldquo;<code><a href="config.html#max_rounds">config max_rounds</a></code>&rdquo; is set (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command works much faster now in large divisions by truncating the search for contenders at the flight cap.</li>
+      <li>&ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command calculates upsets automatically.</li>
+      <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command correctly calculates stronger player winning percentage even when players are numbered alphabetically (Stewart Holden).</li>
+      <li>&ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command hides output from invoked commands.</li>
+      <li>Scorecards displayed on-screen do not include empty rows for rounds not yet played.</li>
+</ul></td></tr>
+<tr><td class=version>3.210</td><td class=event>WSC 2007</td>
+  <td class=change><ul>
+      <li>&ldquo;<code><a href="config.html#initial_random">config initial_random = 1</a></code>&rdquo; added, specifies one initial round of random pairings when automatic pairings are in effect.</li>
+      <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command now displays or suppresses start/reply data depending on configuration settings, no longer relies on user to edit &lsquo;tsh.css&rsquo; (Sherrie Saint John).</li>
+      <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command no longer tries to make two columns if player photos are being shown.</li>
+      <li>&ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command displays player names.</li>
+      <li>&ldquo;<code><a href="config.html#check_by_winner">config check_by_winner = 1</a></code>&rdquo; added, specifies checking of scores by winner even when starts and replies are being tracked.</li>
+      <li>&ldquo;<code><a href="commands.html#teamstandings">TeamStandings</a></code>&rdquo; command displays more statistics.</li>
+      <li>Added &ldquo;<code><a href="commands.html#reseteverything">RESETEVERYTHING</a></code>&rdquo; command to reset everything (Stewart Holden).</li>
+      <li>Added &ldquo;<code><a href="commands.html#nast">NAST</a></code>&rdquo; command to do NAST pairings.</li>
+      <li>Added &ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'nast'</a></code>&rdquo; for North American Scrabble Tour events.</li>
+      <li>Added &ldquo;<code><a href="config.html#show_last_player_name">config show_last_player_name = 1</a></code>&rdquo; to show last player name and not just ID in ratings reports (Jim Hughes).</li>
+      <li>Added &ldquo;<code><a href="config.html#no_boards">config no_boards = 1</a></code>&rdquo; to completely suppress boards (Ricky Purnomo).</li>
+      <li>&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command opens browser window to payment screen (Jim Hughes).</li>
+    </ul>
+  </td>
+</tr>
+<tr><td class=version>3.200</td><td class=event>2007 Big Apple ST</td>
+  <td class=change><ul>
+      <li>&ldquo;<code><a href="config.html#realm">config realm = 'sgp'</a></code>&rdquo; added, suppresses errors about lack of comma in player names in &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo;.</li>
+      <li>Added &ldquo;<code><a href="config.html#surname_last">config surname_last = 1</a></code>&rdquo;, is default in ABSP realm (Stewart Holden, issue <a href="issues.html#8">8</a>).</li>
+      <li>Added &ldquo;<code><a href="config.html#sort_by_first_name">config sort_by_first_name = 1</a></code>&rdquo; which sorts alpha pairings by first name, when &ldquo;<code><a href="config.html#surname_last">config surname_last = 1</a></code>&rdquo; is in effect.</li>
+      <li>An ActivePerl bug that closed that sometimes standard output filehandle when forking a browser process has been worked around by saving and restoring the handle. (Stewart Holden, issue <a href="issues.html#68">68</a>).</li>
+      <li>Added &ldquo;<code><a href="commands.html#dryrun">DRYrun</a></code>&rdquo; command that simulates one run of a tournament for a division.</li>
+      <li>Added &ldquo;<code><a href="config.html#max_div_rounds">config max_div_rounds{'A'} = 5</a></code>&rdquo; which overrides &ldquo;<code><a href="config.html#max_rounds">config max_rounds</a></code>&rdquo; on a per-division basis (Ricky Purnomo).</li>
+      <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo;, now accepts player names without commas. (Ricky Purnomo).</li>
+      <li>Added &ldquo;<code><a href="config.html#no_ranked_pairings">config no_ranked_pairings = 1</a></code>&rdquo; to display only alphabetical pairings tables (Stewart Holden, issue <a href="issues.html#4">4</a>).</li>
+      <li>Fixed a problem with &ldquo;<code><a href="commands.html#highloss">HighLoss</a></code>&rdquo; and similar commands (Stewart Holden, issue <a href="issues.html#79">79</a>).</li>
+    </ul>
+  </td>
+</tr>
+<tr><td class=version>3.190</td><td class=event>September 2007 Toronto<br>2007 UK NSC Semi-Finals</td>
+  <td class=change><ul>
+      <li>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo;, was complaining too much about scores when &ldquo;<code><a href="config.html#entry">config entry = 'spread'</a></code>&rdquo;. (Reported by Stewart Holden).</li>
+      <li>Added &ldquo;<code><a href="commands.html#spitroast">SPITroast</a></code>&rdquo; command for UK-style rotisserie pools (Evan Simpson, issue <a href="issues.html#6">6</a>).</li>
+      <li>Added &ldquo;<code><a href="commands.html#statistics">STATisticS</a></code>&rdquo; command for generating summary statistics for a tournament.</li>
+      <li>&ldquo;<code><a href="commands.html#missing">MISSing</a></code>&rdquo; now accepts an optional second argument, a division name (Stewart Holden, issue <a href="issues.html#5">5</a>).</li>
+      <li>&ldquo;<code><a href="commands.html#randomscores">RANDomscores</a></code>&rdquo; ABSP-unrated player score distribution bug fixed (Stewart Holden, issue <a href="issues.html#43">43</a>).</li>
+      <li>&ldquo;<code><a href="commands.html#koth">KOTH</a></code>&rdquo; and other standard pairings commands honour &ldquo;<code><a href="config.html#gibson">config gibson=1</a></code>&rdquo;(Stewart Holden, issue <a href="issues.html#33">33</a>).</li>
+      <li>&ldquo;<code><a href="config.html#prize_bands">config prize_bands</a></code>&rdquo; defaults to one quarter of division size, not one.</li>
+      <li>Added &ldquo;<code><a href="commands.html#luckystiff">luckySTIFF</a></code>&rdquo; command as opposite for TUFFluck (Stewart Holden).</li>
+      <li>Added &ldquo;<code><a href="commands.html#spitroast">SPITroast</a></code>&rdquo; command for UK-style rotisserie pools (Evan Simpson, issue <a href="issues.html#6">6</a>).</li>
+      <li>&lsquo;tsh.css&rsquo; is now copied to the event directory when &ldquo;<code><a href="config.html#html_in_event_directory">config html_in_event_directory = 1</a></code>&rdquo; is in effect. (Stewart Holden, issue <a href="issues.html#62">62</a>).</li>
+      <li>Corrected &ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo; to handle byes correctly (Barry Harridge, issue <a href="issues.html#63">63</a>).</li>
+      <li>Massive code changes made to support simultaneous (multithreaded) operation of the web server and command-line interface.</li>
+      <li>Regression testing implemented, see &lsquo;util/regression.pl&rsquo;.</li>
+      <li>&ldquo;<code><a href="config.html#alpha_pair_page_break">config alpha_pair_page_break = 10 </a></code>&rdquo; is now the default value in the NSA realm (and 10000 in the ABSP realm), and is used to determine whether or not to switch to two-column printing when no photos are used. (Stewart Holden, issue <a href="issues.html#65">65</a>)</li>
+      <li>&ldquo;<code><a href="commands.html#tuffluck">TUFFluck</a></code>&rdquo; is now a built-in command, not an external one, the order of its arguments is reversed, and it generates HTML files (Stewart Holden).</li>
+  </ul></td></tr>
+<tr><td class=version>3.180</td><td class=event>2007 Players Championship</td>
+  <td class=change><ul>
+      <li>HTML reports are now generated only in the directory (folder) designated by &ldquo;<code><a href="config.html#html_directory">config html_directory</a></code>&rdquo;, and no longer in the event directory.  This is because reports which included player photos were not able to refer correctly to the location of those photos.  If you find this confusing, use &ldquo;<code><a href="config.html#html_in_event_directory">config html_in_event_directory = 1</a></code>&rdquo;. (Reported by Jennifer Miller).</li>
+    <li>Added &ldquo;<code><a href="commands.html#browse">Browse</a></code>&rdquo; command.</li>
+    <li>&ldquo;<code><a href="config.html#bye_spread">config bye_spread</a></code>&rdquo; defaults to 50, but can be set to 75 for ABSP use (for Stewart Holden).</li>
+    <li>&ldquo;<code><a href="config.html#realm">config realm = 'absp'</a></code>&rdquo; sets various configuration variables to ABSP defaults, also chooses alternate default &lsquo;tsh.css&rsquo; file which shows starts/replies but suppresses boards.</li>
+    <li>Added &ldquo;<code><a href="commands.html#documentation">DOCumentation</a></code>&rdquo; command.</li>
+    <li>Rewrote &ldquo;<code><a href="commands.html#highloss">HighLoss</a></code>&rdquo; command, now generates HTML, does not have hyphen in its name.</li>
+    <li>Rewrote &ldquo;<code><a href="commands.html#highwin">HighWin</a></code>&rdquo; command, now generates HTML, does not have hyphen in its name.</li>
+    <li>Rewrote &ldquo;<code><a href="commands.html#lowloss">LowLoss</a></code>&rdquo; command, now generates HTML, does not have hyphen in its name.</li>
+    <li>Rewrote &ldquo;<code><a href="commands.html#lowwin">LowWin</a></code>&rdquo; command, now generates HTML, does not have hyphen in its name.</li>
+    <li>Added &ldquo;<code><a href="commands.html#averages">AVErages</a></code>&rdquo; command for Stewart Holden.</li>
+    <li>&ldquo;<code><a href="commands.html#roundrobin">RoundRobin</a></code>&rdquo; command takes an initial optional integer argument specifying how many times each player should play his/her opponent consecutively (Stewart Holden).</li>
+    <li>Added &ldquo;<code><a href="commands.html#browselast">BrowseLast</a></code>&rdquo; command.</li>
+    <li>Long standing problem with reserved tables finally fixed (Stewart Holden).</li>
+    <li>&ldquo;<code>ResultsByRound</code>&rdquo; command now also lists number of losses, in case of players missing games completely.</li>
+    <li>Most report-generating commands have been rewritten for code clarity.</li>
+    <li>&ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; and &ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; rewritten for easier maintenance. Next player is shown where available even when ABSP ratings are in effect, but the player name is no longer ever shown (just the ID), to make room for a new column (overridden by &ldquo;<code><a href="config.html#no_show_last">config no_show_last</a></code>&rdquo;) showing details of the last game, for the sake of player verification.</li>
+    <li>&ldquo;<code><a href="commands.html#showwallchart">showWallChart</a></code>&rdquo; was displaying one too many rounds; it no longer does so (Stewart Holden, issue <a href="issues.html#34">34</a>).</li>
+    <li>&ldquo;<code><a href="config.html#board_stability">config board_stability</a></code>&rdquo; is ignored at the beginning of a session. (issue <a href="issues.html#35">35</a>)</li>
+    <li>&ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; interacts correctly with &ldquo;<code><a href="config.html#reserved">config reserved</a></code>&rdquo;. (issue <a href="issues.html#36">36</a>).</li>
+    <li>&ldquo;<code><a href="config.html#show_divname">config show_divname</a></code>&rdquo; forces division names to be displayed, even when there is only one division.</li>
+    <li>&ldquo;<code>Addscore</code>&rdquo; command warns if an entered score is less than 100.</li>
+    <li>&ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; was overestimating the number of players in contention (issue <a href="issues.html#37">37</a>).</li>
+  </ul></td></tr>
+<tr><td class=version>3.170</td><td class=event>Toronto LCT</td>
+  <td class=change><ul>
+      <li>&ldquo;<code><a href="config.html#flight_cap">config flight_cap</a></code>&rdquo; will let you override the default top-flight cap of 4 * number-of-rounds-remaining in Chew Pairings.</li>
+    <li>Added &ldquo;<code><a href="commands.html#showdivisionscorecards">ShowDivisionScoreCards</a></code>&rdquo; command for Stewart Holden.</li>
+    <li>&ldquo;<code><a href="config.html#pair_page_break">config pair_page_break = 15</a></code>&rdquo; will force a page break after every 15 players in regular pairings.</li>
+    <li>Added &ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command for Ben Greenwood.</li>
+    <li>Added &ldquo;<code>update-pix</code>&rdquo; command for Kath Mullholand.</li>
+    <li>Added &ldquo;<code><a href="config.html#player_photos">config player_photos = 1</a></code>&rdquo; option for Kath Mullholand.</li>
+    <li>Changed &ldquo;<code><a href="config.html#entry">config entry = 'absp'</a></code>&rdquo; option to &ldquo;<code>config entry = 'spread'</code> &rdquo;for Stewart Holden.</li>
+    <li>&ldquo;<code><a href="config.html#table_method">config table_method = 'consecutive'</a></code>&rdquo; will assign one board per table, tables numbered beginning at 1 in the alphabetically first division, then continuing consecutively in each subsequent division (Stewart Holden).</li>
+    <li>&ldquo;<code><a href="config.html#class">classes A 3</a></code>&rdquo; in the configuration file will declare 3 subdivisions of equal size in Division A, for use in awarding class prizes (Stewart Holden).</li>
+    <li>Configuration errors pause to let you see them, even on old Windows systems (Mauro Pratesi).</li>
+  <li>Added &ldquo;<code><a href="commands.html#truncaterounds">TRUNCATEROUNDS</a></code>&rdquo; command for Stewart Holden.</li>
+  <li>Corrected &ldquo;<code><a href="commands.html#deletescore">DELETEscore</a></code>&rdquo; command to work in a spread-entry environment for Stewart Holden.</li>
+  <li>Added &ldquo;<code><a href="commands.html#totalscore">TOTalScore</a></code>&rdquo; command for Stewart Holden.</li>
+</ul></td></tr>
+<tr><td class=version>3.160</td><td class=event>2007 Dallas Open</td>
+  <td class=change><ul>
+    <li>tsh should complain once and revert to black-and-white rather than crash if something is seriously wrong with its colour environment</li>
+    <li>tourney.pl -C works again</li>
+    <li>TSH/Command modules can be anywhere in @::INC</li>
+    <li>Major internal rewrite to support ongoing web interface development.  Please be sure to do a dry run if you are using this release at a tournament.</li>
+    <li>Default pairings will begin with one or more round robins if the number of rounds remaining to pair is greater than the number of players in a division.</li>
+    <li>&ldquo;<code><a href="config.html#force_koth">config force_koth</a></code>&rdquo; will force a round of unrestricted KOTH at the end of default pairings.</li>
+    <li>&ldquo;<code><a href="config.html#alpha_pair_page_break">config alpha_pair_page_break = 15</a></code>&rdquo; will force a page break after every 15 players.</li>
+    <li>The &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; command will avoid assigning byes to top-rated players, will assign better-quality pairings in odd divisions, and will if you really want to let you use it in a division with only three players. Its board number assignment algorithm has also been substantially improved.</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_lifeg">lifeg</a></code>&rdquo; extension field.</li>
+    <li>&ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; command automatically accounts for split ratings</li>
+    <li>&ldquo;<code><a href="config.html#split1">config split1</a></code>&rdquo; is now deprecated.</li>
+</ul></td></tr>
+<tr><td class=version>3.150</td><td class=event>Toronto Open</td>
+  <td class=change><ul>
+      <li>Removed spurious error message from &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;, introduced in 3.140 when player photos are not found.</li>
+      <li>Fixed &ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; command to actually work in non-debug mode.</li>
+    <li>Cross-platform support for &ldquo;<code><a href="config.html#backup_directory">config backup_directory</a></code>&rdquo;.</li>
+    <li>Fixed &ldquo;<code><a href="commands.html#showwallchart">showWallChart</a></code>&rdquo; command so that it doesn't display cryptic messages when used with track_firsts turned off (Vince Castellano).</li>
+    <li>Added &ldquo;<code><a href="commands.html#showmanypairings">ShowManyPairings</a></code>&rdquo; command (Vince Castellano).</li>
+    <li>Cleaned up generation of HTML files and indices.</li>
+    <li>Cleaned up generation of CSCs.</li>
+    <li>Added &ldquo;<code>config allow_gaps = 1</code>&rdquo; to permit leaving unassigned gaps in a CSC. This necessitated a small change in the .t file format and major changes through <cite>tsh</cite>. As a side benefit, the &ldquo;<code>InitFontes</code>&rdquo; command will work around partly paired initial rounds, as long as the number of partly-paired players needing opponents is even in each round.</li>
+    <li>Fixed &ldquo;<code>Addscore</code>&rdquo; command, now checks correctly for things that don't look like scores.</li>
+    <li>Rewrote contender detection code in&ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo; yet again. The new version takes into account all available game data, including that from partly scored rounds.</li>
+    <li>Added experimental &ldquo;<code><a href="commands.html#prizes">PRiZes</a></code>&rdquo; command, which lists all prizes to be awarded.</li>
+    <li>&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command lists all byes ahead of unpaired players.</li>
+    <li>Added &ldquo;<code><a href="config.html#board_stability">config board_stability</a></code>&rdquo;, which tries to keep one player from each game at the same board.</li>
+</ul></td></tr>
+
+<tr><td class=version>3.140</td><td class=event>2006 MWMST</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>config port = 7777</code>&rdquo; enables a multiuser version with graphical user interface in the very early stages of development.</li>
+    <li>The &ldquo;<code>part-of-name1,part-of-name2</code>&rdquo; syntax introduced in 3.110 works within &ldquo;<code>Addscore</code>&rdquo;</li>
+    <li>Added hooks to &ldquo;<code>ShowPairings</code>&rdquo; to support display of player photos when available</li>
+    <li>Use Term::ReadLine where available, so that you can scroll back instead of retyping commands.</li>
+    <li>Fixed a semi-obscure bug in &ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo; that could affect top pairings at the end of a tournament: the primary criterion for choosing opponents is now whether or not they can catch up to the current leader.</li>
+    <li>Added &ldquo;<code>SUBMIT</code>&rdquo; command to submit ratings data (currently only for NSA ratings, others added on request)</li>
+</ul></td></tr>
+<tr><td class=version>3.130</td><td class=event>2006 BMSC</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>RoundRobin</code>&rdquo; command balances starts and replies for groups sized 2-26</li>
+    <li>Corrected bug that might have sometimes led to incorrect assignment of starts and replies</li>
+</ul></td></tr>
+<tr><td class=version>3.120</td><td class=event>2006 USSO</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>FactorPair</code>&rdquo; command no longer does opponent availability optimisation.</li>
+    <li>&ldquo;<code>ResultsByRound</code>&rdquo; command now also lists contestant ranks prior to start of selected range, to facilitate computing USSO "Best Record Day n by Player In Bottom Half" prizes.</li>
+    <li>&ldquo;<code>TUFFluck</code>&rdquo; external command works with case-sensitive filesystems.</li>
+</ul></td></tr>
+<tr><td class=version>3.110</td><td class=event>Saxon 2006</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>config rating_system = 'nsa lct'</code>&rdquo; enables LCT ratings multipliers (for Wes Eddings)</li>
+    <li>&ldquo;<code>LOOK</code>&rdquo; command works within &ldquo;<code>Addscore</code>&rdquo;</li>
+    <li>&ldquo;<code>config entry = 'absp'</code>&rdquo; sets data entry to winner-loser-spread mode, generally suppresses display of raw game scores in favour of spread.</li>
+    <li>&ldquo;<code>update-dict</code>&rdquo; external command fetches dictionary files, which are too big to be included in the regular distribution.</li>
+</ul></td></tr>
+<tr><td class=version>3.100</td><td class=event>July 2006 Toronto</td>
+  <td class=change><ul>
+    <li>config autopair is slightly less finicky about format (Peter Keller).</li>
+    <li>&ldquo;<code>LOOK</code>&rdquo; command now uses SOWPODS2003 and TWL2006 lexica.</li>
+    <li>Spurious error messages generated when pairing odd divisions for multiple rounds (InitFontes, RoundRobin) are gone.</li>
+    <li>An error message is displayed if no divisions are defined in the configuration file.</li>
+    <li>tsh is much more tolerant of non-native line breaks in its configuration and data files.</li>
+    <li>Using a configuration file marks it as modified, so that tsh will choose it the next time it is run.</li>
+    <li>If you can't remember a player's number, you can enter it as &ldquo;<code>part-of-name1,part-of-name2</code>&rdquo;.  For example, if &ldquo;<code>Chew, John</code>&rdquo; is the only person whose family name contains &ldquo;<code>CHE</code>&ldquo;, he can be referred to as &ldquo;<code>che,</code>&rdquo;.</li>
+    <li>When division sizes were close to the number of rounds being played, it is easy for bottom-ranked players to clinch positions near the bottom and be relegated to playing each other for several rounds.  Chew pairings now check for this condition and do not allow two players who have already played each other to be separated from a flight of contenders.</li>
+</ul></td></tr>
+<tr><td class=version>3.090</td><td class=event>2006 Toronto LCT</td>
+  <td class=change><ul>
+    <li>A tournament can use default pairings for some divisions and automatic pairings for others.</li>
+</ul></td></tr>
+<tr><td class=version>3.080</td><td class=event>BAT 2006</td>
+  <td class=change><ul>
+    <li>&ldquo;<code>config initial_schedule</code>&rdquo; specifies number of rounds of InitFontes pairings to use at start of default pairings</li>
+    <li>If &ldquo;<code>config html_directory</code>&rdquo; does not exist and cannot be created, an error message says so.</li>
+    <li>&ldquo;<code>ShowPairings</code>&rdquo; command shows table numbers in alpha mode, correctly handles byes in alpha mode.</li>
+    <li>Added &ldquo;<code>util/multiroto</code>&rdquo; to report on rotisserie pools that span more than one tournament.</li>
+    <li>Fixed a semi-obscure bug in &ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo;. When using pairings based on the second preceding round, the number of rounds used to compute the contender cap had been too large by one.</li>
+</ul></td></tr>
+<tr><td class=version>3.070</td><td class=event>NSSC 2006</td>
+  <td class=change><ul>
+      <li>&ldquo;<code>RANDomscores</code>&rdquo; command now generates who goes first randomly to improve verisimilitude of reports on simulated runs</li>
+</ul></td></tr>
+<tr><td class=version>3.060</td><td class=event>Toronto vs. Mississauga 2006</td>
+  <td class=change><ul>
+    <li>Added &ldquo;<code><a href="config.html#exagony">exagony</a></code>&rdquo; configuration option.</li>
+    <li>Added &ldquo;<code>TeamStandings</code>&rdquo; command</li>
+    <li>&ldquo;<code>RATings</code>&rdquo; command correctly accounts for scoreless byes</li>
+    <li>&ldquo;<code>STandings</code>&rdquo; command correctly accounts for scoreless byes</li>
+</ul></td></tr>
+<tr><td class=version>3.050</td><td class=event>Dallas Open 2006</td>
+  <td class=change><ul>
+    <li>If you are using xterm terminal emulation and have specified the &ldquo;<code>event_name</code>&rdquo; configuration option, <cite>tsh</cite> will identify itself in your window title bar.</li>
+    <li>&ldquo;<code>ShowscoreCard</code>&rdquo; formats correctly even when first and seconds are not assigned.</li>
+    <li>Under some circumstances, the downloaded executable files would not be executable for OS/X users. I think I've fixed the problem, and documented how to fix it locally if it recurs.</li>
+    <li>At Kath Mullholand's request, the &ldquo;<code>high-win</code>&rdquo; external command (and the other three similar ones) now display a header that identifies the division.</li>
+    <li>Quality of pairings is slightly improved by disabling a speed optimization that tries to pair first those players with a smaller number of candidate opponents, when the number of players to be paired in a group is no more than twelve.</li>
+    <li>At Mary Rhoades' request, the &ldquo;<code>ShowPairings</code>&rdquo; command now also generates alphabetical pairings listings in addition to the old rank-based listings.</li>
+    <li>The &ldquo;<a href="entry.html#entry"><code>Addscore</code></a>&rdquo; no longer accepts scores outside the range [-150,1500].</li>
+    <li>Added &ldquo;<a href="reports.html#upsets"><code>UPSETs</code></a>&rdquo; command to list top ratings upset games.</li>
+    <li>The <code>munge-scores.pl</code> utility, used by several external and utility commands, now reports player numbers, so those external commands will report them too.</li>
+</ul></td></tr>
+<tr><td class=version>3.040</td><td class=event>Oshawa 2006</td>
+  <td class=change><ul>
+    <li>Colour prompts for Windows users disabled by default, still optionally selectable. Windows colour is apparently broken in the most recent ActivePerl distribution.</li>
+    <li>If an html_directory needs to be created, lib/tsh.css is copied into it.</li>
+    <li>Fixed an obscure bug in &ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo; that made it occasionally crash.</li>
+    <li>Utility command &ldquo;<code>util/truncate_t</code>&rdquo; is tolerant of blank lines.</li>
+    <li>Added top-level script &ldquo;<code>get-tsh.pl</code>&rdquo;, built using &ldquo;<code>update</code>&rdquo; external command, to act as a standalone download tool for <cite>tsh</cite>.  That is, you can if you want to download just this one script, run it and it will fetch everything else for you.  Useful if you have a mostly complete installation but have somehow managed to wreck either your &ldquo;tsh.pl&rdquo; or part of the software update mechanism.</li>
+    <li>The &ldquo;<code>update</code>&rdquo; external command was saying that some files had been updated even when no files had been updated. That bug is fixed.</li>
+</ul></td></tr>
+<tr><td class=version>3.030</td><td class=event>WSC 2005</td>
+  <td class=change><ul>
+    <li>Support for scoreless byes.</li>
+    <li>Fixed a bug that caused starts/replies to be instable.</li>
+    <li>Fixed &ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo; command and pairing system: Gibson spread threshold now based on some historical data, leaders paired against lower-ranked contenders.</li>
+    <li>&ldquo;<a href="entry.html#entry"><code>Addscore</code></a>&rdquo; won't let you switch to a division whose results have all been entered.</li>
+    <li><a href="reports.html#aupair">&ldquo;<code>AUPAIR</code>&rdquo;</a> command supports byes.</li>
+    <li>Added &ldquo;<code><a href="config.html#player_number_format">player_number_format</a></code>&rdquo; configuration option.</li>
+    <li>Added &ldquo;<code><a href="config.html#show_teams">show_teams</a></code>&rdquo; configuration option.</li>
+    <li>&ldquo;<code>RATings</code>&rdquo; command shows next opponent if paired. (Suggested by David Acton.)</li>
+    <li>0-point bye counts as a loss, not a tie.</li>
+    <li>Fixed a bug where pairings display would stop if a table was unoccupied.</li>
+    <li>Fixed a bug in bin/munge-scores that led to games with byes appearing in high/low win/loss lists.</li>
+    <li>&ldquo;<code>MISSing</code>&rdquo; command lists players in current standing order.</li>
+    <li>Tweaked code for reserved table assignments, think there might still be a problem.</li>
+    <li>For a few versions, you had to specify the <a href="config.html#max_rounds">max_rounds</a> configuration option to make pairings commands work.  This should no longer be necessary, though it is still recommended.</li>
+</ul></td></tr>
+<tr><td class=version>3.020</td><td class=event>Kingston 2005<br>("Now... with tint control!")</td>
+  <td class=change><ul>
+    <li>All remaining commands converted to using newer parsing code.</li>
+    <li>&ldquo;<code>LOOK</code>&rdquo; command checks for dictionary at runtime.</li>
+    <li>&ldquo;<code>UnPairRound</code>&rdquo; command does not affect inactive players, minor bugs fixed.</li>
+    <li>&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo; command deletes future byes when a player is (re)activated.</li>
+    <li>&ldquo;<code>RANDomscores</code>&rdquo; command sets spread to 50 points for scheduled byes.</li>
+    <li>Fixed a bug where if you asked for pairings too far in advance, inactive player records would still have byes added.</li>
+    <li>Colour prompts for Windows users too.</li>
+    <li>&ldquo;<code>MISSing</code>&rdquo; command ignores inactive players, displays board numbers when known.</li>
+    <li>&ldquo;<code>ShowscoreCard</code>&rdquo; shows board numbers.</li>
+    <li>&ldquo;<code>UPDATE</code>&rdquo; command will delete read-only files (like src/TSH/blib/lib/TSH/Pair.pm) to make way for their replacements.</li>
+    <li>&ldquo;<code>Addscore</code>&rdquo; prevents entry of Rd. N+1 results when Rd. N is incomplete even when switching divisions.</li>
+    <li>Several commands explicitly report when pairings have failed.</li>
+    <li>Added &ldquo;<code><a href="commands.html#randompair">RandomPair</a></code>&rdquo; command.</li>
+    <li>Added &ldquo;<code><a href="config.html#etc_team">team</a></code>&rdquo; extension field.</li>
+    <li>Added &ldquo;<code><a href="config.html#initial_exagony">config initial_exagony</a></code>&rdquo; configuration parameter.</li>
+</ul></td></tr>
+<tr><td class=version>3.010</td><td class=event>Kingston 2005</td>
+  <td class=change><ul>
+    <li>Added &ldquo;<code>ON</code>&rdquo; and &ldquo;<code>OFF</code>&rdquo; subcommands to&ldquo;<a href="commands.html#editscore"><code>EditScore</code></a>&rdquo; to permit enabling and disabling a player.</li>
+    <li>&ldquo;<code>ShowscoreCard</code>&rdquo; detects truncated .t files.</li>
+    <li>&ldquo;<code>ShowscoreCard</code>&rdquo; reports nonstandard spreads for inactive players.</li>
+    <li>Removed a bug that caused multiple byes to be appended each round to inactive players.</li>
+    <li>Removed two bugs introduced in 3.000 that caused odd divisions to severely misbehave.</li>
+    <li>Removed bug introduced in 3.000 that caused round robins to fail sometimes.</li>
+    <li><code>UnPairRound</code> command will delete scored byes if they are the only scores in round.</li>
+    <li><code>RANDomscores</code> command deals more appropriately with partially scored rounds, completing them rather than adding one score to each player regardless of number of scores recorded.</li>
+    <li>Deprecated <code>PartialSWiss</code> command finally deleted.</li>
+    <li>First sample folder cleaned up.</li>
+    <li><code>RoundRobin</code> command works with inactive players.</li>
+    <li>In many places, the division name is now not displayed if the tournament has only one division.</li>
+    <li><code>PAIR</code> <code>PairMany</code> commands allows either player number to be zero for a bye.</li>
+    <li><code>PAIR</code>, <code>PairMany</code> commands un-pairs opponents of repaired players, assigning 50-point byes if necessary.</li>
+    <li><code>KOTH</code>, <code>Pair1324</code> commands works with inactive players, uses consecutive repeat avoidance, matching starts and replies, minimizing repeats as secondary criteria.</li>
+  <li>&ldquo;<code>FactorPair</code>&rdquo; command released.</li>
+</ul></td></tr>
+<tr><td class=version>3.000</td><td class=event>MWMST 2005</td>
+  <td class=change><ul>
+    <li>Finished implementing &ldquo;<a href="pairing.html#chew"><code>ChewPair</code></a>&rdquo; command and pairing system, which is now the default if pairings are asked for and no other system was specified.</li>
+    <li>Added <a href="commands.html#huh">&ldquo;<code>HUH</code>&rdquo; command</a> for explaining error messages.</li>
+    <li>Rewrote <a href="commands.html#help">&ldquo;<code>HELP</code>&rdquo; command</a> to give detailed help about individual commands.</li>
+    <li>Added <a href="reports.html#aupair">&ldquo;<code>AUPAIR</code>&rdquo;</a> command for exporting to that ratings file format.</li>
+    <li>Many commands rewritten to conform to new internal code standards to support faster software updates and smaller runtime memory usage.</li>
+    <li>Fixed a bug in &ldquo;<code>ShowPairings</code>&rdquo; which had caused it to omit boards where more than two players had erroneously been scheduled to play.</li>
+    <li>Added <a href="commands.html#misc">&ldquo;<code>DEBUG</code>&rdquo;</a> command for selectively toggling debugging on and off.</li>
+    <li>&ldquo;<code><a href="commands.html#swiss">SWiss</a></code>&rdquo; command is now just an alias for &ldquo;<code>NewSwiss</code>&rdquo;.</li>
+  <li>Added &ldquo;<code>config external_path</code>&rdquo; to allow user plug-in directories.</li>
+</ul></td></tr>
+<tr><td class=version>2.980</td><td class=event>NSC 2005</td>
+  <td class=change><ul>
+  <li><a href="commands.html#help">&ldquo;<code>ResultsByRound</code>&rdquo; command</a> creates printable HTML files.</li>
+  <li>Added very experimental versions of &ldquo;<code>FactorPair1</code>&rdquo; and &ldquo;<code>FactorPair</code>&rdquo; commands.</li>
+  <li>Added &ldquo;<code>config prize_bands</code>&rdquo; to expand support for Chew pairings.</li>
+  <li>Added &ldquo;<code>config save_interval</code>&rdquo; to auto-save when entering a large number of scores.</li>
+  <li>Added &ldquo;<code>config rating_system</code>&rdquo; to allow computation of ABSP tournament ratings in &ldquo;<code>rat</code>&rdquo; command.</li>
+  <li>Added &ldquo;<code>maketm</code>&rdquo; external command to generate TourneyMan data files.</li>
+  <li>Added &ldquo;<code>high-loss-round</code>&rdquo; external command to list high losses in each round.</li>
+  <li>Added &ldquo;<code>high-win-round</code>&rdquo; external command to list high wins in each round.</li>
+  <li>Added &ldquo;<code>util/parsetm</code>&rdquo; utility to import TourneyMan data files.</li>
+  <li>&ldquo;<code>roto</code>&rdquo; allows any number of players per team.</li>
+  <li>&ldquo;<code>showWallChart</code>&rdquo; syntax does not require &ldquo;-f&rdquo; before round number anymore.</li>
+  <li>External command &ldquo;<code>show12</code>&rdquo; shows counts of firsts and seconds for each player.</li>
+  <li>The board at which each game was played is recorded (in &ldquo;etc board&rdquo;) and will not change once assigned.</li>
+</ul></td></tr>
+<tr><td class=version>2.975</td><td class=event>ABSP compatibility</td>
+  <td class=change><ul>
+  <li>Added &ldquo;<code>ABSPgrid</code>&rdquo; command.</li>
+  <li>Added &ldquo;<code>config colour</code>&rdquo;.</li>
+  <li>Made external commands work with Windows XP.</li>
+  <li>Reorganized search algorithm for configuration files. It&rsquo;s now (1) files or directories specified on the command line, (2) the most recently changed among */config.tsh and */tsh.config, or (3) tsh.config. The intent is that users should have one tsh directory with a subdirectory for each event.</li>
+  <li>Added &ldquo;<code>update</code>&rdquo; external command, which downloads updates to the <cite>distribution</cite>.</li>
+</ul></td></tr>
+<tr><td class=version>2.960</td><td class=event>Albany NY</td>
+  <td class=change><ul>
+  <li>Added &ldquo;<code>tuffluck</code>&rdquo; external command.</li>
+  <li>Partly functional version of &ldquo;<code><a href="pairing.html#chew">ChewPair</a></code>&rdquo; command added.</li>
+  <li>ScoreCard command generates HTML version that can be printed as replacement for lost scorecard.</li>
+  <li>WallChart command generates HTML version.</li>
+  <li>Round-by-round HTML files are automatically indexed.</li>
+  <li>New RATING subcommand in EditScore.</li>
+  <li>Contextual help in EditScore.</li>
+  <li>EditScore can be used before any results are entered.</li>
+  <li>Initial .t files may omit trailing semicolon.</li>
+</ul></td></tr>
+<tr><td class=version>2.950</td><td class=event>Toronto LCT</td>
+  <td class=change><ul>
+  <li>Addscore prevents entry of Rd. N+1 results when Rd. N is incomplete.</li>
+  <li>New external command &ldquo;<code>show12</code>&rdquo; displays table of firsts/seconds.</li>
+  <li>First/second forecasts/assignments are now more accurate.</li>
+</ul></td></tr>
+<tr><td class=version>2.940</td><td class=event>Stamford CT</td>
+  <td class=change><ul>
+  <li>Optional specification of configuration file on command line.</li>
+  <li>NewSwiss tries to minimize repeat pairings.</li>
+</ul></td></tr>
+<tr><td class=version>2.930</td><td class=event>CNSC 2005</td>
+  <td class=change><ul>
+  <li>Addscore reports how many scores remain unentered.</li>
+  <li>Two-part tournaments are correctly split-rated.</li>
+</ul></td></tr>
+<tr><td class=version>2.920</td><td class=event>Thunder Bay ON 2005</td>
+  <td class=change><ul>
+  <li>Added some more three-word names to tourney.pl.</li>
+</ul></td></tr>
+<tr><td class=version>2.910</td><td class=event>BAT 2005</td>
+  <td class=change><ul>
+      <li>Added config gibson.</li>
+      <li>Added config max_rounds.</li>
+      <li>The timestamp of the most recent score entered for each player is now recorded.</li>
+      <li>Added ROTO command.</li>
+      <li>Code for reserved table assignments is working again.</li>
+      <li>Forecasts of firsts and seconds are purged before new forecasts are generated, which addresses a potential problem with corrupt stale data when players have systematically misreported firsts and seconds.</li>
+      <li>Added config no_text_files.</li>
+      <li>Added config html_directory.</li>
+      <li>Autopair supports PAIR1324.</li>
+      <li>Fixed a bug that prevented calculation of the ratings of unrated players.</li>
+</ul></td></tr>
+<tr><td class=version>2.900</td><td class=event>BAT 2005</td>
+  <td class=change><ul>
+      <li>Some errors now have numbers, which can be looked up in <a href="trouble.html">Troubleshooting.</a>.</li>
+</ul></td></tr>
+<tr><td class=version>2.850</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+      <li>Fixed a bug introduced to RoundStanding in 2.800 (?).</li>
+</ul></td></tr>
+<tr><td class=version>2.840</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+      <li>Fixed a bug introduced in 2.800 (?) where missing pairs were displayed twice.</li>
+</ul></td></tr>
+<tr><td class=version>2.830</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+      <li>Generated HTML is somewhat more legible and conformant.</li>
+</ul></td></tr>
+<tr><td class=version>2.820</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+      <li>Corrected determination of firsts and seconds.</li>
+</ul></td></tr>
+<tr><td class=version>2.810</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+  <li>Added external command (plug-in) interface</li>
+  <li>Partial support for active/inactive players</li>
+  <li>'off' extension field in '.t' files</li>
+  <li><code>MISSING</code> and <code>ShowPairings</code> show "draws" if players must draw</li>
+  <li>config name_format = "%-22s"</li>
+  <li>config max_name_length = 22</li>
+  <li>config assign_firsts = 0</li>
+  <li><code>showWallChart</code> and <code>showScoreCard</code> adjust column with to widest team name.</li>
+</ul></td></tr>
+<tr><td class=version>2.800</td><td class=event>NSSC 2005</td>
+  <td class=change><ul>
+<li><code>EditScore</code> now displays the current scorecard before each prompt, rather than after changes.</li>
+<li>You can now enter the word <code>first</code> or <code>second</code> at the <code>EditScore</code> prompt to specify that the player went first or second.</li>
+<li><code>MISSING</code> and <code>ShowPairings</code> display firsts and seconds if known.</li>
+<li><code>config track_firsts = 1</code> enables tracking of who went first or second in each game.  <cite>tsh</cite> will use NSA rules for determining firsts and seconds, and complain if scores are not entered in order of play if known.</li>
+<li>Auto-pairing used to be available only when a division was completely unpaired.  Now, you can still auto-pair even after entering a few manual pairings.</li>
+<li>You can now write <code>config variable = value</code> instead of <code>perl $config'variable = value</code> in <em>tsh.config</em>.</li>
+<li>Byes are automatically chosen and assigned by the <code>NS</code>, <code>KOTH</code>and <code>Pair1324</code>commands.</li>
+<li>The <code>BYE</code> command is now deprecated.  It is no longer documented, and will be deactivated soon.  Use the <code>PAIR</code> and <code>Addscore</code> commands instead.</li>
+<li>The <code>ShowPairings</code> command used to always list everyone and their opponent (if any). Now, if no players are paired, it says so rather than listing everyone as unpaired.</li>
+<li>The <code>PAIR</code> command used to always echo back the names and standings of the players you just (manually) paired. Now it only does so if you changed an existing pairing.</li>
+<li>The <code>SWiss</code>, <code>PartialSWiss</code>, <code>PRESWiss</code> and <code>PrePreSWiss</code> commands are now deprecated. They are no longer documented, and will be deactivated completely soon. Use <code>NewSwiss</code> instead.</li>
+<li>You can now enter 'es' when in <code>Addscore</code> mode, to go into <code>EditScore</code> on the most recently entered (and presumably mistaken) score.</li>
+<li><code>EditScore</code> command sometimes didn&rsquo;t correctly record changes when editing multiple divisions, does so now.</li>
+<li><code>UnPairRound</code> command used to sometimes give incorrect error messages, but no longer does so.</li>
+<li><code>Pair1324</code> documentation used to say that below 4th place, pairings were KOTH. This is untrue (they continue 5-7, 6-8, etc.) and the documentation has been corrected.</li>
+<li>All command parsers rewritten to give consistent response and more specific descriptions of syntax errors.</li>
+<li><code>RoundStandings</code> used to misreport results in the current round, if not all scores had been entered, now reports correctly.</li>
+<li>Division name may now be specified in command lines, even when event only has one division.</li>
+<li>Distribution now in ZIP format.</li>
+<li>Documentation rewritten.</li>
+<li>Randomization of player orderings is now much less random, so first-round table assignments stay stable unless roster is changed.</li>
+<li>Some spurious warning messages deleted.</li>
+<li>Support added for new generalized <cite>.t</cite> files.</li>
+<li><code>ShowPairings</code> now generates HTML.</li>
+<li>Trailing commas in player names are suppressed.</li>
+</ul></td></tr>
+<tr><td class=version>2.740</td><td class=event>Newsday SSC</td><td class=change><ul><li><code>PairMany</code> debugged.</li></ul></td></tr>
+<tr><td class=version>2.730</td><td class=event>Newsday SSC</td><td class=change><ul><li><code>ShowPairings</code> catches and shows more pairing errors.</li></ul></td></tr>
+<tr><td class=version>2.720</td><td class=event>Newsday SSC</td><td class=change><ul><li><code>PairMany</code> added.</li></ul></td></tr>
+<tr><td class=version>2.710</td><td class=event>Newsday SSC</td><td class=change><ul><li>Player names may include nonterminal numerals.</li></ul></td></tr>
+<tr><td class=version>2.700</td><td class=event>Newsday SSC</td><td class=change><ul><li>HTML output from standings command.</li></ul></td></tr>
+<tr><td class=version>2.600</td><td class=event>Oshawa 2005</td><td class=change><ul><li><code>RoundRobin</code> command added.</li><li><code>RATings</code> command added.</li></ul></td></tr>
+<tr><td class=version>2.500</td><td class=event>MWMST 2004</td><td class=change><ul><li>Trying to autopair a round twice doesn&rsquo;t crash tsh.pl.</li></ul></td></tr>
+<tr><td class=version>2.400</td><td class=event>Albany 2004</td><td class=change><ul><li>Fixed <code>wc -f #</code>.</li><li>Autopair works at start of tournament.</li><li><code>MISSING</code> lists divisions in alphabetical order.</li><li>'m' synonym for 'missing' in score entry mode.</li></ul></td></tr>
+<tr><td class=version>2.300</td><td class=event>BAT 2004</td><td class=change><ul><li>Autopair added.</li><li><code>EditScore</code> emits updated scorecard.</li></ul></td></tr>
+<tr><td class=version>2.210</td><td class=event>Montreal QC 2004-03 LCT</td><td class=change><ul><li>Suppressed a spurious error message.</li></ul></td></tr>
+<tr><td class=version>2.200</td><td class=event>Cambridge ON 2004</td><td class=change><ul><li>"Cambridge pairings" added.</li></ul></td></tr>
+<tr><td class=version>2.100</td><td class=event>CNSC 2003</td><td class=change><ul><li><code>Addscore</code> gives updated cumes as a check.</li></ul></td></tr>
+<tr><td class=version>2.000</td><td class=event>MWMST 2003</td><td class=change><ul><li><code>MISSING</code> lists missing data in score entry mode.</li><li>Teed log files have '.doc' extension, no embedded spaces.</li></ul></td></tr>
+<tr><td class=version>1.900</td><td class=event>CWSCQT 2003</td><td class=change><ul><li>Added <code>ShowPairings -p</code> as kludge to work with make-rr.pl.</li></ul></td></tr>
+<tr><td class=version>1.800</td><td class=event>Albany 2003</td><td class=change><ul><li><code>ScoreCard</code> shows opp ratings.</li><li><code>UnPairRound</code> reports on problem players.</li><li>Table numbers can be arbitrary strings .</li><li>Entering a division name changes divisions in score entry mode.</li><li><code>ShowWallChart -f r</code> lists beginning with round r only.</li></ul></td></tr>
+<tr><td class=version>1.700</td><td class=event>Boston 2003</td><td class=change><ul><li><code>EditScore</code> added.</li><li><code>NewSwiss</code> code added, first manually paired player can be 0 for an unscored bye pairing.</li></ul></td></tr>
+<tr><td class=version>1.600</td><td class=event>Boston 2001</td><td class=change><ul><li><code>InitFontes</code> works for any number of players, not just 4n and 4n+2.</li></ul></td></tr>
+<tr><td class=version>1.500</td><td class=event>Toronto 2001</td><td class=change><ul><li>Various changes.</li></ul></td></tr>
+<tr><td class=version>1.400</td><td class=event>Boston 2001</td><td class=change><ul><li>Various changes.</li></ul></td></tr>
+<tr><td class=version>1.300</td><td class=event>Danbury 2001</td><td class=change><ul><li>Various changes.</li></ul></td></tr>
+<tr><td class=version>1.200</td><td class=event>2000 CNSC</td><td class=change><ul><li>Various changes.</li></ul></td></tr>
+<tr><td class=version>1.103</td><td class=event>1999 MWMST</td><td class=change><ul><li>First production use</ul></td></tr>
+<tr><td class=version>1.000</td><td class=event>None</td><td class=change><ul><li>First release</ul></td></tr>
+</table>
+
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+#!/usr/bin/perl
+
+# add etc/lifeg to a .t file
+
+use strict;
+use warnings;
+use File::Temp qw(tempfile);
+
+sub Main ();
+sub Process ($);
+sub ReadRatings ($$);
+
+our %gTempFiles;
+
+END { for my $file (keys %gTempFiles) { unlink $file; } }
+
+Main;
+
+sub Main () {
+  for my $ARGV (@::ARGV) { Process $ARGV; }
+  }
+
+sub Process ($) {
+  my $ARGV = shift;
+  my $dirname = $ARGV; $dirname =~ s/\/[^\/]+$//;
+  my %ratings;
+  for my $ratfile ("$dirname/start.rat",
+    sort grep { $_ lt $ARGV } glob("$dirname/[0-9]*.rat")) {
+    ReadRatings $ratfile, \%ratings; 
+    }
+  open(my $fh, '<', $ARGV) or die "Can't read $ARGV: $!\n";
+  my ($outfh, $outfn) = tempfile('add_lifegXXXXXX', DIR => $dirname);
+  $gTempFiles{$outfn} = 1;
+  while (<$fh>) {
+    if (/^\s*#/) { print $outfh $_; next; }
+    s/;\s*lifeg\s*\d+[ \t]*//;
+    my ($name, $rating) = /^(\D*[^\s\d])\s+(\d+)\s+/;
+    die "Can't parse:\n$_" unless defined $rating;
+    $name =~ s/,//; 
+    $name = uc $name;
+    if ($rating) {
+      die "$name is not in the ratings list, but is marked as rated ($rating)\n"
+        unless defined $ratings{$name};
+      s/$/; lifeg $ratings{$name}{'games'}/;
+      }
+    else {
+      s/$/; lifeg 0/;
+      die "$name is in the ratings list, but is marked as unrated\n"
+        if defined $ratings{$name};
+      }
+    unless (/,/) {
+      s/^(D|DEL) (\S+) /$1 $2, /
+        || s/ /, /;
+      }
+    print $outfh $_;
+    }
+  close($fh);
+  my $backupfn = $ARGV;
+  $backupfn =~ s/\.\w+$/\.bak/;
+  $backupfn .= '.bak' if $backupfn eq $ARGV;
+  if (rename $ARGV, $backupfn) {
+    if (rename $outfn, $ARGV) {
+      delete $gTempFiles{$outfn};
+      }
+    else {
+      die "Cannot rename $outfn to $ARGV: $!\n";
+      }
+    }
+  else {
+    die "Cannot rename $ARGV to $backupfn: $!\n";
+    }
+  }
+
+sub ReadRatings ($$) {
+  my $file = shift;
+  my $playersp = shift;
+  open(my $fh, '<', $file) or die "Can't read $file: $!\n";
+  while (<$fh>) {
+    die "Can't parse in $file:\n$_\n" 
+      unless /^([^=\d]+[^=\d\s])(?:=(\S+))?\s+(\d+)\s+(\d+)\s+(\d+)$/;
+    if (exists $playersp->{$1}) {
+      my $pp = $playersp->{$1};
+      $pp->{'memnum'} = $2;
+      $pp->{'rating'} = $3;
+      $pp->{'games'} += $4;
+      $pp->{'peak'} = $5 if $pp->{'peak'} < $5;
+      }
+    else {
+      $playersp->{$1} = {
+	'memnum' => $2,
+	'rating' => $3,
+	'games' => $4,
+	'peak' => $5
+	};
+      }
+    }
+  close($fh);
+  }

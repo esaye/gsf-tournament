@@ -1,0 +1,80 @@
+Customer Service Script for Questions About Chew Pairings
+
+1. If Player asks "How do these pairings work?" go to #2.
+   If Player asks "When do repeats start?" go to #7.
+   If Player asks "Are you Gibsonizing players?" go to #8.
+   If Player asks "Is the last round KOTH?" go to #9.
+   If Player asks "Why are players A and B playing each other?" go to #10.
+   If Player asks a question not listed above go to #11.
+
+2. Director: "Do you want the long answer or the short answer?"
+
+   If reply "short", go to #3.  If reply "long", go to #4.
+
+3. Director: "They're based on the Division 1 final session pairings
+   at the USSO/NSC.  The computer figures out who is still in 
+   contention for prize money, then matches them up with the 
+   lowest-ranked player who can still reasonably catch them.
+   Players out of contention are paired Swiss.  Do you want
+   to hear more?"
+
+   If reply "yes", go to #4.  If no, go to #1.
+
+4. Director: "Here, take a look at this."  Print out and show player
+   the section on Chew pairings in the chapter on pairings in the
+   tsh reference manual:
+
+   http://www.math.utoronto.ca/jjchew/software/tsh/doc/pairing.html
+
+   Director: "Is that enough?"  
+
+   If reply "yes", go to #1.  If no, go to #5.
+
+5. Director: "Here, take a look at this."  Print out and show player
+   the source file lib/perl/TSH/Command/ChewPair.pl in your tsh
+   distribution. 
+
+   Director: "Is that enough?"  
+
+   If reply "yes", go to #1.  If no, go to #6.
+
+6. Director: "Please call John Chew.  His cellphone number is 
+   +1 416 876 7675."
+
+   Go to #1.
+
+7. Director: "The computer does a tournament simulation to see who
+   is still in contention for prize money.  When there is no longer
+   any way to pair the contenders with each other, the number of
+   allowable repeats is increased."
+
+   Go to #1.
+
+8. Director: "The computer will automatically Gibsonize players when
+   it can tell that they need to be, based on wins and spread, just
+   like at the USSO/NSC.  It is possible that a Gibsonization situation
+   might develop that the computer cannot detect, if Fontes pairings
+   are being used, so that the pairings are based on old, stale, 
+   standings information.  If this happens, please let me know and
+   I will manually repair the players involved."
+
+   Go to #1.
+
+9. Director: "No, the last round is paired just like the rest, so 
+   that the leading contender is paired with the lowest-ranked
+   player who can still catch up to him/her.  This is because it
+   was decided at the NSC that it is unfair to lock out lower-ranked
+   players from a chance to win a tournament by pairing KOTH."
+
+   Go to #1.
+
+10. Director: "The computer takes into account the following factors
+    when pairing players: whether or not players are in contention
+    for a prize, repeat pairings, back-to-back repeats, firsts/seconds,
+    current rank.  Would you like to know more about how the pairings
+    work?"
+
+    Go to #3.
+
+11. Call John Chew, asks him to add the question and an appropriate  
+    response to this document.

@@ -1,0 +1,34 @@
+#begintest deletescore
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 0 4 1; 50
+Chew, Jamie 500    0 1 0; -50
+Chew, Liam 0       1 2 0; 100
+#endifile
+#begincommands
+delete john 400 liam 100 2
+delete john 400 liam 200 1
+delete john 400 liam 100 1
+delete kristen 40 0 0 1
+delete kristen 50 0 0 1
+sc john
+q
+#endcommands
+#beginstdout
+Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+#endstdout
+#beginstderr
+Error: Chew, John (#1) and Chew, Liam (#4) did not play each other in round 2. [edeletewrongpair]
+Error: Chew, Liam (#4) had a score of 100, not 200. [edeletewrongscore]
+Error: Chew, Kristen (#2) had a score of 50, not 40. [edeletewrongscore]
+#endstderr
+#endtest

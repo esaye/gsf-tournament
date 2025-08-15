@@ -1,0 +1,17 @@
+#!/bin/sh
+
+TMPFILE=/tmp/jjc.$$.`date +%s`
+trap " /bin/rm -f $TMPFILE " 0 1 2 3 15
+
+find os* dos* sample? plugins bin doc lib strawberry* util *.pl -mnewer epoch -type f |
+egrep -v '^(lib/ratings|lib/pix|lib/old)|(,v|swp)$' > $TMPFILE
+
+xargs -o -t checkin < $TMPFILE
+
+# cat $TMPFILE; exit 
+echo '#!/bin/csh' > vd.csh
+sed -e 'sx.*xdiff -q ~/t/& & || vimdiff ~/t/& &x' $TMPFILE > vd.csh
+chmod a+rx vd.csh
+tar cfz /tmp/1.tgz `cat $TMPFILE` vd.csh
+ls -l /tmp/1.tgz
+scp /tmp/1.tgz poslfit@poslarchive.com:t/

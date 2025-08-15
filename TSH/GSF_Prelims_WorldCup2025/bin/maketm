@@ -1,0 +1,194 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use lib './lib/perl';
+use Symbol;
+use TFile;
+
+sub Main ();
+sub WriteTMFile ($);
+sub WriteTMHeader ($);
+sub WriteTMPlayer ($$);
+
+Main;
+
+sub Main () {
+  my $divfn = shift @::ARGV;
+  my $ofn = $divfn; $ofn =~ s/\.t$/.ltm/;
+  my %data = ('players' => [undef], 'filename' => $divfn);
+  my $id;
+
+  my $tf = new TFile($divfn) or die "Can't open $divfn: $!.\n";
+  my $nrounds = 1;
+  while (my $pp = $tf->ReadLine()) {
+    push(@{$data{'players'}}, $pp);
+    my $n = scalar(@{$pp->{'scores'}});
+    $nrounds = $n if $nrounds < $n;
+    $n = scalar(@{$pp->{'pairings'}});
+    $nrounds = $n if $nrounds < $n;
+    }
+  $tf->Close();
+  $data{'nrounds'} = $nrounds;
+
+  my $ofh = gensym;
+  open($ofh, ">$ofn") or die "Can't create $ofn: $!\nAborting";
+  $data{'ofh'} = $ofh;
+  WriteTMFile \%data;
+  }
+
+sub WriteTMFile ($) {
+  my $datap = shift;
+
+  WriteTMHeader $datap;
+  for my $i (1..$#{$datap->{'players'}}) {
+    WriteTMPlayer $datap, $i;
+    }
+  }
+
+sub WriteTMHeader ($) {
+  my $datap = shift;
+  my $fh = $datap->{'ofh'};
+
+  print $fh pack('V', 0xDEADC0DE);  # ulSignature
+  print $fh pack('V', 121);         # ulHeaderSize
+  print $fh pack('Z21', $datap->{'filename'}); # szarDivisionName
+  print $fh pack('V', 8);           # ulGameSize
+  print $fh pack('V', 72);          # ulPlayerSize - size of struct
+  print $fh pack('v', $datap->{'nrounds'}); # usNRounds
+  print $fh pack('v', $#{$datap->{'players'}}); # usNPlayers
+  print $fh pack('v', 1); # usNGroups
+  print $fh pack('v', $datap->{'nrounds'} ? 1 : 0); # bTourneyStarted
+  print $fh pack('v', 0); # sUnratedRating
+  print $fh pack('v', 50); # usForfeitWinSpread
+  print $fh pack('v', 1); # bAvoidSecondForfeit
+  print $fh pack('v', 2); # sAutoOrdering
+  print $fh pack('v', 72 + 8 * ($datap->{'nrounds'} - 1));# usPlayerSize - size including any games
+  print $fh pack('v', 0); # usEditRound;
+  print $fh pack('v', 1); # bSkippedGameWarning;
+  print $fh pack('v', 1); # bWrongOpponentWarning;
+
+  print $fh pack('v', 0); # usLowerPairRound
+  print $fh pack('v', 0); # usUpperPairRound
+  print $fh pack('v', 0); # bPairGroupsTogether
+  print $fh pack('v', 1); # usSubDivNum
+  print $fh pack('v', 1); # bNumberSubdivisions
+  print $fh pack('v', 0); # bAvoidRematches
+  print $fh pack('v', 1); # usTableNumber
+ 
+  print $fh pack('v', 0); # usStatRoundLow
+  print $fh pack('v', 0); # usStatRoundHigh
+  print $fh pack('v', 1); # usViewNGroups
+ 
+  print $fh pack('v', 1); # sViewActive
+  print $fh pack('v', 1); # bGroupsIntermixed
+  print $fh pack('v', 0xffff); # usViewTop
+  print $fh pack('v', 2); # sViewOrder
+  print $fh pack('v', 0); # bViewIndex
+  print $fh pack('v', 1); # bViewNumber
+  print $fh pack('v', 0); # sViewName
+  print $fh pack('v', 0); # bViewSPID
+  print $fh pack('v', 1); # bViewRating
+  print $fh pack('v', 1); # bViewRatingGroup
+  print $fh pack('v', 1); # bViewActiveStatus
+
+  print $fh pack('v', 0); # bViewRecord
+  print $fh pack('v', 0); # bViewSpread
+  print $fh pack('v', 0); # bViewAverageScores
+  print $fh pack('v', 0); # bViewHighScores
+  print $fh pack('v', 0); # bViewFirsts
+  print $fh pack('v', 0); # bViewRoundData
+  print $fh pack('v', 1); # sRoundDataFormat
+  print $fh pack('v', 0); # usViewRoundLow
+  print $fh pack('v', 0); # usViewRoundHigh
+  print $fh pack('v', 0); # not documented or counted in the 121 ?!
+  }
+
+sub WriteTMPlayer ($$) {
+  my $datap = shift;
+  my $id = shift;
+  my $pp = $datap->{'players'}[$id];
+  my $fh = $datap->{'ofh'};
+  
+  my $name = $pp->{'name'};
+  if ($name !~ /^(.*),\s*(.*)$/) {
+    die "No comma in: $name\n";
+    }
+  my $given = $2;
+  my $surname = $1;
+
+  my $s = '';
+  $s .= pack('Z14', $given);       # szarFirstName
+  $s .= pack('Z2', '');            # szarMiddleName
+  $s .= pack('Z16', $surname);     # szarLastName
+  $s .= pack('v', $pp->{'rating'});# usRating
+  $s .= pack('V', 0);              # ulScrabbleId
+  $s .= pack('v', exists $pp->{'etc'}{'off'} ? 0 : 1); # bActiveStatus
+  $s .= pack('v', 0);              # usRatingGroup
+
+  $s .= pack('v', 0);         # usWins
+  $s .= pack('v', 0);         # usTies
+  $s .= pack('v', 0);         # usLosses
+  $s .= pack('v', 0);         # usPoints
+  $s .= pack('v', 0);         # sSpread
+  $s .= pack('v', 0);         # sMyAvg
+  $s .= pack('v', 0);         # sOppAvg
+  $s .= pack('v', 0);         # sHighWin
+  $s .= pack('v', 0);         # sHighLoss
+  $s .= pack('v', 0);         # usFirsts
+  $s .= pack('v', 0);         # usSeconds
+  die "Bad length for player header: ", length($s), "\n"
+    unless length($s) + 8 == 72;
+  print $fh $s;
+
+  for my $r (1..$datap->{'nrounds'}) {
+    my $r0 = $r - 1;
+    my $oid = $pp->{'pairings'}[$r0];
+    my $ms = 0;
+    my $os = 0;
+    my $oc;
+    my $first = $pp->{'etc'}{'p12'}[$r0];
+    $first = 0 unless (defined $first && $first == 1);
+    if (defined $oid) { # we have pairings information for this round
+      $ms = $pp->{'scores'}[$r0];
+      my $opp = $datap->{'players'}[$oid];
+      if ($opp) { # player played an opponent this round
+	$os = $opp->{'scores'}[$r0];
+	if ((defined $ms) && (defined $os)) { # we have scores
+	  $oc = $ms > $os 
+	    ? 6 # TM_OCWIN
+	    : $ms == $os 
+	    ? 4 # TM_OCTIE
+	    : 2 # TM_OCLOSS
+	    ;
+	  }
+	else { # pairings only, no scores
+	  $oc = 1; # TM_OCPAIRED
+	  my $table = $pp->{'etc'}{'board'}[$r0];
+	  $ms = $table if $table;
+	  $ms = 0 unless defined $ms;
+	  $os = 0;
+	  }
+	$oid--;
+	}
+      else { # player sat out this round
+	$ms = 50 unless defined $ms;
+	$oid = 0xffff;
+	$oc = $ms > $os 
+	  ? 7 # TM_OCFWIN
+	  : $ms == $os 
+	  ? 5 # TM_OCFTIE
+	  : 3 # TM_OCFLOSS
+	  ;
+        }
+    } else { # we have no pairings information for this round
+      $oid = 0xffff;
+      $oc = 0; # TM_OCNOPAIR
+      }
+    print $fh pack('v', $ms); # sPlayerScore (or table)
+    print $fh pack('v', $oid);# usOpponentNumber
+    print $fh pack('v', $os); # sOpponentScore
+    print $fh pack('c', $oc); # ucOutcome
+    print $fh pack('c', $first); # ucFirst
+    }
+  }

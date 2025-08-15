@@ -1,0 +1,26 @@
+#begintest totalscore
+#beginconfig
+division a a.t
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+tots a
+q
+#endcommands
+#beginstdout
+High Total Scores
+
+Rnk Total Won-Lost  Sprd Player
+  1  1200  3.0- 0.0 +600 Chew, John (#1)
+  2   900  2.0- 1.0 +200 Chew, Kristen (#2)
+  3   400  1.0- 2.0 -250 Chew, Jamie (#3)
+  4   200  0.0- 3.0 -550 Chew, Liam (#4)
+#endstdout
+#beginstderr
+#endstderr
+#endtest

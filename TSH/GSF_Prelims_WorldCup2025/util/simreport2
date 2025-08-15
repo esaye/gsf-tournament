@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+
+# summarize the output of keepdry
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $last = '';
+  $/ = "=====\nRun ";
+  scalar(<>);
+  while (<>) {
+#   warn substr($_, 0, 80);
+    s/^(\d+)\n// || die "No Run #.\n";
+    my $runno = $1;
+    s/[^\0]+\nRnk.*\n// or die;
+    my (@lines) = split(/\n/);
+    print "$lines[0]\n$lines[1]\n";
+    }
+  print "\n";
+  }

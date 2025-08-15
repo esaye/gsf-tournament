@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSF Preliminaries - Player Instructions</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .instruction-card {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e31e24 0%, #ffffff 33%, #ffffff 66%, #0c7b93 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .flag {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 40px;
+            border: 2px solid #333;
+            background: linear-gradient(to bottom, 
+                #e31e24 0%, #e31e24 33.33%, 
+                #ffffff 33.33%, #ffffff 66.66%, 
+                #0c7b93 66.66%, #0c7b93 100%);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .remote-badge {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(44, 85, 48, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            color: #2c5530;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .header h2 {
+            font-size: 18px;
+            color: #e31e24;
+            font-weight: normal;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            border-left: 5px solid #2c5530;
+        }
+        
+        .section h3 {
+            color: #2c5530;
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-icon {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+        
+        .important {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .important h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            margin: 15px 0;
+            padding: 15px;
+            padding-left: 60px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: #2c5530;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .pin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .pin-table th, .pin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .pin-table th {
+            background: #2c5530;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .pin-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .pin-code {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #e31e24;
+            font-size: 18px;
+        }
+        
+        .contact-info {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .contact-info h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+        
+        .url-box {
+            background: #2c5530;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        
+        .verification-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .flow-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-card:hover {
+            border-color: #2c5530;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .flow-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2c5530;
+            color: white;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .troubleshooting {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .troubleshooting h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .flag, .remote-badge {
+                position: static;
+                transform: none;
+                margin: 10px auto;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .pin-table {
+                font-size: 14px;
+            }
+            
+            .pin-table th, .pin-table td {
+                padding: 10px;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .instruction-card {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction-card">
+        <div class="header">
+            <div class="flag"></div>
+            <div class="remote-badge">🌍 REMOTE TOURNAMENT</div>
+            <h1>PLAYER INSTRUCTIONS</h1>
+            <h2>GSF Preliminaries for World Scrabble Championships 2025</h2>
+        </div>
+        
+        <div class="content">
+            <!-- Tournament Overview -->
+            <div class="section">
+                <h3><span class="section-icon">🏆</span>Tournament Overview</h3>
+                <div class="important">
+                    <h4>🚨 SPECIAL REMOTE TOURNAMENT</h4>
+                    <p><strong>Tournament Director:</strong> Ebrima Saye (Oslo, Norway)<br>
+                       <strong>Tournament Venue:</strong> The Gambia<br>
+                       <strong>Score Verification:</strong> Dual-player confirmation required</p>
+                </div>
+                <ul>
+                    <li><strong>Format:</strong> Round Robin (8 players, 15 rounds)</li>
+                    <li><strong>Players:</strong> Elite Gambian Scrabble Champions</li>
+                    <li><strong>Dates:</strong> August 15-17, 2025</li>
+                    <li><strong>Qualification:</strong> Top performers advance to World Championships</li>
+                </ul>
+            </div>
+            
+            <!-- Access Information -->
+            <div class="section">
+                <h3><span class="section-icon">🌐</span>How to Access the Tournament System</h3>
+                <p>Use your smartphone, tablet, or computer to access the tournament system:</p>
+                
+                <h4>📱 Primary Access URL:</h4>
+                <div class="url-box">
+                    https://2bfd0006cbcc.ngrok-free.app
+                </div>
+                
+                <h4>🔗 Backup URLs:</h4>
+                <ul>
+                    <li><strong>Tournament Website:</strong> scrabble.ebrimasaye.com/tournament</li>
+                    <li><strong>Local Network:</strong> Connect to venue WiFi for local access</li>
+                </ul>
+            </div>
+            
+            <!-- Player Authentication -->
+            <div class="section">
+                <h3><span class="section-icon">🔐</span>Player Authentication</h3>
+                <p>Each player has been assigned a secure 4-digit PIN for score entry:</p>
+                
+                <table class="pin-table">
+                    <thead>
+                        <tr>
+                            <th>Player Name</th>
+                            <th>Your PIN</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conteh, Ousman</td>
+                            <td class="pin-code">1001</td>
+                            <td>1850</td>
+                        </tr>
+                        <tr>
+                            <td>Sock, Richard John</td>
+                            <td class="pin-code">1002</td>
+                            <td>1820</td>
+                        </tr>
+                        <tr>
+                            <td>Suso, Kebba</td>
+                            <td class="pin-code">1003</td>
+                            <td>1790</td>
+                        </tr>
+                        <tr>
+                            <td>Sambou, Amadou</td>
+                            <td class="pin-code">1004</td>
+                            <td>1760</td>
+                        </tr>
+                        <tr>
+                            <td>Jah, Omar Malleh</td>
+                            <td class="pin-code">1005</td>
+                            <td>1740</td>
+                        </tr>
+                        <tr>
+                            <td>Nyass, Ebrima</td>
+                            <td class="pin-code">1006</td>
+                            <td>1720</td>
+                        </tr>
+                        <tr>
+                            <td>Coron, Jimmy</td>
+                            <td class="pin-code">1007</td>
+                            <td>1700</td>
+                        </tr>
+                        <tr>
+                            <td>Sowe, Momodou</td>
+                            <td class="pin-code">1008</td>
+                            <td>1680</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="important">
+                    <h4>🔒 Keep Your PIN Secure</h4>
+                    <p>Your PIN is unique to you and prevents unauthorized score submissions. Do not share it with other players.</p>
+                </div>
+            </div>
+            
+            <!-- Score Entry Process -->
+            <div class="section">
+                <h3><span class="section-icon">📋</span>Dual-Verification Score Entry Process</h3>
+                <p>To ensure accuracy without the Tournament Director present, all scores require confirmation from both players:</p>
+                
+                <div class="verification-flow">
+                    <div class="flow-card">
+                        <div class="flow-number">1</div>
+                        <h4>Player Login</h4>
+                        <p>Enter your name and 4-digit PIN to access the system</p>
+                    </div>
+                    
+                    <div class="flow-card">
+                        <div class="flow-number">2</div>
+                        <h4>Submit Score</h4>
+                        <p>Enter the final scores for both players in your completed game</p>
+                    </div>
+                    
+                    <div class="flow-card">
+                        <div class="flow-number">3</div>
+                        <h4>Await Verification</h4>
+                        <p>Your opponent will be notified to confirm the submitted result</p>
+                    </div>
+                    
+                    <div class="flow-card">
+                        <div class="flow-number">4</div>
+                        <h4>Result Finalized</h4>
+                        <p>Once both players agree, the result becomes official and updates the live standings</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step-by-Step Instructions -->
+            <div class="section">
+                <h3><span class="section-icon">📱</span>Step-by-Step Score Submission</h3>
+                
+                <ol class="step-list">
+                    <li><strong>Complete Your Game:</strong> Finish your Scrabble game and calculate final scores</li>
+                    <li><strong>Access the System:</strong> Open the tournament URL on your phone or device</li>
+                    <li><strong>Login:</strong> Select your name and enter your 4-digit PIN</li>
+                    <li><strong>Enter Scores:</strong> Input both your score and your opponent's score</li>
+                    <li><strong>Submit:</strong> Click "Submit Game Result" - the system stores your submission</li>
+                    <li><strong>Wait for Verification:</strong> Your opponent will receive a notification to verify</li>
+                    <li><strong>Confirmation:</strong> If scores match, the result becomes final automatically</li>
+                    <li><strong>Next Game:</strong> System will show your next pairing when ready</li>
+                </ol>
+                
+                <div class="important">
+                    <h4>⚡ Fast & Easy</h4>
+                    <p>The entire process takes less than 2 minutes per game. The system is mobile-friendly and works on all devices.</p>
+                </div>
+            </div>
+            
+            <!-- Dispute Resolution -->
+            <div class="section">
+                <h3><span class="section-icon">⚠️</span>Dispute Resolution</h3>
+                <p>If players disagree on the final score:</p>
+                
+                <ul>
+                    <li><strong>Automatic Detection:</strong> System detects when submitted scores don't match</li>
+                    <li><strong>TD Notification:</strong> Tournament Director in Oslo is immediately alerted</li>
+                    <li><strong>Review Process:</strong> TD will contact both players via phone/WhatsApp</li>
+                    <li><strong>Resolution:</strong> TD will review scoresheets and make final decision</li>
+                    <li><strong>Manual Entry:</strong> Correct score will be entered by TD once resolved</li>
+                </ul>
+                
+                <div class="troubleshooting">
+                    <h4>🔍 Always Double-Check</h4>
+                    <p>Before submitting, verify scores with your opponent verbally. This prevents disputes and speeds up the tournament.</p>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="section">
+                <h3><span class="section-icon">📞</span>Support & Contact</h3>
+                
+                <div class="contact-info">
+                    <h4>🎯 Tournament Director</h4>
+                    <p><strong>Ebrima Saye</strong><br>
+                       Location: Oslo, Norway (Remote Direction)<br>
+                       WhatsApp: [Contact number to be provided]<br>
+                       Email: [Email to be provided]</p>
+                </div>
+                
+                <h4>📋 For Technical Support:</h4>
+                <ul>
+                    <li>Refresh your browser if the page doesn't load</li>
+                    <li>Check your internet connection</li>
+                    <li>Try accessing from a different device</li>
+                    <li>Contact venue organizer for WiFi password if needed</li>
+                </ul>
+                
+                <h4>🏆 For Tournament Rules:</h4>
+                <ul>
+                    <li>Standard WESPA tournament rules apply</li>
+                    <li>Collins Scrabble Words (CSW) dictionary</li>
+                    <li>25-minute time control per player</li>
+                    <li>Physical scoresheets as backup documentation</li>
+                </ul>
+            </div>
+            
+            <!-- Live Features -->
+            <div class="section">
+                <h3><span class="section-icon">🌐</span>Live Tournament Features</h3>
+                <p>The tournament system provides real-time updates:</p>
+                
+                <ul>
+                    <li><strong>Live Standings:</strong> Updated immediately after each verified result</li>
+                    <li><strong>Current Pairings:</strong> See your next opponent and table assignment</li>
+                    <li><strong>Round Progress:</strong> Track tournament progress in real-time</li>
+                    <li><strong>Player Statistics:</strong> View wins, losses, spread, and rating changes</li>
+                    <li><strong>Global Access:</strong> Friends and family worldwide can follow the tournament</li>
+                </ul>
+                
+                <div class="important">
+                    <h4>🏆 Historic Tournament</h4>
+                    <p>This is the first remote-directed GSF tournament using dual-verification technology. You're part of Scrabble history!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
