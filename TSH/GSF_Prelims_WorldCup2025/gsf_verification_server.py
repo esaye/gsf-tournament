@@ -176,8 +176,8 @@ def submit_score():
     # Check if there's already a pending score for this game
     cursor.execute(
         """
-        SELECT id, submitted_by FROM pending_scores 
-        WHERE round = ? AND 
+        SELECT id, submitted_by FROM pending_scores
+        WHERE round = ? AND
               ((player1_id = ? AND player2_id = ?) OR (player1_id = ? AND player2_id = ?))
               AND status = 'pending'
     """,
@@ -222,7 +222,7 @@ def submit_score():
             # Scores match - finalize result
             cursor.execute(
                 """
-                UPDATE pending_scores 
+                UPDATE pending_scores
                 SET status = 'verified', verified_by = ?, verified_at = CURRENT_TIMESTAMP
                 WHERE id = ?
             """,
@@ -273,7 +273,7 @@ def submit_score():
             # Scores don't match - mark as disputed
             cursor.execute(
                 """
-                UPDATE pending_scores 
+                UPDATE pending_scores
                 SET status = 'disputed'
                 WHERE id = ?
             """,
@@ -310,7 +310,7 @@ def submit_score():
         # First submission - store as pending
         cursor.execute(
             """
-            INSERT INTO pending_scores 
+            INSERT INTO pending_scores
             (round, player1_id, player2_id, player1_score, player2_score, submitted_by)
             VALUES (?, ?, ?, ?, ?, ?)
         """,
@@ -362,7 +362,7 @@ def get_pending_scores():
     cursor.execute(
         """
         SELECT round, player1_id, player2_id, player1_score, player2_score, submitted_by
-        FROM pending_scores 
+        FROM pending_scores
         WHERE ((player1_id = ? OR player2_id = ?) AND submitted_by != ? AND status = 'pending')
     """,
         (player_id, player_id, player_id),
@@ -374,7 +374,7 @@ def get_pending_scores():
     cursor.execute(
         """
         SELECT round, player1_id, player2_id, player1_score, player2_score
-        FROM pending_scores 
+        FROM pending_scores
         WHERE submitted_by = ? AND status = 'pending'
     """,
         (player_id,),
@@ -506,8 +506,8 @@ def check_tsh_connection():
     try:
         response = requests.get(TSH_HOST, timeout=5)
         return response.status_code == 200
-    except:
-        return False
+    except Exception:
+return False
 
 
 @app.route("/api/admin/disputes")
@@ -517,9 +517,9 @@ def get_disputes():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT round, player1_id, player2_id, player1_score, player2_score, 
+        SELECT round, player1_id, player2_id, player1_score, player2_score,
                submitted_by, dispute_reason, submitted_at
-        FROM pending_scores 
+        FROM pending_scores
         WHERE status = 'disputed'
         ORDER BY submitted_at DESC
     """)

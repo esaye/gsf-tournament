@@ -118,7 +118,7 @@ def test_photo_files():
 def test_pairing_generation():
     """Test pairing generation via tournament manager"""
     try:
-        result = subprocess.run(
+        subprocess.run(
             ["python3", "tournament_manager.py", "pair"],
             capture_output=True,
             text=True,

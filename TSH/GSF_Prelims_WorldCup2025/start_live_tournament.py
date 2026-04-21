@@ -61,8 +61,8 @@ def start_server():
             try:
                 webbrowser.open(f"http://localhost:{PORT}")
                 print("🚀 Browser opened automatically!")
-            except:
-                print("📝 Please manually open your browser to the URL above")
+            except Exception:
+print("📝 Please manually open your browser to the URL above")
 
         browser_thread = threading.Thread(target=open_browser)
         browser_thread.daemon = True

@@ -62,7 +62,7 @@ def generate_scoresheet_pdf():
     for method in methods:
         try:
             print(f"📄 Trying: {method[0]}...")
-            result = subprocess.run(method, capture_output=True, text=True, timeout=30)
+            subprocess.run(method, capture_output=True, text=True, timeout=30)
 
             if result.returncode == 0 and pdf_file.exists():
                 print(f"✅ PDF generated successfully: {pdf_file}")
