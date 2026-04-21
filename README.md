@@ -4,6 +4,9 @@ Gambia Scrabble Federation
 
 # 🚀 Welcome to your new awesome project!
 
+[![Dev setup checks](https://github.com/esaye/gsf-tournament/actions/workflows/dev-setup-checks.yml/badge.svg)](https://github.com/esaye/gsf-tournament/actions/workflows/dev-setup-checks.yml)
+[![Build releases](https://github.com/esaye/gsf-tournament/actions/workflows/build.yml/badge.svg)](https://github.com/esaye/gsf-tournament/actions/workflows/build.yml)
+
 This project has been created using **create-webpack-app**, you can now run
 
 ```bash
@@ -19,9 +22,6 @@ yarn build
 to bundle your application
 
 # collins-word-study-app
-
-[![Dev setup checks](https://github.com/esaye/gsf-tournament/actions/workflows/dev-setup-checks.yml/badge.svg)](https://github.com/esaye/gsf-tournament/actions/workflows/dev-setup-checks.yml)
-[![Build releases](https://github.com/esaye/gsf-tournament/actions/workflows/build.yml/badge.svg)](https://github.com/esaye/gsf-tournament/actions/workflows/build.yml)
 
 ## Developer setup (quick)
 - POSIX (Linux/macOS): ./scripts/dev-setup.sh --node
