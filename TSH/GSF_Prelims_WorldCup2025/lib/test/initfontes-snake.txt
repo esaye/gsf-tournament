@@ -1,0 +1,236 @@
+#begintest initfontes-snake
+#beginconfig
+division a a.t
+division b b.t
+division c c.t
+division d d.t
+config max_rounds = 5
+config colour = 'no'
+config initial_schedule = 3
+config initial_snaked = 1
+perl srand 123
+#endconfig
+#beginifile a.t
+Player, A 1800
+Player, B 1700
+Player, C 1600
+Player, D 1500
+Player, E 1400
+Player, F 1300
+Player, G 1200
+Player, H 1100
+#endifile
+#beginifile b.t
+Player, A 1800
+Player, B 1700
+Player, C 1600
+Player, D 1500
+Player, E 1400
+Player, F 1300
+Player, G 1200
+Player, H 1100
+Player, I 1000
+#endifile
+#beginifile c.t
+Player, A 1800
+Player, B 1700
+Player, C 1600
+Player, D 1500
+Player, E 1400
+Player, F 1300
+Player, G 1200
+Player, H 1100
+Player, I 1000
+Player, J 900
+#endifile
+#beginifile d.t
+Player, A 1800
+Player, B 1700
+Player, C 1600
+Player, D 1500
+Player, E 1400
+Player, F 1300
+Player, G 1200
+Player, H 1100
+Player, I 1000
+Player, J 900
+Player, K 800
+#endifile
+#begincommands
+debug CP 0
+smp 1-3 a
+smp 1-3 b
+smp 1-3 c
+smp 1-3 d
+q
+#endcommands
+#beginstdout
+Debug: [IF] InitFontes: nrounds=3, dname=A
+Debug: [IF] (S) Odd players: 
+Debug: [IF] (S) Group: 2,3,6,7
+Debug: [IF] (S) Group: 1,4,5,8
+Division A Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, H (A8).
+   2  Player, D (A4) vs. Player, E (A5).
+   3  Player, B (A2) vs. Player, G (A7).
+   4  Player, C (A3) vs. Player, F (A6).
+Division A Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, E (A5).
+   2  Player, D (A4) vs. Player, H (A8).
+   3  Player, B (A2) vs. Player, F (A6).
+   4  Player, C (A3) vs. Player, G (A7).
+Division A Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, D (A4).
+   2  Player, E (A5) vs. Player, H (A8).
+   3  Player, B (A2) vs. Player, C (A3).
+   4  Player, F (A6) vs. Player, G (A7).
+Division A Pairings: Rounds 1-3
+
+## Player    R1  R2  R3
+1 Player, A 8@1 5@1 4@1
+2 Player, B 7@3 6@3 3@3
+3 Player, C 6@4 7@4 2@3
+4 Player, D 5@2 8@2 1@1
+5 Player, E 4@2 1@1 8@2
+6 Player, F 3@4 2@3 7@4
+7 Player, G 2@3 3@4 6@4
+8 Player, H 1@1 4@2 5@2
+Debug: [IF] InitFontes: nrounds=3, dname=B
+Debug: [IF] (S) Odd players: 6
+Debug: [IF] (S) Group: 2,3,7,8
+Debug: [IF] (S) Group: 1,4,5,9
+Debug: [IF] (S) Odd Group: 1,4,6,5,9
+Division B Round 1 Ranked Pairings
+
+Board Who Plays Whom
+      Player, F (B6): Bye.
+   1  Player, A (B1) vs. Player, I (B9).
+   2  Player, D (B4) vs. Player, E (B5).
+   3  Player, B (B2) vs. Player, H (B8).
+   4  Player, C (B3) vs. Player, G (B7).
+Division B Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Player, E (B5): Bye.
+   1  Player, A (B1) vs. Player, F (B6).
+   2  Player, D (B4) vs. Player, I (B9).
+   3  Player, B (B2) vs. Player, G (B7).
+   4  Player, C (B3) vs. Player, H (B8).
+Division B Round 3 Ranked Pairings
+
+Board Who Plays Whom
+      Player, I (B9): Bye.
+   1  Player, A (B1) vs. Player, D (B4).
+   2  Player, E (B5) vs. Player, F (B6).
+   3  Player, B (B2) vs. Player, C (B3).
+   4  Player, G (B7) vs. Player, H (B8).
+Division B Pairings: Rounds 1-3
+
+## Player    R1  R2  R3
+1 Player, A 9@1 6@1 4@1
+2 Player, B 8@3 7@3 3@3
+3 Player, C 7@4 8@4 2@3
+4 Player, D 5@2 9@2 1@1
+5 Player, E 4@2 Bye 6@2
+6 Player, F Bye 1@1 5@2
+7 Player, G 3@4 2@3 8@4
+8 Player, H 2@3 3@4 7@4
+9 Player, I 1@1 4@2 Bye
+Debug: [IF] InitFontes: nrounds=3, dname=C
+Debug: [IF] (S) Odd players: 6,7
+Debug: [IF] (S) Group: 2,3,8,9
+Debug: [IF] (S) Group: 1,4,5,10
+Debug: [IF] (S) Odd Group: 1,4,6,7,5,10
+Division C Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (C1) vs. Player, J (C10).
+   2  Player, D (C4) vs. Player, F (C6).
+   3  Player, E (C5) vs. Player, G (C7).
+   4  Player, B (C2) vs. Player, I (C9).
+   5  Player, C (C3) vs. Player, H (C8).
+Division C Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (C1) vs. Player, G (C7).
+   2  Player, D (C4) vs. Player, E (C5).
+   3  Player, F (C6) vs. Player, J (C10).
+   4  Player, B (C2) vs. Player, H (C8).
+   5  Player, C (C3) vs. Player, I (C9).
+Division C Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (C1) vs. Player, D (C4).
+   2  Player, F (C6) vs. Player, G (C7).
+   3  Player, E (C5) vs. Player, J (C10).
+   4  Player, B (C2) vs. Player, C (C3).
+   5  Player, H (C8) vs. Player, I (C9).
+Division C Pairings: Rounds 1-3
+
+##  Player    R1   R2   R3
+1  Player, A 10@1 7@1  4@1
+2  Player, B 9@4  8@4  3@4
+3  Player, C 8@5  9@5  2@4
+4  Player, D 6@2  5@2  1@1
+5  Player, E 7@3  4@2  10@3
+6  Player, F 4@2  10@3 7@2
+7  Player, G 5@3  1@1  6@2
+8  Player, H 3@5  2@4  9@5
+9  Player, I 2@4  3@5  8@5
+10 Player, J 1@1  6@3  5@3
+Debug: [IF] InitFontes: nrounds=3, dname=D
+Debug: [IF] (S) Odd players: 
+Debug: [IF] (S) Group: 3,4,9,10
+Debug: [IF] (S) Group: 2,5,8,11
+Debug: [IF] (S) Group: 1,6,7
+Division D Round 1 Ranked Pairings
+
+Board Who Plays Whom
+      Player, F (D6): Bye.
+   1  Player, A (D1) vs. Player, G (D7).
+   2  Player, B (D2) vs. Player, K (D11).
+   3  Player, E (D5) vs. Player, H (D8).
+   4  Player, C (D3) vs. Player, J (D10).
+   5  Player, D (D4) vs. Player, I (D9).
+Division D Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Player, G (D7): Bye.
+   1  Player, A (D1) vs. Player, F (D6).
+   2  Player, B (D2) vs. Player, H (D8).
+   3  Player, E (D5) vs. Player, K (D11).
+   4  Player, C (D3) vs. Player, I (D9).
+   5  Player, D (D4) vs. Player, J (D10).
+Division D Round 3 Ranked Pairings
+
+Board Who Plays Whom
+      Player, A (D1): Bye.
+   1  Player, F (D6) vs. Player, G (D7).
+   2  Player, B (D2) vs. Player, E (D5).
+   3  Player, H (D8) vs. Player, K (D11).
+   4  Player, C (D3) vs. Player, D (D4).
+   5  Player, I (D9) vs. Player, J (D10).
+Division D Pairings: Rounds 1-3
+
+##  Player    R1   R2   R3
+1  Player, A 7@1  6@1  Bye
+2  Player, B 11@2 8@2  5@2
+3  Player, C 10@4 9@4  4@4
+4  Player, D 9@5  10@5 3@4
+5  Player, E 8@3  11@3 2@2
+6  Player, F Bye  1@1  7@1
+7  Player, G 1@1  Bye  6@1
+8  Player, H 5@3  2@2  11@3
+9  Player, I 4@5  3@4  10@5
+10 Player, J 3@4  4@5  9@5
+11 Player, K 2@2  5@3  8@3
+#endstdout
+#beginstderr
+#endstderr
+#endtest

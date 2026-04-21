@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSF National Preliminary Tournament - Live Tournament System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .flag {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tournament-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .live-indicator {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .tournament-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .standings-section, .pairings-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .player-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+        }
+        
+        .player-row:hover {
+            background: #f8f9fa;
+        }
+        
+        .player-rank {
+            font-weight: bold;
+            color: #667eea;
+            width: 2rem;
+        }
+        
+        .player-name {
+            font-weight: bold;
+            color: #2c3e50;
+            flex: 1;
+            margin-left: 1rem;
+        }
+        
+        .player-stats {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .pairing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            background: #f8f9fa;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+        }
+        
+        .table-number {
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 1rem;
+        }
+        
+        .vs {
+            color: #ff4757;
+            font-weight: bold;
+            margin: 0 1rem;
+        }
+        
+        .score-input {
+            width: 60px;
+            padding: 0.3rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn.success {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+        
+        .btn.danger {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        
+        .round-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .status-bar {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .status-item {
+            text-align: center;
+        }
+        
+        .status-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .status-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .tournament-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .tournament-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="flag">🇬🇲</div>
+            <h1 class="tournament-title">GSF NATIONAL PRELIMINARY TOURNAMENT</h1>
+            <p style="font-size: 1.2rem; color: #7f8c8d; margin-bottom: 1rem;">World Scrabble Championship 2025 Qualifier</p>
+            <div class="live-indicator">
+                <i class="fas fa-circle" style="color: #ff4757; margin-right: 0.5rem;"></i>
+                <span id="liveStatus">LIVE TOURNAMENT - ROUND 1</span>
+            </div>
+            <div style="font-size: 1rem; color: #34495e; margin-top: 1rem;">
+                📅 August 15-17, 2025 | 🏆 Official WSC Qualifier
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-number" id="currentRound">1</div>
+                <div class="status-label">Current Round</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number" id="completedGames">0</div>
+                <div class="status-label">Completed Games</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number" id="activeGames">4</div>
+                <div class="status-label">Active Games</div>
+            </div>
+            <div class="status-item">
+                <div class="status-number" id="totalPlayers">8</div>
+                <div class="status-label">Players</div>
+            </div>
+        </div>
+
+        <!-- Tournament Controls -->
+        <div class="controls">
+            <button class="btn" onclick="generatePairings()">
+                <i class="fas fa-random"></i>
+                Generate Next Round
+            </button>
+            <button class="btn success" onclick="updateStandings()">
+                <i class="fas fa-sync"></i>
+                Update Standings
+            </button>
+            <button class="btn" onclick="exportResults()">
+                <i class="fas fa-download"></i>
+                Export Results
+            </button>
+            <button class="btn danger" onclick="resetTournament()">
+                <i class="fas fa-redo"></i>
+                Reset Tournament
+            </button>
+        </div>
+
+        <!-- Main Tournament Grid -->
+        <div class="tournament-grid">
+            <!-- Current Standings -->
+            <div class="standings-section">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    Current Standings
+                </h2>
+                
+                <div id="standingsContainer">
+                    <div class="player-row">
+                        <span class="player-rank">1.</span>
+                        <span class="player-name">Nyass, Ebrima</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">2.</span>
+                        <span class="player-name">Jah, Omar Malleh</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">3.</span>
+                        <span class="player-name">Coron, Jimmy</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">4.</span>
+                        <span class="player-name">Conteh, Ousman</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">5.</span>
+                        <span class="player-name">Sowo, Momodou</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">6.</span>
+                        <span class="player-name">Sock, Richard John</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">7.</span>
+                        <span class="player-name">Suso, Kebba</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                    <div class="player-row">
+                        <span class="player-rank">8.</span>
+                        <span class="player-name">Sambou, Amadou</span>
+                        <span class="player-stats">0-0 | +0 | 1800</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Round Pairings/Scores -->
+            <div class="pairings-section">
+                <h2 class="section-title">
+                    <i class="fas fa-gamepad"></i>
+                    <span id="pairingsTitle">Round 1 Games</span>
+                </h2>
+                
+                <div class="round-info">
+                    <strong>📢 Tournament Director:</strong> Enter scores as games complete
+                </div>
+
+                <div id="pairingsContainer">
+                    <div class="pairing-row">
+                        <div>
+                            <span class="table-number">Table 1:</span>
+                            <strong>Nyass, Ebrima</strong>
+                            <span class="vs">vs</span>
+                            <strong>Sambou, Amadou</strong>
+                        </div>
+                        <div>
+                            <input type="number" class="score-input" placeholder="0" id="t1p1">
+                            <span>-</span>
+                            <input type="number" class="score-input" placeholder="0" id="t1p2">
+                            <button class="btn" style="margin-left: 0.5rem; padding: 0.3rem 0.8rem;" onclick="submitScore(1)">✓</button>
+                        </div>
+                    </div>
+
+                    <div class="pairing-row">
+                        <div>
+                            <span class="table-number">Table 2:</span>
+                            <strong>Jah, Omar Malleh</strong>
+                            <span class="vs">vs</span>
+                            <strong>Suso, Kebba</strong>
+                        </div>
+                        <div>
+                            <input type="number" class="score-input" placeholder="0" id="t2p1">
+                            <span>-</span>
+                            <input type="number" class="score-input" placeholder="0" id="t2p2">
+                            <button class="btn" style="margin-left: 0.5rem; padding: 0.3rem 0.8rem;" onclick="submitScore(2)">✓</button>
+                        </div>
+                    </div>
+
+                    <div class="pairing-row">
+                        <div>
+                            <span class="table-number">Table 3:</span>
+                            <strong>Coron, Jimmy</strong>
+                            <span class="vs">vs</span>
+                            <strong>Sock, Richard John</strong>
+                        </div>
+                        <div>
+                            <input type="number" class="score-input" placeholder="0" id="t3p1">
+                            <span>-</span>
+                            <input type="number" class="score-input" placeholder="0" id="t3p2">
+                            <button class="btn" style="margin-left: 0.5rem; padding: 0.3rem 0.8rem;" onclick="submitScore(3)">✓</button>
+                        </div>
+                    </div>
+
+                    <div class="pairing-row">
+                        <div>
+                            <span class="table-number">Table 4:</span>
+                            <strong>Conteh, Ousman</strong>
+                            <span class="vs">vs</span>
+                            <strong>Sowo, Momodou</strong>
+                        </div>
+                        <div>
+                            <input type="number" class="score-input" placeholder="0" id="t4p1">
+                            <span>-</span>
+                            <input type="number" class="score-input" placeholder="0" id="t4p2">
+                            <button class="btn" style="margin-left: 0.5rem; padding: 0.3rem 0.8rem;" onclick="submitScore(4)">✓</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><i class="fas fa-globe"></i> GSF National Preliminary Tournament - Live System</p>
+            <p>Powered by Tournament Shell (TSH) • Gambia Scrabble Federation</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                Last updated: <span id="lastUpdate">-</span> | 
+                Auto-refresh: <span id="autoRefresh">ON</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Tournament data
+        let tournamentData = {
+            currentRound: 1,
+            maxRounds: 15,
+            players: [
+                { name: "Nyass, Ebrima", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Jah, Omar Malleh", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Coron, Jimmy", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Conteh, Ousman", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Sowo, Momodou", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Sock, Richard John", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Suso, Kebba", wins: 0, losses: 0, spread: 0, rating: 1800 },
+                { name: "Sambou, Amadou", wins: 0, losses: 0, spread: 0, rating: 1800 }
+            ],
+            completedGames: 0,
+            activeGames: 4
+        };
+
+        // Auto-refresh every 30 seconds
+        setInterval(updateTimestamp, 30000);
+        updateTimestamp();
+
+        function updateTimestamp() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+        }
+
+        function generatePairings() {
+            if (confirm('Generate pairings for Round ' + (tournamentData.currentRound + 1) + '?')) {
+                tournamentData.currentRound++;
+                document.getElementById('currentRound').textContent = tournamentData.currentRound;
+                document.getElementById('pairingsTitle').textContent = `Round ${tournamentData.currentRound} Games`;
+                document.getElementById('liveStatus').textContent = `LIVE TOURNAMENT - ROUND ${tournamentData.currentRound}`;
+                
+                // Reset score inputs
+                document.querySelectorAll('.score-input').forEach(input => {
+                    input.value = '';
+                    input.style.backgroundColor = '';
+                });
+                
+                tournamentData.completedGames = 0;
+                tournamentData.activeGames = 4;
+                updateStatusBar();
+                
+                alert(`Round ${tournamentData.currentRound} pairings generated! Enter scores as games complete.`);
+            }
+        }
+
+        function submitScore(tableNumber) {
+            const p1Score = parseInt(document.getElementById(`t${tableNumber}p1`).value) || 0;
+            const p2Score = parseInt(document.getElementById(`t${tableNumber}p2`).value) || 0;
+            
+            if (p1Score === 0 && p2Score === 0) {
+                alert('Please enter valid scores for both players.');
+                return;
+            }
+            
+            if (confirm(`Submit scores: ${p1Score} - ${p2Score}?`)) {
+                // Mark inputs as submitted
+                document.getElementById(`t${tableNumber}p1`).style.backgroundColor = '#d4edda';
+                document.getElementById(`t${tableNumber}p2`).style.backgroundColor = '#d4edda';
+                
+                // Update game counts
+                tournamentData.completedGames++;
+                tournamentData.activeGames--;
+                updateStatusBar();
+                
+                // Simple standings update (in real tournament, this would be more complex)
+                updateStandings();
+                
+                alert('Score submitted successfully!');
+            }
+        }
+
+        function updateStandings() {
+            // In a real tournament, this would calculate from all game results
+            document.getElementById('standingsContainer').innerHTML = 
+                tournamentData.players.map((player, index) => `
+                    <div class="player-row">
+                        <span class="player-rank">${index + 1}.</span>
+                        <span class="player-name">${player.name}</span>
+                        <span class="player-stats">${player.wins}-${player.losses} | ${player.spread > 0 ? '+' : ''}${player.spread} | ${player.rating}</span>
+                    </div>
+                `).join('');
+            
+            alert('Standings updated!');
+        }
+
+        function updateStatusBar() {
+            document.getElementById('completedGames').textContent = tournamentData.completedGames;
+            document.getElementById('activeGames').textContent = tournamentData.activeGames;
+        }
+
+        function exportResults() {
+            const results = {
+                tournament: "GSF National Preliminary Tournament 2025",
+                currentRound: tournamentData.currentRound,
+                players: tournamentData.players,
+                exportTime: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `GSF_Prelims_Round_${tournamentData.currentRound}_Results.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert('Tournament results exported!');
+        }
+
+        function resetTournament() {
+            if (confirm('Are you sure you want to reset the tournament? This cannot be undone.')) {
+                if (confirm('This will reset all scores and return to Round 1. Continue?')) {
+                    tournamentData.currentRound = 1;
+                    tournamentData.completedGames = 0;
+                    tournamentData.activeGames = 4;
+                    
+                    tournamentData.players.forEach(player => {
+                        player.wins = 0;
+                        player.losses = 0;
+                        player.spread = 0;
+                    });
+                    
+                    document.getElementById('currentRound').textContent = '1';
+                    document.getElementById('pairingsTitle').textContent = 'Round 1 Games';
+                    document.getElementById('liveStatus').textContent = 'LIVE TOURNAMENT - ROUND 1';
+                    
+                    updateStatusBar();
+                    updateStandings();
+                    
+                    // Reset all score inputs
+                    document.querySelectorAll('.score-input').forEach(input => {
+                        input.value = '';
+                        input.style.backgroundColor = '';
+                    });
+                    
+                    alert('Tournament reset to Round 1!');
+                }
+            }
+        }
+
+        // Console welcome message
+        console.log('🇬🇲 GSF National Preliminary Tournament - Live System Loaded!');
+        console.log('Tournament data available in: tournamentData');
+    </script>
+</body>
+</html>

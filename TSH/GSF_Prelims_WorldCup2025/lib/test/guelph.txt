@@ -1,0 +1,283 @@
+#begintest guelph
+#beginconfig
+division a a.t
+division b b.t
+division c c.t
+config pairing_system = 'guelph'
+config colour = 'no'
+config prize_bands{'A'} = [1,2]
+config prize_bands{'B'} = [1,2]
+config prize_bands{'C'} = [1,2]
+perl srand 123
+#endconfig
+#beginifile a.t
+Player, A 1800
+Player, B 1700
+Player, C 1600
+Player, D 1500
+Player, E 1400
+Player, F 1300
+Player, G 1200
+Player, H 1100
+#endifile
+#beginifile b.t
+Player, BA 1800
+Player, BB 1700
+Player, BC 1600
+Player, BD 1500
+Player, BE 1400
+Player, BF 1300
+#endifile
+#beginifile c.t
+Player, CA 1800
+Player, CB 1700
+Player, CC 1600
+Player, CD 1500
+Player, CE 1400
+Player, CF 1300
+Player, CG 1200
+Player, CH 1100
+Player, CI 1000
+Player, CJ  900
+#endifile
+#begincommands
+dryrun a
+sp 1 b
+sp 1 c
+quit
+#endcommands
+#beginstdout
+Division A Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, H (A8).
+   2  Player, B (A2) vs. Player, G (A7).
+   3  Player, C (A3) vs. Player, F (A6).
+   4  Player, D (A4) vs. Player, E (A5).
+Division A Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, E (A5).
+   2  Player, B (A2) vs. Player, F (A6).
+   3  Player, C (A3) vs. Player, G (A7).
+   4  Player, D (A4) vs. Player, H (A8).
+Division A Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, A (A1) vs. Player, D (A4).
+   2  Player, B (A2) vs. Player, C (A3).
+   3  Player, E (A5) vs. Player, H (A8).
+   4  Player, F (A6) vs. Player, G (A7).
+Player, A (A1): 494
+Player, B (A2): 363
+Player, C (A3): 545
+Player, D (A4): 426
+Player, E (A5): 373
+Player, F (A6): 428
+Player, G (A7): 298
+Player, H (A8): 488
+Division A Round 1 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 1.0-0.0  +117 1600 1606  +6 Player, C (A3) W:545-428:A6
+  2 1.0-0.0   +65 1700 1703  +3 Player, B (A2) W:363-298:A7
+  3 1.0-0.0   +53 1500 1512 +12 Player, D (A4) W:426-373:A5
+  4 1.0-0.0    +6 1800 1802  +2 Player, A (A1) W:494-488:A8
+  5 0.0-1.0    -6 1100 1098  -2 Player, H (A8) L:488-494:A1
+  6 0.0-1.0   -53 1400 1392  -8 Player, E (A5) L:373-426:A4
+  7 0.0-1.0   -65 1200 1197  -3 Player, G (A7) L:298-363:A2
+  8 0.0-1.0  -117 1300 1294  -6 Player, F (A6) L:428-545:A3
+Player, A (A1): 494 514
+Player, B (A2): 363 402
+Player, C (A3): 545 484
+Player, D (A4): 426 468
+Player, E (A5): 373 412
+Player, F (A6): 428 560
+Player, G (A7): 298 288
+Player, H (A8): 488 279
+Division A Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 2.0-0.0  +313 1600 1610 +10 Player, C (A3) W:484-288:A7
+  2 2.0-0.0  +242 1500 1516 +16 Player, D (A4) W:468-279:A8
+  3 2.0-0.0  +108 1800 1805  +5 Player, A (A1) W:514-412:A5
+  4 1.0-1.0   +41 1300 1310 +10 Player, F (A6) W:560-402:A2
+  5 1.0-1.0   -93 1700 1688 -12 Player, B (A2) L:402-560:A6
+  6 0.0-2.0  -155 1400 1387 -13 Player, E (A5) L:412-514:A1
+  7 0.0-2.0  -195 1100 1094  -6 Player, H (A8) L:279-468:A4
+  8 0.0-2.0  -261 1200 1192  -8 Player, G (A7) L:288-484:A3
+Player, A (A1): 494 514 475
+Player, B (A2): 363 402 430
+Player, C (A3): 545 484 239
+Player, D (A4): 426 468 557
+Player, E (A5): 373 412 444
+Player, F (A6): 428 560 396
+Player, G (A7): 298 288 483
+Player, H (A8): 488 279 472
+Division A Round 3 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 3.0-0.0  +324 1500 1539 +39 Player, D (A4) W:557-475:A1
+  2 2.0-1.0  +122 1600 1602  +2 Player, C (A3) L:239-430:A2
+  3 2.0-1.0   +98 1700 1696  -4 Player, B (A2) W:430-239:A3
+  4 2.0-1.0   +26 1800 1793  -7 Player, A (A1) L:475-557:A4
+  5 1.0-2.0   -46 1300 1298  -2 Player, F (A6) L:396-483:A7
+  6 1.0-2.0  -167 1100 1109  +9 Player, H (A8) W:472-444:A5
+  7 1.0-2.0  -174 1200 1204  +4 Player, G (A7) W:483-396:A6
+  8 0.0-3.0  -183 1400 1373 -27 Player, E (A5) L:444-472:A8
+Debug: [GUELPH] A: 4 1 8 5
+Debug: [GUELPH] B: 3 2 6 7
+Division A Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, D (A4) vs. Player, B (A2).
+   2  Player, C (A3) vs. Player, A (A1).
+   3  Player, F (A6) vs. Player, E (A5).
+   4  Player, H (A8) vs. Player, G (A7).
+Division A Round 5 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, D (A4) vs. Player, C (A3).
+   2  Player, B (A2) vs. Player, A (A1).
+   3  Player, F (A6) vs. Player, H (A8).
+   4  Player, G (A7) vs. Player, E (A5).
+Player, A (A1): 494 514 475 335
+Player, B (A2): 363 402 430 383
+Player, C (A3): 545 484 239 279
+Player, D (A4): 426 468 557 384
+Player, E (A5): 373 412 444 406
+Player, F (A6): 428 560 396 266
+Player, G (A7): 298 288 483 480
+Player, H (A8): 488 279 472 434
+Division A Round 4 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 4.0-0.0  +325 1500 1561 +61 Player, D (A4) W:384-383:A2
+  2 3.0-1.0   +82 1800 1800  +0 Player, A (A1) W:335-279:A3
+  3 2.0-2.0   +97 1700 1684 -16 Player, B (A2) L:383-384:A4
+  4 2.0-2.0   +66 1600 1595  -5 Player, C (A3) L:279-335:A1
+  5 2.0-2.0  -128 1200 1212 +12 Player, G (A7) W:480-434:A8
+  6 1.0-3.0   -43 1400 1382 -18 Player, E (A5) W:406-266:A6
+  7 1.0-3.0  -186 1300 1290 -10 Player, F (A6) L:266-406:A5
+  8 1.0-3.0  -213 1100 1101  +1 Player, H (A8) L:434-480:A7
+Player, A (A1): 494 514 475 335 512
+Player, B (A2): 363 402 430 383 321
+Player, C (A3): 545 484 239 279 306
+Player, D (A4): 426 468 557 384 333
+Player, E (A5): 373 412 444 406 552
+Player, F (A6): 428 560 396 266 298
+Player, G (A7): 298 288 483 480 358
+Player, H (A8): 488 279 472 434 169
+Division A Round 5 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 5.0-0.0  +352 1500 1579 +79 Player, D (A4) W:333-306:A3
+  2 4.0-1.0  +273 1800 1807  +7 Player, A (A1) W:512-321:A2
+  3 2.0-3.0  +151 1400 1389 -11 Player, E (A5) W:552-358:A7
+  4 2.0-3.0   +39 1600 1584 -16 Player, C (A3) L:306-333:A4
+  5 2.0-3.0   -57 1300 1297  -3 Player, F (A6) W:298-169:A8
+  6 2.0-3.0   -94 1700 1676 -24 Player, B (A2) L:321-512:A1
+  7 2.0-3.0  -322 1200 1205  +5 Player, G (A7) L:358-552:A5
+  8 1.0-4.0  -342 1100 1094  -6 Player, H (A8) L:169-298:A6
+Debug: [GIB] PairAllGibsons(8,4,1,2)
+Debug: [GIB] Optimizing by computing BPFs only down to 5.
+Debug: [CBPF] Now=>Fnl Wins Sprd Player (theoretical best finishes)
+Debug: [CBPF]   1=>  1  6.0 +852 Player, D #4
+Debug: [CBPF]   2=>  1  5.0 +773 Player, A #1
+Debug: [CBPF]   3=>  3  3.0 +651 Player, E #5
+Debug: [CBPF]   4=>  3  3.0 +539 Player, C #3
+Debug: [CBPF]   5=>  3  3.0 +443 Player, F #6
+Debug: [GIB] Gibson-equivalent ranks: 1 starting at 1
+Debug: [GIB] Player ranked 2 can rise to 1, so player ranked 1 is not a Gibson.
+Debug: [GIB] Gibsons found: 0
+Debug: [GIB] 0 gibsons.
+Debug: [GIB] PairAllGibsons(8,4,1,2)
+Debug: [GIB] Optimizing by computing BPFs only down to 5.
+Debug: [CBPF] Now=>Fnl Wins Sprd Player (theoretical best finishes)
+Debug: [CBPF]   1=>  1  6.0 +852 Player, D #4
+Debug: [CBPF]   2=>  1  5.0 +773 Player, A #1
+Debug: [CBPF]   3=>  3  3.0 +651 Player, E #5
+Debug: [CBPF]   4=>  3  3.0 +539 Player, C #3
+Debug: [CBPF]   5=>  3  3.0 +443 Player, F #6
+Debug: [GIB] Gibson-equivalent ranks: 1 starting at 1
+Debug: [GIB] Player ranked 2 can rise to 1, so player ranked 1 is not a Gibson.
+Debug: [GIB] Gibsons found: 0
+Debug: [GIB] 0 gibsons.
+Division A Round 6 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, D (A4) vs. Player, A (A1) repeat.
+   2  Player, E (A5) vs. Player, C (A3).
+   3  Player, F (A6) vs. Player, B (A2) repeat.
+   4  Player, G (A7) vs. Player, H (A8) repeat.
+Player, A (A1): 494 514 475 335 512 542
+Player, B (A2): 363 402 430 383 321 466
+Player, C (A3): 545 484 239 279 306 246
+Player, D (A4): 426 468 557 384 333 317
+Player, E (A5): 373 412 444 406 552 319
+Player, F (A6): 428 560 396 266 298 241
+Player, G (A7): 298 288 483 480 358 445
+Player, H (A8): 488 279 472 434 169 434
+Division A Round 6 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player         Last Game
+  1 5.0-1.0  +498 1800 1812 +12 Player, A (A1) W:542-317:A4
+  2 5.0-1.0  +127 1500 1563 +63 Player, D (A4) L:317-542:A1
+  3 3.0-3.0  +224 1400 1402  +2 Player, E (A5) W:319-246:A3
+  4 3.0-3.0  +131 1700 1680 -20 Player, B (A2) W:466-241:A6
+  5 3.0-3.0  -311 1200 1214 +14 Player, G (A7) W:445-434:A8
+  6 2.0-4.0   -34 1600 1571 -29 Player, C (A3) L:246-319:A5
+  7 2.0-4.0  -282 1300 1293  -7 Player, F (A6) L:241-466:A2
+  8 1.0-5.0  -353 1100 1085 -15 Player, H (A8) L:434-445:A7
+Debug: [GIB] PairAllGibsons(6,-1,6,2)
+Debug: [GIB] Optimizing by computing BPFs only down to 5.
+Debug: [CBPF] Now=>Fnl Wins Sprd Player (theoretical best finishes)
+Debug: [CBPF]   1=>  1  6.0+3000 Player, BA #1
+Debug: [CBPF]   2=>  1  6.0+3000 Player, BB #2
+Debug: [CBPF]   3=>  1  6.0+3000 Player, BC #3
+Debug: [CBPF]   4=>  1  6.0+3000 Player, BD #4
+Debug: [CBPF]   5=>  1  6.0+3000 Player, BE #5
+Debug: [GIB] Gibson-equivalent ranks: 1 starting at 1
+Debug: [GIB] Player ranked 2 can rise to 1, so player ranked 1 is not a Gibson.
+Debug: [GIB] Gibsons found: 0
+Debug: [GIB] 0 gibsons.
+Division B Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, BA (B1) vs. Player, BF (B6).
+   2  Player, BB (B2) vs. Player, BE (B5).
+   3  Player, BC (B3) vs. Player, BD (B4).
+Debug: [GIB] PairAllGibsons(10,-1,6,2)
+Debug: [GIB] Optimizing by computing BPFs only down to 5.
+Debug: [CBPF] Now=>Fnl Wins Sprd Player (theoretical best finishes)
+Debug: [CBPF]   1=>  1  6.0+3000 Player, CA #1
+Debug: [CBPF]   2=>  1  6.0+3000 Player, CB #2
+Debug: [CBPF]   3=>  1  6.0+3000 Player, CC #3
+Debug: [CBPF]   4=>  1  6.0+3000 Player, CD #4
+Debug: [CBPF]   5=>  1  6.0+3000 Player, CE #5
+Debug: [GIB] Gibson-equivalent ranks: 1 starting at 1
+Debug: [GIB] Player ranked 2 can rise to 1, so player ranked 1 is not a Gibson.
+Debug: [GIB] Gibsons found: 0
+Debug: [GIB] 0 gibsons.
+Division C Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player, CA (C1) vs. Player, CI (C9).
+   2  Player, CB (C2) vs. Player, CJ (C10).
+   3  Player, CC (C3) vs. Player, CF (C6).
+   4  Player, CD (C4) vs. Player, CE (C5).
+   5  Player, CG (C7) vs. Player, CH (C8).
+#endstdout
+#beginstderr
+Error: You still need results for Round 3. [ernos]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: You still need results for Round 3. [ernos]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: You still need results for Round 3. [ernos]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: You still need results for Round 5. [ernos]
+Error: No pairings yet for Division A Round 6. [enopryet]
+Error: You still need results for Round 5. [ernos]
+Error: No pairings yet for Division A Round 6. [enopryet]
+#endstderr
+#endtest

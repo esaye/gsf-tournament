@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Configuration</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=here><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Configuring <cite>tsh</cite></h1>
+<p class=subtitle>How to set up <cite>tsh</cite> for your particular tournament.</p>
+<p class=version>Updated 
+2025-06-01T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<p class=p1>
+After you&rsquo;ve <a href="install.html">installed</a> <cite>tsh</cite>,
+you need to set up a subfolder (directory) of your
+<cite>tsh</cite> folder containing a configuration file 
+(&ldquo;config.tsh&rdquo;, formerly known as 
+&ldquo;tsh.config&rdquo;) describing your tournament,
+and one (&ldquo;.t&rdquo;) data file for each division.
+You can run as many tournaments as you like with one installation of
+<cite>tsh</cite>, but each one should have its own folder.
+<!--
+If you are reinstalling <cite>tsh</cite> after setting up these
+files, don&rsquo;t forget to copy your configuration and data files from
+your old <cite>tsh</cite> folder to the new one.
+-->
+</p>
+
+<h2><a name=tshconfig>About The</a> &ldquo;config.tsh&rdquo; file</h2>
+
+<p class=sidebar>
+When you ask me to create your files,
+please e-mail me the following information:
+your name;
+your event&rsquo;s name;
+the number of rounds in your event;
+the number of divisions in your event;
+the names, divisions and ratings of the players you expect will play, or at least an estimate
+as to the numbers of players in each division;
+the number of places to which prizes will be paid;
+the numbers of rounds after which breaks (for meals, snacks, or the end of a day) will be held;
+the pairing system you will use (I recommend Chew pairings);
+whether or not some number of finalists will advance to a separate final event;
+your game result sheet style: scores, spread or both;
+your board numbering style: by board or by table (which may have more than one board) or none;
+your board numbering sequence: restart at one in each division, or number continuously;
+whether you want to display player photos in scoreboards and pairings reports;
+whether you assign firsts (starts) and seconds (replies) or have the players determine them;
+whether you want to keep track of firsts/seconds (starts/replies);
+how many points of spread you customarily assign for a forfeit/bye: 50 or 75.
+</p>
+<p class=p1>
+You need to have a text file called &ldquo;config.tsh&rdquo; in your tournament
+folder/directory.  
+You can ask me (John Chew, poslfit@gmail.com) to create one
+for you if you give me a few weeks&rsquo; notice.  
+There are also a few sample tournaments that come with the
+<cite>tsh</cite> distribution, and you can try modifying one of
+their configuration files to make your own.
+</p>
+<p class=p1>
+Your configuration file consists of a sequence of lines.
+The order of the lines sometimes matters: you may run into 
+trouble if you try to specify the properties of a division before
+you declare its existence.
+The first word on a line determines its type, of which there are
+currently eight:
+</p>
+<ul>
+  <li><a href="#comment">comment</a></li>
+  <li><a href="#division">division declaration</a></li>
+  <li><a href="#class">class declaration</a></li>
+  <li><a href="#options">configuration option</a></li>
+  <li><a href="#pairings">automatic pairing instructions</a></li>
+  <li><a href="#prizes">prize declaration</a></li>
+  <li><a href="#encoding">encoding directive</a></li>
+  <li><a href="#perl">Perl command</a></li>
+</ul>
+<p class=p2>
+Note that the lines that appear in a configuration file are <em>not</em> regular
+<cite>tsh</cite> commands.
+Here is a very short sample &ldquo;config.tsh&rdquo; file.
+</p>
+<pre>
+# This is a comment because it starts with a '#'.
+# The next line that you will store the data for Division a in file a.t.
+division a a.t
+# The next line says that the division has 3 prize classes
+classes a 3
+# The next line says that you want to keep track of 1sts/2nds (starts/replies)
+config track_firsts = 1
+# The next line says that Division A will play a simple round robin
+autopair a 0 1 rr a
+# The next line says that 1st place in Division A wins $25,000.
+prize rank 1 A $25000
+# The next line demonstrates the 'perl' command
+perl print "Hello, world\n";
+</pre>
+<p class=sidebar>
+<a name=begin>There's</a> also an experimental configuration directive called
+&lsquo;begin&rdquo;, which gives a command that should be run
+whenever you begin working with the tournament.
+</p>
+<p class=p1>
+The following subsections discuss each type of line in detail.
+</p>
+
+<h3><a name=comment>Comments</a></h3>
+
+<p class=p1>
+Comments begin with a &lsquo;<code>#</code>&rsquo;.
+</p>
+<p class=p1>
+You may add as many comments as you like to your configuration file,
+and it&rsquo;s a good idea to be verbose so that the next person who runs
+your tournament for you will know what you were thinking.
+</p>
+
+<h3><a name=division>Division Declarations</a></h3>
+
+<p class=p1>
+Your configuration file must contain at least one division declaration,
+beginning with the word &lsquo;<code>division</code>&rsquo;,
+then followed by a space, a case-insensitive division name,
+another space, and a filename.
+Division declarations must come before any other reference to a division
+in a configuration line.
+Filenames may or may not be case-sensitive depending on your operating system.
+You may have as many divisions as you like, but each one has to have its
+own division name and file name.
+All divisions should play the same number of rounds at roughly the
+same schedule; if not, you should set up separate directories and
+configuration files for differently scheduled divisions, and run
+separate copies of <cite>tsh</cite>.
+</p>
+<p class=p1>
+In a multi-division event, you should keep the division name short,
+as it will appear beside player numbers and you will need to type it
+to specify divisions.  If you want a longer version of the name for
+display purposes, use the
+&ldquo;<a href="#division_label"><code>config division_label</code></a>&rdquo;
+configuration option.
+</p>
+<p class=p1>
+If you have only one division in your tournament, it does not matter
+what you name it, and you won&rsquo;t ever have to type its name.
+Except: if you give your only division a name that could also be a
+player number, some commands may get confused if you don't type the
+division name, so use alphabetical division names where possible.
+<!--
+If you do type its name, some older commands may give you cryptic error messages.
+-->
+If you have more than one division, you should keep your division names short as you will be typing them frequently.
+</p>
+
+<h3><a name=class>Class Declarations</a></h3>
+
+<p class=p1>
+Your configuration file may contain one or more class declarations,
+beginning with the word &lsquo;<code>classes</code>&rsquo;,
+then followed by a space, a case-insensitive division name,
+another space, and an integer greater than 1.
+Classes are typically used to award
+prizes to deserving lower-ranked players in a division.
+</p>
+<p class=p1>
+If you specify how many classes a division has, then players will be
+assigned to equal-sized classes according to their pretournament ranking.
+Classes are named 
+&lsquo;A&rsquo;,
+&lsquo;B&rsquo;,
+&lsquo;C&rsquo;...
+and are listed in the ratings and standings <a href="reports.html#standings">reports</a>.
+This assignment takes place each time you run <cite>tsh</cite>: if you change
+player ratings, it may change player classes.
+</p>
+<p class=p1>
+You can instead manually assign players to classes in the &ldquo;.t&rdquo; file
+using the &ldquo;<code><a href="#x_class">class</a></code>&rdquo; extension field, which you might want to do if labelling players in a particular group for use with the <a href="#gibson_class">gibson_class</a> configuration option to restrict opponents of Gibsonized players to members of one class.
+In this case, you would append to the end of each line in the
+&ldquo;.t&rdquo; file a semicolon, then the keyword
+&ldquo;<code>class</code>&rdquo;, then a space, then the name of the class.
+To manually add more than one class to a player, enter the classes joined by commas, e.g.
+&ldquo;<code>; class B,Senior</code>&rdquo;.
+</p>
+
+<h3><a name=options>Configuration Options</a></h3>
+
+<p class=p1>
+There are a large number of configuration options that you can set using lines
+beginning with the &ldquo;<code>config</code>&rdquo; keyword.
+All configuration options are at least theoretically optional,
+because they either have reasonable default values (which may depend 
+on your <a href="#realms">configuration realm</a>, or not required by all commands
+(a notable counterexample is the &ldquo;<code><a href="#max_rounds">max_rounds</code></a>&rdquo;
+  option, which tells <cite>tsh</cite> how many rounds long your tournament is, and
+  which is therefore required for the proper functioning of several <a href="commands.html#pairing">pairing commands</a>.
+</p>
+<p class=p1>
+<!--
+Perl hackers should note that &ldquo;<code>config</code> whatever&rdquo; results simply
+in an evaluted assignment to &ldquo;<code>$config::whatever</code>&rdquo;; others should ignore
+this sentence. 
+-->
+Here are all currently available configuration options:
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Option</th><th class=usage>Example</th><th class=description>Description</th></tr>
+  <tr><td class=name><a name=accept_remote_commands>accept_remote_commands</a></td><td class=usage>accept_remote_commands = 1</td><td class=description>If set and in a supported environment, TSH will accept commands from remote sources; currently used to implement NASPA SPC QR code data entry.</td></tr>
+  <tr><td class=name><a name=account_for_h2h_sr>account_for_h2h_sr</a></td><td class=usage>account_for_h2h_sr = 1</td><td class=description>If set and firsts are being assigned, players' head-to-head record of firsts and seconds will be considered after their overall record and before the length of any runs of firsts or seconds.</td></tr>
+  <tr><td class=name><a name=addscore_prompt>addscore_prompt</a></td><td class=usage>addscore_prompt = 'games'</td><td class=description>&ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; will prompt with number of games remaining (rather than scores).</td></tr>
+  <tr><td class=name><a name=all_byes_tie>all_byes_tie</a></td><td class=usage>all_byes_tie = 1</td><td class=description>If specified, all byes count as ties. Otherwise, <cite>tsh</cite> counts byes with positive spread as wins, negative spread as losses, and zero as neither.</td></tr>
+  <tr><td class=name><a name=allow_gaps>allow_gaps</a></td><td class=usage>allow_gaps = 1</td><td class=description><cite>tsh</cite> usually assumes that each player plays their games in chronological order, round by round. If this is not the case, you can specify this option, but be warned that this will cause most pairing and report commands to fail.</td></tr>
+  <tr><td class=name><a name=alpha_pair_first_page_break>alpha_pair_first_page_break</a></td><td class=usage>alpha_pair_first_page_break = 14</td><td class=description><cite>tsh</cite> will force a page break after this many rows (defaulting to the value of &ldquo;<code><a href="#alpha_pair_page_break">config alpha_pair_page_break</a></code>&rdquo;)  are shown on the first page of two-column alpha pairings.</td></tr>
+  <tr><td class=name><a name=alpha_pair_page_break>alpha_pair_page_break</a></td><td class=usage>alpha_pair_page_break = 15</td><td class=description><cite>tsh</cite> will force a page break after this many rows (defaulting to 10)  are shown in two-column alpha pairings.  If you choose a value that is too small, then some rows may be split across pages and hard to read.</td></tr>
+  <tr><td class=name><a name=alpha_pair_single_column>alpha_pair_single_column</a></td><td class=usage>alpha_pair_single_column = 1</td><td class=description>If set, will always show alphabetic pairings in a single column, even when there are a large number of them.</td></tr>
+  <tr><td class=name><a name=alpha_rating_file>alpha_rating_file</a></td><td class=usage>alpha_rating_file = 'lib/ratings/winter-fruit.txt'</td><td class=description>If set, will give players ratings looked up inthe given file rather than the customary numerical ones.</td></tr>
+  <tr><td class=name><a name=alpha_rating_maximum>alpha_rating_maximum</a></td><td class=usage>alpha_rating_maximum = 2244</td><td class=description>Specifies the numerical value of the highest rating in &ldquo;<code><a href="#alpha_rating_file">config alpha_rating_file</a></code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=alpha_rating_minimum>alpha_rating_minimum</a></td><td class=usage>alpha_rating_minimum = 0</td><td class=description>Specifies the numerical value of the lowest rating in &ldquo;<code><a href="#alpha_rating_file">config alpha_rating_file</a></code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=assign_firsts>assign_firsts</a></td><td class=usage>assign_firsts = 1</td><td class=description>Have <cite>tsh</cite> randomly determine who goes first when players would otherwise have to draw. Sets the &ldquo;<code><a href="#track_firsts">config track_firsts</a></code>&rdquo; option if it is not already set.</td></tr>
+  <tr><td class=name><a name=autopair>autopair</a></td><td class=usage>&nbsp;</td><td class=description>Set using the <code>autopair</code> instruction. It&rsquo;s not a good idea to mess with this directly.</td></tr>
+  <tr><td class=name><a name=auto_koth_repeats>auto_koth_repeats</a></td><td class=usage>auto_koth_repeats = 2</td><td class=description>If set, then <a href="pairing.html#koth">KOTH</a> pairings induced by &ldquo;<code><a href="#force_koth">config force_koth</a></code>&rdquo; have the specified number of maximum repeats, rather than an unlimited number.</td></tr>
+  <tr><td class=name><a name=avoid_sr_runs>avoid_sr_runs</a></td><td class=usage>avoid_sr_runs = 1</td><td class=description>If set, try to avoid assigning a player too many consecutive starts (1sts) or replies (2nds) when pairing a win group. Does not currently work with round robin pairings, which are carefully arranged to make players balance in the end.</td></tr>
+  <tr><td class=name><a name=backup_directory>backup_directory</a></td><td class=usage>backup_directory = './notold/'</td><td class=description>Override the default &ldquo;./old/&rdquo; as a place to keep journalled &ldquo;.t&rdquo; files.  Must end with a &ldquo;/&rdquo; or other locally appropriate path separator.</td></tr>
+  <tr><td class=name><a name=bad_class_endagony>bad_class_endagony</a></td><td class=usage>bad_class_endagony = 1</td><td class=description>If specified, pair players only with opponents in the same class. This is a bad idea because not letting players play opponents outside of their classes makes their relative performances meaningless; if you find yourself wanting to do this, you should consider dividing out the classes into their own divisions.</td></tr>
+  <tr><td class=name><a name=board_stability>board_stability</a></td><td class=usage>board_stability = 1</td><td class=description>If set to <code>1</code>, try to keep one of the two players in each game at the same board in the next round during sessions (if you do not specify &ldquo;<code><a href="#session_breaks">config session_breaks</a></code>&rdquo; the entire tournament is treated as a single session). If not set, boards will be reassigned each round to place high-ranked players at low-numbered boards.</td></tr>
+  <tr><td class=name><a name=bracket_cap>bracket_cap</a></td><td class=usage>bracket_cap = 16</td><td class=description>If specified, <a href="#bracket_pairings">bracket_pairings</a> will apply only to that number of top players.</td></tr>
+  <tr><td class=name><a name=bracket_noncon_pairings>bracket_noncon_pairings</a></td><td class=usage>bracket_noncon_pairings = 'nasc'</td><td class=description>If set to <code>nasc</code>, players who do not advance in <a href="#bracket_pairings">bracket_pairings</a> will be paired by NASC algorithm; if <code>none</code>, they are left unpaired.</td></tr>
+  <tr><td class=name><a name=bracket_order>bracket_order</a></td><td class=usage>bracket_order = 'id'</td><td class=description>If set to <code>id</code>, <a href="#bracket_pairings">bracket_pairings</a> will be seeded by player number; if <code>rating</code>, by pretournament rating.</td></tr>
+  <tr><td class=name><a name=bracket_prelims>bracket_prelims</a></td><td class=usage>bracket_prelims = 3</td><td class=description>Specifies a number of rounds of &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; pairings to precede any <a href="#bracket_pairings">bracket pairings</a>.</td></tr>
+  <tr><td class=name><a name=bracket_repeats>bracket_repeats</a></td><td class=usage>bracket_repeats = 3</td><td class=description>Specifies the number of times each pairing will repeat within a stage of <a href="#bracket_pairings">bracket_pairings</a>.</td></tr>
+  <tr><td class=name><a name=bye_firsts>bye_firsts</a></td><td class=usage>bye_firsts = 'ignore'</td><td class=description>If set to &ldquo;<code>'alternate'</code>&rdquo;, the default value, use the rule the NSA adopted on 2008-07-24 to assign alternating firsts and seconds to players who have forfeit losses.  If set to &ldquo;<code>'ignore'</code>&rdquo;, ignore assign firsts and seconds when necessary by comparing firsts, then comparing seconds, and ignoring byes and forfeits.</td></tr>
+  <tr><td class=name><a name=bye_method>bye_method</a></td><td class=usage>bye_method = 'top_down'</td><td class=description>If set to &ldquo;<code>'always_bottom'</code>&rdquo;, byes will always be assigned to the bottom-ranked player; if &ldquo;<code>'bottom_up'</code>&rdquo; (the default), byes will be assigned from the bottom of the field upward; if &ldquo;<code>'top_down'</code>&rdquo;, byes will be assigned from the top of the field downward.</td></tr>
+  <tr><td class=name><a name=bye_spread>bye_spread</a></td><td class=usage>bye_spread = 75</td><td class=description>Sets the number of points of spread awarded to a player who is assigned a bye.  You should probably adjust the value of &ldquo;<code>realm</code>&rdquo; rather than change this directly; contact John Chew if this is not possible. As a special case, if you set this to zero, byes count neither as wins nor losses.</td></tr>
+  <tr><td class=name><a name=check_by_winner>check_by_winner</a></td><td class=usage>check_by_winner = 1</td><td class=description>Instructs the &ldquo;<code><a href="commands.html#checkroundscores">CheckRoundScores</a></code>&rdquo; command to sort rows by winning player rather than starting player.</td></tr>
+  <tr><td class=name><a name=chew_no_swiss_all>chew_no_swiss_all</a></td><td class=usage>chew_no_swiss_all = 1</td><td class=description>Instructs the &ldquo;<code><a href="commands.html#chewpair">ChewPair</a></code>&rdquo; command not to pair everyone Swiss when all as yet unpaired players are still contenders.</td></tr>
+  <tr><td class=name rowspan=2>colour</td><td class=usage>colour = 'no'</td><td class=description rowspan=2>Enables use of ANSI colour escape sequences to highlight text in the <cite>tsh</cite> session. </td></tr>
+  <tr><td class=usage>colour = 'yes'</td></tr>
+  <tr><td class=name><a name=commentary_directory>commentary_directory</a></td><td class=usage>commentary_directory = '/Library/WebServer/Documents/myevent/tsh/comm'</td><td class=description>Designate a target directory for the &ldquo;<a href="commands.html#commentary">COMMentary</a> command.</td></tr>
+  <tr><td class=name><a name=consecutive_repeats>consecutive_repeats</a></td><td class=usage>consecutive_repeats = [0,1,1,2]</td><td class=description>Forces a limit on the number of consecutive repeat pairings that standard pairing algorithms will generate in each round; the last value is repeated as needed.</td></tr>
+  <tr><td class=name><a name=console_encoding>console_encoding</td><td class=usage>console_encoding = 'utf8'</td><td class=description>Specifies a character encoding to be used at the <cite>tsh</cite> console.</td></tr>
+  <tr><td class=name><a name=count_good_words>count_good_words</a></td><td class=usage>count_good_words = 1</td><td class=description>If specified, the <a href="commands.html#look">LOOK</a> command will report how many good words were challenged, for penalty calculation purposes.</td></tr>
+  <tr><td class=name rowspan=2><a name=cross_tables_id>cross_tables_id</a></td><td class=usage>cross_tables_id = 12345</td><td class=description>Identifies the cross-tables.com ID for this tournament.</td></tr>
+  <tr><td class=usage>cross_tables_id = [123,124,123]</td><td class=description>Identifies different cross-tables.com IDs for each division in this tournament.</td></tr>
+  <tr><td class=name><a name=csv_encoding>csv_encoding</td><td class=usage>csv_encoding = 'utf8'</td><td class=description>Specifies a file encoding for CSV files manipulated using the &ldquo;<a href="commands.html#loadplayerscsv">LoadplayersCsV</a>&rdquo;, &ldquo;<a href="commands.html#mergeplayerscsv">MergeplayersCsV</a>&rdquo; and &ldquo;<a href="commands.html#saveplayerscsv">SaveplayersCsV</a>&rdquo; commands.</td></tr>
+  <tr><td class=name><a name=currency_symbol>currency_symbol</a></td><td class=usage>currency_symbol = '&pound;'</td><td class=description>Specifies the currency symbol to be used with monetary values.  Defaults to the dollar sign.</td></tr>
+  <tr><td class=name><a name=custom_stylesheet>custom_stylesheet</a></td><td class=usage>custom_stylesheet = 'local.css'</td><td class=description>Specifies a custom stylesheet to be loaded after the default CSS stylesheet.</td></tr>
+  <tr><td class=name><a name=de_alternate>de_alternate</a></td><td class=usage>de_alternate = 3</td><td class=description>Used to designate the alternate player for &ldquo;<code><a href="pairing.html#de">double elimination pairings</a></code>&rquo;.</td></tr>
+  <tr><td class=name><a name=director_email>director_email</a></td><td class=usage>director_email = "poslfit@gmail.com"</td><td class=description>Used to identify the tournament director.</td></tr>
+  <tr><td class=name><a name=director_id>director_id</a></td><td class=usage>director_id = "CM000003"</td><td class=description>Used to identify a NASPA tournament director when submitting ratings data.</td></tr>
+  <tr><td class=name><a name=director_name>director_name</a></td><td class=usage>director_name = "John Chew"</td><td class=description>Used to identify the tournament director.</td></tr>
+  <tr><td class=name><a name=director_password>director_password</a></td><td class=usage>director_password = "friend"</td><td class=description>(Deprecated) Specifies director&rsquo;s password for use with &ldquo;<a href="commands.html#submit"><code>SUBMIT</code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=division_label>division_label</a></td><td class=usage>division_label{'A'} = 'Expert'</td><td class=description>Override a division&rsquo;s default name given in its <a href="#division">division declaration</a>.</td></tr>
+  <tr><td class=name><a name=division_rating_list>division_rating_list</a></td><td class=usage>division_rating_list{'C'} = 'naspa-csw'</td><td class=description>Overrides &ldquo;<code><a href="#rating_list">rating_list</a></code>&rdquo; on a per-division basis.</td></tr>
+  <tr><td class=name><a name=division_rating_system>division_rating_system</a></td><td class=usage>division_rating_system{'C'} = 'none'</td><td class=description>Overrides &ldquo;<code><a href="#rating_system">rating_system</a></code>&rdquo; on a per-division basis.</td></tr>
+  <tr><td class=name><a name=dryrun_quiet>dryrun_quiet</a></td><td class=usage>dryrun_quiet = 1</td><td class=description>If specified, the &ldquo;<code><a href="commands.html#dryrun">DRYrun</a></code>&rdquo; command runs faster by not generating pairing and rating reports.</td></tr>
+  <tr><td class=name><a name=entry>entry</a></td><td class=usage>entry = "spread"</td><td class=description>Used to specify data entry mode.  Default value is &ldquo;<code>'scores'</code>&rdquo;, where you enter scores; other common permitted values are &ldquo;<code>'spread'</code>&rdquo; (enter only the difference between scores) and &ldquo;<code>'both'</code>&rdquo; (enter both scores and spread). Less common values are &ldquo;<code>'board'</code>&rdquo;, &ldquo;<code>'sudoku'</code>&rdquo;,  and &ldquo;<code><a href="entry.html#tagged">'tagged'</a></code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=entry_pairing>entry_pairing</a></td><td class=usage>entry_pairing = 1</td><td class=description>If specified, changes the behaviour of the &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command so that when presented with scores for unpaired players, it assumes that they played each other. Use with caution, as it prevents TSH from doing an important part of its normal data entry validation.</td></tr>
+  <tr><td class=name><a name=entry_tags>entry_tags</a></td><td class=usage>entry_tags = {'c'=&gt;'csw', 'csw'=&gt;'csw', 't'=&gt;'twl', 'twl'=&gt;'twl'}</td><td class=description>Specifies accepted tags and synonyms for <a href="entry.html#tagged">tagged</a> data entry with the &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=error_colour>error_colour</a></td><td class=usage>error_colour = "yellow"</td><td class=description>If specified, makes errors appear in the console session in yellow.</td></tr>
+  <tr><td class=name><a name=esb_geometry>esb_geometry</a></td><td class=usage>esb_geometry{'A'} = [[5,6,0],[5,4,30]]</td><td class=description>Specifies a series of default <a href="scoreboard.html#geometry">geometry</a> values for a given division&rsquo;s <a href="reports.html#enhancedscoreboard">enhanced scoreboard</a>. Each triple specifies one scoreboard; within each triple the first number is the number of columns, the second the number of rows, the third the offset from top rank.</td></tr>
+  <tr><td class=name><a name=esb_lite>esb_lite</a></td><td class=usage>esb_lite = 1</td><td class=description>If specified, suppresses certain elements in the ESB to save on pixels.</td></tr>
+  <tr><td class=name><a name=event_date>event_date</a></td><td class=usage>event_date = "September 30, 2005"</td><td class=description>Used to specify the event date, particularly when submitting ratings data.</td></tr>
+  <tr><td class=name><a name=event_name>event_name</a></td><td class=usage>event_name = "Toronto 2005"</td><td class=description>Used to identify the event, particularly when submitting ratings data.</td></tr>
+  <tr><td class=name rowspan=2><a name=exagony>exagony</a></td><td class=usage>exagony = 1</td><td class=description>If used, prevents players from the same team from facing each other. See also the <a href="teams.html#pairings">list of commands compatible with this option</a> and the &ldquo;<a href="#etc_team"><code>team</code></a>&rdquo; extension field.</td></tr>
+  <tr><td class=usage>exagony = [1,2,3]</td><td class=description>If used, prevents players from the same team from facing each other in specified rounds.  See also the <a href="teams.html#pairings">list of commands compatible with this option</a> and the &ldquo;<a href="#etc_team"><code>team</code></a>&rdquo; extension field.</td></tr>
+  <tr><td class=name>external_path</td><td class=usage>external_path = ['./bin','../bin']</td><td class=description>Used to specify where external commands can be found.  Default value is ['./bin'].</td></tr>
+  <tr><td class=name><a name=fat_tweets>fat_tweets</a></td><td class=usage>fat_tweets = 1</td><td class=description>If enabled, the &ldquo;<a href="commands.html#tweet"><code>TWEET</code></a>&rdquo; command sends more detailed social media reports not restricted to 140 characters. Use this if posting say to Facebook rather than to Twitter.</td></tr>
+  <tr><td class=name><a name=final_draw>final_draw</a></td><td class=usage>final_draw = 1</td><td class=description>If used, players will be instructed to draw to see who starts (plays first) in the final round if their start/reply records are equal, even if firsts and seconds are otherwise being assigned.</td></tr>
+  <tr><td class=name rowspan=2><a name=flight_cap>flight_cap</a></td><td class=usage>flight_cap = 'TSH::PairingCommand::FlightCapNSC'</td><td class=description>Lets you override the default algorithm for capping the number of players who can be considered in contention when using the <a href="pairing.html#chew">Chew pairing</a> algorithm. Talk to John Chew if you need to adjust this. The example given is suitable for a tournament which is used to select two finalists. This parameter is also used in estimating pairings flights when choosing an opponent for a Gibsonized player.</td></tr>
+  <tr><td class=usage>flight_cap = [12,12,8,4]</td><td class=description>Lets you override the default algorithm for capping the number of players who can be considered in contention when using the <a href="pairing.html#chew">Chew pairing</a> algorithm. Talk to John Chew if you need to adjust this. The example given is suitable for a tournament which is used to select two finalists. This parameter is also used in estimating pairings flights when choosing an opponent for a Gibsonized player.</td></tr>
+  <tr><td class=name><a name=force_koth>force_koth</a></td><td class=usage>force_koth = 1</td><td class=description>When using <a href="#default_pairings">default pairings</a> (not autopair), makes the last round be <a href="pairing.html#koth">KOTH</a> with unlimited repeats (unless overridden by &ldquo;<code><a href="#auto_koth_repeats">config auto_koth_repeats</a></code>&rdquo;), rather than <a href="pairing.html#chew">Chew pairings</a>. If a number of rounds greater than 1 is specified, then that number of round of KOTH pairings are used.</td></tr>
+  <tr><td class=name><a name=ftp_host>ftp_host</a></td><td class=usage>ftp_host = 'www.poslfit.com'</td><td class=description>Required when using the &ldquo;<code><a href="commands.html#mirror_ftp">mirror-ftp</a></code>&rdquo; <a href="commands.html#utility">utility command</a>, and specifies the FTP server to which events should be uploaded.</td></tr>
+  <tr><td class=name><a name=ftp_password>ftp_password</a></td><td class=usage>ftp_username = 'jamie'</td><td class=description>Formerly required when using the &ldquo;<code><a href="commands.html#mirror_ftp">mirror-ftp</a></code>&rdquo; utility command, specifies the password with which to log onto the FTP server; now deprecated in favour of entering this information from the command line.</td></tr>
+  <tr><td class=name><a name=ftp_path>ftp_path</a></td><td class=usage>ftp_path = 'www/myevents'</td><td class=description>Required when using the &ldquo;<code><a href="commands.html#mirror_ftp">mirror-ftp</a></code>&rdquo; utility command, and specifies the path on the FTP server to which events should be uploaded. An event subdirectory will be created within the designated directory.</td></tr>
+  <tr><td class=name><a name=ftp_username>ftp_username</a></td><td class=usage>ftp_username = 'john'</td><td class=description>Formerly required when using the &ldquo;<code><a href="commands.html#mirror_ftp">mirror-ftp</a></code>&rdquo; utility command, specifies the username with which to log onto the FTP server; now deprecated in favour of entering this information from the command line.</td></tr>
+  <tr><td class=name><a name=gibson>gibson</a></td><td class=usage>gibson = 1</td><td class=description>Enable automatic detection of Gibson situations. When using default or <a href="pairing.html#chew">Chew</a> pairings, <cite>tsh</cite> always looks for possible Gibson situations.  When using automatic pairings, <cite>tsh</cite> does or does not check depending on the value of this option.</td></tr>
+  <tr><td class=name><a name=gibson>gibson</a></td><td class=usage>gibson = 'strict'</td><td class=description>Behaves as per &ldquo;<code>config gibson = 1</code>&rdquo; and in addition pairs Gibson with the highest-ranked player out of contention, regardless of repeats.</td></tr>
+  <tr><td class=name><a name=gibson_class>gibson_class</a></td><td class=usage>gibson_class = 'A'</td><td class=description>Requires that opponents of Gibsonized players must belong to the named class.  Use this option at events where some players may be competing for a special prize, such as qualification to another event, and should not be paired with Gibsonized players.</td></tr>
+  <tr><td class=name><a name=gibson_groups>gibson_groups</a></td><td class=usage>gibson_groups{'A'} = [[1,2]]</td><td class=description>Indicates final ranks that are to be considered equivalent when testing for Gibsonization.  Works only with <a href="pairing.html#chew">Chew pairings</a>.  If not specified, each final rank is considered to be of different value to a player.  The example given should be used where the current event is a preliminary to qualify players for a two-player final match and it doesn&rsquo;t matter whether a player finishes first or second.  In the unlikely event that you wanted to have players ranked 3 through 6 compete in a separate final match, you could specify the value &ldquo;<code>[[1,2],[3,4,5,6]]</code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=gibson_spread>gibson_spread</a></td><td class=usage>gibson_spread = [250,175,150]</td><td class=description>Overrides the default spread thresholds for <a href="pairing.html#gibsonization">Gibsonization</a>. The <i>n</i>th value from the end gives the maximum spread by which a player may win a game in the <i>n</i>th last round; for earlier rounds, the maximum spread is given by the first value.</td></tr>
+  <tr><td class=name><a name=gui_port>gui_port</a></td><td class=usage>gui_port = 1234</td><td class=description>Overrides the default port (7779) for the &ldquo;<code><a href="commands.html#fix">FIX</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name rowspan=2><a name=hook_addscore_flush>hook_addscore_flush</a></td><td class=usage>hook_addscore_flush = 'sb a;sb b;sb c;sb d'</td><td class=description rowspan=2>Gives one or more semicolon-separated commands to be executed whenever the &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo; command updates score data.</td></tr>
+  <tr><td class=usage>hook_addscore_flush = 'json a;json b;json c;json d'</td></tr>
+  <tr><td class=name rowspan=2><a name=hook_autopair>hook_autopair</a></td><td class=usage>hook_autopair = 'sb a;sb b;sb c;sb d'</td><td class=description rowspan=2>Gives one or more semicolon-separated commands to be executed whenever pairings are automatically computed.</td></tr>
+  <tr><td class=usage>hook_autopair = 'json a;json b;json c;json d'</td></tr>
+  <tr><td class=name><a name=hook_division_complete>hook_division_complete</a></td><td class=usage>hook_division_complete{'A'} = 'tweet a 1 2'</td><td class=description>Gives one or more semicolon-separated commands to be executed whenever the last scores have been entered for a division in a round. In the command text, the strings &lsquo;$d&rsquo; and &lsquo;$r&rsquo; are replaced respectively by the division and round number that have just completed.</td></tr>
+  <tr><td class=name><a name=hook_division_update>hook_division_update</a></td><td class=usage>hook_division_update = 'tweet a 1 2'</td><td class=description>Gives one or more semicolon-separated commands to be executed whenever a division data file is updated.</td></tr>
+  <tr><td class=name><a name=html_directory>html_directory</a></td><td class=usage>html_directory = '/Library/WebServer/Documents/myevent/tsh/'</td><td class=description>Override the default &ldquo;./html/&rdquo; as a place to keep round-by-round &ldquo;.html&rdquo; <a href="reports.html">reports</a>.  Must end with a &ldquo;/&rdquo; or other locally appropriate path separator. The example given places reports on the local machine&rsquo;s public web server under OS/X.</td></tr>
+  <tr><td class=name><a name=html_in_event_directory>html_in_event_directory</a></td><td class=usage>html_in_event_directory = 1</td><td class=description>Stores an extra copy of printable HTML <a href="reports.html">reports</a> directly in the event directory, where they may be easy to find, but may cause clutter. Note that player photos will not be correctly linked in event directory web pages unless you manually copy the photo directory into the event directory as well.</td></tr>
+  <tr><td class=name><a name=html_bottom>html_bottom</a></td><td class=usage>html_bottom = '&lt;p align=center&gt;&lt;a href="event url"&gt;&lt;img src="event logo"&gt;&lt;/a&gt;&lt;/p&gt;'</td><td class=description>If defined, appears at the bottom of each HTML page.</td></tr>
+  <tr><td class=name><a name=html_child_prefix>html_child_prefix</a></td><td class=usage>html_child_prefix = 'amath'</td><td class=description>If defined, specifies the relative path from the parent event web directory to the current event web directory (see &ldquo;<code><a href="#html_parent_directory">config html_parent_directory</a></code>&rdquo;).</td></tr>
+  <tr><td class=name><a name=html_doctype>html_doctype</a></td><td class=usage>html_doctype = '&lt;!DOCTYPE html&gt;'</td><td class=description>If defined, specifies a doctype that prefaces every generated HTML report.</td></tr>
+  <tr><td class=name><a name=html_index_bottom>html_index_bottom</a></td><td class=usage>html_index_bottom = '&lt;p align=center&gt;&lt;a href="event url"&gt;&lt;img src="event logo"&gt;&lt;/a&gt;&lt;/p&gt;'</td><td class=description>If defined, appears at the bottom of the event HTML index, overriding the value of &ldquo;<a href="#html_bottom"><code>config html_bottom</code></a>&rdquo;, if any.</td></tr>
+  <tr><td class=name><a name=html_index_recent_first>html_index_recent_first</a></td><td class=usage>html_index_recent_first = 1</td><td class=description>If set, the event HTML index lists recent (later) rounds higher on the page, for easier viewing of large indexes on small screens.</td></tr>
+  <tr><td class=name><a name=html_index_top>html_index_top</a></td><td class=usage>html_index_top = '&lt;p align=center&gt;&lt;a href="event url"&gt;&lt;img src="event logo"&gt;&lt;/a&gt;&lt;/p&gt;'</td><td class=description>If defined, appears between the body and h1 tags at the top of the event HTML index, overriding the value of &ldquo;<a href="#html_top"><code>config html_top</code></a>&rdquo;, if any.</td></tr>
+  <tr><td class=name><a name=html_page_break_top>html_page_break_top</a></td><td class=usage>html_index_top = '&lt;p align=center&gt;&lt;a href="event url"&gt;&lt;img src="event logo"&gt;&lt;/a&gt;&lt;/p&gt;'</td><td class=description>If defined, appears after a page break and before table headings in HTML reports.</td></tr>
+  <tr><td class=name><a name=html_parent_directory>html_parent_directory</a></td><td class=usage>html_parent_directory = '/Users/scrabble/www/parent-event'</td><td class=description>If defined, specifies a parent event directory whose multi-event index will be updated whenever this event&rsquo;s index is updated.</td></tr>
+  <tr><td class=name><a name=html_parent_title>html_parent_title</a></td><td class=usage>html_parent_title = 'Parent Event'</td><td class=description>If defined, specifies the title of a parent event (see &ldquo;<code><a href="#html_parent_directory">config html_parent_directory</a></code>&rdquo;).</td></tr>
+  <tr><td class=name><a name=html_suffix>html_suffix</a></td><td class=usage>html_suffix = '.shtml'</td><td class=description>Overrides the default &ldquo;.html&rdquo; suffix (filename extension) appended to generated filenames.</td></tr>
+  <tr><td class=name><a name=html_top>html_top</a></td><td class=usage>html_top = '&lt;p align=center&gt;&lt;a href="event url"&gt;&lt;img src="event logo"&gt;&lt;/a&gt;&lt;/p&gt;'</td><td class=description>If defined, appears between the body and h1 tags at the top of each HTML page.</td></tr>
+  <tr><td class=name rowspan=1><a name=hypexagony>hypexagony</a></td><td class=usage>hypexagony = 3</td><td class=description>If used, prevents players from the same team from facing each other repeatedly more than the specified number of times. See also the <a href="teams.html#pairings">list of commands compatible with this option</a> and the &ldquo;<a href="#etc_team"><code>team</code></a>&rdquo; extension field.</td></tr>
+  <tr><td class=name><a name=ignore_stale_source_round>ignore_stale_source_round</a></td><td class=usage>ignore_stale_source_round = 1</td><td class=description>If specified, no warning will be issued when you ask for pairings to be calculated based on a round earlier than the most recent one with complete scores.</td></tr>
+  <tr><td class=name><a name=index_top_extras>index_top_extras</a></td><td class=usage>index_top_extras = { 'Live Coverage' =&gt; 'http://wherever.com'</td><td class=description>If used, specifies additional entries to appear in the top section of the web coverage index.</td></tr>
+  <tr><td class=name><a name=initial_exagony>initial_exagony</a></td><td class=usage>initial_exagony = 1</td><td class=description>If used, prevents players from the same team from facing each other in first-round <a href="pairing.html#random">random pairings</a>. See also the &ldquo;<a href="#etc_team"><code>team</code></a>&rdquo; extension field.</td></tr>
+  <tr><td class=name><a name="initial_random">initial_random</a></td><td class=usage>initial_random = 1</td><td class=description>When using <a href="pairing.html#chew">Chew pairings</a> either explicitly or as the default pairing algorithm, specifies one initial round of <a href="pairing.html#random">random pairings</a>, as required at the WSC.</td></tr>
+  <tr><td class=name><a name="initial_schedule">initial_schedule</a></td><td class=usage>initial_schedule = 3</td><td class=description>When using <a href="pairing.html#chew">Chew pairings</a> either explicitly or as the default pairing algorithm, it is often useful to start with a semirandomized fixed schedule generated by the InitFontes command.  This parameter (which defaults to zero) specifies the number of rounds that that schedule should run.</td></tr>
+  <tr><td class=name><a name="initial_snaked">initial_snaked</a></td><td class=usage>initial_snaked = 1</td><td class=description>If set, the &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; command assigns players to pairings groups in boustrophedonic order rather than randomly.</td></tr>
+  <tr><td class=name rowspan=2><a name="interleave_rr">interleave_rr</a></td><td class=usage>interleave_rr = 1</td><td class=description rowspan=2>If set, the &ldquo;<code><a href="commands.html#roundrobin">RoundRobin</a></code>&rdquo; pairing command will repeat pairings in a round robin the specified number of times (optionally only in the specified division) each round of a round robin before beginning the next round robin, rather than adding all of a player&rsquo;s games with a given opponent before moving on to the next opponent.</td></tr>
+  <tr><td class=usage>interleave_rr{A} = 2</td></tr>
+  <tr><td class=name><a name="locale">locale</a></td><td class=usage>locale = 'no_NO'</td><td class=description>Specify a standard locale code to be used by internationalization code in the Perl interpreter or the operating system.</td></tr>
+  <tr><td class=name><a name="localise_names">localise_names</a></td><td class=usage>localise_names = 1</td><td class=description>If set, apply standard player name localisations, such as omitting Thai family names.</td></tr>
+  <tr><td class=name><a name="manual_pairings">manual_pairings</a></td><td class=usage>manual_pairings = 1</td><td class=description>Use neither auto-pairings even if configured, nor <a href="pairing.html#chew">Chew pairings</a> in the absence of auto-pairings. Deprecated in favour of &ldquo;<a href="#pairing_system"><code>pairing_system = 'manual'</code></a>&rdquo;.</td></tr>
+  <tr><td class=name><a name=max_div_rounds>max_div_rounds</a></td><td class=usage>max_div_rounds{'A'} = 12</td><td class=description>Like &ldquo;<code><a href="#max_rounds">config max_rounds</a></code>&rdquo; but applies only to one division. If you only specify the maximum number of rounds in some divisions, the largest value you give is assumed for the rest.</td></tr>
+  <tr><td class=name><a name=max_rounds>max_rounds</a></td><td class=usage>max_rounds = 12</td><td class=description>Specify the last round in the tournament. Used in Gibson detection, and to check for illegal round numbers in commands.</td></tr>
+  <tr><td class=name><a name=max_score>max_score</a></td><td class=usage>max_score = 800</td><td class=description>Specify the largest score that will be accepted in data entry.</td></tr>
+  <tr><td class=name><a name=member_separator>member_separator</a></td><td class=usage>member_separator = '-'</td><td class=description>Specify a string that separates team member names in a multimember player name</td></tr>
+  <tr><td class=name><a name=message_encoding>message_encoding</a></td><td class=usage>message_encoding = 'utf8'</td><td class=description>Specify a character encoding for &lsquo;.t&rsquo; files other than the default &lsquo;isolatin1&rsquo;.</td></tr>
+  <tr><td class=name><a name=message_file>message_file</a></td><td class=usage>message_file = 'lib/messages/deu.txt'</td><td class=description>Specify an alternate file containing the text messages displayed by <cite>tsh</cite>. Normally this is determined based on your <a href="#realm">realm</a>.</td></tr>
+  <tr><td class=name><a name=mirror_directories>mirror_directories</a></td><td class=usage>mirror_directories = [qw(c:\dir\subdir /tmp/copy)]</td><td class=description>If specified, instructs <cite>tsh</cite> to keep a copy of all data and report files in the given locations.</td></tr>
+  <tr><td class=name><a name=minimum_prize_team>minimum_prize_team</a></td><td class=usage>minimum_prize_team = 3</td><td class=description>If specified, instructs <cite>tsh</cite> to ignore teams of fewer than this many players in determining team prizes.</td></tr>
+  <tr><td class=name><a name=next_round_style>next_round_style</a></td><td class=usage>next_round_style = 'brief'</td><td class=description>Changes the style of the next-round pairing data shown at the end of <a href="commands.html#ratings">ratings</a> reports from the default 'nextrat' to one of: 'normal', 'half', 'balanced', 'brief' or 'nextrat'.</td></tr>
+  <tr><td class=name><a name=no_aupair_bye_ties>no_aupair_bye_ties</a></td><td class=usage>no_aupair_bye_ties = 1</td><td class=description>Omit byes and forfeits in <a href="commands.html#aupair">AUPAIR</a> rating data reports, rather than using standard notation. Not required with modern rating software.</td></tr>
+  <tr><td class=name><a name=no_boards>no_boards</a></td><td class=usage>no_boards = 1</td><td class=description>Do not show board numbers anywhere. If set to 0, show board numbers even where they would not normally be shown; e.g., where table numbers have already been shown.</td></tr>
+  <tr><td class=name><a name=nohistory>nohistory</a></td><td class=usage>nohistory = 1</td><td class=description>Used internally to prevent commands triggered by hooks from affecting the page to be displayed by &ldquo;<code><a href="commands.html#browselast">BrowseLast</a></code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=no_index_tally_slips>no_index_tally_slips</a></td><td class=usage>no_index_tally_slips = 1</td><td class=description>The &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command will generate tally slips as usual, but they will not appear in the web index.</td></tr>
+  <tr><td class=name><a name=no_initial_rr>no_initial_rr</a></td><td class=usage>no_initial_rr = 1</td><td class=description>Do not start default pairings with a round robin, even if there is room to do so.</td></tr>
+  <tr><td class=name><a name=no_random>no_random</a></td><td class=usage>no_random = 1</td><td class=description>If set, do not use random tie-breaks for players tied in standings, use pre-tournament rating or player number instead.</td></tr>
+  <tr><td class=name><a name=no_pairings_output>no_pairings_output</a></td><td class=usage>no_pairings_output = 1</td><td class=description>Compute but do not show pairings in &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;, for use in simulation.</td></tr>
+  <tr><td class=name><a name=no_ranked_pairings>no_ranked_pairings</a></td><td class=usage>no_ranked_pairings = 1</td><td class=description>Do not show ranked pairings in &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;, only alphabetical ones.</td></tr>
+  <tr><td class=name><a name=no_show_last>no_show_last</a></td><td class=usage>no_show_last = 1</td><td class=description>Do not show information about the last round&rsquo;s results in &ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; or &ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo;. Use if you find the information too cluttered or hard to understand.</td></tr>
+  <tr><td class=name><a name=no_text_files>no_text_files</a></td><td class=usage>no_text_files = 1</td><td class=description>Do not create text versions of reports. Useful if you only want HTML files, and don&rsquo;t want your directories cluttered with text files.</td></tr>
+  <tr><td class=name><a name=numeric_pairing_display>numeric_pairing_display</a></td><td class=usage>numeric_pairing_display = 1</td><td class=description>Sort players in numeric order by ID rather than alphabetically in <a href="reports.html#showpairings">pairings reports</a>.</td></tr>
+  <tr><td class=name><a name=oppless_spread>oppless_spread</a></td><td class=usage>oppless_spread = 1</td><td class=description>Do not consider opponent scores in spread calculations, just some player&rsquo;s own scores.</td></tr>
+  <tr><td class=name><a name=overseed_tiebroken_by_spread>overseed_tiebroken_by_spread</a></td><td class=usage>overseed_tiebroken_by_spread = 1</td><td class=description>Consider cumulative spread as the tiebreak for the <code>overseed</code> prize, after W-L and before initial ranking.  By default, only the initial ranking is considered after W-L.</td></tr>
+  <tr><td class=name><a name=pairing_bars>pairing_bars</a></td><td class=usage>pairing_bars = 1</td><td class=description>Display a graphical representation of pairings when standings are reported to the console.  By default the pairings round is the last for which pairings have been entered, an optional integer parameter to the &ldquo;<code><a href="commands.html#standings">STandings</a></code>&rdquo; or &ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; commands will show pairing bars for a specific round.  An integer indicates the number of times players have been paired against each other prior to the round for which pairings are displayed.  One or more asterisks indicates the number of times players have been paired back-to-back.  This feature should be considered experimental, contact <a href="mailto://vince@wgvc.com">vince@wgvc.com</a> directly with any issues.</td></tr>
+  </tr>
+  <tr><td class=name rowspan=9><a name="pairing_system">pairing_system</a></td>
+    <td class=usage><code>pairing_system = 'auto'</a></code></td>
+    <td class=description>
+      You do not need to explicitly specify the use of
+      <a href="#automatic_pairings">automatic pairings</a>;
+      they are selected if you include an &ldquo;<code>autopair</code>&rdquo;
+      instruction in your configuration file.
+    </td></tr>
+  <tr><td class=usage><code><a name="basd_pairings">pairing_system = 'basd'</a></code></td>
+    <td class=description>
+      <a href="pairing.html#basd">BASD pairings</a> pair players in a byzantine
+      format developed by Ira Freehof for his Big Apple Showdown.
+    </td></tr>
+  <tr><td class=usage><code><a name="bracket_pairings">pairing_system = 'bracket'</a></code></td>
+    <td class=description>
+      <a href="pairing.html#bracket">Bracket pairings</a> pair players in single-elimination format,
+      optionally restricting to the top
+      &ldquo;<code><a href="#bracket_cap">bracket_cap</a></code>&rdquo;,
+      seeded initially according to the value of the
+      &ldquo;<code><a href="#bracket_order">bracket_order</a></code>&rdquo;
+      configuration option
+      and repeating each pairing a number of times specified by
+      &ldquo;<code><a href="#bracket_repeats">bracket_repeats</a></code>&rdquo;
+      configuration option, 
+      preceded optionally by a number of rounds of 
+      &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo;
+      pairings specified by the 
+      &ldquo;<code><a href="#bracket_prelims">bracket_prelims</a></code>&rdquo;
+      configuration option.
+      Players who do not advance may optionally be paired according to the
+      &ldquo;<code><a href="#bracket_noncon_pairings">bracket_noncon_pairings</a></code>&rdquo;
+      configuration option.
+    </td></tr>
+  <tr><td class=usage><code><a name="chew_pairings">pairing_system = 'chew'</a></code></td>
+    <td class=description>
+      You do not need to explicitly specify the use of
+      <a href="#default_pairings">Chew pairings</a>;
+      they are selected by default.
+    </td></tr>
+  <tr><td class=usage><code><a name="green_pairings">pairing_system = 'green'</a></code></td>
+    <td class=description>
+      <a href="pairing.html#green">Green pairings</a> are used by John Green in Florida to 
+      pair groups of six to eight players using a fixed five-round
+      schedule followed by a KOTH.
+    </td></tr>
+  <tr><td class=usage><code><a name="guelph_pairings">pairing_system = 'guelph'</a></code></td>
+    <td class=description>
+      <a href="pairing.html#guelph">Guelph pairings</a> are used by Andy Saunders in Guelph, ON, CAN
+      to pair six, eight or ten players in a six-round schedule.
+    </td></tr>
+  <tr><td class=usage><code>pairing_system = 'manual'</a></code></td>
+    <td class=description>
+      You should explicitly specify the use of
+      <a href="#manual_pairings">manual pairings</a>
+      if you do not want <cite>tsh</cite> to provide 
+      <a href="#default_pairings">default pairings</a>.
+    </td></tr>
+  <tr><td class=usage><code><a name="nast_pairings">pairing_system = 'nast'</a></code></td>
+    <td class=description>
+      You should use <a href="pairing.html#nast">NAST pairings</a> if you are directing a satellite event
+      of the North American Scrabble Tour, which has specific requirements
+      for the pairings of such events.  The exact system depends on the
+      number of players in the tournament, and consists of either four
+      rounds of fixed pairings and one round of Swiss pairings or five
+      rounds of fixed pairings, followed by one round of KOTH pairings.
+    </td></tr>
+  <tr><td class=usage><code><a name="no_pairings">pairing_system = 'none'</a></code></td>
+    <td class=description>
+      Although <cite>tsh</cite> began as a program for generating 
+      <a href="pairing.html">pairings</a>
+      and 
+      <a href="reports.html">reports</a>, it can also be used 
+      at events like crossword or Sudoku tournaments, where players
+      compete separately to attain individual scores.
+      <a href="pairing.html#none">No pairings</a> are
+      generated or displayed, but standings reports and web features are available.
+  </td></tr>
+  <tr><td class=name><a name=pair_page_break>pair_page_break</a></td><td class=usage>pair_page_break = 15</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown in rank-ordered (not alpha) pairings.  If this option is not used, player names may be split across page breaks.</td></tr>
+  <tr><td class=name><a name=pairing_caption_pipe>pairing_caption_pipe</a></td><td class=usage>pairing_caption_pipe = 'pbcopy'</td><td class=description>If specified, the pairings shown by the &ldquo;<a href="commands.html#showpairings"><code>ShowPairings</code></a>&rdquo; command be piped through the designated command.</td></tr>
+  <tr><td class=name><a name=pairings_refresh>pairings_refresh</a></td><td class=usage>pairings_refresh = 10</td><td class=description>If specified, HTML <a href="reports.html#showpairings">pairings</a> reports will refresh themselves in web browsers at intervals of this many seconds.</td></tr>
+  <tr><td class=name><a name="photo_database">photo_database</a></td><td class=usage>photo_database = 'nsa'</td><td class=description>Choose a photo database.  Currently available databases are: &lsquo;<code>nsa</code>&rsquo;, &lsquo;<code>centrestar</code>&rsquo;, &lsquo;<code>deu</code>&rsquo;, &lsquo;<code>ken</code>&rsquo;, &lsquo;<code>nga</code>&rsquo;; and &lsquo;<code>pak</code>&rsquo;.</td></tr>
+  <tr><td class=name><a name="player_id_first">player_id_first</a></td><td class=usage>player_id_first = 1</td><td class=description>If enabled, display player IDs ahead of names.</td></tr>
+
+  <tr><td class=name><a name="player_nicknames">player_nicknames</a></td><td class=usage>player_nicknames = "albany.txt"</td><td class=description>Indicates the name of a file in <code>lib</code> containing pipe-delimited mappings of canonical player names to their preferred scoreboard representation, in the format <code>Name, Canonical|Nickname</code>.  To use nicknames in HTML and text reports, enable <a href="#pname_from_sbname"><code>pname_from_sbname</code></a>.</td></tr>
+
+  <tr><td class=name><a name="player_number_format">player_number_format</a></td><td class=usage>player_number_format = "#%s"</td><td class=description>Specify sprintf(3) formatting of player numbers. By default, a &lsquo;#&rsquo; is prepended to the number for clarity if there is only one division.</td></tr>
+  <tr><td class=name><a name="player_photo_aspect_ratio">player_photo_aspect_ratio</a></td><td class=usage>player_photo_aspect_ratio = 0.75</td><td class=description>Gives the ratio of player photo widths to heights (all photos must use the same value).</td></tr>
+  <tr><td class=name><a name="player_photos">player_photos</a></td><td class=usage>player_photos = 1</td><td class=description>If specified, display photos of opponents in alpha pairings <a href="reports.html#showpairings">reports</a>.</td></tr>
+  <tr><td class=name><a name="pname_from_sbname">pname_from_sbname</a></td><td class=usage>pname_from_sbname = 1</td><td class=description>If this is set to a nonzero value, the <code>pname</code> .t file keyword will inherit its value from <code>sbname</code> and this value will be used in cases where <code>use_pname</code> would be effective.  If the <code>use_pname</code> config value is also set and a player's <code>pname</code> is defined then this value will <i>not</i> be overriden by their <code>sbname</code>.</td></tr>
+  <tr><td class=name><a name="port">port</a></td><td class=usage>port = 7777</td><td class=description>If this is set to a nonzero value, <cite>tsh</cite> will use its web interface instead of its command-line interface. Still in early development and incomplete but feel free to see what is there so far.</td></tr>
+  <tr><td class=name><a name="prize_bands">prize_bands</a></td><td class=usage>prize_bands{'A'} = [2,3,4,5]</td><td class=description>Specifies which final ranks are to be considered equivalent for pairings purposes: the numbers given mark the end of each band (range) of equivalent prizes (ranks). Only used in scoreboard displays and in <a href="pairing.html#chew">Chew pairings</a>, which try to pair players who are in contention for one prize band with each other.  In the example, the top prize band goes from 1st place to 2nd place (presumably because the top two finalists qualify for a playoff); each of 3rd, 4th and 5th place is its own prize band (presumably awarding players cash prizes); and everything from 6th place on is the last prize band (presumably winning nothing).  If this option is omitted when required, a warning is displayed and a default value is assigned which assumes prizes are assigned to the top quarter of the division. Note that Gibsonization won&rsquo;t work with a value of &ldquo;<code>[1]</code>&rdquo;, because the &ldquo;highest ranked player out of contention for prize money&rdquo; that the Gibsonized player ought to play ends up being the second-ranked player.</td></tr>
+  <tr><td class=name><a name=prize_bands_from_prizes>prize_bands_from_prizes</a></td><td class=usage>prize_bands_from_prizes = 1</td><td class=description>Indicates that the <code><a href="#prize_bands">prize_bands</a></code> for all divisions are to be derived from the rank prizes as specified by the <code><a href="#prizes">prizes</a></code> configuration, so that if you intend to set prize bands of the form <code>[1,2,...N]</code> you need only enter the number of prizes once.</td></tr>
+  <tr><td class=name><a name=prize_page_break>prize_page_break</a></td><td class=usage>prize_page_break = 15</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown in prize reports.  If this option is not used, prize reports may run across page breaks except where explicitly broken.</td></tr>
+  <tr><td class=name>prizes</td><td class=usage>&nbsp;</td><td class=description>Set using the &ldquo;<a href="#prizes"><code>prizes</code></a>&rdquo; instruction. It&rsquo;s not a good idea to mess with this directly.</td></tr>
+  <tr><td class=name><a name=quiet_hooks>quiet_hooks</a></td><td class=usage>quiet_hooks = 1</td><td class=description>If enabled, do not display the output of commands being triggered by hooks.</td></tr>
+  <tr><td class=name><a name=random_rr_order>random_rr_order</a></td><td class=usage>random_rr_order = 1</td><td class=description>Arrange the rounds of a round robin in random order, rather than presenting the top seed with opponents of increasing strength.</td></tr>
+  <tr><td class=name><a name=rating_fields>rating_fields</a></td><td class=usage>fields = [qw(rank newr name team)]</td><td class=description>If you need complete flexibility in configuring which fields are listed in the output of the &ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo; and &ldquo;<code><a href="commands.html#roundratings">RoundRATings</a></code>&rdquo; commands, you can list them here. See the description of <a href="reports.html#standings">Standings and Ratings</a> reports for a list of permitted fields.</td></tr>
+  <tr><td class=name><a name=rating_list>rating_list</a></td><td class=usage>rating_list = 'deu'</td><td class=description>If set to &ldquo;<code>deu</code>&rdquo;, the &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command will fetch the German rating list and not the NSA one.</td></tr>
+  <tr><td class=name><a name=rating_page_break>rating_page_break</a></td><td class=usage>rating_page_break = 40</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown in rating reports.  If this option is not used, rating reports  may be split across page breaks.</td></tr>
+  <tr><td class=name rowspan=11><a name=rating_system>rating_system</a></td><td class=usage>rating_system = 'absp'</td><td class=description>Computes ABSP ratings wherever ratings are needed. This parameter must be set to this or one of the following values when using the &ldquo;<code>SUBMIT</code>&rdquo; command.</td></tr>
+  <tr><td class=usage>rating_system = 'aus'</td><td class=description>Computes Australian ratings wherever ratings are needed.</td></tr>
+  <tr><td class=usage>rating_system = 'elo'</td><td class=description>Computes Elo ratings without traditional NSA bugs wherever ratings are needed.</td></tr>
+  <tr><td class=usage>rating_system = 'none'</td><td class=description>Prevents ratings from being calculated or displayed.</td></tr>
+  <tr><td class=usage>rating_system = 'nsa'</td><td class=description>Computes oldstyle NSA ratings wherever ratings are needed.</td></tr>
+  <tr><td class=usage>rating_system = 'nsa lct'</td><td class=description>Computes oldstyle NSA ratings for a local club tournament wherever ratings are needed.</td></tr>
+  <tr><td class=usage>rating_system = 'naspa'</td><td class=description>Computes pre-2024 NASPA ratings wherever ratings are needed. Synonymous for historical reasons with the value &ldquo;<code>'nsa2008'</code>&rdquo;.</td></tr>
+  <tr><td class=usage>rating_system = 'naspa2024'</td><td class=description>Computes NASPA ratings wherever ratings are needed. This is the default value but may be implicitly overridden by a &ldquo;<code><a href="#realm">realm</a></code>&rdquo;.</td></tr>
+  <tr><td class=usage>rating_system = 'naspa2024 lct'</td><td class=description>Computes 1/3-rated NASPA ratings wherever ratings are needed.</td></tr>
+  <tr><td class=usage>rating_system = 'naspa lct'</td><td class=description>Computes NASPA ratings for a local club tournament wherever ratings are needed. Synonymous for historical reasons with the value &ldquo;<code>'nsa2008 lct'</code>&rdquo;</td></tr>
+  <tr><td class=usage>rating_system = 'wespa'</td><td class=description>Computes WESPA ratings wherever ratings are needed.</td></tr>
+  <tr><td class=name><a name=ratings_note>ratings_note</a></td><td class=usage>ratings_note = "Please rate this after the early bird."</td><td class=description>Specifies a note to include when submitting ratings data.</td></tr>
+  <tr><td class=name><a name=realm>realm</a></td><td class=usage>realm = 'nsa'</td><td class=description>Specifies default values for several parameters, as explained in the section on <a href="#realms">configuration realms</a>.<br>
+  <tr><td class=name><a name=reserved>reserved</a></td><td class=usage>reserved{'P'}[13] = 4</td><td class=description>Permanently assigns player P13 to board 4. Typically used when you have a player with special needs.</td></tr>
+  <tr><td class=name>rotofile</td><td class=usage>rotofile = 'roto.txt'</td><td class=description>Specify the name of a rotisserie pool file to be used in producing U.S.-style rotisserie pool <a href="reports.html#roto">reports</a>.</td></tr>
+  <tr><td class=name><a name=roster_order>roster_order</a></td><td class=usage>roster_order = 'alpha'</td><td class=description>Specify the order in which players will be listed in the &ldquo;<a href="commands.html#rosters"><code>ROSTERS</code></a>&rdquo; command: &ldquo;<code>'alpha'</code>&rdquo; (alphabetically), &ldquo;<code>'rank'</code>&rdquo; (by rank), &ldquo;<code>'team'</code>&rdquo; (by team), &ldquo;<code>'team-class'</code>&rdquo; (by team, then class).</td></tr>
+  <tr><td class=name><a name=round_robin_order>round_robin_order</a></td><td class=usage>round_robin_order = [4,9,8,7,6,5,10,3,2]</td><td class=description>Specify the order of player 1&rsquo;s <a href="pairing.html#rr">round robin</a> opponents, or the order in which players are assigned to the schedule by the &ldquo;<a href="commands.html#teamroundrobin"><code>TeamRoundRobin</code></a>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=save_interval>save_interval</a></td><td class=usage>save_interval = 10</td><td class=description>Specifies how often results should be saved to disk in &ldquo;<code><a href="commands.html#addscore">Addscore</a></code>&rdquo;.  Defaults to saving after each entry, because computers are faster than they were in 1998.</td></tr>
+  <tr><td class=name><a name="sb_banner_height">sb_banner_height</a></td><td class=usage>sb_banner_height = 128</td><td class=description>Specify the height of a <a href="scoreboard.html#banner">scoreboard banner</a>.</td></tr>
+  <tr><td class=name><a name="sb_banner_url">sb_banner_url</a></td><td class=usage>sb_banner_url = "http://event.poslfit.com/2017/kingscup/banner.html"</td><td class=description>Specify the web address of a <a href="scoreboard.html#banner">scoreboard banner</a>.</td></tr>
+  <tr><td class=name><a name="scoreboard_links">scoreboard_links</a></td><td class=usage>scoreboard_links = 1</td><td class=description>If true, create links from player names to individual scoreboard scorecards in web reports`.</td></tr>
+  <tr><td class=name><a name="scoreboard_teams">scoreboard_teams</a></td><td class=usage>scoreboard_teams = 1</td><td class=description>Show team flags in the enhanced scoreboard.</td></tr>
+  <tr><td class=name><a name=scorecards_refresh>scorecards_refresh</a></td><td class=usage>scorecards_refresh = 15</td><td class=description>Specifies an integer interval in seconds at which scorecard webpages should refresh in the browser.</td></tr>
+  <tr><td class=name><a name=scores>scores</a></td><td class=usage>scores = 'scrabble'</td><td class=description>If set to &ldquo;<code>'WL'</code>&rdquo;, spread is ignored, and only wins and losses count. If set to &ldquo;<code>'WLT'</code>&rdquo;, spread is ignored, and only wins, losses and ties count. With the default value of &ldquo;<code>'scrabble'</code>&rdquo;, game results are understood to be a pair of integer scores, with win/loss/tie outcome based on their difference. If set to &ldquo;<code>'sudoku</code>&rdquo;, game results are understood to be solitaire integer scores.</td></tr>
+  <tr><td class=name><a name=seats>seats</a></td><td class=usage>seats = 1</td><td class=description>Enables display and tracking of seat numbers, for realms where seats are numbered instead of boards or tables.</td></tr>
+  <tr><td class=name><a name=session_breaks>session_breaks</a></td><td class=usage>session_breaks = [3,6,8,11,12]</td><td class=description>Specifies after which rounds there is enough time in the schedule to wait for all results to come in before computing pairings.  Used when the &ldquo;<code><a href="pairing.html#chew">ChewPair</a></code>&rdquo; is automatically invoked.</td></tr>
+  <tr><td class=name><a name=show_divname>show_divname</a></td><td class=usage>show_divname = 1</td><td class=description>Show division names in report headings even when you have only one division.  Use this if you have to split a tournament into different <cite>tsh</cite> events because you have more than one computer for data entry, but you want to be able to tell which reports came from which division.</td></tr>
+  <tr><td class=name><a name=show_honourable_mention>show_honourable_mention</a></td><td class=usage>show_honourable_mention = 1</td><td class=description>If specified, the &ldquo;<a href="commands.html#prizes"><code>PRiZes</code></a>&rdquo; command will list with honourable mention the additional prizes that a player would have won, were they eligible to earn more than one exclusive prize.</td></tr>
+  <tr><td class=name><a name=show_inactive>show_inactive</a></td><td class=usage>show_inactive = 1</td><td class=description>Normally, inactive players are not displayed in reports. Select this option to include them, for example if you had a player leave early who should still be listed in the final standings.</td></tr>
+  <tr><td class=name><a name=show_last_player_name>show_last_player_name</a></td><td class=usage>show_last_player_name = 1</td><td class=description>When displaying ratings reports, show the last player's name if known, and not just player number.</td></tr>
+  <tr><td class=name><a name=show_roster_classes>show_roster_classes</a></td><td class=usage>show_roster_classes = 1</td><td class=description>Show classes in player rosters.</td></tr>
+  <tr><td class=name><a name=show_roster_photos>show_roster_photos</a></td><td class=usage>show_roster_photos = 1</td><td class=description>Show photos in player rosters, overriding &ldquo;<a href="#player_photos"><code>player_photos</code></a>&rdquo;.</td></tr>
+  <tr><td class=name><a name=show_teams>show_teams</a></td><td class=usage>show_teams = 1</td><td class=description>Show team names with player names.</td></tr>
+  <tr><td class=name><a name=sort_by_first_name>sort_by_first_name</a></td><td class=usage>sort_by_first_name = 1</td><td class=description>Sort players by first name (when names are being presented in &ldquo;given_names surnames&rdquo; order).</td></tr>
+  <tr><td class=name><a name=spitfile>spitfile</a></td><td class=usage>spitfile{'A'} = 'spita.txt'</td><td class=description>Specify the name of a rotisserie pool file to be used in producing U.K. rotisserie pool <a href="reports.html#spitroast">reports</a> for a given division.</td></tr>
+  <tr><td class=name><a name=split1>split1</a></td><td class=usage>split1 = 9</td><td class=description>Specifies after which round a long tournament should be split-rated when using Elo ratings. (This option is no longer needed, and is therefore deprecated.)</td></tr>
+  <tr><td class=name rowspan=1><a name=spread_bad>spread_bad</a></td><td class=usage>spread_bad = 1</td><td class=description>If specified, indicates that in the type of game being played, players with higher spread lose to players with lower spread.</td></tr>
+  <tr><td class=name rowspan=2><a name=spread_cap>spread_cap</a></td><td class=usage>spread_cap = 350</td><td class=description>Specifies the maximum earnable spread in each round, for use in Thailand.</td></tr>
+  <tr><td class=usage>spread_cap = [350, 250, 100]</td><td class=description>Specifies different values for maximum earnable spread in each round.</td></tr>
+  <tr><td class=name><a name=squads>squads</a></td><td class=usage>squads = 1</td><td class=description>If enabled, a team will earn a squad win/loss and spread shwn all of its opponents in a round belong to one opposing team.</td></tr>
+  <tr><td class=name><a name=standings_hotlink>standings_hotlink</a></td><td class=usage>standings_hotlink = 1</td><td class=description>If enabled, player names in standings link to player scorecards.</td></tr>
+  <tr><td class=name><a name=standings_hotlink_target>standings_hotlink_target</a></td><td class=usage>standings_hotlink_target = "-scorecard.html#%d"</td><td class=description>Specifies an alternate target for the <a href=#standings_hotlink"><code>standings_hotlink</code></a>, if enabled.  The player number will be interpolated as per <code>printf</code>.  The division name is prepended to the format string.</td></tr>
+  <tr><td class=name><a name=standings_refresh>standings_refresh</a></td><td class=usage>standings_refresh = 10</td><td class=description>If specified, HTML <a href="reports.html#standings">standings and ratings estimate reports</a> will refresh themselves in web browsers at intervals of this many seconds.</td></tr>
+  <tr><td class=name><a name=standings_spread_cap>standings_spread_cap</a></td><td class=usage>standings_spread_cap = [100, 150, 250, 250, 250, 250]</td><td class=description>Specifies the maximum earnable spread in each round, for standings purposes but not pairings purposes, for use at the U.S. NSSC.</td></tr>
+  <tr><td class=name><a name=standings_with_ratings>standings_with_ratings</a></td><td class=usage>standings_with_ratings = 1</td><td class=description>If enabled, ratings are displayed even in standings reports.</td></tr>
+  <tr><td class=name><a name=start_times>start_times</a></td><td class=usage>start_times = [qw(19:00 20:00 21:00 09:00 10:00)]</td><td class=description>Specifies the round start times to be used in the &ldquo;<code><a href="commands.html#tweetpairings">TWeetPairings</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=sum_before_spread>sum_before_spread</a></td><td class=usage>sum_before_spread = 1</td><td class=description>If specified, players should be ranked on W-L, then total points scored, then spread.</td></tr>
+  <tr><td class=name><a name=suppress_results_in_pairings>suppress_results_in_pairings</a></td><td class=usage>suppress_results_in_pairings = 1</td><td class=description>If set, the ESB Pairing Mode will not display results, to give your players another reason to leave the playing area between games.</td></tr>
+  <tr><td class=name><a name=surname_last>surname_last</a></td><td class=usage>surname_last = 1</td><td class=description>If specified, raw names of the form &lsquo;surnames, given names&rsquo; in &lsquo;.t&rsquo; files are translated to &lsquo;given names surnames&rsquo; whenever displayed.</td></tr>
+  <tr><td class=name><a name=swiss_ignores_firsts>swiss_ignores_firsts</a></td><td class=usage>swiss_ignores_firsts = 1</td><td class=description>If set, ignore firsts and seconds when calculating Swiss pairings.</td></tr>
+  <tr><td class=name><a name=swiss_ignores_repeats>swiss_ignores_repeats</a></td><td class=usage>swiss_ignores_repeats = 1</td><td class=description>If set, ignore repeats when calculating Swiss pairings.</td></tr>
+  <tr><td class=name><a name=swiss_max_consecutive_repeats>swiss_max_consecutive_repeats</a></td><td class=usage>swiss_max_consecutive_repeats = [0,1,1,2]</td><td class=description>Forces a limit on the number of consecutive repeat pairings that Swiss pairing code will generate in each round; the last value is repeated as needed.</td></tr>
+  <tr><td class=name><a name=swiss_order>swiss_order</a></td><td class=usage>swiss_order = ['auto','koth','forced']</td><td class=description>Specifies how players are paired within <a href="pairing.html#swiss">Swiss-paired</a> win groups in each round. If fewer values are specified than there are rounds, then the last value is repeated as necessary to fill out the event. Acceptable values are &ldquo;<code>'auto'</code>&rdquo; (do whatever TSH thinks is appropriate), &ldquo;<code>'forced'</code>&rdquo; (always pair the top half in order against the bottom half, disregarding things like firsts and seconds), and &ldquo;<code>'koth'</code>&rdquo; (minimize rank distance between opponents).</td></tr>
+  <tr><td class=name>table_format</td><td class=usage>table_format = '%3s'</td><td class=description>sprintf(3) description of how table numbers are formatted.</td></tr>
+  <tr><td class=name><a name=table_method>table_method</a></td><td class=usage>table_method = 'consecutive'</td><td class=description>If set to &ldquo;<code>consecutive</code>&rdquo;, assigns boards to table numbers consecutively across divisions. If left unset, or set to the default value of &ldquo;<code>none</code>&rdquo;, does not assign boards to tables automatically.</td></tr>
+  <tr><td class=name>table_title</td><td class=usage>table_title = "Room"</td><td class=description>Specify what tables are called in titles. The default value is &ldquo;<code>Table</code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=tables>tables</a></td><td class=usage>tables{'A'} = [1,1,2,2,3,3,4,4,5,5]</td><td class=description>List which board is at which table. Division name must be capitalized. If you don&rsquo;t give information for enough boards, you&rsquo;ll get cryptic error messages. You may use Perl expressions like &ldquo;<code>1..20</code>&rdquo; or &ldquo;<code>map { $_, $_ } 1..20</code>&rdquo; to save typing. </td></tr>
+  <tr><td class=name><a name=tally_slips_blanks>tally_slips_blanks</a></td><td class=usage>tally_slips_blanks = 1</td><td class=description>If specified, the tally slips generated as a side effect of the &ldquo;<a href="commands.html#showpairings"><code>ShowPairings</code></a>&rdquo; command will include an area for designating blanks.</td></tr>
+  <tr><td class=name><a name=tally_slips_challenges>tally_slips_challenges</a></td><td class=usage>tally_slips_challenges = 1</td><td class=description>If specified, the tally slips generated as a side effect of the &ldquo;<a href="commands.html#showpairings"><code>ShowPairings</code></a>&rdquo; command will include an area for listing challenged words.</td></tr>
+  <tr><td class=name><a name=tally_slips_no_spread>tally_slips_no_spread</a></td><td class=usage>tally_slips_no_spread = 1</td><td class=description>If specified, the tally slips generated as a side effect of the &ldquo;<a href="commands.html#showpairings"><code>ShowPairings</code></a>&rdquo; command will not include a box for spread.</td></tr>
+  <tr><td class=name><a name=tally_slips_page_break>tally_slips_page_break</a></td><td class=usage>tally_slips_page_break = 15</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown in tally slips.  If this option is not used, tally slips  may be split across page breaks.</td></tr>
+  <tr><td class=name><a name=team_pair_always_break>team_pair_always_break</a></td><td class=usage>team_pair_always_break = 15</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after every team in team pairings.</td></tr>
+  <tr><td class=name><a name=team_pair_first_page_break>team_pair_first_page_break</a></td><td class=usage>team_pair_page_break = 10</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown on the first page of team pairings.  If this option is not used, team names may be split across page breaks.</td></tr>
+  <tr><td class=name><a name=team_pair_page_break>team_pair_page_break</a></td><td class=usage>team_pair_page_break = 15</td><td class=description>If this option is specified, <cite>tsh</cite> will force a page break after this many rows are shown in team pairings.  If this option is not used, team names may be split across page breaks.</td></tr>
+  <tr><td class=name><a name=team_quotas>team_quotas</a></td><td class=usage>team_quotas = { 'AUS'=&gt; 13, 'AUT'=&gt; 2, 'BHR'=&gt; 2, 'CAN'=&gt; 9 }</td><td class=description>Specify parameters for WSC-style quotas for team standings</td></tr>
+  <tr><td class=name><a name=team_rank_count_cap>team_rank_count_cap</a></td><td class=usage>team_rank_count_cap = 5</td><td class=description>Limit the number of team players who count toward team standings.</td></tr>
+  <tr><td class=name><a name=terminology>terminology</a></td><td class=usage>terminology = 'deu'</td><td class=description>Select the terminology that <cite>tsh</cite> uses in its reports and user interface.  This feature is only partially implemented, in those areas of <cite>tsh</cite> where it has been requested.  Currently supported terminology values are &ldquo;<code>absp</code>&rdquo;, &ldquo;<code>deu</code>&rdquo; and &ldquo;<code>nsa</code>&rdquo;.  Contributions of additional terminology are welcome.</td></tr>
+  <tr><td class=name><a name=thai_points>thai_points</a></td><td class=usage>thai_points = 1</td><td class=description>If set, compute and display Thai points (2 for win, 1 for tie, 0 for loss, plus handicap) where appropriate.</td></tr>
+  <tr><td class=name><a name=tfile_encoding>tfile_encoding</a></td><td class=usage>tfile_encoding = 'utf8'</td><td class=description>Specify a character encoding for &lsquo;.t&rsquo; files other than the default &lsquo;isolatin1&rsquo;.</td></tr>
+  <tr><td class=name><a name=tfile_game>tfile_game</a></td><td class=usage>tfile_game = 'sudoku'</td><td class=description>Specifies a file format for &lsquo;.t&rsquo; files other than the default &lsquo;scrabble&rsquo;. Sudoku score files may have decimal scores; Scrabble ones may not.</td></tr>
+  <tr><td class=name><a name=top_down_swiss>top_down_swiss</a></td><td class=usage>top_down_swiss = 1</td><td class=description>If set, disable bidirectional optimization of <a href="pairing.html#swiss">Swiss pairings</a>.</td></tr>
+  <tr><td class=name><a name=tournament_id>tournament_id</a></td><td class=usage>tournament_id = 123</td><td class=description>Identifies the tournament for the purpose of submitting rating data.</td></tr>
+  <tr><td class=name><a name=tsh_username>tsh_username</a></td><td class=usage>tsh_username = "poslfit"</td><td class=description>Identifies the TSH user as required by some <a href="install.html#plugin">plug-ins</a>.</td></tr>
+  <tr><td class=name><a name=track_firsts>track_firsts</a></td><td class=usage>track_firsts = 1</td><td class=description>Make <cite>tsh</cite> care about who played first and second in each game. If this option is set and &ldquo;<code><a href="#assign_firsts">assign_firsts</a></code>&rdquo; is not set, <cite>tsh</cite> will use the order in which scores are entered to determine who played first, and complain if the wrong player did.  If this option is set and you use <a href="pairing.html#chew">Chew pairings</a>, the pairing algorithm will have a weak preference for pairing players due to go first with players due to go second.</td></tr>
+  <tr><td class=name><a name=twitter_command>twitter_command</a></td><td class=usage>twitter_command = 'ttytter -ssl -silent -status="%s"'</td><td class=description>Specify the back-end command-line command to be used by the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=twitter_command>twitter_command</a></td><td class=usage>twitter_command = 'ttytter -ssl -silent -status="%s"'</td><td class=description>Specify the back-end command-line command to be used by the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=twitter_dm_command>twitter_dm_command</a></td><td class=usage>twitter_dm_command = 'ttytter -ssl -script -runcommand="/dm %s %s"'</td><td class=description>Specifies the command to be used to send Twitter direct messages in the &ldquo;<code><a href="commands.html#tweetpairings">TWeetPairings</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=twitter_prefix>twitter_prefix</a></td><td class=usage>twitter_prefix = 'Live from DO:'</td><td class=description>Specify a prefix to be attached to each message sent by the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=twitter_password>twitter_password</a></td><td class=usage>twitter_password = 'PASSWORD'</td><td class=description>Formerly used to specify the user password used by the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name><a name=twitter_username>twitter_username</a></td><td class=usage>twitter_username = 'whoever'</td><td class=description>(Deprecated) Specified the username to be used to authenticate each message sent by the old version of the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.</td></tr>
+  <tr><td class=name rowspan=2><a name=unfair_byes>unfair_byes</a></td><td class=usage>unfair_byes = 2</td><td class=description rowspan=2>If specified, byes will be restricted to the specified number of places. If set to 1, this is equivalent to &ldquo;<code><a href="#bye_method">config bye_method = 'always_bottom'</a></code>&rdquo;. If a division is specified, the restriction applies only to that division.</td></tr>
+  <tr><td class=usage>unfair_byes{B} = 2</td></tr>
+  <tr><td class=name><a name=use_windows_code_page>use_windows_code_page</a></td><td class=usage>use_windows_code_page = 850</td><td class=description>If specified, console I/O will use the specified Windows code page. Equivalent to &ldquo;<code><a href="#console_encoding">config console_encoding = 'cp850'</a></code>&rdquo;.</td></tr>
+  <tr><td class=name><a name=wallchart_refresh>wallchart_refresh</a></td><td class=usage>wallchart_refresh = 30</td><td class=description>If specified, HTML wallcharts will refresh themselves in web browsers at intervals of this many seconds.</td></tr>
+  <tr><td class=name><a name=windows_console_unicode>windows_console_unicode</a></td><td class=usage>windows_console_unicode</td><td class=description>If specified, try to run the <cite>tsh</cite> console in Windows Unicode mode.</td></tr>
+  <tr><td class=name><a name=zero_byes_tie>zero_byes_tie</a></td><td class=usage>zero_byes_tie = 1</td><td class=description>Specify that a bye with zero spread is to be treated as a tie, rather than a nonevent.</td></tr>
+</table>
+
+<h3><a name="realms">Configuration Realms</a></h3>
+
+<p class=p1>
+Because <cite>tsh</cite> is used in many different countries with
+many different Scrabble traditions (and it&rsquo;s even sometimes
+used for non-Scrabble events), <cite>tsh</cite> has a quick way
+of specifying common default values for configuration options that
+vary from country to country: the &ldquo;<code><a href="#realm">realm</a></code>&rdquo;
+configuration option.  The following table shows which default values
+are set according to the value of this option.
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Realm</th><th class=description>Default Values Specified for Configuration Options</th></tr>
+  <tr><td class=usage>config realm = 'nsa'<br><span class=roman>(This is the default realm.)</span></td><td class=description>
+  <!-- begin content generated by util/make-realm-defaults.pl -->
+    <code><a href="#alpha_pair_page_break">alpha_pair_page_break = 10</a></code><br>
+    <code><a href="#rating_list">rating_list = 'nsa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa2008'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'absp'</td><td class=description>
+    <code><a href="#alpha_pair_page_break">alpha_pair_page_break = 10000</a></code><br>
+    <code><a href="#assign_firsts">assign_firsts = 1</a></code><br>
+    <code><a href="#avoid_sr_runs">avoid_sr_runs = 1</a></code><br>
+    <code><a href="#bye_firsts">bye_firsts = 'ignore'</a></code><br>
+    <code><a href="#bye_spread">bye_spread = 100</a></code><br>
+    <code><a href="#currency_symbol">currency_symbol = '&pound;'</a></code><br>
+    <code><a href="#entry">entry = 'both'</a></code><br>
+    <code><a href="#html_in_event_directory">html_in_event_directory = 1</a></code><br>
+    <code><a href="#no_index_tally_slips">no_index_tally_slips = 1</a></code><br>
+    <code><a href="#photo_database">photo_database = 'centrestar'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'absp'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'absp'</a></code><br>
+    <code><a href="#surname_last">surname_last = 1</a></code><br>
+    <code><a href="#table_method">table_method = 'consecutive'</a></code><br>
+    <code><a href="#terminology">terminology = 'absp'</a></code><br>
+    <code><a href="#track_firsts">track_firsts = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'deu'</td><td class=description>
+    <code><a href="#bye_firsts">bye_firsts = 'ignore'</a></code><br>
+    <code><a href="#currency_symbol">currency_symbol = '&euro;'</a></code><br>
+    <code><a href="#locale">locale = 'de_DE'</a></code><br>
+    <code><a href="#message_file">message_file = 'lib/messages/deu.txt'</a></code><br>
+    <code><a href="#photo_database">photo_database = 'deu'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'deu'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'deu'</a></code><br>
+    <code><a href="#terminology">terminology = 'deu'</a></code><br>
+    <code><a href="#use_windows_code_page">use_windows_code_page = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'go'</td><td class=description>
+    <code><a href="#assign_firsts">assign_firsts = 1</a></code><br>
+    <code><a href="#bye_spread">bye_spread = 2</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa'</a></code><br>
+    <code><a href="#scores">scores = 'WL'</a></code><br>
+    <code><a href="#track_firsts">track_firsts = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = '<a href="ken.html">ken</a>'</td><td class=description>
+    <code><a href="#assign_firsts">assign_firsts = 1</a></code><br>
+    <code><a href="#avoid_sr_runs">avoid_sr_runs = 1</a></code><br>
+    <code><a href="#bye_spread">bye_spread = 100</a></code><br>
+    <code><a href="#check_by_winner">check_by_winner = 1</a></code><br>
+    <code><a href="#currency_symbol">currency_symbol = 'KES'</a></code><br>
+    <code><a href="#ftp_host">ftp_host = 'scrabblekenya.poslarchive.com'</a></code><br>
+    <code><a href="#ftp_path">ftp_path = 'web'</a></code><br>
+    <code><a href="#hook_addscore_flush">hook_addscore_flush = 'json'</a></code><br>
+    <code><a href="#hook_autopair">hook_autopair = 'json;stats'</a></code><br>
+    <code><a href="#html_index_recent_first">html_index_recent_first = 1</a></code><br>
+    <code><a href="#max_rounds">max_rounds = 18</a></code><br>
+    <code><a href="#no_text_files">no_text_files = 1</a></code><br>
+    <code><a href="#photo_database">photo_database = 'ken'</a></code><br>
+    <code><a href="#player_photos">player_photos = 1</a></code><br>
+    <code><a href="#rating_list">rating_list = 'ken'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'ken'</a></code><br>
+    <code><a href="#roster_order">roster_order = 'seed'</a></code><br>
+    <code><a href="#show_inactive">show_inactive = 1</a></code><br>
+    <code><a href="#standings_hotlink">standings_hotlink = 1</a></code><br>
+    <code><a href="#track_firsts">track_firsts = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'nsa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa2008'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa-csw'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'naspa-csw'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa-csw'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa-csw-lct'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'naspa-csw'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa-csw lct'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa-lct'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'nsa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa2008 lct'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa2024'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'nsa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa2024'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa2024-csw'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'naspa-csw'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa2024'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa2024-csw-lct'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'naspa-csw'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa2024 lct'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'naspa2024-lct'</td><td class=description>
+    <code><a href="#rating_list">rating_list = 'nsa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'naspa2024 lct'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'nga'</td><td class=description>
+    <code><a href="#photo_database">photo_database = 'nga'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'nor'</td><td class=description>
+    <code><a href="#currency_symbol">currency_symbol = '&euro;'</a></code><br>
+    <code><a href="#locale">locale = 'nb_NO'</a></code><br>
+    <code><a href="#message_encoding">message_encoding = 'utf8'</a></code><br>
+    <code><a href="#message_file">message_file = 'lib/messages/nor.txt'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'nor'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nor'</a></code><br>
+    <code><a href="#terminology">terminology = 'nor'</a></code><br>
+    <code><a href="#use_windows_code_page">use_windows_code_page = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'pak'</td><td class=description>
+    <code><a href="#bye_firsts">bye_firsts = 'ignore'</a></code><br>
+    <code><a href="#photo_database">photo_database = 'pak'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'pak'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'pak'</a></code><br>
+    <code><a href="#terminology">terminology = 'pak'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'pol'</td><td class=description>
+    <code><a href="#all_byes_tie">all_byes_tie = 1</a></code><br>
+    <code><a href="#assign_firsts">assign_firsts = 1</a></code><br>
+    <code><a href="#bye_spread">bye_spread = 300</a></code><br>
+    <code><a href="#locale">locale = 'pl_PL'</a></code><br>
+    <code><a href="#message_encoding">message_encoding = 'utf8'</a></code><br>
+    <code><a href="#message_file">message_file = 'lib/messages/pol.txt'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'pol'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa2008'</a></code><br>
+    <code><a href="#sum_before_spread">sum_before_spread = 1</a></code><br>
+    <code><a href="#tally_slips_no_spread">tally_slips_no_spread = 1</a></code><br>
+    <code><a href="#terminology">terminology = 'pol'</a></code><br>
+    <code><a href="#tfile_encoding">tfile_encoding = 'utf8'</a></code><br>
+    <code><a href="#track_firsts">track_firsts = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'sgp'</td><td class=description>
+    <code><a href="#bye_firsts">bye_firsts = 'ignore'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'sgp'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'nsa'</a></code><br>
+    <code><a href="#surname_last">surname_last = 1</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'snic'</td><td class=description>
+    <code><a href="#entry">entry = 'sudoku'</a></code><br>
+    <code><a href="#pairing_system">pairing_system = 'none'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'snic'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'snic'</a></code><br>
+    <code><a href="#scores">scores = 'sudoku'</a></code><br>
+    <code><a href="#terminology">terminology = 'snic'</a></code><br>
+    <code><a href="#tfile_game">tfile_game = 'sudoku'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'sudoku'</td><td class=description>
+    <code><a href="#entry">entry = 'sudoku'</a></code><br>
+    <code><a href="#pairing_system">pairing_system = 'none'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'sudoku'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'sudoku'</a></code><br>
+    <code><a href="#scores">scores = 'sudoku'</a></code><br>
+    <code><a href="#terminology">terminology = 'sudoku'</a></code><br>
+    <code><a href="#tfile_game">tfile_game = 'sudoku'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'take5'</td><td class=description>
+    <code><a href="#entry">entry = 'sudoku'</a></code><br>
+    <code><a href="#pairing_system">pairing_system = 'none'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'take5'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'take5'</a></code><br>
+    <code><a href="#scores">scores = 'sudoku'</a></code><br>
+    <code><a href="#spread_bad">spread_bad = 1</a></code><br>
+    <code><a href="#terminology">terminology = 'sudoku'</a></code><br>
+    <code><a href="#tfile_game">tfile_game = 'sudoku'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'thai'</td><td class=description>
+    <code><a href="#bye_spread">bye_spread = 100</a></code><br>
+    <code><a href="#console_encoding">console_encoding = 'cp874'</a></code><br>
+    <code><a href="#csv_encoding">csv_encoding = 'windows-874'</a></code><br>
+    <code><a href="#localise_names">localise_names = 1</a></code><br>
+    <code><a href="#member_separator">member_separator = '-'</a></code><br>
+    <code><a href="#message_encoding">message_encoding = 'windows-874'</a></code><br>
+    <code><a href="#rating_list">rating_list = 'thai'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'thai'</a></code><br>
+    <code><a href="#spread_cap">spread_cap = 350</a></code><br>
+    <code><a href="#terminology">terminology = 'thai'</a></code><br>
+    <code><a href="#tfile_encoding">tfile_encoding = 'windows-874'</a></code><br>
+  </td></tr>
+  <tr><td class=usage>config realm = 'wespa'</td><td class=description>
+    <code><a href="#bye_spread">bye_spread = 100</a></code><br>
+    <code><a href="#rating_list">rating_list = 'wespa'</a></code><br>
+    <code><a href="#rating_system">rating_system = 'wespa'</a></code><br>
+  </td></tr>
+  <!-- end content generated by util/make-realm-defaults.pl -->
+</table>
+
+<h3><a name="pairings">Configuring Pairings</a></h3>
+
+<p class=p1>
+<cite>tsh</cite> has a number of 
+<a href="commands.html#pairing">pairings commands</a>,
+each of which adds one or more rounds of who-plays-whom information
+to the player data (&ldquo;.t&rdquo;) files.
+Pairing information must be entered before scoring information:
+the score entry command will not accept scores for players whose
+opponents are not yet known to the program.
+You should be familiar with the contents of the section on
+<a href="pairing.html">pairing theory</a> and have decided on
+one or more of the
+pairing systems described in that section
+for your tournament before reading further.
+</p>
+
+<p class=p1>
+There are four ways of telling <cite>tsh</cite> what kind of
+pairings to use: 
+<a href="#default_pairings">default</a>, 
+<a href="#automatic_pairings">automatic</a>, 
+<a href="#custom_pairings">custom</a> 
+and
+<a href="#manual_pairings">manual</a>
+pairings. 
+</p>
+
+<h4><a name="default_pairings">Default Pairings</a></h4>
+
+<p class=p1>
+With default pairings the only thing you  need to tell <cite>tsh</cite>
+is how many rounds your tournament is:
+</p>
+<pre>
+# The following config.tsh line says that this tournament has 12 rounds.
+<a href="#max_rounds">config max_rounds</a> = 12
+</pre>
+<p class=p1>
+After you enter the results for each round, ask <cite>tsh</cite>
+for the next round&rsquo;s pairings using the
+&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; command
+and it will compute
+<a href="pairing.html#chew">Chew pairings</a>.
+(If the number of rounds is large compared to the number of players,
+one or more round robins will be scheduled first.)
+The following 
+configuration options
+can be set to control how
+these
+default pairings work.
+See the detailed description of 
+<a href="config.html#options">configuration options</a>
+for their syntax.
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Option</th><th class=description>Effect</th><th>Utility</th></tr>
+<tr><td class=name><a href="#auto_koth_repeats">auto_koth_repeats</a></td>
+  <td class=description>If set, any final <a href="pairing.html#koth">KOTH</a> pairings induced by &ldquo;<code><a href="#force_koth">config force_koth</a></code>&rdquo; will have the specified number of repeats, rather than an unlimited number.</td>
+  <td>Sometimes used in South Africa for the sake of tradition.</td>
+  </tr>
+<tr><td class=name><a href="#avoid_sr_runs">avoid_sr_runs</a></td>
+  <td class=description>If set, minimise consecutive starts (1sts) or replies (2nds) when pairing a win group.</td>
+  <td>You might use this, if your players are likely to complain about long runs of starts or replies, and you don't mind slowing down the pairings a little.</td>
+  </tr>
+<tr><td class=name><a href="#flight_cap">flight_cap</a></td>
+  <td class=description>If set, overrides the cap on the size of the top flight.</td>
+  <td>Do not use, unless you are a pairings wizard.</td>
+  </tr>
+<tr><td class=name><a href="#gibson_class">gibson_class</a></td>
+  <td class=description>If set, restricts opponents of Gibsonized players to one named class.</td>
+  <td>You might use this, some but not all of your players are competing in this tournament to qualify for something else, and should not be penalized in their qualification attempt by having to play a Gibsonized opponent.</td>
+  </tr>
+<tr><td class=name><a href="#gibson_groups">gibson_groups</a></td>
+  <td class=description>Indicates final ranks that are to be considered equivalent when testing for Gibsonization.</td>
+  <td>You should only use this if you are a pairings wizard.</td>
+  </tr>
+<tr><td class=name><a href="#gibson_spread">gibson_spread</a></td>
+  <td class=description>Overrides default spread thresholds for <a href="pairing.html#gibsonization">Gibsonization</a>.</td>
+  <td>You should only use this in consultation with your governing rules body.</td>
+  </tr>
+<tr><td class=name><a href="#force_koth">force_koth</a></td>
+  <td class=description>If set, the last round will be KOTH even when default pairings are being used.</td>
+  <td>You might want to use this, if your (likely North American players) will rebel at the thought of a tournament that doesn&rsquo;t end in a KOTH.</td>
+  </tr>
+<tr><td class=name><a href="#initial_snaked">initial_snaked</a></td>
+  <td class=description>If set, and &ldquo;<code><a href="commands.html#initfontes">InitFontes</a></code>&rdquo; is invoked to generate first-round pairings, players are assigned to pairings groups in boustrophedonic order rather than randomly.</td>
+  <td>Use this if you mistakenly believe that is a good thing to allow players to engineer their first-round pairings in a high stakes tournament by sacrificing pretournament ratings points, or that ratings are sufficiently accurate for detailed seeding of players.</td>
+  </tr>
+<tr><td class=name><a href="#initial_schedule">initial_schedule</a></td>
+  <td class=description>If set, specifies a number of initial rounds that will be paired in a fixed schedule.</td>
+  <td>It&rsquo;s not a bad idea to set this if you have the number of players is much larger than the number of rounds, or if you want to give yourself some breathing space early in your tournament.</td>
+  </tr>
+<tr><td class=name><a href="#interleave_rr">interleave_rr</a></td>
+  <td class=description>If set, players in a multiple round robin play each opponent in turn, rather than each opponent repeatedly before moving on to the next.</td>
+  <td>This option is not set by default, because tournaments run much faster when players don&rsquo;t have to move from round to round. Some players get bored playing the same opponent repeatedly though, which is why we have this option.</td>
+  </tr>
+<tr><td class=name><a href="#max_rounds">max_rounds</a></td>
+  <td class=description>Specifies the length of the tournament in rounds.</td>
+  <td>Required.</td>
+  </tr>
+<tr><td class=name><a href="#no_initial_rr">no_initial_rr</a></td>
+  <td class=description>If set, there will be no initial round robin phase, even if there are enough rounds to accommodate one.</td>
+  <td>Used in large tournaments including players with widely ranging skill levels.</td>
+  </tr>
+<tr><td class=name><a href="#pairing_system">pairing_system</a></td>
+  <td class=description>Explicitly set to indicate which of 'auto', 'chew', 'manual' or 'nast' pairings you want.</td>
+  <td>Required when using NAST pairings, optional otherwise.</td>
+  </tr>
+<tr><td class=name><a href="#prize_bands">prize_bands</a></td>
+    <td class=description>Should be set to indicate which final ranks are 
+      equivalent.  If you do not set it, you will be warned that you have not set it each time pairings are calculated.</td>
+  <td>Strongly advised.</td>
+  </tr>
+<tr><td class=name><a href="#random_rr_order">random_rr_order</a></td>
+  <td class=description>If set, the top seed in a round robin is paired against randomly ordered opponents; if not set, the top seed faces opposition of increasing strength.</td>
+  <td>Used in Ireland, and useful in reducing data input errors in multi-division events.</td>
+  </tr>
+<tr><td class=name><a href="#session_breaks">session_breaks</a></td>
+    <td class=description>If set, pairings may be calculated based Fontes-style on the second preceding round&rsquo;s scores during sessions. If not set, pairings will only be calculated once the immediately preceding round&rsquo;s scores have all been entered.</td>
+  <td>Strongly advised.</td>
+  </tr>
+  <tr><td class=name><a href="#top_down_swiss">top_down_swiss</a></td><td class=description>If set, disable bidirectional optimization of <a href="pairing.html#swiss">Swiss pairings</a>.</td><td>Use where strict Swiss pairings are required.</td></tr>
+</table>
+
+<h4><a name="automatic_pairings">Automatic Pairings</a></h4>
+
+<p class=p1>
+If you prefer to have more control over your tournament&rsquo;s
+pairings, or have advertised the use of a specific system that
+is not the <cite>tsh</cite> default,
+you should use automatic pairings.
+This involves pre-entering all the pairings commands that you expect
+to use into the configuration file, where they will be automatically
+triggered when the time is right.
+</p>
+<p class=p1>
+Each 
+auto-pairing configuration
+line consists of the command word &ldquo;<code>autopair</code>&rdquo;,
+a division name, the number of the round whose results must all
+be in before pairings can be calculated, the number of the round
+whose pairings will be calculated, and then a tsh command that
+generates the pairings.  
+</p>
+<p class=p1>
+For example, you can tell <cite>tsh</cite> that the first seven rounds
+of your two-division event is a round-robin, 
+and the eighth round is a king-of-the-hill
+(KOTH):
+</p>
+<pre>
+# When Div. A has no scores and needs Rd. 1 pairings: RoundRobin A
+autopair a 0 1 rr a
+# When Div. B has no scores and needs Rd. 1 pairings: RoundRobin B
+autopair b 0 1 rr b
+# When Div. A has Rd. 7 scores and needs Rd. 8 pairings: 
+# KOTH with one repeat allowed based on Rd. 7 standings, Division A
+autopair a 7 8 koth 1 7 a
+# When Div. B has Rd. 7 scores and needs Rd. 8 pairings: 
+# KOTH with one repeat allowed based on Rd. 7 standings, Division B
+autopair b 7 8 koth 1 7 b
+</pre>
+<p class=p1>
+When you ask for the first round&rsquo;s pairings <cite>tsh</cite>
+will compute the round-robin, then later on when you have entered
+scores for the first seven rounds you can ask <cite>tsh</cite> for
+the eight round&rsquo;s pairings and it will compute the KOTH.
+If you ask for Round 8 pairings before all results are in for Round 7,
+<cite>tsh</cite> will remind you that it can&rsquo;t compute them yet.
+</p>
+<p class=p1>
+Here&rsquo;s a slightly more complicated example, for a six-round 
+two-division tournament where the first three rounds are paired
+using the 
+&ldquo;<code>InitFontes</code>&rdquo; command,
+the next two are paired Swiss based on Round 3 standings
+but with no repeats, and
+the last is a KOTH based on Round 5 standings with repeats permitted:
+</p>
+<pre>
+autopair a 0 1 if 3 a
+autopair a 3 4 ns 0 3 a
+autopair a 3 5 ns 0 3 a
+autopair a 5 6 koth 1 5 a
+autopair b 0 1 if 3 b
+autopair b 3 4 ns 0 3 b
+autopair b 3 5 ns 0 3 b
+autopair b 5 6 koth 1 5 b
+</pre>
+<p class=p1>
+As explained in the <a href="#manual_pairings">section on manual pairings</a>, you might still need to resort
+to manual pairings even when you have planned on using automatic pairings.
+</p>
+
+  </tr>
+</table>
+
+
+<h4><a name="custom_pairings">Custom Pairings</a></h4>
+
+<p class=p1>
+Some directors have developed regionally popular idiosyncratic pairing systems.
+For example, you might have a few rounds paired according to a fixed schedule,
+a few rounds of Swiss, and a few rounds of KOTH.
+You can select one of these by specifying a value for the
+&ldquo;<code><a href="#pairing_system">pairing_system</a></code>&rdquo;
+configuration option.
+The &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;
+command will then generate pairings appropriate to the specified custom pairing system.
+</p>
+
+<p class=p1>
+To add a new custom pairing system to <cite>tsh</cite>, please submit your request
+at least 1-2 months before its first planned use.
+</p>
+
+<h4><a name="manual_pairings">Manual Pairings</a></h4>
+
+<p class=p1>
+You should use manual pairings if you do not know in advance exactly
+how you will be pairing the tournament, such as when you haven&rsquo;t 
+decided when to start allowing repeats.
+</p>
+<p class=p1>
+You might also find during your tournament that the automatic system
+you specified is impossible.
+For example, you might have asked for a round-robin followed by a
+KOTH with no repeats.
+You can quit <cite>tsh</cite>, edit the automatic pairing instructions
+and then try again, but if you&rsquo;re under time pressure you&rsquo;ll
+likely prefer to just enter the 
+<a href="commands.html#pairing">pairings commands</a> directly and manually.
+</p>
+
+<h3><a name=prizes>Prize Declarations</a></h3>
+
+<p class=p1>
+The &ldquo;<a href="reports.html#prizes"><code>PRiZes</code></a>&rdquo;
+command lists all the prizes you are awarding, and if it can be automatically
+determined, who won them.  If you want to use this command, you need to
+list your prizes in your configuration file using the 
+&ldquo;<code>prize</code>&rdquo; instruction.
+You need one instruction in the file for each prize you are awarding.
+For example, if you are awarding a high game prize in each of four
+divisions, it will take four instructions to describe them.
+Unlike with most other lines in your configuration file, the order in
+which you enter prize instructions is important, as that is the order
+in which they will appear in the subsequent report.
+</p>
+<p class=p1>
+Here are some examples of actual prize instructions from recent events:
+</p>
+<pre>
+prize note Place Prizes
+prize rank 1 1 $25000
+prize rank 2 1 $10000
+prize separator
+prize note Miscellaneous Automatically Calculated Prizes
+prize tuffluck 1 1 $50
+prize rank 1 1 $200 groupname='55+ Senior' members=[2,5,6,21,22,23,28,30,42,46,51,52,53,68,69,72,74,78,82,85,91,101,102]
+prize brlh 1 1 $200 first=15 last=21 prizename='Division 1 Best Record Day 3 Lower Half'
+prize highroundwin 1 1 $20 round=1
+prize highroundloss 1 1 $20 round=28
+prize lowwin 1 1 $20
+prize separator
+prize note Signup Prizes
+prize signup 'Division 1 Biggest Comeback' 1 $75
+# the following line awards a trophy to the top ranked player in division 4 class N
+prize rank 1 4 Trophy groupname='Newcomers' class=N prizename="Newcomers Trophy"
+</pre>
+<p class=p1>
+Each line has several items, separated by one or more spaces. 
+If an item has a space in it,
+such as &ldquo;<code>'Division 1 Biggest Comeback'</code>&rdquo;,
+enclose it in matching single or double quotes.
+</p>
+<ol>
+<li>
+The first item has to be the word &ldquo;<code>prize</code>&rdquo;,
+to identify the line as a prize declaration.
+</li>
+<li>
+The second item is the prize type: a <a href="#prizetypes">complete list</a>
+can be found below.
+</li>
+<li>
+The third item is the prize subtype: usually the rank a player has to attain
+in the category determined by the prize type in order to win the prize.
+In the example above, first place wins $25,000 and second place wins $10,000.
+Negative ranks count from the bottom of the field.
+</li>
+<li>
+The fourth item is the name of the division to which the player must belong
+in order to qualify for the prize.  In the example above, all prizes are in
+Division 1.  Many prize categories understand division &ldquo;<code>*</code>&rdquo; to 
+include any division.
+</li>
+<li>
+The fifth item is the amount of the prize.  This may be a cash value, or
+a description of merchandise.
+</li>
+</ol>
+
+<p class=p1>
+In addition to these five items, you may have extra items consisting
+of an item label, an equals sign, and an item value.
+A <a href="#prizeextras">complete list</a> of these can also be found below.
+</p>
+
+<p class=p1>
+<a name=prizetypes>Here</a> is a list of all currently defined prize types.  If you want to compute
+a prize that is not listed below, please ask and it will be added.
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr>
+    <th class=name>Prize Type</th>
+    <th class=description>Description</th>
+  </tr>
+  <tr>
+    <td class=name>brlh</td>
+    <td class=description>
+      Computes the U.S. NSC's "Best Record Lower Half".
+      Requires two extra items: 
+      &ldquo;<code>first</code>&rdquo;
+      and
+      &ldquo;<code>last</code>&rdquo;.
+      Ranks players according to their record in the range of rounds
+      that these specify, excluding any players who either did not play
+      any games in that range, or began the range ranked in the upper
+      half of the field.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>highloss</td>
+    <td class=description>
+      Ranks players according to the highest-scoring loss they recorded.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>highratingchange</td>
+    <td class=description>
+      Ranks players according to their rating changes.
+      Excludes unrated players unless
+      &ldquo;<code>unratedok=1</code>&rdquo; is specified.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>highroundloss</td>
+    <td class=description>
+      Requires one extra item: 
+      &ldquo;<code>round</code>&rdquo;.
+      Ranks players according to the highest-scoring loss they recorded
+      in the designated round (or hyphen-separated range of rounds).
+    </td>
+  </tr>
+  <tr>
+    <td class=name>highroundwin</td>
+    <td class=description>
+      Requires one extra item: 
+      &ldquo;<code>round</code>&rdquo;.
+      Ranks players according to the highest-scoring win they recorded
+      in the designated round (or hyphen-separated range of rounds).
+    </td>
+  </tr>
+  <tr>
+    <td class=name>highwin</td>
+    <td class=description>
+      Ranks players according to the highest-scoring win they recorded.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>lowwin</td>
+    <td class=description>
+      Ranks players according to the lowest-scoring win they recorded.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>luckystiff</td>
+    <td class=description>
+      Ranks players according to their lucky stiffness (smallest margin
+      by which they won six games).
+    </td>
+  </tr>
+  <tr>
+    <td class=name><a name=prize_note>note</a></td>
+    <td class=description>
+      Adds a note to the prize table.
+    </td>
+  </tr>
+  <tr>
+    <td class=name><a name=prize_overexp>overexp</a></td>
+    <td class=description>
+      Ranks players according to how many more games they won than their rating expectation.
+    </td>
+  </tr>
+  <tr>
+    <td class=name><a name=prize_overseed>overseed</a></td>
+    <td class=description>
+      Ranks players according to how high they climbed from their original rating-based seed.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>rank</td>
+    <td class=description>
+      Ranks players according to their wins, losses and cumulative spread.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>roundrecord</td>
+    <td class=description>
+      Ranks players according to their wins, losses and cumulative spread over a range of rounds specified by &ldquo;<code>first</code>&rdquo; and &ldquo;<code>last</code>&rdquo;.
+    </td>
+  </tr>
+  <tr>
+    <td class=name><a name=prize_separator>separator</a></td>
+    <td class=description>
+      Leaves a blank line in the prize table; other arguments are ignored and may
+      be omitted.
+    </td>
+  </tr>
+  <tr>
+    <td class=name><a name=prize_totalteam>totalteam</a></td>
+    <td class=description>
+      Ranks teams according to the average record of their members in all divisions.  See &ldquo;<a href="#minimum_prize_team"><code>config minimum_prize_team</code></a>&rdquo;
+    </td>
+  </tr>
+  <tr>
+    <td class=name>tuffluck</td>
+    <td class=description>
+      Ranks players according to the sum of the spreads of their six
+      closest losses.
+    </td>
+  </tr>
+  <tr>
+    <td class=name>upset</td>
+    <td class=description>
+      Ranks players according to the difference between their rating
+      and the rating of the highest stronger player whom they were
+      able to defeat.  Unlike the a <a href="commands.html#upsets">UPSETs</a>
+      command, this version does not consider occasions when an unrated
+      player defeats a higher-rated one.
+    </td>
+  </tr>
+</table>
+
+
+<p class=p1><a name=prizeextras>Here</a> is a table of extra items that
+may be added to any prize declaration to refine the way prizes are awarded.
+Each must be followed by an &ldquo;<code>=</code>&rdquo; and a value.
+There must not be spaces before or after the &ldquo;<code>=</code>&rdquo;.
+If the value includes spaces, the entire value must be enclosed in
+&ldquo;<code>'</code>&rdquo;.
+</p>
+
+<table class=commands>
+  <tr>
+    <th class=name>Label</th>
+    <th class=description>Description</th>
+  </tr>
+  <tr>
+    <td class=name>class</td>
+    <td class=description>The value assigned should be a <a href="#class">class</a> name.  If this extra item is used, it restricts prize eligibility to players belonging to the designated class.</td>
+  </tr>
+  <tr>
+    <td class=name>exclusive</td>
+    <td class=description>If a value is assigned to this item, it designates an exclusive prize category. A player may win at most one prize from any one exclusive prize category. If they are eligible for two prizes, they will be awarded the first one listed, and the second prize will go to the next contender. If you are using this to award class prizes, list your prizes in decreasing order of value, with class prizes ahead of place prizes of equal value. You may also wish to specify &ldquo;<a href="#show_honourable_mention"><code>config show_honourable_mention</code></a>&rdquo; to list the additional prizes that a player would have won had exclusivity not been in effect.</td>
+  </tr>
+  <tr>
+    <td class=name>first</td>
+    <td class=description>Specifies the first in a range of rounds for the &ldquo;<code>brlh</code>&rdquo; and &ldquo;<code>roundrecord</code>&rdquo; prize types.</td>
+  </tr>
+  <tr>
+    <td class=name>groupname</td>
+    <td class=description>If a value is assigned to this item, the default name for this prize will display it between the division name and the prize name.</td>
+  </tr>
+  <tr>
+    <td class=name>last</td>
+    <td class=description>Specifies the last in a range of rounds for the &ldquo;<code>brlh</code>&rdquo; and &ldquo;<code>roundrecord</code>&rdquo; prize types.</td>
+  </tr>
+  <tr>
+    <td class=name>memberfile</td>
+    <td class=description>The value assigned should be the name of a file which lists player names, exactly as they appear in data files.  If this extra item is used, it restricts prize eligibility to the designated players, who might be of a particular age group or from a particular country.</td>
+  </tr>
+  <tr>
+    <td class=name>members</td>
+    <td class=description>The value assigned should be a comma-separated list of player IDs, enclosed in [square brackets].  If this extra item is used, it restricts prize eligibility to the designated players, who might be of a particular age group or from a particular country.</td>
+  </tr>
+  <tr>
+    <td class=name>order</td>
+    <td class=description>Prizes are computed in the order in which they appear in the configuration file. (This matters if some prizes are exclusive of others.) If this option is specified though, the prizes will be arranged for display purposes according to this order value, with ties broken by placement in the configuration file.</td>
+  </tr>
+</table>
+
+<h3><a name=encoding>Encoding Directives</a></h3>
+<p class=p1>
+If you need to have text in your configuration file that is not in the
+ISO 8859-1 (Latin) character encoding, use the &ldquo;<code>encoding</code>&rdquo;
+directive to specify an alternate encoding.  The new encoding should be named in
+the directive following white space, and takes effect immediately.
+If you have no idea what this is about, be thankful.
+</p>
+
+<h3><a name=perl>Raw Perl Commands</a></h3>
+<p class=p1>
+Experienced thrill-seekers may also add lines to the &ldquo;config.tsh&rdquo; file
+which begin with the keyword 
+&ldquo;<code>perl</code>&rdquo;.  This is about as safe as using
+the tsh shell command 
+&ldquo;<code>eval</code>&rdquo;, and does the same thing: it evaluates
+its argument as a string.  
+There is currently no good reason for using this feature.
+</p>
+
+<h2><a name=tfiles>The &ldquo;.t&rdquo; Files</a></h2>
+
+<p class=p1>
+A &ldquo;.t&rdquo; file contains all the information for a division, and must
+be in the same subdirectory as your &ldquo;config.tsh&rdquo; file.  It&rsquo;s a text
+file that can be edited with a text editor if need be, and is usually
+created in the first place using a text editor.  You may have received
+&ldquo;.t&rdquo; files for your tournament with your tsh distribution, but you should
+be familiar with the content of this section in case of no-shows and
+walk-ins.
+</p>
+<p class=p1>
+There is an experimental script for importing data from TourneyMan
+files.  It&rsquo;s called &ldquo;parsetm&rdquo;, is found in the
+&ldquo;util/&rdquo; directory and can be invoked from the command-line
+to turn one &ldquo;.ltm&rdquo; file at a time into a &ldquo;.t&rdquo;
+file.
+It has been thoroughly tested on the version of TourneyMan to be used at the 
+2005 US NSC.
+</p>
+
+<p class=p1>
+A &ldquo;.t&rdquo; file should contain one line per player.  The line should look
+something like this:
+</p>
+
+<pre>
+Chew, John   1850 400 450 350; 10 4 3; p12 1 2 2; board 1 1 3
+</pre>
+
+<p class=p1>
+In this example, a player named John Chew entered the tournament with
+a rating of 1850.  In round 1, he played player #10 and scored 400 points.
+In round 2, he played player #4 and scored 450 points.  In round 3,
+he played player #3 and scored 350 points.  
+He went first in round 1 and second in rounds 2 and 3.
+He played at board #1 in rounds 1 and 2, and at board #3 in round 3.
+Anywhere where there is a space on the line, <cite>tsh</cite> will tolerate
+as many spaces as you like, but please do not use tabs.
+Of course, adding spaces within a player&rsquo;s name will make many reports
+look odd.
+</p>
+
+<p class=p1>
+Scores and opponent numbers may have the special value 
+&ldquo;<code>00</code>&rdquo;,
+indicating that the value
+has not yet been assigned.
+This should not be confused with the
+&ldquo;<code>0</code>&rdquo;
+that indicates a bye.
+
+</p>
+
+<p class=p1>
+Players must be listed in order of player number, beginning with
+player number 1.  Note that this means that players must be numbered
+within each division starting at 1.  Unless you feel strongly otherwise,
+you should number players beginning with the highest-rated.
+If you want to number players in
+two divisions in one numbering system without restarting from 1 at
+the top of the second division, you must call the two divisions one
+division for data entry purposes.
+</p>
+
+<p class=p1>
+When you first set up a tournament file, it will probably contain only
+player names and ratings.   So your file will look something like:
+</p>
+
+<pre>
+Chew, John          1850 
+Saint John, Sherrie 1300 
+Chew, Kristen       1200 
+</pre>
+
+<p class=p1>Player names may include any characters other than semicolons,
+and must not end in a digit. 
+If you will be submitting your tournament results to a rating system,
+then you should spell your player names exactly the way that they
+appear in official rating lists.
+If you really have to have a player name
+that ends in a digit (it has happened), put a comma after the final digit
+and the comma will be silently omitted in reports.
+Player names should be entered as shown above, with the surname
+(last name) first followed by a comma.
+If you do not do so, a few commands which need to know how to split
+names into given names (first names) and surnames will not function.
+</p>
+
+<p class=p1>
+Not all files contain the same information for players.
+Some information only appears if some optional features are
+enabled.  
+Each set of optional data is preceded by a semicolon and an identifying
+keyword.  At present, the following extensions are in use:
+</p>
+
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Keyword</th><th class=description>Data</th></tr>
+  <tr><td class=name>board</td>
+  <td class=description>
+    Lists at which board the player played in each round.
+    This is typically set by the &ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;
+    command the first time pairings for the round are shown, and
+    not changed thereafter.
+  </td>
+  </tr>
+
+<tr>
+  <td class=name><a name="x_class">class</a></td>
+<td class=description>If present, should be followed by a single-word class name: typically &lsquo;A&rsquo;, &lsquo;B&rsquo;....
+  Will be set automatically by the &ldquo;<code><a href="#class">classes</a></code>&rdquo; configuration command, overriding any previously set values.  Is used by report generation commands to indicate which class a player belongs to.
+</td></tr>
+
+<tr>
+<td class=name>cume</td>
+<td class=description>Is present if the player&rsquo;s cume must be set to a
+given value.  
+It should be used with extreme caution, as it will override the regular
+calculation of cume in all rounds.
+This feature is not yet fully implemented.
+</td></tr>
+
+<tr>
+  <td class=name><a name=cumeadj>cumeadj</a></td>
+<td class=description>Is present if the player&rsquo;s cume must be adjusted,
+typically to compensate for a misadjudication.
+It should be followed by one or two values, the first the amount of
+the adjustment, the second the round in which the adjustment should
+first be applied.
+This feature is not yet fully implemented.
+</td></tr>
+
+<tr>
+  <td class=name><a name=etc_initrec>initrec</a></td>
+  <td class=description>If set, specifies an initial record of wins, losses, spread, capped spread or score
+    sum with which the player is understood to have begun the event.
+</td></tr>
+
+<tr>
+  <td class=name><a name=etc_lifeg>lifeg</a></td>
+<td class=description>If set, indicates the number of games that the player
+  has played in his life, used for ratings computations. If not set, a value of
+  50 is assumed.
+</td></tr>
+
+<tr>
+<td class=name>off</td>
+<td class=description>Is present if the player is inactive for pairing
+purposes.  It is followed by a single integer, indicating what spread
+ought to be awarded to them for each missed game.  
+This feature is not yet fully implemented.
+</td></tr>
+
+<tr>
+<td class=name>initrec</td>
+<td class=description>If present, specifies a record (e.g. &ldquo;5 2 1000 800&rdquo; for a player who had 5 wins, 2 losses, +1000 spread and +800 capped spread) that a player is credited with at the start of the event.
+</td></tr>
+
+<tr><td class=name>p12</td>
+<td class=description>
+Lists whether the player went first (1) or
+second (2) in each round.  Rounds where the player went neither first
+nor second are marked 0, rounds where the player is paired but has to
+randomly determine whether or not s/he goes first are marked 3,
+rounds where <cite>tsh</cite> is not sure who will go first or
+even whether a random determination will be required are marked 4.
+</td>
+</tr>
+
+<tr><td class=name><a name=etc_pname>pname</a></td>
+<td class=description>
+Specifies how a player&rsquo;s name should be displayed in reports,
+possibly using Unicode characters not available at the console.
+You may need to specify
+a <a href="#tfile_encoding">tfile_encoding</a> to use certain characters.
+</td>
+</tr>
+
+<tr>
+  <td class=name><a name=etc_password>password</a></td>
+<td class=description>Specifies a player&rsquo;s password for self-service scoring.
+</td></tr>
+
+<tr><td class=name><a name=etc_sbname>sbname</a></td>
+<td class=description>
+Specifies how a player&rsquo;s name should be displayed by the
+&ldquo;<code><a href="commands.html#enhancedscoreboard"><code>EnhancedScoreBoard</a></code>&rdquo; command.
+You may need to specify
+a <a href="#tfile_encoding">tfile_encoding</a> to use certain characters.
+</td>
+</tr>
+
+<tr>
+  <td class=name><a name=etc_seat>seat</a></td>
+  <td class=description>Specifies a player&rsquo;s seat for realms where seats are numbered instead of boards.</td></tr>
+
+<tr><td class=name><a name=etc_tag>tag</a></td>
+<td class=description>
+  Tags a game with a user-specific label, used by NASPA for identifying game lexicon in hybrid
+  CSW-TWL events.
+</td>
+</tr>
+
+<tr><td class=name><a name=etc_team>team</a></td>
+<td class=description>
+  Names the player&rsquo;s team, for use in <a href="teams.html">team tournaments</a>.
+  The value is a case-sensitive sequence of words; each instance of white space is collapsed to a single space.
+  This field is also used to identify flags to appear in 
+  <a href="scoreboard.html#player">scoreboard player</a> boxes.
+</td>
+</tr>
+
+<tr><td class=name><a name=etc_twitter>twitter</a></td>
+<td class=description>
+  Gives the player&rsquo;s Twitter handle, which will replace their name in tweets
+  issued by the &ldquo;<code><a href="commands.html#tweet">TWEET</a></code>&rdquo; command.
+</td>
+</tr>
+
+</table>
+
+<p class=p1>
+If you have an Internet connection, you can update the tournament ratings
+in your player data files at any time using first the
+&ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo;
+command and then the
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command.
+This command is not available for all <a href="#realm">realms</a>.  
+If it doesn't work in yours, please ask for rating support to be added.
+</p>
+
+<h2><a name=archive>&ldquo;.tsh&rdquo; Archive Files</h2>
+
+<p class=p1>
+The 
+&ldquo;<code><a href="commands.html#bugreport">BUGreport</a></code>&rdquo; 
+and
+&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo; 
+commands
+generates (and depending on configuration may upload) an
+archive file which concatenates the configuration file with
+copies of each division data file wrapped between marker lines.
+Here&rsquo;s a very simple example.
+</p>
+
+<pre>
+config event_name = "Sample Event"
+config max_rounds = 2
+division A a.t
+division B b.t
+#begin_file name=a.t
+Chew, John    1800 2 2 ; 400 350
+Chew, Kristen 1400 1 1 ; 350 400
+#end_file name=a.t
+#begin_file name=b.t
+Chew, Jamie 1000 2 2 ; 400 350
+Chew, Liam   500 1 1 ; 350 400
+#end_file name=b.t
+</pre>
+
+<p class=p1>
+You may use this as an archive format for past events.
+<cite>tsh</cite> will accept an archive name as a command-line
+argument, but treats its data as read-only.
+</p>
+
+<h2><a name=profile>User Profile</h2>
+
+<p class=p1>
+If you find yourself running a lot of similarly configured events and want
+to save the common configuration instructions in one place, you can do so
+in your user profile using the &ldquo;<code><a href="commands.html#profile">PROFILE</a></code>&rdquo;
+command.  
+This command lets you manipulate a file called &ldquo;lib/profile.tsh&rdquo;
+that is currently identical in format to your &ldquo;config.tsh&rdquo; files, but is
+not intended to be edited directly.
+</p>
+<p class=p1>
+A good value to store in your profile is 
+<a href="#realms">configuration realm</a>.
+</p>
+
+<h2><a name=dryrun>Dry Run</a></h2>
+
+<p class=p1>
+Once you have everything set up, preferably a few days before your 
+tournament, you should try a dry run of your event.
+The easiest way to do this is to use the
+&ldquo;<code><a href="commands.html#dryrun">DRYrun</a></code>&rdquo; command,
+which runs an entire tournament for one division on random data using 
+the pairings you configured.
+After you&rsquo;ve looked at all the reports it has generated, use the
+&ldquo;<code><a href="commands.html#reseteverything">RESETEVERYTHING</a></code>&rdquo; command
+to delete all the test data.
+</p>
+
+<p class=p1>
+If you want finer control over the dry run, you can do what it does
+manually using the
+&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo; and
+&ldquo;<code><a href="commands.html#randomscores">RANDomscores</a></code>&rdquo;
+commands.
+</p>
+
+<p class=p1>
+There are also a number of unsupported scripts in the
+&ldquo;util/&rdquo; folder which do further analysis on dry runs,
+for the purposes of compiling statistics on pairing systems and
+predicting event winners.
+</p>
+
+<h2>Backups and Redundancy</h2>
+
+<p class=p1>
+Now is a good time to think about what to do if disaster
+strikes.
+You should always bring an extra computer, extra printer and extra
+ink cartridges.
+If you are running a multidivision tournament and have extra staff,
+then you can use the extra equipment to split the data entry task
+across two installations of 
+<cite>tsh</cite>, combining the two if some of your hardware fails.
+</p>
+
+<p class=p1>
+<cite>tsh</cite> journals a copy of every
+&ldquo;.t&rdquo; file after every change,
+which is useful for correcting errors, but
+not helpful if your hard disk crashes or your computer dies.
+Follow the standard rule for backups: make a copy of important
+files often enough that you don&rsquo;t mind having to type in any changes
+since your last backup.
+For &ldquo;.t&rdquo; files, this should be somewhere between
+every round (to be safe) and every session (to live dangerously).
+Back up files to other computers, the net, and/or removable media.
+</p>
+
+<p class=p1>
+If your computer fails and you do not have a spare computer, announce
+what has happened, gather scorecards and any qualified directors and
+do pairings by hand.
+Then write out &ldquo;I will not run a tournament without a spare computer&rdquo;
+enough times by hand that you learn your lesson.
+</p>
+
+<p class=p1>
+If your printer fails or you run out of ink, in a small tournament
+you can probably write out or announce pairings aloud, especially if
+you just need to cover until you can find a replacement cartridge.
+</p>
+
+</body>
+</html>
+

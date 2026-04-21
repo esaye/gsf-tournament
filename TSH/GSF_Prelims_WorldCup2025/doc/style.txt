@@ -1,0 +1,29 @@
+Style sheet for proofreading tsh documentation
+
+<pre>
+1&ndash;10
+  when typographically appropriate
+apostrophe&rsquo;s
+  except in <title>
+&ldquo;quoted text&rdquo;
+  always
+&ldquo;<code>command names and other input text</code>&rdquo;
+  - except in table listing all commands, where quotation marks are omitted
+  - command names are given in MixedCase with capital letters showing
+    permissible abbreviations when shown in their longest form, and in
+    lowest case when showing the abbreviated form
+&ldquo;names of keys on keyboard&rdquo;
+  always
+&ldquo;filename&rdquo;
+  always
+&ldquo;.t&rdquo;
+  always
+<p class=p1>Regularly indented paragraph</p>
+  always
+<cite>tsh</cite>
+  except in <title>
+<em>emphasized text</em>
+  rather than italics
+his/her, s/he
+  rather than their, them
+</pre>

@@ -1,0 +1,1083 @@
+division P p/p.t
+division A me/a.t
+division B me/b.t
+
+owner Albert Hahn
+player Cappelletto, Brian
+player Armstrong, Peter
+player Saldanha, Dean
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Alyssa Faria A
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Le, Cecilia
+player Harrison, Ben
+player Lipkin, Seth
+ 
+owner Alyssa Faria B
+player Sherman, Joel
+player Cree, Chris
+player Poder, David
+player Bader, Aaron
+player Barron, Mic
+player Bihlmeyer, Joe
+
+owner Ann Sanfedele
+player Sherman, Joel
+player Kaitz, Merrill
+player Tiekert, Ron
+player Avrin, Paul
+player Sanfedele, Ann
+player Freehof, Ira
+
+owner Billy Rayne
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Bob Becker A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Saul, Steve
+player Bader, Aaron
+player Becker, Bob
+player Freehof, Ira
+ 
+owner Bob Becker B
+player Cappelletto, Brian
+player Van Pelt, John
+player Buck, Richard
+player Fidler, Mark
+player Becker, Bob
+player Lipkin, Seth
+
+owner Cecilia Le A
+player Cappelletto, Brian
+player Armstrong, Peter
+player Tiekert, Ron
+player Le, Cecilia
+player Barron, Mic
+player Faria, Alyssa
+
+owner Cecilia Le B
+player Mallick, Joey
+player MacNeil, Rod
+player Tiekert, Ron
+player Saldanha, Dielle
+player Harrison, Ben
+player Lipkin, Seth
+
+owner Cecilia Le C
+player Sherman, Joel
+player MacNeil, Rod
+player Saldanha, Dean
+player Le, Cecilia
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Charlene White A
+player Daniel, Robin Pollock
+player Armstrong, Peter
+player Kreiswirth, Rose
+player Saldanha, Dielle
+player Greenwood, Ben
+player Spiller, Diana
+ 
+owner Charlene White B
+player Weinike, Joe
+player Wapnick, Joel
+player Viloria, John
+player Tiekert, Susi
+player Becker, Bob
+player Flisock, Olinga
+ 
+owner Charlene White C
+player Appel, Scott
+player Kaitz, Merrill
+player Saldanha, Dean
+player Schoneboom, Marjorie
+player Gardenswartz, Nat
+player Chase, Carla
+ 
+owner Charlene White D
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Bader, Aaron
+player Goldstein, Eric
+player Fukawa-Connelly, Kate
+
+owner Chris Economos A
+player Cappelletto, Brian
+player Piro, Sal
+player Viloria, John
+player Bader, Aaron
+player Barron, Mic
+player Freehof, Ira
+ 
+owner Chris Economos B
+player Katz-Brown, Jason
+player Hart, John
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Faria, Alyssa
+ 
+owner Chris Economos C
+player Cappelletto, Brian
+player Hart, John
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Wolfe, Charmaine
+
+owner Chris Lipe
+player Katz-Brown, Jason
+player MacNeil, Rod
+player Saldanha, Dean
+player Bader, Aaron
+player Colosa, Kevin
+player Lipkin, Seth
+
+owner Diane Firstman A
+player Cappelletto, Brian
+player Van Pelt, John
+player Tiekert, Ron
+player Avrin, Paul
+player Wolfberg, Michael
+player Freehof, Ira
+
+owner Diane Firstman B
+player Cappelletto, Brian
+player Piro, Sal
+player Stegman, Debbie
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Diane Firstman C
+player Cappelletto, Brian
+player Wapnick, Joel
+player Ellickson, Robert
+player Bader, Aaron
+player Barron, Mic
+player Bihlmeyer, Joe
+
+owner Dielle Saldanha
+player Katz-Brown, Jason
+player Cree, Chris
+player Saldanha, Dean
+player Saldanha, Dielle
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Emely Weissman A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Emely Weissman B
+player Mills, Lloyd
+player Kantimathi, Sam
+player Poder, David
+player Oliger, Steve
+player Harrison, Ben
+player Lipkin, Seth
+
+owner Eric Goldstein A
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Goldstein, Eric
+player Freehof, Ira
+ 
+owner Eric Goldstein B
+player Sherman, Joel
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Colosa, Kevin
+player Freehof, Ira
+ 
+owner Eric Goldstein C
+player Sherman, Joel
+player MacNeil, Rod
+player Tangredi, Frank
+player Baron, Mike
+player Goldstein, Eric
+player Lipkin, Seth
+ 
+owner Evan Berofsky A
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Przybyszewski, Mark
+player Harrison, Ben
+player Bihlmeyer, Joe
+ 
+owner Evan Berofsky B
+player Sherman, Joel
+player Wapnick, Joel
+player Saldanha, Dean
+player Bader, Aaron
+player Gardenswartz, Nat
+player Broersma, Jason
+ 
+owner Evan Berofsky C
+player Edley, Joe
+player Armstrong, Peter
+player Mills, Jan
+player Baron, Mike
+player Wolfberg, Michael
+player Faria, Alyssa
+ 
+owner Frank Tangredi A
+player Cappelletto, Brian
+player Cree, Chris
+player Tangredi, Frank
+player Saldanha, Dielle
+player Gardenswartz, Nat
+player Broersma, Jason
+
+owner Frank Tangredi B
+player Mallick, Joey
+player Armstrong, Peter
+player Tiekert, Ron
+player Baron, Mike
+player Wolfberg, Michael
+player Bihlmeyer, Joe
+
+owner Frank Tangredi C
+player Katz-Brown, Jason
+player MacNeil, Rod
+player Saldanha, Dean
+player Bader, Aaron
+player Goldstein, Eric
+player Kitchen, Scott
+
+owner Ira Freehof A
+player Sherman, Joel
+player Piro, Sal
+player Stegman, Debbie
+player Avrin, Paul
+player Goldstein, Eric
+player Freehof, Ira
+ 
+owner Ira Freehof B
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Colosa, Kevin
+player Freehof, Ira
+ 
+owner Ira Freehof C
+player Cappelletto, Brian
+player Armstrong, Peter
+player Tiekert, Ron
+player Bader, Aaron
+player Barron, Mic
+player Broersma, Jason
+ 
+owner Ira Freehof D
+player Edley, Joe
+player O'Laughlin, John
+player Fogel, Daniel
+player Saldanha, Dielle
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Jamie Ryan A
+player Cappelletto, Brian
+player MacNeil, Rod
+player Saldanha, Dean
+player Bader, Aaron
+player Ryan, Jamie
+player Lipkin, Seth
+ 
+owner Jamie Ryan B
+player Mallick, Joey
+player Armstrong, Peter
+player Buck, Richard
+player Bader, Aaron
+player Wolfberg, Michael
+player Wolfe, Charmaine
+ 
+owner Jamie Ryan C
+player Sherman, Joel
+player Cree, Chris
+player Fogel, Daniel
+player Bader, Aaron
+player Barron, Mic
+player Bergmann, Jacob
+ 
+owner Jamie Ryan D
+player Katz-Brown, Jason
+player Kantimathi, Sam
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Eldeiry, Michael
+ 
+owner Jamie Ryan E
+player Daniel, Robin Pollock
+player MacNeil, Rod
+player Poder, David
+player Bader, Aaron
+player Ryan, Jamie
+player Lipkin, Seth
+ 
+owner Jamie Ryan F
+player Cappelletto, Brian
+player Kaitz, Merrill
+player Mills, Jan
+player Bader, Aaron
+player Harrison, Ben
+player Higby, Karl
+
+owner Jan Mills
+player Mills, Lloyd
+player MacNeil, Rod
+player Mills, Jan
+player Bader, Aaron
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Jason Broersma A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Saldanha, Dean
+player Oliger, Steve
+player Barron, Mic
+player Broersma, Jason
+ 
+owner Jason Broersma B
+player Sherman, Joel
+player Wapnick, Joel
+player Tiekert, Ron
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Broersma, Jason
+ 
+owner Jason Broersma C
+player Edley, Joe
+player Cree, Chris
+player Tangredi, Frank
+player Pianowski, Scott
+player Colosa, Kevin
+player Bihlmeyer, Joe
+
+owner Jim Kille A
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Kille, James L Jr
+player Wolfberg, Michael
+player Wolfe, Charmaine
+ 
+owner Jim Kille B
+player Cappelletto, Brian
+player O'Laughlin, John
+player Saldanha, Dean
+player Kille, James L Jr
+player Wolfberg, Michael
+player Faria, Alyssa
+
+owner Joe Bihlmeyer
+player Cappelletto, Brian
+player Armstrong, Peter
+player Tiekert, Ron
+player Bader, Aaron
+player Colosa, Kevin
+player Bihlmeyer, Joe
+
+owner Joel Horn
+player Mallick, Joey
+player Van Pelt, John
+player Tiekert, Ron
+player Horn, Joel
+player Wolfberg, Michael
+player Fukawa-Connelly, Kate
+
+owner Joel Sherman A
+player Edley, Joe
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Harrison, Ben
+player Lipkin, Seth
+ 
+owner Joel Sherman B
+player Edley, Joe
+player O'Laughlin, John
+player Tiekert, Ron
+player Saldanha, Dielle
+player Gardenswartz, Nat
+player Walden, Jeff
+ 
+owner Joel Sherman C
+player Sherman, Joel
+player O'Laughlin, John
+player Tiekert, Ron
+player Saldanha, Dielle
+player Gardenswartz, Nat
+player Lipkin, Seth
+ 
+owner Joel Sherman D
+player Sherman, Joel
+player Wapnick, Joel
+player Tiekert, Ron
+player De Guzman, Edward
+player Harrison, Ben
+player Flisock, Olinga
+
+owner John Van Pelt/Marsh Richards 
+player Cappelletto, Brian
+player Van Pelt, John
+player Richards, Marcia
+player Bader, Aaron
+player Gardenswartz, Nat
+player Faria, Alyssa
+
+owner Judy Newhouse A
+player Cappelletto, Brian
+player Kantimathi, Sam
+player Saldanha, Dean
+player Saldanha, Dielle
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Judy Newhouse B
+player Cappelletto, Brian
+player Kantimathi, Sam
+player Fogel, Daniel
+player Bader, Aaron
+player Wolfberg, Michael
+player Spiller, Diana
+
+owner Karen Moss A
+player Daniel, Robin Pollock
+player Hart, John
+player Stegman, Debbie
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipkin, Seth
+ 
+owner Karen Moss B
+player Daniel, Robin Pollock
+player Cree, Chris
+player Chakrabarti, Amit
+player Berg Richards, Verna
+player Barron, Mic
+player Moss, Karen
+
+owner Kate Fukawa-Connelly
+player Cappelletto, Brian
+player Cree, Chris
+player Kreiswirth, Rose
+player Bader, Aaron
+player Greenwood, Ben
+player Faria, Alyssa
+
+owner Keith Smith
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Bihlmeyer, Joe
+
+owner Kit Morehead A
+player Mills, Lloyd
+player MacNeil, Rod
+player Tiekert, Ron
+player Pianowski, Scott
+player Barron, Mic
+player Kitchen, Scott
+ 
+owner Kit Morehead B
+player Katz-Brown, Jason
+player O'Laughlin, John
+player Saldanha, Dean
+player Leifer, Dave
+player Greenwood, Ben
+player Freehof, Ira
+
+owner Kurt Davies A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Poder, David
+player Saldanha, Dielle
+player Harrison, Ben
+player Chase, Carla
+ 
+owner Kurt Davies B
+player Katz-Brown, Jason
+player MacNeil, Rod
+player Saldanha, Dean
+player Fassio, Gina
+player Gardenswartz, Nat
+player Bihlmeyer, Joe
+ 
+owner Kurt Davies C
+player Sherman, Joel
+player Cree, Chris
+player Tiekert, Ron
+player Avrin, Paul
+player Barron, Mic
+player Broersma, Jason
+ 
+owner Kurt Davies D
+player Cappelletto, Brian
+player O'Laughlin, John
+player Fogel, Daniel
+player De Guzman, Edward
+player Gardenswartz, Nat
+player Faria, Alyssa
+
+owner Larry Sherman A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Larry Sherman B
+player Katz-Brown, Jason
+player MacNeil, Rod
+player Chakrabarti, Amit
+player Bader, Aaron
+player Gardenswartz, Nat
+player Fukawa-Connelly, Kate
+
+owner Larry Tapper A
+player Sherman, Joel
+player Van Pelt, John
+player Viloria, John
+player Bader, Aaron
+player Gardenswartz, Nat
+player Bihlmeyer, Joe
+
+owner Larry Tapper B
+player Sherman, Joel
+player Hart, John
+player Chakrabarti, Amit
+player Bader, Aaron
+player Wolfberg, Michael
+player Bihlmeyer, Joe
+
+owner Larry Tapper C
+player Cappelletto, Brian
+player Wapnick, Joel
+player Viloria, John
+player Przybyszewski, Mark
+player Gardenswartz, Nat
+player Bihlmeyer, Joe
+
+owner Mady Garner
+player Cappelletto, Brian
+player Kantimathi, Sam
+player Tiekert, Ron
+player Leifer, Dave
+player Harrison, Ben
+player Eldeiry, Michael
+
+owner Mark Przybyszewski A
+player Greenspan, Randy
+player Wapnick, Joel
+player Poder, David
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Wolfe, Charmaine
+ 
+owner Mark Przybyszewski B
+player Mallick, Joey
+player Armstrong, Peter
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipe, Chris
+
+owner Merrill Kaitz A
+player Edley, Joe
+player Armstrong, Peter
+player Tiekert, Ron
+player Leifer, Dave
+player Wolfberg, Michael
+player Faria, Alyssa
+ 
+owner Merrill Kaitz B
+player Edley, Joe
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Faria, Alyssa
+
+owner Michael Eldeiry A
+player Cappelletto, Brian
+player O'Laughlin, John
+player Fogel, Daniel
+player Bader, Aaron
+player Wolfberg, Michael
+player Eldeiry, Michael
+ 
+owner Michael Eldeiry B
+player Sherman, Joel
+player Cree, Chris
+player Glass, Steve
+player Le, Cecilia
+player Gardenswartz, Nat
+player Eldeiry, Michael
+
+owner Nat Gardenswartz
+player Cappelletto, Brian
+player MacNeil, Rod
+player Saldanha, Dean
+player Bader, Aaron
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Norbert Saldanha
+player Sherman, Joel
+player Hart, John
+player Saldanha, Dean
+player Saldanha, Dielle
+player Barron, Mic
+player Lipkin, Seth
+
+owner Paul Avrin A
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Eldeiry, Michael
+ 
+owner Paul Avrin B
+player Mallick, Joey
+player Armstrong, Peter
+player Tiekert, Ron
+player Avrin, Paul
+player Colosa, Kevin
+player Freehof, Ira
+
+owner  Paul Avrin C
+player Daniel, Robin Pollock
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Broersma, Jason
+ 
+owner Paul Avrin D
+player Sherman, Joel
+player Armstrong, Peter
+player Tiekert, Ron
+player Avrin, Paul
+player Wolfberg, Michael
+player Eldeiry, Michael
+
+owner Paul Avrin E
+player Cappelletto, Brian
+player Armstrong, Peter
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Freehof, Ira
+
+owner Paul Becker A 
+player Cappelletto, Brian
+player Van Pelt, John
+player Fogel, Daniel
+player Bader, Aaron
+player Wolfberg, Michael
+player Bihlmeyer, Joe
+
+owner Paul Becker B
+player Cappelletto, Brian
+player Van Pelt, John
+player Fogel, Daniel
+player Le, Cecilia
+player Becker, Bob
+player Bihlmeyer, Joe
+
+owner Peter Armstrong A
+player Cappelletto, Brian
+player Armstrong, Peter
+player Ellickson, Robert
+player Bader, Aaron
+player Wolfberg, Michael
+player Bihlmeyer, Joe
+
+owner Peter Armstrong B
+player Mallick, Joey
+player Armstrong, Peter
+player Saldanha, Dean
+player Le, Cecilia
+player Barron, Mic
+player Faria, Alyssa
+
+owner Rod MacNeil A
+player Sherman, Joel
+player MacNeil, Rod
+player Tiekert, Ron
+player Le, Cecilia
+player Gardenswartz, Nat
+player Lipkin, Seth
+ 
+owner Rod MacNeil B
+player Cappelletto, Brian
+player MacNeil, Rod
+player Ellickson, Robert
+player Le, Cecilia
+player Wolfberg, Michael
+player Lipe, Chris
+ 
+owner Rod MacNeil C
+player Sherman, Joel
+player MacNeil, Rod
+player Ellickson, Robert
+player Bader, Aaron
+player Gardenswartz, Nat
+player Lipe, Chris
+ 
+owner Rod MacNeil D
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Rodriguez Morehead A
+player Edley, Joe
+player Wapnick, Joel
+player Tiekert, Ron
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Rodriguez Morehead B
+player Cappelletto, Brian
+player O'Laughlin, John
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Bihlmeyer, Joe
+
+owner Roger Cullman A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Barron, Mic
+player Bihlmeyer, Joe
+ 
+owner Roger Cullman B
+player Katz-Brown, Jason
+player Armstrong, Peter
+player Fogel, Daniel
+player De Guzman, Edward
+player Gardenswartz, Nat
+player Cullman, Roger
+ 
+owner Roger Cullman C
+player Sherman, Joel
+player Cree, Chris
+player Mills, Jan
+player Le, Cecilia
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Ron Tiekert A
+player Cappelletto, Brian
+player O'Laughlin, John
+player Tiekert, Ron
+player Tiekert, Susi
+player Gardenswartz, Nat
+player Lipkin, Seth
+ 
+owner Ron Tiekert B
+player Katz-Brown, Jason
+player Armstrong, Peter
+player Chakrabarti, Amit
+player Horn, Joel
+player Wolfberg, Michael
+player Lipkin, Seth
+ 
+owner Ron Tiekert C
+player Sherman, Joel
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Flisock, Olinga
+
+owner Rose Kreiswirth A
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Pianowski, Scott
+player Barron, Mic
+player Wolfe, Charmaine
+ 
+owner Rose Kreiswirth B
+player Edley, Joe
+player Wapnick, Joel
+player Kreiswirth, Rose
+player Tiekert, Susi
+player Wolfberg, Michael
+player Freehof, Ira
+
+owner Sal Piro A
+player Cappelletto, Brian
+player Piro, Sal
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Freehof, Ira
+ 
+owner Sal Piro B
+player Cappelletto, Brian
+player Wapnick, Joel
+player Ellickson, Robert
+player Bader, Aaron
+player Wolfberg, Michael
+player Freehof, Ira
+
+owner Sam Kantimathi A
+player Cappelletto, Brian
+player Kantimathi, Sam
+player Tiekert, Ron
+player Saldanha, Dielle
+player Ryan, Jamie
+player Faria, Alyssa
+
+owner Sam Kantimathi B
+player Daniel, Robin Pollock
+player Kantimathi, Sam
+player Fogel, Daniel
+player Bader, Aaron
+player Barron, Mic
+player Bihlmeyer, Joe
+
+owner Sam Kantimathi C
+player Katz-Brown, Jason
+player Kantimathi, Sam
+player Ecsedy, Michael
+player Le, Cecilia
+player Weissman, Emely
+player Kitchen, Scott
+
+owner Sam Kantimathi D
+player Edley, Joe
+player Kantimathi, Sam
+player Richards, Marcia
+player Fidler, Mark
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Scott Pianowski A
+player Appel, Scott
+player Cree, Chris
+player Ellickson, Robert
+player Pianowski, Scott
+player Ryan, Jamie
+player Lipkin, Seth
+ 
+owner Scott Pianowski B
+player Sherman, Joel
+player MacNeil, Rod
+player Viloria, John
+player Bader, Aaron
+player Wolfberg, Michael
+player Broersma, Jason
+ 
+owner Scott Pianowski C
+player Daniel, Robin Pollock
+player MacNeil, Rod
+player Chakrabarti, Amit
+player Przybyszewski, Mark
+player Barron, Mic
+player Wolfe, Charmaine
+ 
+owner Scott Pianowski D
+player Mallick, Joey
+player Wapnick, Joel
+player Mills, Jan
+player Bader, Aaron
+player Wolfberg, Michael
+player Broersma, Jason
+ 
+owner Scott Pianowski E
+player Edley, Joe
+player Armstrong, Peter
+player Poder, David
+player Le, Cecilia
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Seth Lipkin
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Shelley Sullivan A
+player Cappelletto, Brian
+player Van Pelt, John
+player Mills, Jan
+player De Guzman, Edward
+player Colosa, Kevin
+player Fukawa-Connelly, Kate
+ 
+owner Shelley Sullivan B
+player Katz-Brown, Jason
+player MacNeil, Rod
+player Fogel, Daniel
+player Bader, Aaron
+player Harrison, Ben
+player Bihlmeyer, Joe
+
+owner Shelley Sullivan C
+player Cappelletto, Brian
+player Piro, Sal
+player Saldanha, Dean
+player Przybyszewski, Mark
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Shelley Sullivan D
+player Mallick, Joey
+player O'Laughlin, John
+player Fogel, Daniel
+player Tiekert, Susi
+player Gardenswartz, Nat
+player Lipkin, Seth
+
+owner Shelley Sullivan E
+player Cappelletto, Brian
+player Wapnick, Joel
+player Fogel, Daniel
+player Bader, Aaron
+player Colosa, Kevin
+player Lipe, Chris
+
+owner Steve Moniz
+player Sherman, Joel
+player MacNeil, Rod
+player Tiekert, Ron
+player Le, Cecilia
+player Greenwood, Ben
+player Lowrey, Barbara
+
+owner Steve Oliger
+player Mallick, Joey
+player Armstrong, Peter
+player Tiekert, Ron
+player Oliger, Steve
+player Wolfberg, Michael
+player Broersma, Jason
+
+owner Terry Kang A
+player Cappelletto, Brian
+player Wapnick, Joel
+player Tiekert, Ron
+player Bader, Aaron
+player Wolfberg, Michael
+player Faria, Alyssa
+
+owner Terry Kang B
+player Cappelletto, Brian
+player MacNeil, Rod
+player Tiekert, Ron
+player Przybyszewski, Mark
+player Gardenswartz, Nat
+player Lipe, Chris
+
+owner Terry Kang C
+player Edley, Joe
+player Cree, Chris
+player Viloria, John
+player Kille, James L Jr
+player Gardenswartz, Nat
+player Faria, Alyssa
+
+owner Terry Kang D
+player Cappelletto, Brian
+player Armstrong, Peter
+player Fogel, Daniel
+player Bader, Aaron
+player Wolfberg, Michael
+player Lipe, Chris
+
+owner Terry Kang E
+player Cappelletto, Brian
+player Cree, Chris
+player Tiekert, Ron
+player Bader, Aaron
+player Gardenswartz, Nat
+player Lipe, Chris
+
+owner Terry Kang F
+player Cappelletto, Brian
+player Cree, Chris
+player Mills, Jan
+player Leifer, Dave
+player Wolfberg, Michael
+player Lipkin, Seth
+
+owner Terry Kang G
+player Mills, Lloyd
+player Armstrong, Peter
+player Mills, Jan
+player Le, Cecilia
+player Gardenswartz, Nat
+player Faria, Alyssa
+
+owner Tim Wilkinson A
+player Katz-Brown, Jason
+player O'Laughlin, John
+player Tangredi, Frank
+player Baron, Mike
+player Barron, Mic
+player Wilkinson, Tim
+
+owner Tim Wilkinson B
+player Edley, Joe
+player MacNeil, Rod
+player Mills, Jan
+player Bader, Aaron
+player Ryan, Jamie
+player Wilkinson, Tim
+
+owner Tim Wilkinson C
+player Sherman, Joel
+player Piro, Sal
+player Chakrabarti, Amit
+player Schoneboom, Marjorie
+player Greenwood, Ben
+player Wilkinson, Tim
+
+owner Tim Wilkinson D
+player Mallick, Joey
+player Van Pelt, John
+player Buck, Richard
+player Bader, Aaron
+player Harrison, Ben
+player Wilkinson, Tim

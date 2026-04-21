@@ -1,0 +1,58 @@
+# configuration for 202506 Toronto
+division A a.t
+division B b.t
+division C c.t
+config director_id = 'AA000813'
+config tournament_id = 19330
+config cross_tables_id = 16517
+config no_boards = 1
+# Specify how many rounds your tournament will be
+config max_rounds = 9
+# uncomment the following line to keep track of who played first/second
+config track_firsts = 1
+config assign_firsts = 1
+# uncomment the following line to use only HTML files, no text files
+config no_text_files = 1
+# use three rounds of fixed pairings
+config initial_schedule = 3
+# session breaks after these rounds
+config session_breaks = [3,6]
+# use player photos
+config player_photos = 1
+config event_name = 'Toronto June 2025 LCT'
+config event_date = 'June 11, 18, 25, 2025'
+config realm = 'naspa'
+config director_name = 'John Chew'
+config ftp_host ='www.poslfit.com'
+config ftp_path ='www/tsc/tourneys/'
+config html_directory = '/Library/WebServer/Documents/202506'
+config no_index_tally_slips = 1
+config html_index_style = 'compact'
+config allow_gaps = 1
+config hook_addscore_flush = 'json'
+config hook_autopair = 'json;stats'
+config save_interval = 1
+config pairing_bars = 1
+config html_index_recent_first = 1
+config prize_bands_from_prizes = 1;
+
+classes A 2
+prize separator
+prize rank 1 A $45 exclusive=1
+prize rank 2 A $40 exclusive=1
+prize rank 3 A $35 exclusive=1
+prize rank 1 A $25 groupname='Class' class=B exclusive=1
+
+prize separator
+classes B 1
+prize rank 1 B $45 exclusive=2
+prize rank 2 B $40 exclusive=2
+prize rank 3 B $30 exclusive=2
+prize rank 1 B $20 groupname='Class' class=B exclusive=2
+
+prize separator
+classes C 1
+prize rank 1 C $45 exclusive=3
+prize rank 2 C $40 exclusive=3
+prize rank 3 C $30 exclusive=3
+prize rank 1 C $20 groupname='Class' class=B exclusive=2

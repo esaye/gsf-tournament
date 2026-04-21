@@ -1,0 +1,65 @@
+#begintest chewpair
+#beginconfig
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+#endconfig
+#beginifile a.t
+Player A 1800
+Player B 1300 
+Player C 500    
+Player D 0       
+#endifile
+#begincommands
+cp 4 a
+debug CP 0
+debug CBPF 0
+debug GIB 0
+sp 1 a
+a 1 a
+1 400 4 100
+2 300 3 200
+
+a 2 a
+1 400 3 200
+4 300 2 100
+
+sp 4 a
+a 3 a
+1 400 2 300
+3 200 4 100
+
+sp 4 a
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player A (#1) *draws* vs. Player D (#4).
+   2  Player B (#2) *draws* vs. Player C (#3).
+[1]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Player A 400 (1.0 +300) - #4 Player D 100 (0.0 -300): +300.
+[1]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Player B 300 (1.0 +100) - #3 Player C 200 (0.0 -100): +100.
+[1]:ES|L words|M|division|<return> (no scores left)? [2]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Player A 400 (2.0 +500) - #3 Player C 200 (0.0 -300): +200.
+[2]:pn1 ps1 pn2 ps2 (2 scores left)? #4 Player D 300 (1.0 -100) - #2 Player B 100 (1.0 -100): +200.
+[2]:ES|L words|M|division|<return> (no scores left)? [3]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Player A 400 (3.0 +600) - #2 Player B 300 (1.0 -200): +100.
+[3]:pn1 ps1 pn2 ps2 (2 scores left)? #3 Player C 200 (1.0 -200) - #4 Player D 100 (1.0 -200): +100.
+[3]:ES|L words|M|division|<return> (no scores left)? Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Player B (#2) *first* vs. Player A (#1) repeat.
+   2  Player C (#3) *draws* vs. Player D (#4) repeat.
+#endstdout
+#beginstderr
+Error: You still need results for Round 4. [ernos]
+Error: Player A (#1) was supposed to go second. [easbad12]
+Error: Player C (#3) was supposed to go first. [easbad12]
+Error: If you are sure you want to pair Round 4 based on Round 2, please specify config session_breaks. [eacpnsb]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: Player A (#1) was supposed to go second. [easbad12]
+Error: Player B (#2) was supposed to go first. [easbad12]
+Warning: You should specify config prize_bands to use this command. [wwant_prize_bands]
+#endstderr
+#endtest

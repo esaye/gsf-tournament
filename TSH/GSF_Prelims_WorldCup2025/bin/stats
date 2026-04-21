@@ -1,0 +1,105 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use lib './lib/perl';
+use TFile;
+
+sub Main ();
+sub Munge ();
+
+Main;
+
+sub Main () {
+  @::ARGV = ('a.t') unless @::ARGV;
+  my $div = $::ARGV[0];
+  for my $fname (@::ARGV) {
+    my $tf = new TFile $fname;
+    my (@ps) = (undef);
+    while (my $p = $tf->ReadLine()) {
+      push(@ps, $p);
+      }
+    $tf->Close();
+    for my $i (1..$#ps) {
+      my $p = $ps[$i];
+      $p->{'ns'} = # number of scores
+      $p->{'sums'} = # sum of my scores
+      $p->{'sos'} = # sum of opponent scores
+      $p->{'soms'} = # sum of opponent mean scores
+      $p->{'sas'} = # sum of adjusted scores
+      $p->{'wins'} = 
+      $p->{'losses'} = 
+      $p->{'spread'} = 
+      0;
+      my @ms;
+      for my $r0 (0..$#{$p->{'scores'}}) {
+	my $ms = $p->{'scores'}[$r0];
+	my $oid = $p->{'pairings'}[$r0];
+	unless ($oid) {
+	  if ($ms > 0) {
+	    $p->{'wins'} ++;
+	    $p->{'spread'} += $ms;
+	    }
+	  elsif ($ms < 0) {
+	    $p->{'losses'} ++;
+	    $p->{'spread'} += $ms;
+	    }
+	  next;
+	  }
+	push(@ms, $ms);
+	my $o = $ps[$oid];
+	my $os = $o->{'scores'}[$r0];
+	my $spread = $ms - $os;
+	$p->{'spread'} += $spread;
+	$p->{'wins'} += (($spread<=>0)+1)/2;
+	$p->{'losses'} += ((0<=>$spread)+1)/2;
+	$p->{'ns'}++;
+	$p->{'sums'} += $ms;
+	$p->{'sos'} += $os;
+        }
+      $p->{'ms'} = [sort @ms];
+      }
+    for my $i (1..$#ps) {
+      my $p = $ps[$i];
+      for my $r0 (0..$#{$p->{'scores'}}) {
+	my $oid = $p->{'pairings'}[$r0];
+	next unless $oid;
+	my $opp = $ps[$oid];
+	$p->{'soms'} += $opp->{'sums'}/$opp->{'ns'};
+        }
+      }
+    for my $i (1..$#ps) {
+      my $p = $ps[$i];
+      for my $r0 (0..$#{$p->{'scores'}}) {
+	my $oid = $p->{'pairings'}[$r0];
+	next unless $oid;
+	my $opp = $ps[$oid];
+	$p->{'sas'} += $p->{'scores'}[$r0] * $opp->{'soms'}/$opp->{'sos'};
+        }
+      }
+    printf "%-22.22s %4s-%4s %5s %3s %3s %3s %3s %3s %5s %5s %5s %5s %5s\n", 
+      qw(Player Won Lost Spred 0% 25% 50% 75% 100 MeanS AdjsS MnOpS MMOpS Power);
+    for my $p (sort { $b->{'wins'} <=> $a->{'wins'} || $b->{'spread'} <=> $a->{'spread'}} @ps) {
+      next unless $p->{'ns'};
+      my $msp = $p->{'ms'};
+      my (@msq);
+      for my $q (0..4) {
+	$msq[$q] = $msp->[$q*$#$msp/4]; # should interpolate
+        }
+      printf "%-22.22s %4.1f-%4.1f %+5d %3d %3d %3d %3d %3d %5.1f %5.1f %5.1f %5.1f %+5.1f\n", 
+        $p->{'name'},
+	$p->{'wins'},
+	$p->{'losses'},
+	$p->{'spread'},
+	@msq,
+	$p->{'sums'} / $p->{'ns'},
+	$p->{'sas'} / $p->{'ns'},
+	$p->{'sos'} / $p->{'ns'},
+	$p->{'soms'} / $p->{'ns'},
+	100 * ($p->{'sos'} / $p->{'soms'} - 1);
+	;
+      }
+    }
+  }
+

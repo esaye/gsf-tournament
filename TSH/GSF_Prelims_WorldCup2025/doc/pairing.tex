@@ -1,0 +1,108 @@
+\input amstex
+\documentstyle{amsppt}
+\topmatter
+\Monograph
+\title Scrabble Pairings \endtitle
+\author John J. Chew, III \endauthor
+\address 
+Department~of~Mathematics,
+University~of~Toronto,\newline
+\indent Toronto,~Ontario,
+Canada~M5S~3G3
+\endaddress
+\email jjchew\@math.utoronto.ca\endemail
+\date November 12, 2006
+% (2nd ed.) 
+\enddate
+
+\keywords
+pairings,
+Scrabble
+\endkeywords
+
+\abstract
+To follow.
+\endabstract
+
+\endtopmatter
+\document
+\head Introduction \endhead
+
+$N_p$ players compete in a tournament to determine an ultimate
+victor.
+In each of $N_r$ rounds, a player may play a game with at most
+one other player.
+If players $i$ and $j$ play a game, the outcome or score
+is the integer $n$ with probability $P_{ij}(n)$ and distribution 
+$D_{ij}(n):=\sum_{i=-\infty}^n P_{ij}(n)$.
+If $n>0$, then we say that player $i$ wins or scores a win,
+and player $j$ loses or scores a loss.
+If $n<0$, then player $i$ loses and player $j$ wins.
+If $n=0$, then player $i$ and player $j$ both tie, scoring half a win and half
+a loss.
+Player $i$ therefore wins against player $j$ with probability 
+$1-D_{ij}(0)$, ties with probability $P_{ij}(0)$ and loses with
+probability $D_{ij}(-1)$.
+If a player scores $w$ wins, $l$ losses and total score $s$ in the
+first $n$ rounds, we say that the player has a record after round
+$n$ of $(w,l,s)$.
+
+Players with more wins are ranked ahead of players with fewer.
+Among players with the same number of wins, those with fewer losses
+are ranked ahead of those with more.
+Among players with the same number of wins and losses, those with
+greater total score are ranked ahead of those with lesser score.
+Players with the same number of wins, losses and total score are
+equivalently ranked or tied.
+
+\head Example 1\endhead
+
+Suppose that at the end of the penultimate round of a tournament,
+the top four players (referred to as players $1$, $2$, $3$ and $4$
+have records 
+$(w,N_r-1-w,s)$,
+$(w,N_r-1-w,s-d_1)$,
+$(w,N_r-1-w,s-d_2)$,
+and
+$(w-2,N_r-w+2,s-d_3)$.
+For brevity, we assume all players have played $N_r-1$ games 
+and record only the differences in a matrix as follows:
+$$
+\pmatrix
+0&0&0&2\cr
+0&d_1&d_2&d_3\cr
+\endpmatrix
+$$
+
+If we want to pair the top four players amongst themselves in the last
+round, we have three choices of opponent for player $1$, each of which
+then forces the remaining pairing. 
+We want to compute the chance of each player being victorious
+depending on the choice of pairing.
+
+\subhead Player 1 vs.~player 2 \endsubhead
+
+Player $1$ is the sole overall victor
+(i) if in the final round player $1$ wins or ties and player $3$ loses;
+(ii) if player $1$ wins, player $3$ wins, but player $1$'s final
+total score is greater than player $3$'s;
+or (iii) if player $1$ and player $3$ both tie.
+The probability of this happening is therefore
+$$
+(1-D_{1,2}(-1))D_{3,4}(-1)
++\sum ?
++ P_{1,2}(0) P_{3,4}(0)
+$$
+
+\subhead Player 1 vs.~player 3 \endsubhead
+
+\subhead Player 1 vs.~player 4 \endsubhead
+
+% start from the premise that a suitable utility function for evaluating a pairing
+ %system is one which measures the expected distribution of prize dollars and
+ %%the players to whom they are awarded.  A simple example of such a function
+ %would be the expected number of dollars that are awarded to the right player;
+ %a more complex one would partially reward near misses in prize assignments.
+
+% Spearman Rank Correlation Coefficient
+\enddocument

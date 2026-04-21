@@ -1,0 +1,30 @@
+#begintest addscore null
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 3 4 1; 300
+Chew, Jamie 500    2 1 0; 200
+Chew, Liam 0       1 2 0; 100
+Coconspirator, Unnamed 0    0 0 0;
+#endifile
+#begincommands
+a 1
+
+a 2
+1 400 3 200
+2 300 4 100
+
+q
+#endcommands
+#beginstdout
+[1]:ES|L words|M|division|<return> (no scores left)? [2]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (2.0 +500) - #3 Chew, Jamie 200 (0.0 -300): +200.
+[2]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Chew, Kristen 300 (2.0 +300) - #4 Chew, Liam 100 (0.0 -500): +200.
+[2]:ES|L words|M|division|<return> (no scores left)? 
+#endstdout
+#beginstderr
+#endstderr
+#endtest

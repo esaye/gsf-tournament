@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Scoreboard Operations</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=here><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Scoreboard Operations using <cite>tsh</cite></h1>
+<p class=subtitle>How to enhance your <cite>tsh</cite> experience.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+<p class=p1>
+This section discusses specific issues related to the operation of the
+scoreboard
+using <cite>tsh</cite> and may safely be ignored if your tournament does not
+use the scoreboard.
+</p>
+
+<h2>What is the Scoreboard?</h2>
+
+<p class=p1>
+The scoreboard is a web page, called the Enhanced Scoreboard in the
+event HTML index, which periodically checks for updated score information
+and presents it in a browser page in a variety of formats.
+</p>
+
+<h2>How does the Scoreboard Work?</h2>
+
+<p class=p1>
+Here's an overview.
+</p>
+
+<ol>
+  <li>You initially create a scoreboard document for each division using the &ldquo;<a href="commands.html#enhancedscoreboard"><code>ESB A</code></a>&rdquo;, &ldquo;<a href="commands.html#enhancedscoreboard"><code>ESB B</code></a>&rdquo;, etc. commands.</li>
+  <li>These documents, along with the rest of your web files, must be accessible on an actual webserver and not just being viewed from your desktop (or else most browsers will prevent the code in the scoreboard from running for security reasons).</li>
+  <li>You arrange for the data file that the scoreboard checks to be automatically updated using triggered/hooked invocation of the &ldquo;<a href="commands.html#savejson"><code>JSON</code></a>&rdquo; command, and remember to run it manually in other unusual situations.</li>
+  <li>If you are hosting your web files on another server, you make sure that they are copied there on a regular basis, e.g., using the &ldquo;<a href="commands.html#mirror_ftp"><code>util/mirror-ftp</code></a>&rdquo; command.
+</ol>
+
+<h2>Step-by-Step</h2>
+
+<h3>1. Create Scoreboard Documents</h3>
+<p class=p1>
+First, add a line like the following to your configuration file:
+</p>
+<pre>
+begin esb a; esb b; esb c; json
+</pre>
+<p class=p1>
+This tells <cite>tsh</cite> that when it starts running, it should
+create the scoreboard document for divisions A, B and C
+(change that part if you have different divisions), then update the 
+scoreboard data file.
+If the scoreboard documents or data file already exist, they will
+just be updated.
+</p>
+<p class=p1>
+Check the results of the first step by running 
+<cite>tsh</cite> and using the 
+&ldquo;<code><a href="commands.html#browse">Browse</a></code>&rdquo;
+command to show you the event index.
+You should see your enhanced scoreboards listed at the top.
+Don&rsquo;t worry about clicking to see their content yet.
+</p>
+
+<h3>2. Set up a Webserver</h3>
+<p class=p1>
+Next, you need to get the files onto a webserver.  If possible, you 
+should always try to run a webserver locally on your data entry machine,
+even if you are also mirroring files to a public webserver, because it
+will result in faster updates to your scoreboard without waiting for your
+data to make a round-trip off-site.
+</p>
+<p class=p1>
+I may eventually include operating-system specific instructions for how
+to enable the webserver that comes with your computer.  In the meantime,
+if you use Windows, try Googling for "Internet Information Server", "install", 
+and the name of your version of Windows; if you use macOS, Google for "apache" or "web server", "enable", and the name of your version of Windows; if you use Linux, ""apache", "configure", and the name of your version of Linux.
+In each case, you'll eventually end up with a local directory where your
+webserver expects to find your files. Use the 
+&ldquo;<a href="config.html#html_directory"><code>config html_directory</code></a>&rdquo; configuration option to specify this to <cite>tsh</cite>.
+</p>
+<p class=p1>
+If you cannot set up a local webserver (e.g., because it violates a 
+security policy, or it is too difficult), you should find someone who
+can provide you with FTP access to a public webserver.
+If you are a NASPA-certified tournament director, you are entitled to
+a free FTP-based webserver account on the NASPA server; contact
+John Chew at &lt;poslfit@gmail.com&gt; to ask for one to be set up.
+You may also find it easier just to run <cite>tsh</cite> remotely on the NASPA server in this case.
+</p>
+
+<h3>3. Set up Data Updates</h3>
+
+<p class=p1>
+Add lines like the following to your configuration file:
+</p>
+<pre>
+config hook_addscore_flush = 'json'
+config hook_autopair = 'json'
+config hook_division_update ='json'
+</pre>
+<p class=p1>
+These tell <cite>tsh</cite> to run the
+&ldquo;<a href="commands.html#savejson"><code>JSON</code></a>&rdquo; command
+respectively whenever
+the &ldquo;<a href="commands.html#addscore"><code>Addscore</code></a>&rdquo; command saves its data,
+whenever new pairings are created automatically or by default, 
+and whenever the division data files are updated.
+</p>
+<p class=p1>
+If you notice at any point later on that the scoreboard's data does not 
+reflect a recent change (especially one that you made by hand), you can
+run the
+&ldquo;<a href="commands.html#savejson"><code>JSON</code></a>&rdquo; command
+to update the data.  Note though that the scoreboard checks for data only
+once every 10 seconds (see the countdown at the top right), and that if you
+are copying data to a remote webserver, it may take up to a few minutes for
+it to reach its destination.
+</p>
+
+<h3>4. Copy Files Off-site</h3>
+<p class=p1>
+If you are using an off-site webserver, you should use the
+&ldquo;<a href="commands.html#mirror_ftp"><code>util/mirror-ftp</code></a>&rdquo; command 
+to automatically copy (mirror) your web files to it.
+(See also the 
+<a href="commands.html#mirror">MIRROR</a>,
+<a href="commands.html#pausemirror">PAUSEMirror</a>,
+<a href="commands.html#resumemirror">RESumeMirror</a>, and
+<a href="commands.html#stopmirror">STOPMirror</a> commands.)
+This command runs separately from <cite>tsh</cite>, in a different window, and how you 
+launch it depends on your operating system.
+Like <cite>tsh</cite>, if you run it without specifying an event folder,
+it will work with the event that has the most recently changed configuration 
+file.
+Unlike <cite>tsh</cite>, you can specify multiple events on its command
+line, and it will mirror all of them.
+</p>
+<p class=p1>
+Before you start the mirror process, you need to add lines like the following
+to your configuration file:
+</p>
+<pre>
+config ftp_host ='www.scrabbleplayers.org'
+config ftp_path ='tsh'
+</pre>
+<p class=p1>
+These specify the name of the host that will receive the data files,
+and where the files should be placed on that host.
+The files will actually end up in a subdirectory of the path that you
+specify, where the subdirectory has the same name as your local event
+folder.  For this reason, you should avoid using characters other than
+letters, numbers, hyphens and underscores in your event folder name.
+</p>
+<p class=p1>
+Then, when you are sure that you have a working Internet connection,
+try launching the command.  If you can open a command window and
+navigate (using your operating system&rsquo;s
+&ldquo;<code>cd</code>&rdquo; command to change directories), you
+can then enter one of:
+</p>
+<pre>
+perl util\mirror-ftp REPLACE-THIS-WITH-EVENT-FOLDER-NAME
+util/mirror-ftp REPLACE-THIS-WITH-EVENT-FOLDER-NAME
+</pre>
+<p class=p1>
+Use the first one for Windows, the second for everyone else.
+You may omit the part about the folder name if you are using your
+most recent event folder.
+You may also find a clickable script icon in the utility folder that
+saves you having to do all of the above, depending on your operating system.
+</p>
+<p class=p1>
+If all goes well, you should at this point be prompted for your username
+and password.  These are the ones that you use to connect to your FTP
+server.  The password will not be displayed on the screen as you type;
+it will be accepted when you press enter.
+Then, if your username and password match, you will see your files start
+transferring. Leave the window open for as long as you need them to keep
+mirroring.  Restart the command/window if your network connection changes.
+</p>
+
+<h2><a name=banner>Scoreboard</a> Banners</h2>
+
+<p class=p1>
+You may wish to display a banner above the scoreboard, showing things
+like a legend or sponsor logos.  To do so, make the banner content
+publicly available on a webserver, then specify its 
+<a href="config.html#sb_banner_url">location</a> and 
+<a href="config.html#sb_banner_height">heigh</a>t
+with lines that look like:
+</p>
+<pre>
+config sb_banner_url = "http://event.poslfit.com/2017/kingscup/banner.html"
+config sb_banner_height = 128
+</pre>
+
+<h2><a name=banner>Scoreboard</a> Messages</h2>
+
+<p class=p1>
+You can have a floating message scroll around your scoreboard, giving urgent information
+to players, such as the start time of the next round, using the 
+&ldquo;<code><a href="commands.html">setESBMeSsaGe</a></code>&rdquo; command.
+</p>
+<p class=p1>
+If you have a browser session where you never want to see these messages, launch it with
+the query &ldquo;<code>?nomsg=1</code>&rdquo; appended to its URL.
+</p>
+
+<h2><a name=player>Scoreboard</a> Player Extras</h2>
+
+<p class=p1>
+If you want to give a player an alternate name on the scoreboard, use the 
+&ldquo;<code><a href="config.html#etc_sbname">sbname</a></code>&rdquo; optional data field 
+in their line in their division data file.
+</p>
+
+<p class=p1>
+If you set the 
+&ldquo;<code><a href="config.html#etc_team">team</a></code>&rdquo; optional data field 
+for players to a standard 3-letter code for their country, and enable the
+&ldquo;<code><a href="config.html#scoreboard_teams">config scoreboard_teams</a></code>&rdquo; configuration option,
+a national flag will appear with the player.
+</p>
+
+<h2><a name=geometry>Scoreboard</a> Geometry</h2>
+
+<p class=p1>
+By default, one scoreboard file is created per division, displaying a grid
+of five columns and four rows.  You can override these three values using
+the 
+&ldquo;<a href="config.html#esb_geometry"><code>config esb_geometry</code></a>&rdquo; configuration option.
+For example, to set up Division A with one scoreboard showing 6 columns
+and 5 rows starting at the top of the field, and another scoreboard
+showing 5 columns and 4 rows starting 30 places down, use:
+</p>
+<pre>
+config esb_geometry{'A'} = [[5,6,0],[5,4,30]]
+</pre>
+
+</body>
+</html>

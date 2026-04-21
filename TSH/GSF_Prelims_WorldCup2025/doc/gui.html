@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: GUI Notes</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=here><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1><cite>tsh</cite> GUI Notes</h1>
+<p class=subtitle>Development notes on the experimental GUI.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+    <p class=p1>An experimental version of the tsh GUI first shipped
+    with version 3.190. This file documents the GUI, and will be entitled
+    Notes to remind the reader of the experimental status of the module
+    until it is ready for formal release.</p>
+    <h2>Overview</h2>
+    <p class=p1>
+    The <cite>tsh</cite> graphical user interface (GUI) is implemented
+    by having <cite>tsh</cite> run a lightweight web server on a
+    nonstandard port.  
+    If the host machine supports it, the classic command-line
+    interface (CLI) may be run simultaneously with the GUI.
+    </p>
+    <h2>Requirements</h2>
+    <p class=p1>
+    The experimental code is tested regularly under OS/X 10.4 and
+    Windows XP.  It is not guaranteed to work at all under other
+    operating systems.
+    </p>
+    <p class=p1>
+    Earlier versions of Perl 5.8 did not return the correct value
+    from threads::shared::share().  5.8.6 works, 5.8.0 does not.
+    Always use the latest greatest version of Perl.
+    (Of course, versions of Perl prior to 5.8 did not support the
+    current threads library at all, and don&rsquo;t have a hope of running
+    the threaded code.)
+    </p>
+    <h2>Configuration</h2>
+    <p class=p1>
+    To enable the GUI, add the line &ldquo;<code>config port = 7777</code>&rdquo;
+    to your event&rsquo;s &lsquo;config.tsh&rsquo; file, where the value 7777
+    may be changed to any convenient value between 1024 and 65535.
+    </p>
+    <p class=p1>
+    To enable multithreaded operation, that is, simultaneous operation
+    of the CLI and GUI, create a file called &lsquo;threads.txt&rsquo;
+    in the &lsquo;lib&rsquo; directory.  
+    Yes, I know this is a hack, but it&rsquo;s set up this way because
+    enabling threading induces potential instability in
+    the software (because of ridiculous restrictions on thread-shared
+    data in the current release of the Perl threads library, which itself
+    is not a mature product).
+    I want to make sure that a user does not accidentally turn on 
+    multithreading until I&rsquo;m 100% sure that the code won&rsquo;t is sound.
+    Another problem is that the way the code is written right now,
+    and the way threads work in the current version of Perl, the
+    obvious solution (a line in &lsquo;config.tsh&rsquo;) doesn&rsquo;
+    work because by the time the configuration file is being read,
+    it&rsquo;s too late to activate multithreading (because the configuration
+    file data itself would need to have been labelled as thread-shared).
+    </p>
+    <p class=p1>
+    If you&rsquo;re successful, then when you run <cite>tsh</cite>, your
+    CLI should appear briefly, then be superseded by a browser window
+    showing something like a wall chart.
+    If you&rsquo;re running multithreaded, you can work alternately in the
+    CLI and GUI windows.
+    </p>
+    <h2>Using the GUI</h2>
+    <p class=p1>
+    It&rsquo;s just a proof-of-concept right now, and I don&rsquo;t
+    like the way any of it looks or functions.  I&rsquo;ll be reworking
+    it over the next few months, at which point suggestions will be
+    welcome.
+    </p>
+    <h2>Reconnecting to the GUI</h2>
+    <p class=p1>
+    If you close your browser window, you can reconnect to the GUI
+    either by remembering the URL &ndash; &lsquo;http://localhost:7777&rsquo;
+    (if you chose 7777 as your port number), or looking for the URL in
+    your browser history.
+    If you have the CLI running too, you may use the 
+    &ldquo;<code>GUI</code>&rdquo; command to open a browser window
+    to the GUI.
+    </p>
+    <h2>Shutting down the GUI</h2>
+    <p class=p1>
+    If you have the CLI running, quitting the CLI should shut down
+    the GUI.  Actually, there's a bug in the current version that
+    prevents it from doing so under Windows, so press Control-C to
+    kill the <cite>tsh</cite> process.
+    </p>
+    <p class=p1>
+    If not, you'll just have to press Control-C for now.  Eventually
+    there will be a button in the GUI to shut down the server.
+    </p>
+</body>
+</html>

@@ -1,0 +1,77 @@
+#begintest realm=absp
+#beginconfig
+division a a.t
+division b b.t
+config max_rounds = 4
+config colour = 'no'
+config realm = 'absp'
+perl srand(123)
+#endconfig
+#beginifile a.t
+Chew, John 180    
+Chew, Kristen 130 
+Chew, Jamie 50    
+Chew, Liam 0       
+Player, A 100
+#endifile
+#beginifile b.t
+Player, B 200 2 ; 400; p12 1
+Player, C 180 1 ; 300; p12 2
+#endifile
+#begincommands
+koth 0 0 a
+a 1 a
+1 500 2 400 100
+3 475 5 425 50
+
+delete 3 475 5 425 1 a
+a 1 a
+3 480 5 440 40
+
+es a3 1
+490 460
+
+rat a
+
+rand b
+sc Liam
+rat b
+sp 1 b
+q
+#endcommands
+#beginstdout
+[A1]:pn1 ps1 pn2 ps2 spr (4 scores left)? #1 Chew, John 500 (1.0 +100) - #2 Chew, Kristen 400 (0.0 -100): +100.
+[A1]:pn1 ps1 pn2 ps2 spr (2 scores left)? #3 Chew, Jamie 475 (1.0 +50) - #5 Player, A 425 (0.0 -50): +50.
+[A1]:ES|L words|M|division|<return> (no scores left)? [A1]:pn1 ps1 pn2 ps2 spr (2 scores left)? #3 Chew, Jamie 480 (1.0 +40) - #5 Player, A 440 (0.0 -40): +40.
+[A1]:ES|L words|M|division|<return> (no scores left)? Player Scorecard: Jamie Chew (A3) (50) (S0:R1)
+- Last score was entered 0 minutes ago.
+Rnd 1/2 Tbl Opp Rtng Opponent Name Won-Lost For Agn Spread Cumul
+  1  2    ?   5  100 A Player      1.0-0.0  480 440    +40   +40
+Jamie Chew (A3) R1 [480 440 replies vs. A Player (A5)] (? for help) Player Scorecard: Jamie Chew (A3) (50) (S0:R1)
+- Last score was entered 0 minutes ago.
+Rnd 1/2 Tbl Opp Rtng Opponent Name Won-Lost For Agn Spread Cumul
+  1  2    ?   5  100 A Player      1.0-0.0  490 460    +30   +30
+Jamie Chew (A3) R1 [490 460 replies vs. A Player (A5)] (? for help) Division A Round 1 Ratings
+
+Rnk Won-Lost Spread InR ToR +-R Player            Last Game
+  1 1.0-0.0    +100 180 190 +10 John Chew (A1)    1W:500-400:A2
+  1 1.0-0.0    +100   0  80     Liam Chew (A4)    bye
+  3 1.0-0.0     +30  50 140 +90 Jamie Chew (A3)   2W:490-460:A5
+  4 0.0-1.0     -30 100  40 -60 A Player (A5)     1L:460-490:A3
+  5 0.0-1.0    -100 130 120 -10 Kristen Chew (A2) 2L:400-500:A1
+Player Scorecard: Liam Chew (A4) (0) (S0:R0)
+Rnd 1/2 Tbl Opp Rtng Opponent Name Won-Lost For Agn Spread Cumul
+  1  -    -   -    - bye           1.0-0.0  100   0   +100  +100
+Division B Round 1 Ratings
+
+Rnk Won-Lost Spread InR ToR +-R Player        Last Game
+  1 1.0-0.0    +100 200 230 +30 B Player (B1) 1W:400-300:B2
+  2 0.0-1.0    -100 180 150 -30 C Player (B2) 2L:300-400:B1
+Division B Round 1 Ranked Pairings
+
+Table Who Plays Whom
+   3  B Player (B1) *starts* vs. C Player (B2).
+#endstdout
+#beginstderr
+#endstderr
+#endtest

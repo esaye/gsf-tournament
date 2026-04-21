@@ -1,0 +1,36 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $id = 0;
+my (@names, @scores, @pairings);
+while (<>) {
+  s/#.*//;
+  next unless /\S/;
+  $id++;
+  my ($name, $rating, $o, $s) 
+    = /^([^;]+[^;\s\d])\s+(\d+)\s+([\d\s]*);\s*([-\d\s]*)(?:;[^;]+)*$/;
+  die "Can't parse: $_\n" unless defined $s;
+  $pairings[$id] = [split(/\s+/, $o)];
+  $scores[$id] = [split(/\s+/, $s)];
+  $names[$id] = $name;
+  }
+
+for my $id (1..$#scores) {
+  my $op = $pairings[$id];
+  my $sp = $scores[$id];
+  for my $round (0..$#$sp) {
+    my $opp = $op->[$round];
+    next if $opp == 0;
+    my $ms = $sp->[$round];
+    my $os = $scores[$opp][$round];
+    next if $ms < $os || ($ms == $os && $id == $opp);
+    print join("\t", 
+      $ms,
+      $os,
+      $round,
+      "$names[$id] #$id",
+      "$names[$opp] #$opp",
+      ), "\n";
+    }
+  }

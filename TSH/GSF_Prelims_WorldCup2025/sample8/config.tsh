@@ -1,0 +1,39 @@
+# This is a sample tsh.config file, used for the BAT 2006 Main Event
+# Four divisions of players play a 15-round schedule using Chew pairings.
+#
+# Lines that start with a '#' are comments, and are ignored by tsh.
+#
+# Each division must be declared using a line like the following.
+# The first word after 'division' is the name of the division.
+# Enter it in lower case and keep it short, as you'll need to enter
+# it often.  The next word is the name of the data file for that division.
+#
+division a a.t
+division b b.t
+division c c.t
+division d d.t
+# Specify how many rounds your tournament will be
+config max_rounds = 15
+# Assign boards to tables
+config tables{'A'} = [ 1, map { ($_, $_) } 2..100];
+config tables{'B'} = [ map { ($_, $_) } 1..100];
+config tables{'C'} = [ map { ($_, $_) } 1..100];
+config tables{'D'} = [ map { ($_, $_) } 1..100];
+config tables{'N'} = [ map { ($_, $_) } 1..100];
+# wheelchair player
+# config reserved{'D'}[34] = 20
+# automatically update web server
+# config html_directory = '/Library/WebServer/Documents/bat2006/me/';
+# uncomment the following line to keep track of who played first/second
+config track_firsts = 1
+# uncomment the following line to use only HTML files, no text files
+config no_text_files = 1
+# use three rounds of fixed pairings
+config initial_schedule = 3
+# session breaks after these rounds
+config session_breaks = [3,7,11,14]
+# first place matters, so do 2-5, nothing else does
+config prize_bands{'A'} = [1,5]
+config prize_bands{'B'} = [1,5]
+config prize_bands{'C'} = [1,5]
+config prize_bands{'D'} = [1,5]

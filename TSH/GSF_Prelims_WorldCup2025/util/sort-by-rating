@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my @data;
+  while (<>) {
+    die "This doesn't look like a player name followed by rating:\n$_\nAborting"
+      unless /^(\D+)(\s+)(\d+)(\s*)$/;
+    push(@data, [$1, $2, $3, $4]);
+    }
+  for my $data (sort { $b->[2] <=> $a->[2] || lc($a->[0]) cmp lc($b->[0]) } @data) {
+    print join('', @$data);
+    }
+  }

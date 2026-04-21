@@ -1,0 +1,61 @@
+#!/usr/bin/perl
+
+use lib './lib/perl';
+
+use TSH::Config;
+use TSH::Tournament;
+use TSH::Division;
+use TSH::Player;
+
+sub DefineExternal ($);
+sub Main ();
+
+Main;
+
+sub DefineExternal ($) { }
+
+sub Main () {
+  my $tournament = new TSH::Tournament('./to');
+  $tournament->Lock();
+  $tournament->LoadConfiguration() or die;
+  $tournament->Config()->Export();
+  $tournament->LoadDivisions();
+  my $dp = $tournament->GetDivisionByName('A') or die;
+  $/ = "\r";
+  my $done = 0;
+  my @rstats;
+  while (<>) {
+    last if /^\s*$/;
+    chomp;
+    $done++;
+    my ($id, $name, $rating, $type, $r1, $r2) = split(/\t/, $_, 7);
+    $name =~ s/\s+$//;
+    die "Can't parse: $_\nname=$name\nrating=$rating\ntype=$type\nr1=$r1\nr2=$r2" unless defined $r2;
+    my $p = $dp->Player($id) or die "No player #$id";
+    if ($p->Name() ne $name) { print "Name mismatch for #$id: $name; $p->{'name'}\n"; die; }
+    if (length($r1)) {
+      die unless length($r2);
+      die "player $id has bad r1: $r1" if $r1 <= 0 || $r1 > 18;
+      die "player $id has bad r2: $r2" if $r2 <= 0 || $r2 > 28;
+      die "player $id has bad type: '$type'" unless $type =~ /^(?:[xyo])?$/;
+      die "player $id has same r1 and r2: $r1" if $r1 == $r2;
+      $dp->Pair($id, 0, $r1-1, 1);
+      $p->Score($r1-1, 50);
+      $dp->Pair($id, 0, $r2-1, 1);
+      $p->Score($r2-1, 50);
+      $rstats[$r1]{$type}++;
+      $rstats[$r2]{$type}++;
+      $rstats[$r1]{'total'}++;
+      $rstats[$r2]{'total'}++;
+      }
+    }
+  die "Only did $done.\n" unless $done == $dp->CountPlayers();
+  printf "%2s  %2s %2s %2s %3s\n", 'Rd', 'Y', 'YL', 'N', 'Tot';
+  for my $r (1..$#rstats) {
+    my $rsp = $rstats[$r];
+    printf "%2d: %2d %2d %2d %3d\n", $r, ($rsp->{'x'}||0), ($rsp->{'y'}||0), ($rsp->{'o'}||0),
+      ($rsp->{'total'}||0);
+    }
+  $dp->Dirty(1);
+  $dp->Update();
+  }

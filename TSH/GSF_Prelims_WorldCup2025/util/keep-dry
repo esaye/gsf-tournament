@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $count = (shift @::ARGV) || 100;
+  open STDOUT, ">sim.$$.txt";
+  for my $i (1..$count) {
+    print "=====\nRun $i\n=====\n";
+    open my $pipe, "|./tsh.pl wsctest" or die;
+    print $pipe "dry 16\ntruncaterounds 16\nquit\n";
+    close $pipe;
+    }
+  close STDOUT;
+  }
+

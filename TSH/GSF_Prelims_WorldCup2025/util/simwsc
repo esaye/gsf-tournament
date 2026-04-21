@@ -1,0 +1,86 @@
+#!/bin/sh
+
+# simulate one entire WSC tournament
+
+util/truncate-t 0 < sample4/wsc.t > t
+mv t sample4/wsc.t
+# perl -d:DProf ./tsh.pl > sim.$$.out << EOF
+./tsh.pl sample4 > sim.$$.out << EOF
+debug CP 1
+rat w
+sp 1 w
+rand w
+rat w
+sp 2 w
+rand w
+rat w
+sp 3 w
+rand w
+rat w
+sp 4 w
+rand w
+rat w
+sp 5 w
+rand w
+rat w
+sp 6 w
+rand w
+rat w
+sp 7 w
+rand w
+rat w
+sp 8 w
+rand w
+rat w
+sp 9 w
+rand w
+rat w
+sp 10 w
+rand w
+rat w
+sp 11 w
+rand w
+rat w
+sp 12 w
+rand w
+rat w
+sp 13 w
+rand w
+rat w
+sp 14 w
+rand w
+rat w
+sp 15 w
+rand w
+rat w
+sp 16 w
+rand w
+rat w
+sp 17 w
+rand w
+rat w
+sp 18 w
+rand w
+rat w
+sp 19 w
+rand w
+rat w
+sp 20 w
+rand w
+rat w
+sp 21 w
+rand w
+rat w
+sp 22 w
+rand w
+rat w
+sp 23 w
+rand w
+rat w
+sp 24 w
+rand w
+rat w
+EOF
+echo '--tourney.pl--' >> sim.$$.out
+tourney.pl -w 1000 sample4/wsc.t >> sim.$$.out
+util/simreport sim.$$.out

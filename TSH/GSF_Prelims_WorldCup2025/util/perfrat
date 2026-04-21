@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+# Copyright (C) 1996 by John J. Chew, III <jjchew@math.utoronto.ca>
+# All Rights Reserved
+
+# perfrat - calculate performance rating, NSA-style
+# Usage: perfrat wins opp1 opp2 opp3...
+
+use lib "$ENV{HOME}/lib/perl";
+require 'ratings.pl';
+
+$wins = shift;
+$code = 'sub foo {'; 
+for (@ARGV) { $code .= "(&outcome(\$_[0],$_))[0]+"; }
+$code .= "-$wins;}";
+eval $code;
+print &search('foo', 0, 3000), "\n";
+exit 0;

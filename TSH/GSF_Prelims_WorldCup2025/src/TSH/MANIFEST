@@ -1,0 +1,8 @@
+Changes
+Makefile.PL
+MANIFEST
+Pair.pm
+Pair.xs
+ppport.h
+README
+t/1.t

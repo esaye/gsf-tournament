@@ -1,0 +1,10 @@
+Rowland Craig          1829 9 10 6 8 7 9 7; 419 441 413 367 421 486 381; board 2 3 3 3 3 1 1; p12 1 2 1 2 1 1 2; team Mississauga; time 1144615383
+Nanavati Jim           1769 6 9 8 7 10 6 10; 413 330 444 341 377 397 362; board 1 4 4 4 5 4 5; p12 1 2 1 2 1 2 2; team Mississauga; time 1144615405
+Vijayakumar Sinna      1737 10 6 7 9 8 7 6; 419 434 487 352 291 390 278; board 5 2 2 1 2 3 3; p12 1 2 1 2 2 1 2; team Mississauga; time 1144614668
+Goatcher Shaun         1744 7 8 9 10 6 10 8; 346 466 277 366 489 336 441; board 3 1 1 2 4 2 4; p12 1 2 1 2 1 2 2; team Mississauga; time 1144614882
+Ozorio Steve           1664 8 7 10 6 9 8 9; 442 326 399 390 342 369 466; board 4 5 5 5 1 5 2; p12 1 2 1 2 2 1 1; team Mississauga; time 1144615187
+Berofsky Evan          1832 2 3 1 5 4 2 3; 387 322 431 338 392 492 409; board 1 2 3 5 4 4 3; p12 2 1 2 1 2 1 1; team Toronto; time 1144614668
+Leah Tony              1822 4 5 3 2 1 3 1; 207 450 451 442 402 379 424; board 3 5 2 4 3 3 1; p12 2 1 2 1 2 2 1; team Toronto; time 1144615383
+Chew John              1795 5 4 2 1 3 5 4; 425 288 333 357 360 344 294; board 4 1 4 3 2 5 4; p12 2 1 2 1 1 2 1; team Toronto; time 1144614882
+Kaufman Zev            1776 1 2 4 3 5 1 5; 372 381 502 431 379 298 317; board 2 4 1 1 1 1 2; p12 2 1 2 1 1 2 2; team Toronto; time 1144615187
+Paolella Libero        1729 3 1 5 4 2 4 2; 337 381 440 386 313 491 403; board 5 3 5 2 5 2 5; p12 2 1 2 1 2 1 1; team Toronto; time 1144615405

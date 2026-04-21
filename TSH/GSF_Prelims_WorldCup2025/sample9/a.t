@@ -1,0 +1,40 @@
+Mills, Lloyd            1907 6 3; 5; newr 1899; p12 3 4; rrank 2 1; time 1130736987
+Matsumoto, Kenji        1897 3 6; ; newr 1897; p12 3 4; rrank 3 3
+Kaitz, Merrill          1858 2 1; 2; newr 1850; p12 3 4; rrank 4 2; time 1130736987
+Piro, Sal               1834 7 14; ; newr 1834; p12 3 4; rrank 8 3
+Kantimathi, Sam         1855 14 7; ; newr 1855; p12 3 4; rrank 5 3
+Katz-Brown, Jason       1912 1 2; ; newr 1912; p12 3 4; rrank 1 3
+Silber, Josh            1840 4 5; ; newr 1840; p12 3 4; rrank 7 3
+Buck, Richard           1817 11 9; ; newr 1817; p12 3 4; rrank 11 3
+Sherman, Larry          1834 10 8; ; newr 1834; p12 3 4; rrank 8 3
+Saul, Steve             1829 9 11; ; newr 1829; p12 3 4; rrank 10 3
+Greenspan, Randy        1815 8 10; ; newr 1815; p12 3 4; rrank 12 3
+Dixon, Jan              1812 13 20; ; newr 1812; p12 3 4; rrank 13 3
+Horn, Joel              1812 12 15; ; newr 1812; p12 3 4; rrank 13 3
+Chakrabarti, Amit       1844 5 4; ; newr 1844; p12 3 4; rrank 6 3
+Horowitz, Arnie         1780 20 13; ; newr 1780; p12 3 4; rrank 15 3
+Wolfberg, Michael       1764 19 18; ; newr 1764; p12 3 4; rrank 20 3
+Scalzo, John            1771 18 19; ; newr 1771; p12 3 4; rrank 17 3
+Van Pelt, John          1771 17 16; ; newr 1771; p12 3 4; rrank 17 3
+Baron, Mike             1768 16 17; ; newr 1768; p12 3 4; rrank 19 3
+Daniel, Clay            1774 15 12; ; newr 1774; p12 3 4; rrank 16 3
+Anglin, Tim             1739 23 24; ; newr 1739; p12 3 4; rrank 23 3
+Fidler, Mark            1741 24 23; ; newr 1741; p12 3 4; rrank 22 3
+Koenig, David           1731 21 22; ; newr 1731; p12 3 4; rrank 24 3
+Tangredi, Frank         1760 22 21; ; newr 1760; p12 3 4; rrank 21 3
+Schoneboom, Marjorie    1652 30 32; ; newr 1652; p12 3 4; rrank 32 3
+Mallick, David          1709 27 28; ; newr 1709; p12 3 4; rrank 25 3
+Vijayakumar, Sinna      1709 26 29; ; newr 1709; p12 3 4; rrank 25 3
+Soble, Rebecca          1698 29 26; ; newr 1698; p12 3 4; rrank 27 3
+McPhee, Marcia          1691 28 27; ; newr 1691; p12 3 4; rrank 28 3
+Zxqkj, Winter           1653 25 31; ; newr 1653; p12 3 4; rrank 31 3
+Pianowski, Scott        1681 32 30; ; newr 1681; p12 3 4; rrank 29 3
+Przybyszewski, Mark     1667 31 25; ; newr 1667; p12 3 4; rrank 30 3
+Patterson, Elaine       1648 38 36; ; newr 1648; p12 3 4; rrank 33 3
+Fassio, Gina            1616 36 38; ; newr 1616; p12 3 4; rrank 36 3
+Steward, Judy           1602 40 37; ; newr 1602; p12 3 4; rrank 39 3
+McKeown, Rahn           1621 34 33; ; newr 1621; p12 3 4; rrank 35 3
+Finkey, Don             1612 39 35; ; newr 1612; p12 3 4; rrank 37 3
+Horn, Judy              1643 33 34; ; newr 1643; p12 3 4; rrank 34 3
+Liebfried, Ed           1608 37 40; ; newr 1608; p12 3 4; rrank 38 3
+Durdan, Carl            1579 35 39; ; newr 1579; p12 3 4; rrank 40 3

@@ -1,0 +1,77 @@
+id=core
+title=TSH Core
+description=Core features of tsh.
+terms=Open source, may be freely downloaded and modified, but not redistributed.
+basepath=
+localpath=
+server=tsh.poslfit.com
+manifest=MANIFEST.txt
+type=2
+
+id=plus
+title=TSH Plus
+module=TSH::PlugIn::Plus
+description=Enhanced tsh features for power users.
+terms=Non-disclosure agreement required.
+server=www.poslarchive.com
+basepath=plugins/plus
+localpath=plugins/plus
+serverpath=/cgi-bin/tsh-update.pl
+manifest=MANIFEST.txt
+secure=1
+type=2
+
+id=thai
+title=Thai TSH
+module=TSH::PlugIn::Thai
+description=Custom features for the Thai Crossword Association.
+terms=Available only through the Thai Crossword Association.
+server=www.poslarchive.com
+basepath=plugins/thai
+localpath=plugins/thai
+serverpath=/cgi-bin/tsh-update.pl
+manifest=MANIFEST.txt
+secure=1
+type=2
+
+id=test
+title=Test
+module=TSH::PlugIn::Test
+description=Used for testing the plug-in feature
+terms=Free.
+server=localhost
+basepath=plugins/test
+localpath=plugins/test
+manifest=MANIFEST.txt
+secure=0
+type=2
+
+id=dict
+title=Word Lists
+description=Word lists for adjudication of word games.
+terms=May be freely downloaded, but some lists may be copyright in some jurisdictions.
+basepath=
+localpath=
+server=tsh.poslfit.com
+manifest=MANIDICT.txt
+type=1
+
+id=pix-naspa
+title=NASPA Photos
+description=Photos of NASPA members for use in scoreboards and other displays.
+terms=Free for non-commercial use.
+basepath=/players
+localpath=lib/pix
+server=www.scrabble-assoc.com
+manifest=MANIPICS.txt
+type=1
+
+id=pix-cs
+title=CentreStar Photos
+description=Photos maintained by CentreStar.co.uk, mainly of ABSP members, for use in scoreboards and other displays.
+terms=Free for non-commercial use.
+server=www.centrestar.co.uk
+basepath=/pdb
+localpath=pix/centrestar
+manifest=MANIPICS.txt
+type=1

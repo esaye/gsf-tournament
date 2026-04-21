@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+
+# combine-parallel-t - combine multiple .t files, renumbering as necessary, to make one big division
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $offset = 0;
+  my @lines;
+  while (<>) {
+    push(@lines, $_);
+    }
+  continue {
+    if (eof) {
+      my $command = $offset ? "util/renumber-t -$offset" : 'cat';
+      open my $pipe, "|$command" or die $!;
+      print $pipe @lines;
+      close $pipe or die $!;
+      $offset += @lines;
+      @lines = ();
+      }
+    }
+  }
+

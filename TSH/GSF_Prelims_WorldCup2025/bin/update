@@ -1,0 +1,300 @@
+#!/usr/bin/perl
+
+# update: fetch the most recent version of tsh from the web
+
+# Copyright (C) 2005 John J. Chew, III <jjchew@math.utoronto.ca>
+# All Rights Reserved
+
+package main; # necessary because of how we build get-tsh.pl
+
+use strict;
+use warnings;
+use vars qw($VERSION);
+use File::Path;
+use File::Spec;
+
+$config::server = 'tsh.poslfit.com';
+$config::basepath = '';
+$VERSION = '1.000';
+
+use lib qw(lib/perl ../lib/perl);
+
+sub CheckDirectory ($);
+sub Die ($);
+sub GetFile ($);
+sub GetHTTP ($$);
+sub GetHTTPS ($$);
+sub GetLocalManifest ($);
+sub GetRemoteManifest ($);
+sub Main ();
+sub ParseManifest ($);
+sub UpdateFile ($$\%$);
+sub UpdateAll ($);
+
+BEGIN {
+  if ($^O eq 'MSWin32') {
+    eval "use Win32::Internet";
+    die $@ if $@;
+    $global::win32_internet = new Win32::Internet();
+    }
+  else {
+    eval "use HTTP::Client";
+    die $@ if $@;
+    }
+  }
+
+Main;
+
+sub CheckDirectory ($) {
+  my $file = shift;
+  my ($v, $d, $f) = File::Spec->splitpath($file);
+  my $dir = File::Spec->catpath($v, $d, '');
+  return unless $dir =~ /\S/;
+  mkpath $dir, 0, 0755;
+  }
+
+# using die() causes Windows to abort tsh
+sub Die ($) {
+  my $message = shift;
+  print "$message\n";
+  exit 0;
+  }
+
+sub GetFile ($) {
+  my $path = shift;
+  if ($^O eq 'MSWin32') {
+    my $file = $global::win32_internet->FetchURL(
+      "http://$config::server/$config::basepath/$path"
+      );
+    Die "Server sent us an empty file for $path.  You may have briefly lost your Internet connection.  Check it and rerun the update."
+      unless $file;
+    Die "This looks like a server problem: $1"
+      if $file =~ /<title>(\d\d\d .*?)<\/title>/i;
+    return $file;
+    }
+  return GetHTTP $config::server, "$config::basepath/$path";
+  }
+
+sub GetHTTP($$) {
+  my $server = shift;
+  my $path = shift;
+  $path = "/$path" unless $path =~ m!^/!;
+
+  my $http = new HTTP::Client;
+  $http->Connect($server);
+  my $request = ''
+    ."GET $path HTTP/1.1\015\012"
+    ."Host: $server\015\012"
+    ."Accept-Charset: iso-8859-1\015\012"
+    ."Accept-Encoding:\015\012"
+    ."User-Agent: tsh-update/$VERSION\015\012"
+    ."\015\012";
+  $http->SendRaw($request);
+  my $response = $http->Receive();
+  $http->Close();
+  if (my $code = $response->StatusCode) {
+    if ($code =~ /^30[12357]$/) {
+      my $location = $response->Header('location');
+      my $protocol;
+      ($protocol, $server, $path) = $location 
+	=~ /^(https?):\/\/([^\/]+)(.*)/;
+      Die "Bad redirect: $location\n" unless defined $path;
+      if ($protocol eq 'http') { return GetHTTP($server, $path); }
+      else { return GetHTTPS($server, $path); }
+      }
+    elsif ($code =~ /^403$/) {
+      Die "Server returned 403 Permission Denied: please contact John Chew.";
+      }
+    elsif ($code =~ /^[45]$/) {
+      Die "Server returned code $code: please contact John Chew.";
+      }
+    }
+  if (my $error = $response->Error()) {
+      Die "Can't get http://$server$path: $error\n";
+    }
+  my $html = $response->Body();
+  return $html;
+  }
+  
+sub GetHTTPS ($$) {
+  my $server = shift;
+  my $path = shift;
+  $path = "/$path" unless $path =~ m!^/!;
+
+  # untested for Windows
+  my $http = eval "new HTTP::Client";
+  # should internationalize the following message
+  die "can't new HTTP::Client: $@" if $@;
+  $http->ConnectSecure(
+    'PeerAddr' => $server,
+    'PeerPort' => 443,
+    );
+  my %param;
+  $param{'method'} = 'GET';
+  $param{'url'} = $path;
+  my $request = new HTTP::Message(%param);
+  $request->Header('Host', $server);
+  $request->Header('Accept-Charset', 'iso-8859-1');
+  $request->Header('Accept-Encoding', '');
+  $request->Header('User-Agent', "tsh-update/$VERSION");
+  $request->Header('Content-Type', 'multipart/form-data');
+  $http->Send($request);
+  my $response = $http->Receive();
+  $http->Close();
+# warn $response->StatusCode . ' ' . $response->{'reason-phrase'};
+  if (my $code = $response->StatusCode) {
+    if ($code =~ /^30[1237]$/) {
+      my $location = $response->Header('location');
+      my $protocol;
+      ($protocol, $server, $path) = $location 
+	=~ /^(https?):\/\/([^\/]+)(.*)/;
+      Die "Bad redirect: $location\n" unless defined $path;
+      if ($protocol eq 'https') { return GetHTTPS($server, $path); }
+      else { return GetHTTP($server, $path); }
+      }
+    elsif ($code =~ /^403$/) {
+      Die "Server returned 403 Permission Denied: please contact John Chew.";
+      }
+    elsif ($code =~ /^[45]$/) {
+      Die "Server returned code $code: please contact John Chew.";
+      }
+    }
+  if (my $error = $response->Error()) {
+    print "Can't get https://$server$path: $error\n";
+    return undef;
+    }
+  my $html = $response->Body();
+# warn "body: $html";
+  if ($html =~ /^(\d\d\d [A-Z].*)/) {
+    print "Can't get https://$server$path: $1\n";
+    return undef;
+    }
+  $http->Close();
+  return $html;
+  }
+
+sub GetLocalManifest ($) {
+  my $fn = shift;
+  local($/) = undef;
+  open my $fh, "<$fn" or return {};
+  my $text = <$fh>;
+  close $fh;
+  return ParseManifest $text;
+  }
+
+sub GetRemoteManifest ($) {
+  my $fn = shift;
+  my $text = GetFile $fn;
+  return ParseManifest $text;
+  }
+
+sub Main () {
+  my $manifest_name = 'MANIFEST.txt';
+  $manifest_name = shift @::ARGV if @::ARGV == 1;
+  if (-e '../tsh.pl' && ! -e 'tsh.pl') { chdir '..'; }
+  if (-e 'tsh.pl') { print "Checking for newer versions of tsh files.\n"; }
+  else { print "Downloading tsh.\n"; }
+  my $status;
+  if ($manifest_name eq 'lib/pix') { # kludges galore
+    mkdir 'lib/pix';
+    chdir('lib/pix') or die "chdir('lib/pix') failed: $!\n";
+    $config::server = 'www.scrabbleplayers.org';
+    $config::basepath = '/players';
+    $status = UpdateAll('MANIPICS.txt');
+    mkdir 'centrestar';
+    chdir('centrestar') or die "chdir('centrestar') failed: $!\n";
+    $config::server = 'www.centrestar.co.uk';
+    $config::basepath = '/pdb';
+    my $status1 = UpdateAll('MANIPICS.txt');
+    $status = 
+      ($status < 0 || $status1 < 0) ? -1
+      : ($status > 0 || $status1 > 0) ? 1
+      : 0;
+    }
+  else {
+    $status = UpdateAll($manifest_name);
+    }
+  if ($status > 0) {
+    print "Update complete.  Please quit and rerun tsh.\n";
+    }
+  elsif ($status == 0) {
+    print "No files needed to be updated.\n";
+    }
+  else {
+    print "Empty $manifest_name: something's wrong.\n";
+    }
+  }
+
+sub ParseManifest ($) {
+  my $lines = shift;
+  my %data;
+
+  for my $line (split(/\n/, $lines)) {
+    next if $line =~ /^(?:Archive| +Length +Date|[- ]+$| +\d+ +\d+ files$)/;
+    $line =~ s/^\s+//; $line =~ s/\+$//;
+    my ($length, $date, $time, $file) = split(/\s+/, $line, 4);
+    Die "Can't parse: $line\n" unless defined $file;
+    $data{$file} = "$length $date $time";
+    }
+  return \%data;
+  }
+
+sub UpdateAll ($) {
+  my $manifest_name = shift;
+  my $localsp = GetLocalManifest $manifest_name or Die "No local manifest";
+  my $remotesp = GetRemoteManifest $manifest_name or Die "No remote manifest";
+  my $found_something;
+  my $did_something;
+  for my $file (sort keys %$remotesp) {
+    $found_something++;
+    if ((!-e $file) || (!exists $localsp->{$file}) 
+      || $localsp->{$file} ne $remotesp->{$file}) { 
+      if ($file =~ /\/$/) {
+	unless (-d $file) {
+	  print "Creating directory $file\n";
+	  mkdir $file || warn "mkdir() failed: $!\n";
+	  $did_something++;
+	  }
+	}
+      else {
+	UpdateFile $file, $remotesp->{$file}, %$localsp, $manifest_name;
+	$did_something++;
+	}
+      }
+    }
+  return $did_something ? 1 : $found_something ? 0 : -1;
+  }
+
+sub UpdateFile ($$\%$) {
+  my $file = shift;
+  my $remotedata = shift;
+  my $localsp = shift;
+  my $manifest_name = shift;
+  
+  print "Updating $file.\n";
+  my $content = GetFile $file;
+  unless (defined $content) {
+    Die "No content was received for $file.";
+    }
+  if ($file =~ /\.(?:pl|pm)$/) {
+    if ($content !~ /(?:^#!.*perl|# Copyright)/) {
+      Die "Received content for $file does not look like a Perl script: it looks like something is inserting content into your Internet downloads.\n".substr($content, 0, 200);
+      }
+    }
+  $localsp->{$file} = $remotedata;
+  CheckDirectory $file;
+  open my $fh, ">$file.new" or Die "Can't create $file.new: $!\n";
+  if ($file =~ /\.(?:doc|dwg|gif|ico|jpg|jpeg|zip)$/) {
+    binmode $fh;
+    }
+  print $fh $content or Die "Can't write to $file.new: $!\n";
+  close $fh or Die "Can't close $file.new: $!\n";
+  rename "$file.new", $file or Die "Can't update $file";
+  if ($file =~ /^(?:bin|util)\/|^(?:get-tsh|tourney|tsh)\.pl$|^osx-tsh\.command$/ && $file !~ /\.(?:hlp|txt)$/) {
+    chmod 0755, $file or Die "chmod $file failed: $!\n";
+    }
+  open $fh, ">$manifest_name" or Die "Can't creat $manifest_name: $!\n";
+  print $fh map { qq($localsp->{$_} $_\n) } sort keys %$localsp
+    or Die "Can't write to $manifest_name: $!\n";
+  close $fh or Die "Can't close $manifest_name: $!\n";
+  }

@@ -1,0 +1,186 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+# concatenate documentation web pages
+
+sub CheckAnchorUsage ();
+sub Main ();
+sub MakeIndex ();
+sub MungeAName ($$);
+sub MungeLink ($$);
+
+my @order = qw(
+index.html
+trouble.html
+intro.html
+commands.html
+entry.html
+reports.html
+install.html
+config.html
+gui.html
+pairing.html
+ratings.html
+scoreboard.html
+aupair.html
+ken.html
+teams.html
+tssc.html
+thai.html
+news.html
+issues.html
+);
+my %order = map { $order[$_] => $_ } 0..$#order;
+my %anchors_defined;
+my %anchors_linked;
+my %index;
+
+Main;
+
+sub CheckAnchorUsage () {
+  for my $file (keys %anchors_defined) {
+    for my $anchor (keys (%{$anchors_defined{$file}})) {
+      warn "Defined but not linked: $file.html#$anchor\n"
+        unless $anchors_linked{$file}{$anchor}
+	|| ($file eq 'issues' && $anchor =~ /^\d+$/);
+      }
+    }
+  for my $file (keys %anchors_linked) {
+    for my $anchor (keys (%{$anchors_linked{$file}})) {
+      warn "Linked but not defined in $anchors_linked{$file}{$anchor}.html: $file.html#$anchor\n"
+        unless $anchors_defined{$file}{$anchor};
+      }
+    }
+  }
+
+sub Main () {
+  opendir(DIR, 'doc') or die $!;
+  my (@files) = grep { /\.html$/ && ! /^(?:all|gvcqs|koth|style)\.html$/ } readdir(DIR);
+  closedir(DIR);
+
+  my (@now) = localtime;
+  my $update = sprintf("%d-%02d-%02dT%02d:%02d:%02d", $now[5]+1900, $now[4]+1, $now[3], $now[2], $now[1], $now[0]);
+  for my $file (@files) {
+    die "Unknown file: $file\n"
+      unless exists $order{$file};
+    }
+  my $not_first;
+  @::ARGV = map { "doc/$_" } sort { $order{$a} <=> $order{$b} } @files;
+  my $oldargv = '';
+  my $base = '';
+  while (<>) {
+    $not_first++ if /<\/html>/;
+    if (/^<\s*\/body>/i) {
+      next;
+      }
+    if (/^<\s*\/html>/i) {
+      next;
+      }
+    if ($oldargv ne $ARGV) {
+      $oldargv = $ARGV;
+      $base = $ARGV;
+      $base =~ s/.*\///;
+      $base =~ s/\..*//;
+      }
+
+    if (/^<!DOCTYPE/../^<body/i) {
+      if ($not_first) {
+#       warn "skipping $. in $ARGV.\n";
+	print qq(<p class=p1><a name="_${base}_">&nbsp;</a></p>\n)
+	  if $. == 1;
+	next;
+	}
+      else {
+        s/<body/<body class=all/;
+        }
+      }
+    next if /^<p class=version>/../<\/p>/;
+
+    s/^<title>About tsh<\/title>/<title>tsh Reference Manual<\/title>/;
+    s/<a ([^>]*)name=(".*?"|\w+)/qq(<a $1name=") . (MungeAName $base, $2) . '"'/ge;
+    s/<a ([^>]*)href="(.*?)"/qq(<a $1href=") . (MungeLink $base, $2) . '"'/ge;
+    s/<div class=navbar>/$&<p class=version><cite>tsh<\/cite> Reference Manual (updated $update)<\/p>/;
+    print;
+    }
+  continue { 
+    close(ARGV) if eof;
+    }
+
+  my $index = MakeIndex;
+  warn "</body>\n<\/html>\n";
+  warn "Index:\n$index\n";
+  CheckAnchorUsage;
+  }
+
+my %ok_links;
+BEGIN {
+  %ok_links = map { $_ => 1 } qw(
+  tshguide.pdf
+  gvcqs.html
+  ../lib/tsh.css
+  ../ratings.pl
+  ../ratings2.pl
+  ../tsh.zip
+  http://www.perl.com/
+  http://www.poslfit.com/
+  http://www.macperl.com/
+  http://www.strawberryperl.com/
+  http://www.activestate.com/
+  http://www.cross-tables.com/
+  http://www.vim.org/
+  http://www.poslarchive.com/math/scrabble/paper
+  http://poslarchive.com/cgi-bin/update-pdb-ken.pl
+  http://groups.yahoo.com/group/tsh-users
+  http://support.microsoft.com/kb/827218
+  mailto://vince@wgvc.com
+  ), 'event url';
+}
+
+sub MakeIndex () {
+  my $index = '';
+  for my $entry (sort { lc($a) cmp lc($b) } keys %index) {
+    my $idata = $index{$entry};
+    $index .= "$entry: " .  join(', ', keys %$idata);
+    }
+  return $index;
+  }
+
+sub MungeAName ($$) {
+  my $base = shift;
+  my $name = shift;
+  $name =~ s/^"(.*)"$/$1/;
+  if ($name =~ /^ix_(.*)_.*$/) {
+    my $entry = $1;
+    $entry =~ s/_/ /g;
+    $index{$entry}{"$base/$name"}++;
+    }
+  else {
+    $anchors_defined{$base}{$name}++;
+    }
+  return qq(_${base}_$name);
+  }
+ 
+sub MungeLink ($$) {
+  my $base = shift;
+  my $link = shift;
+  if ($link eq 'all.html') { return '#'; }
+  if ($ok_links{$link}) { return $link; }
+  if ($link =~ /^(\w+)\.html$/) {
+    die "Unknown file in link: $link" unless exists $order{$link};
+    return "#_$1_";
+    }
+  if ($link =~ /^(\w+)\.html#(.*)$/) {
+    die "Unknown file in link: $link" unless exists $order{"$1.html"};
+    $anchors_linked{$1}{$2} = $base;
+    return "#_$1_$2";
+    }
+  if ($link =~ /^#(.*)$/) {
+    $anchors_linked{$base}{$1} = $base;
+    return "#_${base}_$1";
+    }
+  else {
+    die "Can't parse link: $link";
+     }
+  }

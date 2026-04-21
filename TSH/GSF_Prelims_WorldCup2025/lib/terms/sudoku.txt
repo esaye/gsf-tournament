@@ -1,0 +1,9 @@
+code=Sprd
+brief=Pts
+type=label
+
+code=Spread
+brief=Points
+type=label
+
+

@@ -1,0 +1,26 @@
+#!/usr/bin/perl
+
+# create roster files for use by web site generation software
+
+use strict;
+use warnings;
+use lib './lib/perl';
+use TFile;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $divnum = 0;
+  for my $ARGV (@::ARGV) {
+    my $tf = new TFile $ARGV;
+    $divnum++;
+    my $pnum = 0;
+    while (my $datap = $tf->ReadLine()) {
+      printf "%d-%03d\t%d\tyes\t%s\t\n",
+        $divnum, ++$pnum, $datap->{'rating'}, $datap->{'name'};
+      }
+    $tf->Close();
+    }
+  }

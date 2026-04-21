@@ -1,0 +1,90 @@
+#begintest roto
+#beginconfig
+division a a.t
+config colour = 'no'
+config max_rounds = 3
+config rotofile = 'roto.txt'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#beginifile roto.txt
+owner Owner 1
+player Chew, John
+player Chew, Kristen
+
+owner Owner 2
+player Chew, John
+player Chew, Jamie
+
+owner Owner 3
+player Chew, Liam
+player Chew, Jamie
+
+owner Owner 4
+player Chew, Liam
+player Foo
+#endifile
+#begincommands
+roto 3
+q
+#endcommands
+#beginstdout
+#endstdout
+#beginstderr
+Error: Team 4 has an unknown player: Foo. [erotounp]
+Error: Owner 4 has 1 player(s), not 2 (Chew, Liam (#4)). [erotosiz]
+#endstderr
+#endtest
+#begintest roto 2
+#beginconfig
+division a a.t
+config colour = 'no'
+config max_rounds = 3
+config rotofile = 'roto.txt'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#beginifile roto.txt
+owner Owner 1
+player Chew, John
+player Chew, Kristen
+
+owner Owner 2
+player Chew, John
+player Chew, Jamie
+
+owner Owner 3
+player Chew, Liam
+player Chew, Jamie
+
+#endifile
+#begincommands
+roto 2
+roto 3
+q
+#endcommands
+#beginstdout
+Round 2 Rotisserie
+
+ W   Sprd Owner                                             Team
+ 4   +800 Owner 1                      2-001  2-002
+ 2   +200 Owner 2                      2-001  0-003
+ 0   -800 Owner 3                      0-004  0-003
+Round 3 Rotisserie
+
+ W   Sprd Owner                                             Team
+ 5   +800 Owner 1                      3-001  2-002
+ 4   +350 Owner 2                      3-001  1-003
+ 1   -800 Owner 3                      0-004  1-003
+#endstdout
+#beginstderr
+#endstderr
+#endtest

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Preparing Reports</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=here><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Preparing Reports with <cite>tsh</cite></h1>
+<p class=subtitle>How to list standings, pairings and more using <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-06-01T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<p class=p1>
+As part of your regular <a href="intro.html#workflow">workflow</a>
+after you have <a href="entry.html">entered scores</a> for your
+tournament, you will likely want to produce and print reports
+such as standings and pairings tables using <cite>tsh</cite>.
+Each type of report is generated using its own command, and 
+most report-generating commands display some information on
+your screen while saving it to an HTML file which you may print.
+</p>
+<p class=sidebar>
+If you are using OS/X, you can open the documents from a second Terminal
+window using the 
+&ldquo;<code>open</code>&rdquo; command.
+You can also print them directly to your default printer using the
+&ldquo;<code>lpr</code>&rdquo;
+command, though CSS formatting may not apply.
+The best way is to print from your browser.
+</p>
+<p class=p1>
+<a name=print>To print</a> the most recent report that you generated, enter the 
+&ldquo;<a href="commands.html#browselast">BrowseLast</a>&rdquo;
+command to open the report in a new browser window, then use
+your browser&rsquo;s print command.
+To print older reports, and to see which ones are available, enter the
+&ldquo;<a href="commands.html#browse">Browse</a>&rdquo; command
+to open a report index in a new browser window.
+</p>
+<p class=p1>
+By default, HTML files are created in the &ldquo;html&rdquo; subdirectory
+of your event directory.
+If your computer runs its own locally accessible web server
+(most computers can be configured to do so), then you may wish to
+create the HTML files directly in the server directory using
+&ldquo;<a href="config.html#html_directory"><code>config html_directory</code></a>&rdquo; so that your players can check reports on their laptops
+or at browser kiosks that you have set up at your tournament.
+If you would like to have the HTML files directly in the event directory
+as well as in a subdirectory, you may use the 
+&ldquo;<a href="config.html#html_in_event_directory"><code>config html_in_event_directory</code></a>&rdquo; configuration option (this was default behaviour prior to version 3.170).
+If you have a complicated event that you are running as multiple TSH events but would like to have a master HTML index for all of the events, see 
+&ldquo;<code><a href="config.html#html_parent_directory">config html_parent_directory</a></code>&rdquo;,
+&ldquo;<code><a href="config.html#html_parent_title">config html_parent_title</a></code>&rdquo;,
+and
+&ldquo;<code><a href="config.html#html_child_prefix">config html_child_prefix</a></code>&rdquo;.
+</p>
+<p class=sidebar>
+If you are using Windows, be sure to close whichever files you opened,
+or else <cite>tsh</cite> may not be able to update them again.
+(Apparently this may be an Internet Explorer bug, if you want to leave
+the files open, try switching to Firefox.)
+</p>
+<p class=p1>
+The formatting of the HTML file is controlled by a CSS stylesheet called
+&ldquo;tsh.css&rdquo;
+If you want to copy your report files to a remote web server, you
+must include a copy of this file in the same directory as your report
+files, or they will not be displayed correctly.
+<cite>tsh</cite> includes master versions of the stylesheet for various
+<a href="config.html#realm">realms</a>, and if there is no stylesheet
+in your HTML directory, it installs a copy of the appropriate one.
+Once it has done so, you may make your own local changes to it if you
+do not care for the default style, but if you think your changes might
+be of general use, please send them in for inclusion in the <cite>tsh</cite>
+distribution.
+</p>
+<p class=p1>
+For the sake of backward compatibility and in case <cite>tsh</cite>
+is run on a computer without a web browser, reports are also saved
+in text format. 
+If you do not want text files to clutter your event directory, use the
+&ldquo;<a href="config.html#no_text_files"><code>config no_text_files</code></a>&rdquo;
+configuration option.
+</p>
+
+<h2>Player Photos</h2>
+<p class=p1>
+Some commands will display photographs to help identify players, if the
+&ldquo;<code><a href="config.html#player_photos">config player_photos = 1</a></code>&rdquo;
+configuration option is specified in your configuration file, and if you
+have one of the optional photo databases installed.
+These currently include:
+&ldquo;<code><a href="#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo;.
+&ldquo;<code><a href="#showpairings">ShowPairings</a></code>&rdquo;
+and
+&ldquo;<code><a href="#scoreboard">ScoreBoard</a></code>&rdquo;.
+Use the
+&ldquo;<code><a href="config.html#photo_database">photo_database</a></code>&rdquo;
+configuration option to choose a photo database, then keep it updated using the
+&ldquo;<code><a href="install.html#updatepix">updatepix</a></code>&rdquo; command.
+(This may take a while on a slow Internet connection.)
+Use the
+&ldquo;<code><a href="config.html#player_photo_aspect_ratio">player_photo_aspect_ratio</a></code>&rdquo;
+configuration option if your photos are not square.
+Databases are currently available for NASPA and ABSP players; tournament
+directors from outside those jurisdictions should contact John Chew to
+set up their own databases.
+</p>
+
+<h2>Pairings</h2>
+
+<p class=p1>
+Before each round begins, you need to print up pairings, showing who
+is playing whom where.
+If you are using Fontes Swiss pairings, these pairings will typically
+be available sometime in the middle of the preceding round, as soon
+as you have finished entering and checking the second preceding round&rsquo;s
+results.  
+You should post them as quickly as possible, so that anyone who finishes
+their game early will know right away who their next opponent is.
+Using this command will also generate pages of tally slips preprinted
+with player information, if you want to cut and distribute them to players.
+</p>
+
+<p class=p1>
+The
+<a href="pairing.html">pairings</a> for a given division and round
+may have already been computed (and will be displayed right away), 
+may need to be computed (and will be displayed after a brief delay),
+or may not yet be computable (and you&rsquo;ll see an error message
+if you ask for them, instructing you to enter more scores before
+asking for the pairings).
+</p>
+
+<p class=p1>
+<a name=showpairings>You</a> show pairings using the 
+&ldquo;<code>ShowPairings round division</code>&rdquo;
+command.
+To list pairings (e.g.) for round 5, division C, enter the command
+&ldquo;<code>sp 5 c</code>&rdquo;.  (If you have only one division, you may
+omit it, so you&rsquo;d enter 
+&ldquo;<code>sp 5</code>&rdquo;.)
+As noted at the beginning of this section,
+this will display on your screen who is playing whom where, 
+create two printable HTML files called
+&ldquo;C-alpha-pairings-005.html&rdquo;
+(in alphabetical order of player name, in a two-column format if 
+<cite>tsh</cite> thinks it will look better that way)
+and
+&ldquo;C-pairings-005.html&rdquo;
+(by player rank),
+and one text file called &ldquo;C-pairings.doc&rdquo;.
+</p>
+<p class=p1>
+Several configuration options affect pairings reports.  Their effects are
+described in the following table.
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Option</th><th class=description>Effect</th><th>Usefulness</th></tr>
+<tr><td class=name><a href="config.html#alpha_pair_first_page_break">alpha_pair_first_page_break</a></td>
+  <td class=description>Specifies how many rows of pairings to print on the first page of alpha pairings.</td>
+  <td>Use this if you have an unusually tall header that appears at the top of your reports.</td>
+</tr>
+<tr><td class=name><a href="config.html#alpha_pair_page_break">alpha_pair_page_break</a></td>
+  <td class=description>Specifies how many rows of pairings to print on each page of alpha pairings.</td>
+  <td>Use this if you find that the default settings are causing the bottom rows of some pages to appear on their own on a separate sheet of paper.</td>
+</tr>
+<tr><td class=name><a href="config.html#alpha_pair_single_column">alpha_pair_single_column</a></td>
+  <td class=description>If set, forces alphabetical pairings to appear in single-column format.</td>
+  <td>You might want to use this, if you have very long player names, as is the case at the U.S. NSSC.</td>
+</tr>
+<tr><td class=name><a href="config.html#assign_firsts">assign_firsts</a></td>
+  <td class=description>If set, <cite>tsh</cite> will assign who goes first (starts) in each game, and will never suggest that players draw to see who does so.
+  <td>
+    It&rsquo;s always a good idea to use this option, to protect players from error and fraud.
+  </td>
+</tr>
+<tr><td class=name><a href="config.html#no_ranked_pairings">no_ranked_pairings</a></td>
+  <td class=description>If set, prevents ranked pairings reports from being generated.</td>
+  <td>You might want to use this, if you only want alphabetical pairings and don't like cluttered directories on your disk.</td>
+</tr>
+<tr><td class=name><a href="config.html#no_index_tally_slips">no_index_tally_slips</a></td>
+  <td class=description>If set, prevents tally slip files from cluttering your web index.</td>
+  <td>You might want to use this, if you don't like cluttered indices in your browser.</td>
+</tr>
+<tr><td class=name><a href="config.html#no_text_files">no_text_files</a></td>
+  <td class=description>If set, prevents &ldquo;.doc&rdquo; files from being generated.</td>
+  <td>You might want to use this, if you don't like cluttered directories on your disk.</td>
+</tr>
+<tr><td class=name><a href="config.html#numeric_pairing_display">numeric_pairing_display</a></td>
+  <td class=description>If set, sorts players numerically rather than alphabetically.</td>
+  <td>You might want to use this, if you can&rsquo;t read the language in which the player names are written.</td>
+</tr>
+<tr><td class=name><a href="config.html#player_photos">player_photos</a></td>
+  <td class=description>If set, displays a photo of each player&rsquo;s opponent, where one is available.</td>
+  <td>You should use this, if photos and a good printer are available.</td>
+</tr>
+<tr><td class=name><a href="config.html#player_photo_aspect_ratio">player_photo_aspect_ratio</a></td>
+  <td class=description>Specifies the width:height ratio of player photos, defaulting to 1. If your photo database consists of photos with a 3:4 ratio, set this to 0.75.</td>
+  <td>If you are using player photos and your images are not square, you must use this to keep the photos from being stretched.</td>
+</tr>
+<tr><td class=name><a href="config.html#track_firsts">track_firsts</a></td>
+  <td class=description>If set, <cite>tsh</cite> will keep track of who goes first (starts) or goes second (replies) in each game, and display this information in pairings reports, suggesting that they draw tiles if it doesn not know who should start.</td>
+  <td>
+    It&rsquo;s always a good idea to use this option.
+  </td>
+</tr>
+</table>
+
+<p class=p1>
+You may also use the 
+&ldquo;<code>ShowManyPairings r1-r2 division</code>&rdquo;
+command to produce pairings reports for multiple rounds,
+similar to those used at the U.S. Open.
+This is particularly appropriate when you are pairing many rounds
+at a time, as for example in a round-robin tournament.
+</p>
+
+<h2><a name=standings>Standings and Ratings Estimates</a></h2>
+
+<p class=p1>
+The &ldquo;<code>RATings division</code>&rdquo; command shows
+current standings with estimates
+of new (Elo/NASPA, Elo/NASPA-LCT or ABSP depending on the 
+values of 
+&ldquo;<code><a href="config.html#rating_system">config rating_system</a></code>&rdquo;
+and
+&ldquo;<code><a href="config.html#division_rating_system">config division_rating_system</a></code>&rdquo;
+) player ratings.
+&ldquo;<code>rat a</code>&rdquo; will tell you what
+Division A ratings would be if the tournament ended right now.
+If the previous round&rsquo;s results are available when this command
+is used, an extra column will show who went first against whom and
+the game score unless 
+&ldquo;<code><a href="config.html#no_show_last">config no_show_last = 1</a></code>&rdquo; was specified
+If the next round pairings are available when this command is used,
+an extra column will show each player&rsquo;s next opponent.
+Specifying &ldquo;<code><a href="config.html#pairing_bars">config pairing_bars = 1</a></code>&rdquo; will join paired players with lines in the right margin on screen only.
+Specifying &ldquo;<code><a href="config.html#standings_refresh">config standings_refresh = 30</a></code>&rdquo; will
+make the HTML versions of these reports refresh themselves in the browser every 30 seconds.
+You should use this command when all the scores are in for a round,
+and print its report.
+Files are created as with pairings.
+</p>
+<p class=p1>You can show standings from earlier rounds using the 
+&ldquo;<code><a href="commands.html#roundratings">RoundRATings round division</a></code>&rdquo; command.
+Entering &ldquo;<code>rrat 3 c</code>&rdquo; will give you the 
+standings as of round 3 for division C.
+Using the
+&ldquo;<code><a href="commands.html#roundclassratings">RoundClassRATings round division</a></code>&rdquo; command
+instead will group players by <a href="config.html#class">class</a>, then rank, rather than just rank.
+</p>
+<p class=p1>To show standings based on a range of rounds not including the first round, use the
+&ldquo;<code><a href="commands.html#resultsbyround">ResultsByRound firstround-lastround division</a></code>&rdquo; command.
+</p>
+<p class=p1>
+The
+&ldquo;<code><a href="commands.html#performanceratings">PerformanceRATings division</a></code>&rdquo; 
+and
+&ldquo;<code><a href="commands.html#roundperformanceratings">RoundPerformanceRATings round division</a></code>&rdquo; commands
+will include performance rating estimates in the tables.
+A performance rating is the rating that a player would have had to have had before
+the event, in order for their rating to have remained unchanged at the end of the 
+event. It can be computationally demanding to compute if there are a large number
+of unrated players.
+</p>
+<p class=sidebar>
+The &ldquo;tourney.pl&rdquo; program can be used to produce detailed
+tournament reports which combine standings, estimated NASPA ratings and
+scores of all games.  In Unix, enter
+&ldquo;<code>tourney.pl a.t &gt; a.txt</code>&rdquo; 
+or
+&ldquo;<code>tourney.pl -d 10 a.t &gt; a.txt</code>&rdquo; 
+(to split-rate after 10)
+to create a file called
+&ldquo;a.txt&rdquo; containing a report based on the data in
+&ldquo;a.t&rdquo;.
+</p>
+<p class=p1>The now deprecated
+&ldquo;<code>STandings division</code>&rdquo; command
+does what the
+&ldquo;<code>RATings</code>&rdquo; command
+does, but without the ratings estimates, 
+and is kept largely for use at nonrated events.
+Entering 
+&ldquo;<code>st c</code>&rdquo; will give you the 
+current standings for Division C.
+Files are created as with pairings.
+You can show standings from earlier rounds using the 
+&ldquo;<code>RoundStandings round division</code>&rdquo; command.
+Entering &ldquo;<code>rs 4 d</code>&rdquo; will give you the 
+standings as of round 4 for division D.
+</p>
+<p class=p1>
+If you used the &ldquo;<code><a href="config.html#class">classes</a></code>&rdquo;
+configuration command, then the class to which each player belongs will
+be shown in standings and ratings reports.
+</p>
+<p class=p1>
+If you need more precise control over which fields (columns) are
+shown in the rating and standings reports discussed above, you 
+can list the fields you want using the &ldquo;<code><a href="config.html#rating_fields">rating_fields</a></code>&rdquo; configuration option. If
+you do not, the following fields will be displayed.
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Field Name</th><th class=description>Description</th></tr>
+  <tr><td class=name>rank</td><td class=description>Current rank in standings</td></tr>
+  <tr><td class=name>wl</td><td class=description>Win-loss record. Not shown if no <a href="config.html#pairing_system">pairing system</a> is in effect; i.e., for solo events.</td></tr>
+  <tr><td class=name>scoresum</td><td class=description>Sum of scores. Shown if the &ldquo;<code><a href="config.html#sum_before_spread">sum_before_spread</a></code>&rdquo; configuration option is set.</td></tr>
+  <tr><td class=name>spread</td><td class=description>Cumulative spread. Not shown if the &ldquo;<code><a href="config.html#scores">scores</a></code>&rdquo; configuration option is set to &ldquo;<code>'WL'</code>&rdquo; or &ldquo;<code>'WLT'</code>&rdquo;.</td></tr>
+  <tr><td class=name>thaipoints</td><td class=description>Thai handicapped game points: 2 for a win, 1 for a tie, 0 for a loss, plus handicap values. Shown if the &ldquo;<code><a href="config.html#thai_points">thai_points</a></code>&rdquo; configuration option is set.</td></tr>
+  <tr><td class=name>orat</td><td class=description>Pretournament rating. Shown in ratings reports, but not in standings reports.</td></tr>
+  <tr><td class=name>nrat</td><td class=description>Estimated current post-tournament rating. Shown in ratings reports, but not in standings reports.</td></tr>
+  <tr><td class=name>drat</td><td class=description>Estimated current tournament rating change. Shown in ratings reports, but not in standings reports.</td></tr>
+  <tr><td class=name>class</td><td class=description>Class. Shown if the division appears to have <a href="config.html#class">classes</a> configured.</td></tr>
+  <tr><td class=name>name</td><td class=description>Name.</a> configured.</td></tr>
+  <tr><td class=name>last</td><td class=description>Previous game outcome. Not shown if no <a href="config.html#pairing_system">pairing system</a> is in effect; i.e., for solo events. Also not shown in the first round of an event, because there would be no previous game.</td></tr>
+  <tr><td class=name>next</td><td class=description>Next game pairing information. Not shown if the next round has not yet been paired.</td></tr>
+</table>
+<p class=p1>
+<a name=teamstandings>If</a> you are using the 
+&ldquo;<a href="config.html#etc_team"><code>team</code></a>&rdquo; extension field
+in your &ldquo;.t&rdquo; file, you can use the
+&ldquo;<a name=roundteamstandings href="commands.html#roundteamstandings"><code>RoundTeamStandings round division</code></a>&rdquo; and
+&ldquo;<a href="commands.html#teamstandings"><code>TeamStandings division</code></a>&rdquo; commands to list team standings.
+If your teams are competing based on their aggregate performance across
+all divisions, you should use the
+&ldquo;<a name=totalteamstandings href="commands.html#totalteamstandings"><code>TotalTeamStandings</code></a>&rdquo; command.
+</p>
+<p class=p1>(Deprecated) <a name=scoreboard>If</a> you have a spare computer or external monitor, you can use the 
+&ldquo;<a href="config.html#hook_addscore_flush"><code>hook_addscore_flush</code></a>&rdquo;
+and
+&ldquo;<a href="config.html#hook_autopair"><code>hook_autopair</code></a>&rdquo;
+configuration options to automatically trigger the 
+&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command,
+which can show players up-to-the-minute scores and pairings information and act as a virtual replacement for paper wall charts.
+</p>
+<p class=p1>
+<a name=enhancedscoreboard>The</a>
+&ldquo;<code><a href="commands.html#enhancedscoreboard">EnhancedScoreBoard</a></code>&rdquo; command generates a display
+that is superficially similar to the now deprecated
+&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo; command&rsquo;s display, but differs substantially in its implementation and features.
+To use it, you must currently run the command once from the command line at the beginning of your event.
+This sets up a web page for your players, containing AJAX code that
+periodically fetches tournament results from your web server.
+(Note that to use this command, you must be serving your web pages from
+a web server, not just straight from your file system as is possible
+with many operating systems.)
+You should use the
+&ldquo;<a href="config.html#hook_addscore_flush"><code>hook_addscore_flush</code></a>&rdquo;
+and
+&ldquo;<a href="config.html#hook_autopair"><code>hook_autopair</code></a>&rdquo;
+configuration options to trigger the
+&ldquo;<code><a href="commands.html#savejson">saveJSON</a></code>&rdquo; command, 
+which saves a division's entire state in a form that can be read by the enhanced
+scoreboard.
+The main advantages of using the enhanced scoreboard are that there is less load on the
+web server, and users can browse the history of the tournament round by round, even
+after the event is over.
+You can also use it with the 
+&ldquo;<a href="commands.html#setesbmessage"><code>setESBMeSsaGe</code></a>&rdquo; command to display
+announcements for players.
+Appending &ldquo;<code>?nomsg=1</code>&rdquo; to a scoreboard URL will suppress the display of this message.
+Use the &ldquo;<a href="config.html#etc_sbname"><code>sbname</code></a>&rdquo; optional player data field
+to give a specify an alternate name for a player.
+Use the &ldquo;<a href="config.html#esb_geometry"><code>config esb_geometry</code></a>&rdquo; configuration option
+to specify default numbers of rows, columns, and rank offset for each enhanced scoreboard.
+</p>
+
+<h2>Ratings Data Submission</h2>
+
+<p class=p1>
+<cite>tsh</cite> creates ratings data files in three different formats,
+depending on which rating system you will be submitting your data to.
+</p>
+
+<h3><a name=submit>NASPA Ratings</a></h3>
+<p class=sidebar>
+Use 
+&ldquo;<a href="config.html#division_rating_system"><code>config division_rating_system{'X'} = 'none'</code></a>&rdquo;
+if you have a division you do not want to submit for ratings.
+</p>
+  <p class=p1>
+  There are two ways to submit ratings data to the NASPA.
+  The much easier way is to connect to the Internet, then enter the
+  &ldquo;<code>SUBMIT</code>&rdquo; command.
+  In order to use this command, you must correctly set the 
+  configuration parameters
+&ldquo;<a href="config.html#director_id"><code>director_id</code></a>&rdquo;,
+and
+&ldquo;<a href="config.html#tournament_id"><code>tournament_id</code></a>&rdquo;
+as in the following example:
+  </p>
+<pre>
+# This line gives your NASPA ID
+config director_id = "CM000003"
+# This line gives your NASPA tournament number
+# (use the LISTT command or ask John Chew if you don't know how to get it)
+config tournament_id = 123
+</pre>
+<p class=p1>
+If you cannot directly connect your <cite>tsh</cite> machine
+to the Internet, try running the 
+&ldquo;<code>SUBMIT</code>&rdquo; command anyway. This will create a file called
+&ldquo;all.tsh&rdquo; in your event directory, which you may upload through
+the Member services section of the NASPA website.
+</p>
+<p class=p1>
+Use the &ldquo;<a href="config.html#ratings_note"><code>config ratings_note</code></a>&rdquo; configuration option if you want to include a note about the event for the rating officer.
+Use the
+&ldquo;<a href="config.html#director_name"><code>director_name</code></a>&rdquo;,
+&ldquo;<a href="config.html#event_name"><code>event_name</code></a>&rdquo;,
+and
+&ldquo;<a href="config.html#event_date"><code>event_date</code></a>&rdquo;,
+configuration options to include the director&rsquo;s and event&rsquo;s names
+and event date
+for the historical record.
+</p>
+
+<h3><a name=abspgrid>ABSP Ratings</a></h3>
+<p class=p1>
+The 
+&ldquo;<code>ABSPgrid</code>&rdquo;
+command generates a ratings grid for submission to the ABSP.  
+The grid will be saved as a text file called 
+&ldquo;abspgrid.doc&rdquo; in your event directory.
+</p>
+
+<h3><a name=aupair>AUPAIR Ratings</a></h3>
+<p class=p1>
+The 
+&ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo;
+command generates a &ldquo;.TOU&rdquo; file in the format used
+by the &ldquo;AUPAIR.EXE&rdquo; program.
+The file is not displayed on the screen.
+&ldquo;AUPAIR.EXE&rdquo; is used by Bob Jackman and his WESPA
+Rating System, and by many countries in southeast Asia.
+</p>
+
+
+<h2>Prizes and Statistics</h2>
+<p class=p1>
+<a name=prizes>The</a> 
+&ldquo;<code>PRiZes</code>&rdquo; command
+generates a table listing all the prizes that you will be awarding,
+with the current leading candidate for each.
+It also generates a slide show that you can run during your prize ceremony.
+(Press the left arrow, up arrow, backspace, B or P key to return to the previous slide,
+or any other key to advance to the next.)
+To use it, you will need to add 
+<a href="config.html#prizes">prize declarations</a> to your configuration
+file, and you should print or preview a sample report after a
+<a href="commands.html#dryrun">dry run</a> to 
+<a href="commands.html#testing">check</a> for completeness and
+correctness.
+</p>
+<p class=p1>You can show standings based on a range of rounds using the
+&ldquo;<code>ResultsByRound firstround-lastround division</code>&rdquo; command.
+Entering &ldquo;<code>rbr 1-7 b</code>&rdquo; will give you the 
+standings based on the first seven rounds for Division B.
+Files are created as with pairings.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=highwin href="commands.html#highwin">HighWin count division</a></code>&rdquo;,
+&ldquo;<code><a name=highloss href="commands.html#highloss">HighLoss count division</a></code>&rdquo;,
+&ldquo;<code><a name=highcombined href="commands.html#highcombined">HighCombined count division</a></code>&rdquo;,
+&ldquo;<code><a name=highspread href="commands.html#highspread">HighSpread count division</a></code>&rdquo;,
+&ldquo;<code><a name=lowwin href="commands.html#lowwin">LowWin count division</a></code>&rdquo;,
+&ldquo;<code><a name=lowloss href="commands.html#lowloss">LowLoss count division</a></code>&rdquo;,
+&ldquo;<code><a name=lowcombined href="commands.html#lowcombined">LowCombined count division</a></code>&rdquo;
+and
+&ldquo;<code><a name=lowspread href="commands.html#lowspread">LowSpread count division</a></code>&rdquo;
+commands list players who have excelled in each of those categories.
+For example, 
+&ldquo;<code>hw 20 a</code>&rdquo;
+lists the top twenty game scores in division A, the rounds in which
+they took place, the losing score and the names of the players involved.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=highroundwins>HighRoundWins roundrange division</a></code>&rdquo;
+and
+&ldquo;<code><a name=highroundlosses>HighRoundLosses roundrange division</a></code>&rdquo;
+commands list the players who have scored the highest wins or losses respectively
+in each round in a designated range.
+For example, 
+&ldquo;<code>hrl 2-5 b</code>&rdquo;
+lists the high losing play in Division B in each round from Round 2 to Round 5.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=averages href="commands.html#averages">AVErages division</a></code>&rdquo;
+commands lists average scores for all players in the given division.
+For example, 
+&ldquo;<code>ave d</code>&rdquo;
+lists average scores for all players in division D.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=averageopponentscores href="commands.html#averageopponentscores">AverageOpponentScores division</a></code>&rdquo;
+commands lists average scores for all players in the given division.
+For example, 
+&ldquo;<code>aos c</code>&rdquo;
+lists average opponent scores for all players in division C.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=totalscore>TOTalScore division</a></code>&rdquo;
+commands lists total scores for all players in the given division.
+For example, 
+&ldquo;<code>tots d</code>&rdquo;
+lists total scores for all players in division D.
+</p>
+<p class=p1>
+The 
+&ldquo;<code><a name=statistics>STATisticS</a></code>&rdquo;
+commands lists summary statistics for each division in the tournament.
+For example, 
+&ldquo;<code>stats</code>&rdquo;
+lists stats such as the minimum, mean, median and maximum rating in each
+division, the percentage of time the higher-rated or starting player
+won, etc. 
+It also invokes most of the other commands in this section to update
+the web versions of the reports.
+Suggestions for additional statistics are very welcome.
+</p>
+<p class=p1>
+<a name="tuffluck">There</a> is a command for computing NASPA&rsquo;s 
+&ldquo;Tuff Luck&rdquo; prize based on the lowest total of six
+losing spreads:
+&ldquo;<code>tuff 6 a</code>&rdquo;
+lists the 
+&ldquo;Tuff Luck&rdquo; standings for Division A.
+<a name="luckystiff">The opposite</a> of this command is the
+&ldquo;<code>luckySTIFF</code>&rdquo; command, which lists players
+based on the sum of their closest winning spreads:
+&ldquo;<code>stiff 3 b</code>&rdquo;
+lists those players in Division B who have won three games by the
+smallest combined spread.
+</p>
+<p class=p1>
+<a name=roto>If</a> you run a U.S.-style rotisserie pool, you can use the 
+<a href="config.html">rotofile</a> configuration option to specify
+the location of a text file giving the structure of that pool,
+then use the 
+&ldquo;<code>ROTO</code>&rdquo; command to display current standings.
+Each team is represented by a list of names, followed by a blank line.
+The team owner&rsquo;s name is preceded by the word 
+&ldquo;<code>owner</code>&rdquo; 
+and a space,
+each team member&rsquo;s name is preceded by the word 
+&ldquo;<code>player</code>&rdquo; 
+and a space.
+</p>
+<p class=p1>
+<a name=spitroast>If</a> you run a U.K.-style rotisserie pool, you can use the 
+<a href="config.html#spitfile">spitfile</a> configuration option to specify
+the location of a text file giving the structure of that pool,
+then use the 
+&ldquo;<code>SPITroast</code>&rdquo; command to display current standings.
+Each line in the text file consists of all the player numbers in the 
+division in the order in which a team owner expects them to finish,
+a semicolon, the team owner&rsquo;s name, a semicolon, and the team name.
+Team names must be unique.
+</p>
+<p class=p1>
+<a name=commentary>The</a> &ldquo;<code>COMMentary</code>&rdquo;
+command creates textual commentary about what happened 
+in a given round
+in a division 
+in subdirectories of the directory specified by
+&ldquo;<code><a href="config.html#commentary_directory">config commentary_directory</a></code>&rdquo;.
+</p>
+<p class=p1>
+<a name=upsets>The</a> 
+&ldquo;<code>UPSETs</code>&rdquo; command lists the top twenty ratings
+upsets: games in which a significant ratings underdog managed to win.
+<a name=highratingchanges>The</a>
+&ldquo;<code>HighRatingChanges</code>&rdquo; command lists players
+whose rating has increased by the largest amount.
+</p>
+<h2><a name=check>Checking Scorecards and Wall Charts</a></h2>
+<p class=p1><cite>tsh</cite> includes commands for producing 
+electronic versions of player scorecards and tournament wall charts.
+These were originally intended to allow you to check these documents
+and correct your data. 
+As of 2005, the only official version of NSA/NASPA tournament results is
+deemed to be the data that you entered from the result slips, so
+these commands should be used only to point out and explain errors
+in the printed documents, or to replace a lost scorecard at a player&rsquo;s
+request.
+</p>
+<p class=sidebar>
+Your score checker should sort result slips in the order in which
+they are printed by the
+&ldquo;<code>CheckRoundScores</code>&rdquo;
+command:
+by winner ID if
+&ldquo;<code><a href="config.html#check_by_winner">config check_by_winner</a></code>&rdquo; is in effect
+or
+&ldquo;<code><a href="config.html#track_firsts">config track_firsts</a></code>&rdquo; is not,
+otherwise by starting player ID.
+</p>
+<p class=p1><a name=checkroundscores>You</a> may wish to recheck
+your data entry in the middle of each round. To facilitate your
+doing so, the
+&ldquo;<code>CheckRoundScores round division</code>&rdquo;
+will list what has been entered for each game.
+Entering 
+&ldquo;<code>crs 3 h</code>&rdquo;
+will list scores for Round 3 in Division H.
+A file called
+&ldquo;H-scores-003.html&rdquo;
+will be created, which can be printed and given to a checker to work
+offline with the result slips.
+</p>
+<p class=p1>You can show a scorecard using the
+&ldquo;<code>ShowscoreCard division player</code>&rdquo;
+command.
+Entering 
+&ldquo;<code>sc j 5</code>&rdquo;
+will give you the scorecard
+for player J5.
+A file called
+&ldquo;J-scorecard.html&rdquo;
+will be created, which can be printed and given to a player who has
+lost their original scorecard.
+Scorecards are also displayed whenever you use the 
+&ldquo;<code><a href="entry.html#check">EditScore</a></code>&rdquo;
+command.
+When a score has been added to a scorecard within the last two hours,
+the age of that modification in minutes is shown at the top of the card.
+This is to help determine whether an absent player may be away taking
+a break from a game that ran unusually late.
+</p>
+<p class=p1><a name=showdivisionscorecards>You</a> can generate an HTML file containing all
+scorecards for a division with the
+&ldquo;<code>ShowDivisionScoreCards division</code>&rdquo;
+command.
+Entering 
+&ldquo;<code>sdsc a</code>&rdquo;
+will create a file called
+&ldquo;A-scorecard.html&rdquo;
+containing the scorecards for all players, which can be printed
+and given to players at the beginning of the tournament.
+This is particularly useful when most or all of the pairings
+are predetermined, as for example in a round robin schedule.
+Depending on the length of your tournament, you may need to edit
+the CSS stylesheet to make the scorecards
+fit nicely on each page.
+</p>
+<p class=p1>You can show a wallchart using the
+&ldquo;<code>showWallChart division</code>&rdquo; 
+or &ldquo;<code>showRankedWallChart division</code>&rdquo; commands.
+Entering 
+&ldquo;<code>wc g</code>&rdquo;
+will give you the wall chart for division G.
+Typing a round number before the division name will start the wall
+chart at that round, in case your wall chart would otherwise be too
+wide to print nicely.
+Files are created as with pairings; the HTML version includes much
+more information than can fit into the text or screen versions.
+</p>
+
+<p class=p1><a name=playingrecord>You</a> can show a simple table of wins and losses for each player using the
+&ldquo;<code>PlayingRECord division</code>&rdquo; command.
+Entering 
+&ldquo;<code>prec a</code>&rdquo;
+will give you the player record table for Division A.
+</p>
+
+<p class=p1>
+<a name=rosters>If</a> you need a printed list of all the players with their player numbers
+and ratings, use the 
+&ldquo;<a href="commands.html#rosters"><code>ROSTERS</code></a>&rdquo; command.
+By default, they'll be listed by rank, unless you specify the &ldquo;<a href="config.html#roster_order"><code>config roster_order</code></a>&rdquo; configuration option.
+</p>
+
+</body>
+</html>
+

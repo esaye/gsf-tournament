@@ -1,0 +1,148 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+sub Munge ();
+
+Main;
+
+sub Munge () {
+  my @data;
+  my $id = 0;
+  my (@names, @scores, @pairings);
+  while (<>) {
+    s/#.*//;
+    next unless /\S/;
+    $id++;
+    my ($name, $rating, $o, $s) 
+      = /^([^;]+[^;\s\d])\s+(\d+)\s+([\d\s]*);\s*([-\d\s]*)(?:;[^;]+)*$/;
+    die "Can't parse: $_\n" unless defined $s;
+    $pairings[$id] = [split(/\s+/, $o)];
+    $scores[$id] = [split(/\s+/, $s)];
+    $names[$id] = $name;
+    }
+
+  for my $id (1..$#scores) {
+    my $op = $pairings[$id];
+    my $sp = $scores[$id];
+    next if $op == 0;
+    for my $round (0..$#$sp) {
+      my $opp = $op->[$round];
+      next unless $opp; # skip byes
+      my $ms = $sp->[$round];
+      my $os = $scores[$opp][$round];
+      if (!defined $os) { warn "No score for #$id in round $round+1.\n"; }
+      next if $ms <= $os; # skip losers
+      push(@data, [
+	$ms,
+	$os,
+	$names[$id],
+	$names[$opp],
+	$round+1,
+	]);
+      }
+    }
+  return @data;
+  }
+
+sub Main () {
+  @::ARGV = ('a.t') unless @::ARGV;
+  my %team_to_losing_spreads;
+  my %team_to_grade;
+  my @data_by_round;
+  my (@data) = Munge;
+  for my $gamep (@data) {
+    my ($ws, $ls, $wp, $lp, $round) = @$gamep;
+    push(@{$team_to_losing_spreads{$lp}}, $ws-$ls);
+    $team_to_grade{$wp}++;
+    $team_to_grade{$lp}++;
+    }
+
+  for my $team (keys %team_to_grade) {
+    die "Can't find grade in: $team\n" unless $team =~ /\((\d) (\d)\)\s*$/;
+    $team_to_grade{$team} = $1 == $2 ? $2 : 'mx';
+    }
+
+  open(OUT, "|tee nssc-prizes.txt") or die;
+  print OUT "High Wins\n\n";
+  print OUT "Rnd Gr Score   Opponent\n";
+  my %lines_by_grade;
+  my %listed_by_grade;
+  for my $gamep (sort { $b->[0] <=> $a->[0] } @data) {
+    my $grade = $team_to_grade{$gamep->[2]};
+    next if $listed_by_grade{$grade}++ >= 3;
+    push(@{$lines_by_grade{$grade}}, sprintf 
+      " %1d  %2s %3d-%3d %s\n                 vs. %s\n",
+      $gamep->[4],
+      $grade,
+      $gamep->[0],
+      $gamep->[1],
+      $gamep->[2],
+      $gamep->[3]);
+    }
+  print OUT map { $_ ? @$_ : () } map { $lines_by_grade{$_} } 
+    sort keys %lines_by_grade;
+
+#   for my $round (0..$#data_by_round) {
+#     my $datap = $data_by_round[$round];
+#     @$datap = sort { $b->[0] <=> $a->[0] } @$datap;
+#     my @listed_by_grade;
+#     my @lines_by_grade;
+#     for my $gamep (@$datap) {
+#       my $grade = $team_to_grade{$gamep->[2]};
+#       next if $listed_by_grade[$grade]++ >= 3;
+#       push(@{$lines_by_grade[$grade]}, sprintf " %1d   %1d  %3d-%3d %s\n                 vs. %s\n",
+#         $round+1,
+# 	$grade,
+# 	$gamep->[0],
+# 	$gamep->[1],
+# 	$gamep->[2],
+# 	$gamep->[3]);
+#       }
+#     print OUT map { $_ ? @$_ : () } @lines_by_grade;
+#     }
+  print OUT "\nHigh Losses\n\n";
+  print OUT "Rnd Gr Score   Team\n";
+  for my $gamep ((sort { $b->[1] <=> $a->[1] } @data)[0..2]) {
+    my $grade = $team_to_grade{$gamep->[2]};
+    printf OUT " %2s  %1d  %3d-%3d %s\n                 vs. %s\n",
+      $gamep->[4],
+      $grade,
+      $gamep->[1],
+      $gamep->[0],
+      $gamep->[3],
+      $gamep->[2];
+    }
+# for my $round (0..$#data_by_round) {
+#   my $datap = $data_by_round[$round];
+#   @$datap = sort { $b->[1] <=> $a->[1] } @$datap;
+#   my @listed_by_grade;
+#   my @lines;
+#   for my $gamep (@$datap) {
+#     my $grade = $team_to_grade{$gamep->[2]};
+#     next if $listed_by_grade[$grade]++ >= 3;
+#     push(@lines, sprintf " %1d   %1d  %3d-%3d %s\n",
+#       $round+1,
+#	$grade,
+#	$gamep->[1],
+#	$gamep->[0],
+#	$gamep->[3]);
+#     }
+#   print OUT sort @lines;
+#   }
+  print OUT "\nTuff Luck\n\n";
+  print OUT "Total Spreads  Team\n";
+  while (my ($team, $data) = each %team_to_losing_spreads) {
+    if ($#$data < 2) { @$data = (9999); next; }
+    @$data = (sort { $a <=> $b } @$data)[0..2];
+    unshift(@$data, $data->[0]+$data->[1]+$data->[2]);
+    }
+  for my $team ((sort { $team_to_losing_spreads{$a}[0] <=> $team_to_losing_spreads{$b}[0] } keys %team_to_losing_spreads)[0..2]) {
+    my $data = $team_to_losing_spreads{$team};
+    printf OUT "%4d  %2d %2d %2d %s\n",
+      @{$data}[0..3], $team;
+    }
+  close(OUT);
+  }

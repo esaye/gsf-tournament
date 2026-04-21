@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+# used for batch-setting classes
+
+use strict;
+use warnings;
+
+sub AddClass ($$);
+sub Main ();
+
+Main;
+
+sub Main () { 
+  my %class;
+  while (<STDIN>) {
+    chomp;
+    my ($pname, $class) = split(/\t/);
+    next unless $pname && $class;
+    die "$pname has two classes" if $class{$pname};
+    $class{$pname} = $class;
+    }
+  while (<>) {
+    my ($name) = /^((?:[A-Z]\S*\s+)*[A-Z]\S*)/i;
+#   warn "Name='$name'";
+    die "Can't find name in: $_\n" unless $name;
+    if (my $class = $class{$name}) {
+      s/;\s*class\s+([^;\n]+)/AddClass $1, $class/e or
+      s/$/; class $class/;
+      print $_;
+      }
+    else {
+      print $_;
+      }
+    }
+  }
+
+sub AddClass ($$) {
+  my $old = shift;
+  my $new = shift;
+  
+# warn "old=$old\nnew=$new\n";
+  my (@old) = grep { $_ ne $new } split(/,/, $old);
+  return '; class '.join(',', sort $new, @old);
+  }

@@ -1,0 +1,210 @@
+#!/usr/bin/perl -w
+
+# Convert TourneyMan .LTM files to our .t files, inverting maketm.
+
+use strict;
+
+use lib './lib/perl';
+use Symbol;
+use TFile;
+
+sub ParseTMFile ($);
+sub ParseTMHeader ($);
+sub ParseTMPlayer ($$);
+sub Main ();
+sub WriteTFile ($);
+sub WriteTHeader ($);
+sub WriteTPlayer ($$);
+
+Main;
+
+sub ParseTMFile ($) {
+  my $datap = shift;
+  ParseTMHeader $datap;
+  for my $id (1..$datap->{'tmh'}{'usNPlayers'}) {
+    ParseTMPlayer $datap, $id;
+    }
+  }
+
+sub ParseTMHeader ($) {
+  my $datap = shift;
+  @{$datap->{'tmh'}}{qw(
+    ulSignature ulHeaderSize szarDivisionName ulGameSize ulPlayerSize
+    usNRounds usNPlayers usNGroups bTourneyStarted sUnratedRating
+    usForfeitWinSpread bAvoidSecondForfeit sAutoOrdering usPlayerSize
+    usEditRound bSkippedGameWarning bWrongOpponentWarning
+
+    usLowerPairRound usUpperPairRound bPairGroupsTogether usSubDivNum
+    bNumberSubdivisions bAvoidRematches usTableNumber
+ 
+    usStatRoundLow usStatRoundHigh usViewNGroups
+ 
+    sViewActive bGroupsIntermixed usViewTop sViewOrder bViewIndex bViewNumber
+    sViewName bViewSPID bViewRating bViewRatingGroup bViewActiveStatus
+
+    bViewRecord bViewSpread bViewAverageScores bViewHighScores bViewFirsts
+    bViewRoundData sRoundDataFormat usViewRoundLow usViewRoundHigh 
+    usUndocumented
+    )} = unpack('V2Z21V2v12 v7 v3 v11 v10', substr($datap->{'tm'}, 0, 123));
+  die "Bad ulHeaderSize: $datap->{'tmh'}{'ulHeaderSize'}\n" 
+    unless $datap->{'tmh'}{'ulHeaderSize'} == 123;
+  die "Bad ulGameSize: $datap->{'tmh'}{'ulGameSize'}\n" 
+    unless $datap->{'tmh'}{'ulGameSize'} == 8;
+  die "Bad ulPlayerSize: $datap->{'tmh'}{'ulPlayerSize'}\n" 
+    unless $datap->{'tmh'}{'ulPlayerSize'} == 72;
+  die "Bad usPlayerSize: $datap->{'tmh'}{'usPlayerSize'}\n" 
+    unless $datap->{'tmh'}{'usPlayerSize'} == 
+      $datap->{'tmh'}{'ulPlayerSize'} + 
+      $datap->{'tmh'}{'ulGameSize'} * ( $datap->{'tmh'}{'usNRounds'} - 1);
+  $datap->{'player_size'} = $datap->{'tmh'}{'usPlayerSize'};
+  }
+
+sub ParseTMPlayer ($$) {
+  my $datap = shift;
+  my $id = shift;
+
+  my $offset = $datap->{'tmh'}{'ulHeaderSize'} 
+    + 2 # sigh
+    + ($id - 1) * $datap->{'player_size'};
+  if (ord(substr($datap->{'tm'}, 0x7b, 1)) == 1) {
+    warn "Big fat kludge activated.\n";
+    substr($datap->{'tm'}, 0x79, 2) = '';
+    }
+  @{$datap->{'tmp'}[$id]}{qw(
+    szarFirstName szarMiddleName szarLastName
+    usRating ulScrabbleId bActiveStatus usRatingGroup
+
+    usWins usTies usLosses usPoints sSpread sMyAvg sOppAvg
+    sHighWin sHighLoss usFirsts usSeconds
+    )} = unpack('Z14Z2Z16 v V v2 v11',
+      substr($datap->{'tm'}, $offset, $datap->{'tmh'}{'ulPlayerSize'}),
+      );
+  die "Player $id\@$offset: bad name: $datap->{'tmp'}[$id]{'szarFirstName'}\n"
+    unless $datap->{'tmp'}[$id]{'szarFirstName'} =~ /^[A-Z]/;
+  my $name = $datap->{'tmp'}[$id]{'name'} 
+    = "$datap->{'tmp'}[$id]{'szarLastName'}, $datap->{'tmp'}[$id]{'szarFirstName'}";
+  $datap->{'maxname'} = length($name) 
+    if $datap->{'maxname'} < length($name);
+  $offset += $datap->{'tmh'}{'ulPlayerSize'};
+  my $game_size = $datap->{'tmh'}{'ulGameSize'};
+  $offset -= $game_size;
+  for my $r0 (0..$datap->{'tmh'}{'usNRounds'}-1) {
+    @{$datap->{'tmp'}[$id]{'game'}[$r0]}{qw(
+      sPlayerScore usOpponentNumber sOpponentScore ucOutcome ucFirst
+      )} = unpack('vvvcc',
+	substr($datap->{'tm'}, $offset, $datap->{'tmh'}{'ulPlayerSize'}),
+	);
+    $offset += $game_size;
+    }
+  }
+
+sub Main () {
+  die "Usage: $0 file.ltm\n" unless @::ARGV == 1;
+  my $divfn = shift @::ARGV;
+  my $ofn = $divfn; $ofn =~ s/(\.ltm)?$/.t/i;
+  my %data = ('players' => [undef], 'filename' => $divfn, 'maxname' => 23);
+  my $ifh = gensym;
+
+  local($/) = undef;
+  open($ifh, "<$divfn") or die "open($divfn): $!\n";
+  $data{'tm'} = <$ifh>;
+  close($ifh) or die "close($divfn): $!\n";
+
+  ParseTMFile \%data;
+
+  my $ofh = gensym;
+  open($ofh, ">$ofn") or die "Can't create $ofn: $!\nAborting";
+  $data{'ofh'} = $ofh;
+  WriteTFile \%data;
+  }
+
+sub WriteTFile ($) {
+  my $datap = shift;
+
+  WriteTHeader $datap;
+  for my $i (1..$#{$datap->{'tmp'}}) {
+    WriteTPlayer $datap, $i;
+    }
+  }
+
+sub WriteTHeader ($) {
+  my $datap = shift;
+  my $fh = $datap->{'ofh'};
+
+  print $fh "# converted from $datap->{'filename'}\n";
+  }
+
+sub WriteTPlayer ($$) {
+  my $datap = shift;
+  my $id = shift;
+  my $pp = $datap->{'tmp'}[$id];
+  my $rsp = $datap->{'tmp'}[$id]{'game'};
+  my $fh = $datap->{'ofh'};
+  
+  my $name = $pp->{'name'};
+  my $rating = $pp->{'usRating'};
+  my $active = $pp->{'bActiveStatus'};
+  my $opps = '';
+  my $scores = '';
+  my $firsts = '';
+
+  my $no_more_scores = 0;
+  my $no_more_opps = 0;
+  for my $r0 (0..$datap->{'tmh'}{'usNRounds'}-1) {
+    my $r = $r0 + 1;
+    my $rp = $rsp->[$r0];
+    my $opp = $rp->{'usOpponentNumber'} + 1;
+    my $outcome = $rp->{'ucOutcome'};
+    my $score = $rp->{'sPlayerScore'};
+    my $first = $rp->{'ucFirst'};
+
+    if (!defined $outcome) {
+      warn "No outcome for player $id in round $r.\n";
+      }
+    elsif ($outcome == 0) { # not paired, shouldn't really be here
+#     $no_more_opps = $no_more_scores = 1;
+      # if we don't do it this way, we run into problems with fake
+      # bye players who start off with several rounds of $outcome == 0
+      $opps .= " 0"; $scores .= " 0";
+      }
+    elsif ($outcome == 1) { # paired with no score
+      if ($no_more_opps) {
+	die "Missing opponent for player $id in round $r0.\n";
+        }
+      $opp = 0 if $opp == 65536;
+      $opps .= " $opp";
+      $no_more_scores = 1;
+      }
+    elsif ($outcome == 3) { # forfeit
+      $opps .= ' 0';
+      $scores .= ' -50';
+      }
+    elsif ($outcome == 5) { # unrated tie
+      $opps .= ' 0';
+      $scores .= ' 0';
+      warn "Forfeit tie?";
+      }
+    elsif ($outcome == 7) { # bye or forfeint win
+      $opps .= ' 0';
+      $scores .= ' 50';
+      }
+    else {
+      if ($no_more_opps) {
+	die "Missing result for player $id in round $r0.\n";
+        }
+      if ($opp == 65535) { die; }
+      $opps .= " $opp";
+      $scores .= " $score";
+      $firsts .= ' ' . ($first ? '1' : '2');
+      }
+    }
+
+  while ($opps =~ / 0$/ && $scores =~ / 0$/) {
+    $opps =~ s/ 0$//;
+    $scores =~ s/ 0$//;
+    }
+  printf $fh "%-$datap->{'maxname'}s %4d%s ; %s; p12%s",
+    $name, $rating, $opps, $scores, $firsts;
+  print $fh "; off -50" unless $active;
+  print $fh "\n";
+  }

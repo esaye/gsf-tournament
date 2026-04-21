@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Installation</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=here><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Installing <cite>tsh</cite></h1>
+<p class=subtitle>How to obtain and install what you need to run <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.330.</p>
+
+<h2>What You Need</h2>
+
+<p class=p1>
+To run a tournament using <cite>tsh</cite>, you need the following:
+</p>
+<ul>
+  <li>Perl: a cross-platform programming language</li>
+  <li>a text editor to edit configuration files</li>
+  <li>master sheets from which to print score slips and other forms</li>
+  <li>the ZIP archive of the complete <cite>tsh</cite> distribution</li>
+</ul>
+
+<h2>Perl</h2>
+
+<p class=p1>First, you should make sure that you have a recent version of the
+freely available Perl interpreter installed on your machine.
+<cite>tsh</cite> is currently regularly tested with Perl 5.10.0 and Perl 5.14.2, should run with any version of Perl 5 beginning with 5.6, and might run with Perl 6.
+Perl runs under several operating systems, including but not limited to
+Unix, MacOS, VMS and Windows.  Please follow the appropriate instructions
+below.
+</p>
+<table border=0 cellpadding=0 cellspacing=12>
+  <tr>
+    <th width="25%">OS/X, Linux</th>
+    <th width="25%">Windows</th>
+    <th width="25%">Pre-OS/X MacOS</th>
+    <th width="25%">Other</th>
+  </tr>
+<tr>
+  <td valign=top>
+    <p class=p1>
+    You already have a copy of Perl on your machine.
+    </p>
+  </td>
+  <td valign=top>
+    <p class=p1>
+    See the Perl for Windows section immediately below.
+    </p>
+  </td>
+  <td valign=top>
+    <p class=p1>
+Download a copy of MacPerl from 
+<a href="http://www.macperl.com/">www.macperl.com</a>,
+but be warned that the current version is not guaranteed to
+be Classic MacOS compatible &mdash; contact me for details.
+    </p>
+  </td>
+  <td valign=top>
+    <p class=p1>
+If you don&rsquo;t have a copy installed on
+your machine, you can download one from
+<a href="http://www.perl.com/">www.perl.com</a>. 
+    </p>
+  </td>
+</tr>
+</table>
+
+<h3>Perl for Windows</h3>
+
+<p class=p1>
+There are two popular versions of Perl for Windows: 
+<a href="http://www.activestate.com/">ActivePerl</a>
+and
+<a href="http://www.strawberryperl.com/">Strawberry Perl</a>.
+I used to recommend ActivePerl, because it came with some
+Perl Windows modules that <cite>tsh</cite> requires.  
+Since 2019 though (and in Perl terms, version 5.28.0),
+ActiveState has made it very difficult to install those
+modules; and at about the same time Strawberry Perl 
+fortuitously started including them.
+</p>
+<p class=p1>
+If you want to use ActivePerl, you will need to create
+a free account to download what used to be called the
+community edition.  Once you log in, you'll be taken
+to a page where you can download one of three installers.
+You&rsquo;ll want the one that ends in &ldquo;<code>.msi</code>&rdquo;,
+but don&rsquo;t download it yet.  Go to the Overview tab and ask it to
+add the following modules:
+&ldquo;<code>Win32::API</code>&rdquo;,
+&ldquo;<code>Win32::Console</code>&rdquo;,
+&ldquo;<code>Win32::Internet</code>&rdquo;,
+&ldquo;<code>Win32::TieRegistry</code>&rdquo;.
+Then wait a half hour or so while for the webpage to think about that,
+then download and run that installer.
+</p>
+<p class=p1>
+If you skipped ahead and downloaded a copy of ActivePerl without those 
+modules, run its installer again to uninstall it. Then go back to the
+webpage to add those modules, and download and run a new installer.
+</p>
+<p class=p1>
+If you want to use Strawberry Perl, just go ahead and download and
+run its installer.
+</p>
+<p class=p1>
+Getting programs to run when icons are clicked is surprisingly
+complicated in Windows, so I have provided two batch script 
+icons called <code>dos64-tsh3</code> (for ActivePerl users) and <code>strawberry-tsh</code>
+(for Strawberry Perl users).  If you end up installing your copy
+of Perl in a nonstandard location, you may find that neither one
+works, and you will have to open a DOS window manually to launch Perl.
+</p>
+
+
+
+
+<h2>Text Editor</h2>
+
+<p class=p1>You will also need a text editor.  You will use it to set up
+<a href="config.html">config.tsh</a>, your settings file.  You may
+also use it to edit tournament (".t") files if you find you need
+to do something in the heat of a tournament that I didn&rsquo;t expect
+you to need.
+If you&rsquo;re a Unix user, you
+know which editor is the One True Editor and don&rsquo;t need to be told.
+(It&rsquo;s <a href="http://www.vim.org/">vim</a>, of course.)
+If you&rsquo;re a Classic MacOS user, SimpleText will do in a pinch, but BBEdit is
+much better.
+Mac OS/X users can use vim, vi, pico, or TextEdit,
+but they should not use a Classic mode editor like
+BBEdit unless they are careful to specify Unix line breaks.
+Windows users can use Notepad or Wordpad.
+</p>
+
+<h2>Forms</h2>
+
+<p class=p1>
+Score slips should be prepared to work best with <cite>tsh</cite>&rsquo;s workflow.
+If you are entering scores and not just spread,
+the slips should contain the following information in the following layout:
+</p>
+
+<pre>
+1st player (start): 1ST-NUMBER 1ST-SCORE 1ST-NAME 1ST-INITIALS
+2nd player (reply): 2ND-NUMBER 2ND-SCORE 2ND-NAME 2ND-INITIALS
+</pre>
+
+<p class=p1>
+The fields may be rearranged to some extent to suit layout constraints,
+but the important thing is that the numeric information that needs to
+be entered into <cite>tsh</cite> appears in the 
+&ldquo;1st-player-number, 1st-score, 2nd-player-number, 2nd-score&rdquo; 
+order in which it will be needed.
+</p>
+
+<p class=p1>
+If you have configured 
+<a href="config.html#entry">spread-based entry</a>, your slip should
+look something like this:
+</p>
+
+<pre>
+1st player (start): 1ST-NUMBER 1ST-NAME 1ST-INITIALS
+2nd player (reply): 2ND-NUMBER 2ND-NAME 2ND-INITIALS
+                    SPREAD
+</pre>
+<p class=p1>
+If you use a self-posting wall chart,
+it should be set up so that
+the player names read down the left side and the round numbers across
+the top.
+I have <a href="http://www.poslarchive.com/math/scrabble/paper">master 
+sheets for stickers and score slips</a> available for download in
+PDF format.
+You should consider instead bringing in an external monitor and using it
+to display an electronic <a href="commands.html#scoreboard">scoreboard</a>,
+which will give the players the same immediate feedback on current standings,
+while saving paper, time and effort.
+</p>
+
+<h2>tsh.zip</h2>
+
+<p class=p1>
+All of the basic files you need to use <cite>tsh</cite>, except for configuration
+files specific to your event, can be downloaded in one 
+<a href="../tsh.zip">zip archive</a>.
+When you have downloaded and expanded the archive, 
+you then need to set up those <a href="config.html">configuration files</a>.
+Windows users please note that the best place for you to expand your 
+archive is a folder called &ldquo;tsh&rdquo; on your desktop;
+the worst place to expand it is anywhere in &ldquo;Program Files&rdquo;,
+where some versions of Windows may not give you permission to run <cite>tsh</cite>.
+</p>
+<h2><a name=update>Updating <cite>tsh</cite></a></h2>
+
+<p class=p1>
+<cite>tsh</cite> is a work in progress: 
+it&rsquo;s updated several times per year to include helpful suggestions
+from its users.
+Older versions are available for download from the
+<cite>tsh</cite> web site but are not supported. 
+You should be sure to upgrade to
+the current version when you get ready to run a tournament.
+</p>
+
+<p class=p1>
+If you have a copy of <cite>tsh</cite> 2.975 or later and a modern
+operating system (such as OS/X or some other kind of Unix, or even
+Windows XP), you can update your copy of <cite>tsh</cite> by simply
+entering the 
+&ldquo;<a href="commands.html#update"><code>update</code></a>&rdquo; 
+command at the 
+&ldquo;tsh>&rdquo; prompt.
+Your machine must be connected to the Internet when you enter the
+command for this to work,
+and any <a href="trouble.html#firewall">personal firewall</a> must
+permit Perl to connect to external web sites at port 80.
+If you lose your connection during an update, just enter
+&ldquo;<code>update</code>&rdquo; again when your connection is
+restored.
+</p>
+<p class=p1>
+The 
+&ldquo;<code>update</code>&rdquo; command gives you the
+newest possible version of each file, which may be newer than the
+currently posted official ZIP archive.
+</p>
+<p class=p1>
+If you can&rsquo;t run <cite>tsh</cite> to use the
+&ldquo;<code>update</code>&rdquo; command,
+try running the 
+&ldquo;get-tsh.pl&rdquo; script in your
+<cite>tsh</cite> folder.
+</p>
+
+<p class=p1>
+If you have an older version of <cite>tsh</cite>, download the current
+ZIP archive, and don&rsquo;t forget to copy over your event files to the
+newly created folder.
+</p>
+
+<h2><a name=update>Extras</a></h2>
+
+<p class=p1>
+The main distribution described above does not a number of optional
+extras, which are kept separate because they are large, possibly
+<a href="config.html#realm">realm</a>-specific, and not every
+director may find them necessary.
+</p>
+<dl>
+  <dt>Player Photos</dt>
+  <dd>
+<a name=updatepix>Some</a> commands will display photos of players when they are
+available.
+To install a photo database, set your
+<a href="config.html#realm">realm</a> or
+<a href="config.html#photo_database">photo database</a>
+in your configuration file, then use
+the &ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; command.
+See <a href="#photo_admin">below</a> for instructions about administering
+a <cite>tsh</cite> photo database.
+</dd>
+<dt>Ratings</dt>
+  <dd>
+  <a name=updateratings>Some</a> commands will display and update ratings for 
+  players when they are available.
+  To download the most recent ratings from the web,
+set your
+<a href="config.html#realm">realm</a> or
+<a href="config.html#rating_list">rating list</a>
+in your configuration file, then use
+the &ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo; command.
+  This stores a local copy of the full rating list for your rating system,
+  but does not update any division data files.
+  To update your division data files based on the most recently downloaded
+  full rating list, use the
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo; command.
+  </dd>
+  <dt>Word Adjudication</dt>
+  <dd>
+The &ldquo;<code><a href="commands.html#look">LOOK</a></code>&rdquo;
+command can be used for word adjudication; it currently checks the words
+entered in all available dictionaries. 
+To use the command, you must first install the dictionary files using the
+The &ldquo;<code><a href="commands.html#update_dict">UPDATE-DICT</a></code>&rdquo; command.
+  </dd>
+  <dt><a name=plugin>Plug-ins</a></dt>
+  <dd>
+Some features of limited or local interest are available only as plug-in modules,
+and may require
+the &ldquo;<code><a href="config.html#tsh_username">config tsh_username</a></code>&rdquo; configuration option.
+Contact the author for information about installing them.
+  </dd>
+
+<h2><a name=photo_admin>Administering a Photo Database</a></h2>
+<p class=p1>
+<cite>tsh</cite> photo databases are stored on webservers and typically
+updated using an FTP client.
+The files in a database are all stored in one directory on the server,
+and possibly in its subdirectories.
+There are two index files which must be located in the root directory:
+&ldquo;photos.txt&rdquo; 
+and
+&ldquo;MANIPICS.txt&rdquo;.
+You will edit the &ldquo;photos.txt&rdquo; file tells <cite>tsh</cite> which photo belongs
+to which player.
+The &ldquo;MANIPICS.txt&rdquo; file is automatically updated as 
+described below and describes when each file was last changed,
+so that <cite>tsh</cite> knows which ones need to be downloaded.
+</p>
+<p class=p1>
+Here is what to do whenever you make a change to your 
+<a href="config.html#realm">realm</a>&rsquo;s photo database:
+adding, deleting or renaming a photo.
+</p>
+<ol>
+  <li>Upload new photos to the FTP server. Photos
+should all be the same size (I recommend 128x128 pixels) and have the
+head occupying the same proportion of the photo (I recommend no more
+than 10% margin at top and bottom). Put them in sub-folders 
+&ldquo;a/&rdquo;,
+&ldquo;b/&rdquo;,
+&ldquo;c/&rdquo;,
+... to keep things tidy. Feel free to make sub-sub-folders or additional
+sub-folders.
+</li>
+<li>
+For each photo, you need a line in the 
+&ldquo;photos.txt&rdquo;
+file. It should
+have three tab-separated fields, no more, no less. If you have a
+player who will appear in a 
+&ldquo;*.t&rdquo; file as 
+&ldquo;<code>Chew, John</code>&rdquo;, and his photo
+is called (case-sensitive)
+&ldquo;chew_john.jpg&rdquo; is in the 
+&ldquo;c/&rdquo; sub-folder, then his entry should read
+(representing tabs as &lt;tab&gt;)
+<br>
+<code>
+John&lt;tab&gt;Chew&lt;tab&gt;c/chew_john.jpg
+</code>
+<br>
+If you have a player who only has one name, appearing in the 
+&ldquo;*.t&rdquo; file as 
+&ldquo;<code>Winter</code>&rdquo;, and his photo
+called 
+&ldquo;winter.jpg&rdquo; is in the 
+&ldquo;w/&rdquo; sub-folder, then his entry should read
+<br>
+<code>
+Winter&lt;tab&gt;&lt;tab&gt;w/winter.jpg
+</code>
+<br>
+Upload a new copy of the 
+&ldquo;photos.txt&rdquo;
+to the server whenever you
+make a change to your photos.
+</li>
+<li>
+Open your web browser to the page that you have been assigned that rebuilds the
+&ldquo;MANIPICS.txt&rdquo; 
+file.  The URL should end in &ldquo;/cgi-bin/update-pdb.pl&rdquo;
+</li>
+<li>
+Finally, in each copy of
+<cite>tsh</cite> that you are using, make sure the
+<a href="config.html">config.tsh</a> file specifies the 
+<a href="config.html#realm">realm</a> or
+<a href="config.html#photo_database">photo database</a>
+and run the
+&ldquo;<code><a href="commands.html#updatepix">UPDATEPIX</a></code>&rdquo; 
+command.
+</li>
+</ol>
+
+</body>
+</html>
+

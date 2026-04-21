@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use ExtUtils::testlib;
+use TSH::Pair;
+
+print TSH::Pair::square(4);
+print "\n";

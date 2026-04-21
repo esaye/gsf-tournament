@@ -1,0 +1,42 @@
+#begintest initfontes
+#beginconfig
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+config initial_schedule = 3
+perl srand 123
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+Player, A 100
+Player, B 100
+Player, C 100
+Player, D 100
+Player, E 100
+#endifile
+#begincommands
+debug CP 0
+sp 1 a
+q
+#endcommands
+#beginstdout
+Debug: [IF] InitFontes: nrounds=3, dname=A
+Debug: [IF] Odd players: 3,7,8,6,4
+Debug: [IF] Group: 1,2,5,9
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+      Player, D (#8): Bye.
+   1  Chew, John (#1) *draws* vs. Player, E (#9).
+   2  Chew, Kristen (#2) *draws* vs. Player, A (#5).
+   3  Chew, Jamie (#3) *draws* vs. Chew, Liam (#4).
+   4  Player, C (#7) *draws* vs. Player, B (#6).
+#endstdout
+#beginstderr
+#endstderr
+#endtest

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+while true
+do
+
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc1/a.t
+mv a.t pc1/old/a.t.`perl -e 'print time'`
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc1/config.tsh
+mv config.tsh pc1/
+
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc2/b.t
+mv b.t pc2/old/b.t.`perl -e 'print time'`
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc2/config.tsh
+mv config.tsh pc2/
+
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc3/c.t
+mv c.t pc3/old/c.t.`perl -e 'print time'`
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc3/config.tsh
+mv config.tsh pc3/
+
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc4/d.t
+mv d.t pc4/old/d.t.`perl -e 'print time'`
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc4/config.tsh
+mv config.tsh pc4/
+
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc5/e.t
+mv e.t pc5/old/e.t.`perl -e 'print time'`
+ftp ftp://foo@live.pc07.org/event/2007/tsh/pc5/config.tsh
+mv config.tsh pc5/
+
+date
+sleep 300
+done

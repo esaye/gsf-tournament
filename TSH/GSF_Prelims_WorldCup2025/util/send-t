@@ -1,0 +1,34 @@
+#!/bin/sh
+
+REMOTE=ftp://foo@live.pc07.org/../event/2007/division
+LOCAL="$HOME/local/tsh"
+
+while true
+  do
+  if test ! pc1/sent -nt pc1/a.t
+    then
+    ftp -u "$REMOTE"/1/round.t "$LOCAL"/pc1/a.t 
+    touch pc1/sent
+    fi
+  if test ! pc2/sent -nt pc2/b.t
+    then
+    ftp -u "$REMOTE"/2/round.t "$LOCAL"/pc2/b.t 
+    touch pc2/sent
+    fi
+  if test ! pc3/sent -nt pc3/c.t
+    then
+    ftp -u "$REMOTE"/3/round.t "$LOCAL"/pc3/c.t 
+    touch pc3/sent
+    fi
+  if test ! pc4/sent -nt pc4/d.t
+    then
+    ftp -u "$REMOTE"/4/round.t "$LOCAL"/pc4/d.t 
+    touch pc4/sent
+    fi
+  if test ! pc5/sent -nt pc5/e.t
+    then
+    ftp -u "$REMOTE"/5/round.t "$LOCAL"/pc5/e.t 
+    touch pc5/sent
+    fi
+  sleep 60
+  done

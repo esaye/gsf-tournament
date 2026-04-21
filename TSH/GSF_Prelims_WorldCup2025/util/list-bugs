@@ -1,0 +1,63 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use File::Find;
+
+=head1 NAME
+
+B<list-bugs> - list known bugs in C<tsh>
+
+=cut
+
+=head1 SYNOPSIS
+
+list-bugs
+
+=cut
+
+=head1 DESCRIPTION
+
+B<list-bugs> searches all C<tsh> source files for mention of known bugs,
+listing them to standard output.  Known bugs are identified by the 
+pod heading C<=head1 BUGS>.  The string "None known." is taken to mean
+that none are known.
+
+=cut
+
+sub Main ();
+sub Process ();
+
+Main;
+
+sub Main () {
+  find({
+    wanted => \&Process,
+    no_chdir => 1,
+    }, '.');
+  }
+
+sub Process () {
+  return unless /\.(?:pl|pm)$/;
+  open(FH, "<$File::Find::name") or die "Can't open $File::Find::name: $!";
+  my $bugs;
+  while (<FH>) {
+    if (/^=head1\s+BUGS\s*$/../^=cut\s*$/) {
+      next if /^=/;
+      next unless /\S/;
+      next if /^\s*none\s+(?:known|reported)(?:\s+so\s+far|\s+yet)?\.*\s*$/i;
+      $bugs .= $_;
+      }
+    }
+  close(FH);
+  if ($bugs) {
+    print "$File::Find::name:\n\n$bugs\n";
+    }
+  }
+
+=head1 BUGS
+
+None known.
+
+=cut

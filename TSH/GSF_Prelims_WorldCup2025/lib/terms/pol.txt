@@ -1,0 +1,1052 @@
+code=1st
+brief=1.
+type=label
+
+code=1stadv
+brief=1. - 2.
+type=label
+
+code=1stadvantage
+brief=Przewaga pierwszego gracza
+type=label
+
+code=1stplayerscore
+brief=Punkty pierwszego gracza
+type=label
+
+code=1stsc
+brief=1st Score
+type=label
+
+code=1stwinp
+brief=Pierwsza wygrana gracza %%
+type=label
+
+code=1stwp
+brief=1st W%%
+type=label
+
+code=2nd
+brief=2.
+type=label
+
+code=2ndplayerscore
+brief=Punkty drugiego gracza
+type=label
+
+code=2ndsc
+brief=2nd Score
+type=label
+
+code=activeplayers
+brief=Aktywni gracze
+type=label
+
+code=actvplayers
+brief=Aktywni gracze
+type=label
+
+code=Agn
+brief=Strac
+type=label
+
+code=alpha-pairings
+brief=Rozstawienie wg alfabetu
+type=label
+
+code=Alphabetic_Pairings
+brief=Rozstawienie wg alfabetu
+type=label
+
+code=ap_bd0
+brief=[%s]:ES|L words|M|division|<return> (no scores left)?
+type=label
+
+code=ap_bd1
+brief=[%s]:st gr różn (pozostał 1 wynik)?
+type=label
+
+code=ap_bd2
+brief=[%s]:st gr1 pkt1 gr2 pkt2 różn (pozostało wyników: %d)?
+type=label
+
+code=ap_bt0
+brief=[%s]:ES|L words|M|division|<return> (no scores left)?
+type=label
+
+code=ap_bt1
+brief=[%s]:gr różn (pozostał 1 wynik)?
+type=label
+
+code=ap_bt2
+brief=[%s]:gr1 pkt1 gr2 pkt2 różn (pozostało wyników: %d)?
+type=label
+
+code=ap_sc0
+brief=[%s]:ES|L words|M|division|<return> (no scores left)?
+type=label
+
+code=ap_sc1
+brief=[%s]:gr różn (pozostał 1 wynik)?
+type=label
+
+code=ap_sc2
+brief=[%s]:gr1 pkt1 gr2 pkt2 (pozostało wyników: %d)?
+type=label
+
+code=ap_sp0
+brief=[%s]:ES|L words|M|division|<return> (no scores left)?
+type=label
+
+code=ap_sp1
+brief=[%s]:gracz różnica (pozostał 1 wynik)?
+type=label
+
+code=ap_sp2
+brief=[%s]:zwycięzca pokonany różnica (pozostało wyników: %d)?
+type=label
+
+code=Average_Score
+brief=Średnia<br>MP
+type=label
+
+code=AverageS
+brief=Średnia
+type=label
+
+code=averages
+brief=Średnia MP
+type=label
+
+code=B
+brief=B
+type=label
+
+code=Back_to_round_index
+brief=Wróć do <a href="%s">indeksu rund</a>
+type=label
+
+code=Bd
+brief=Stół
+type=label
+
+code=Blanks_colon
+brief=Blanks:
+type=label
+
+code=blurb
+brief=Raport ten został wygenerowany przez <cite>tsh</cite> w wersji %s. Aby uzyskać więcej informacji o <cite>tsh</cite>, skontaktuj się z Johnem Chew.
+type=label
+
+code=Board
+brief=Stół
+type=label
+
+code=bye
+brief=bye
+type=label
+
+code=Bye
+brief=Bye
+type=label
+
+code=Cash
+brief=Cash
+type=label
+
+code=Cl
+brief=C
+type=label
+
+code=Class
+brief=Class
+type=label
+
+code=columns
+brief=kolumny
+type=label
+
+code=Combined_Score
+brief=Suma<br>MP
+type=label
+
+code=CombinedS
+brief=Suma
+type=label
+
+code=comma_space
+brief=,&#32;
+type=label
+
+code=Cumul
+brief=Całk. różn.
+type=label
+
+code=data_loaded
+brief=wczytano dane
+type=label
+
+code=Division
+brief=Dywizja
+type=label
+
+code=draws
+brief=remisy
+type=label
+
+code=EditScorecardTopNote
+brief=Kliknij na tę część tabeli wyników, którą chcesz zmienić. Ostrzeżenie: funkcjonalność ta nadal znajduje się w fazie eksperymentalnej. Obecnie możesz zmienić nazwę gracza, jego ranking oraz ranking jego przeciwnika. Gdy zakończysz, kliknij na znajdującym się powyżej przycisku w celu zakończenia trybu edycji, następnie zamknij okno by powrócić do linii poleceń tsh.
+type=label
+
+code=enhanced-scoreboard
+brief=Rozszerzona tabela wyników
+type=label
+
+code=Enhanced-scoreboard
+brief=Rozszerzona tabela wyników
+type=label
+
+code=event_coverage_index
+brief=Relacja z turnieju
+type=label
+
+code=EventDate
+brief=Data turnieju
+type=label
+
+code=EventDateNote
+brief=Data ta będzie wyświetlana na większości wydruków oraz stron internetowych. Na przykład: &ldquo;2010-06-02~2010-06-03&rdquo;, &ldquo;Listopad 10&ndash;11, 2010&rdquo;, &ldquo;Sierpień 24, 2010&rdquo;.
+type=label
+
+code=EventID
+brief=ID turnieju
+type=label
+
+code=EventIDNote
+brief=Twój nowy turniej zostanie utworzony w twoim folderze turniejów. Musi on posiadać identyfikator (ID), który jest poprawną nazwą folderu.
+type=label
+
+code=EventName
+brief=Nazwa turnieju
+type=label
+
+code=EventNameNote
+brief=Nazwa ta będzie wyświetlana na wszystkich wydrukach oraz stronach. Na przykład: &ldquo;V Mistrzostwa Wrocławia w SCRABBLE&reg;&rdquo;, &ldquo;XIX Mistrzostwa Polski 2011&rdquo;.
+type=label
+
+code=EventsMenuNewItem
+brief=Dodaj <a href=\"/events/new/index.html\">nowy turniej</a>.
+type=label
+
+code=EventsMenuOpenSub
+brief=Otwórz jeden z istniejących turniejów w twoim folderze turniejów: %s.
+type=label
+
+code=EventsMenuOpenTop
+brief=Otwórz jeden z istniejących turniejów w twoim folderze <cite>tsh</cite>: %s.
+type=label
+
+code=EventsMenuTitle
+brief=Dodaj/Otwórz turniej
+type=label
+
+code=F
+brief=F
+type=label
+
+code=faster
+brief=faster
+type=label
+
+code=fewer
+brief=fewer
+type=label
+
+code=first
+brief=first
+type=label
+
+code=firsts
+brief=Firsts/Seconds
+type=label
+
+code=For
+brief=Zdob
+type=label
+
+code=gamesplayed
+brief=Ilość rozegranych gier
+type=label
+
+code=gamestied
+brief=Remisów
+type=label
+
+code=gmsplayed
+brief=Gier
+type=label
+
+code=gmstied
+brief=Remisów
+type=label
+
+code=Half_Wins
+brief=Half<br>Wins
+type=label
+
+code=HalfWins
+brief=HW
+type=label
+
+code=highcomb
+brief=Najwyższe sumy MP
+type=label
+
+code=higher
+brief=higher
+type=label
+
+code=highloss
+brief=Najwyższe przegrane
+type=label
+
+code=highspread
+brief=High Spreads
+type=label
+
+code=highwin
+brief=Najwyższe wygrane
+type=label
+
+code=Initials
+brief=Podpis
+type=label
+
+code=L
+brief=L
+type=label
+
+code=Last_G
+brief=Ostatnia gra
+type=label
+
+code=Last_Game
+brief=Ostatnia gra
+type=label
+
+code=Last_Game_sb
+brief=Last:
+type=label
+
+code=links_above
+brief=Powyższe linki prowadzą do raportów wygenerowanych dla tego turnieju przy użyciu programu do zarządzania turniejami <a href=\"http://tsh.poslfit.com\">tsh</a>.
+type=label
+
+code=Loser
+brief=Pokonany
+type=label
+
+code=LoserR
+brief=RPok
+type=label
+
+code=LoserRating
+brief=Ranking<br>pokonanego
+type=label
+
+code=Losing_Score
+brief=Wynik<br>pokonanego
+type=label
+
+code=Losing_Spreads
+brief=Losing Spreads
+type=label
+
+code=LosingS
+brief=Wygrany
+type=label
+
+code=LosingSs
+brief=Spreads
+type=label
+
+code=Lost
+brief=Przegrane
+type=label
+
+code=lowcomb
+brief=Low Combined Score
+type=label
+
+code=lower
+brief=lower
+type=label
+
+code=lowloss
+brief=Najniższe przegrane
+type=label
+
+code=lowspread
+brief=Low Spreads
+type=label
+
+code=lowwin
+brief=Najniższe wygrane
+type=label
+
+code=Lucky_Stiff
+brief=Całkowita<br>różn. MP
+type=label
+
+code=LuckyS
+brief=Suma
+type=label
+
+code=luckystiff
+brief=Zacięte końcówki
+type=label
+
+code=MainMenuEvent
+brief=Jeśli chcesz utworzyć nowy turniej lub kontynuować pracę z istniejącym, kliknij powyżej w link <a href=\"/events/\">Turnieje</a>.
+type=label
+
+code=MainMenuFirst
+brief=Jeśli używasz <cite>tsh</cite> po raz pierwszy, kliknij w odnośnik do <a href=\"/doc/tutorial.html\">przewodnika</a>.
+type=label
+
+code=MainMenuHelp
+brief=If you want to read the reference manual, please click on <a href=\"/doc/\">Help</a> above.
+type=label
+
+code=MainMenuTerms
+brief=You are viewing the NASPA edition of this software, which is also available in <a href=\"/edition/absp\">ABSP</a> and <a href=\"/edition/deu\">German</a> editions. Please <a href=\"/contact\">contact us</a> if you would like to help prepare a different edition.  Diese Software gibt es auch in einer <a href=\"/edition/deu\">deutschen Ausgabe</a>.
+type=label
+
+code=MainMenuTitle
+brief=Menu główne
+type=label
+
+code=MainMenuWelcome
+brief=Witaj w <a href=\"http://tsh.poslfit.com/\">tsh</a>, programie, który pozwoli Ci przeprowadzić turniej <a href=\"http://www.scrabbleplayers.org/\">Scrabble</a>.
+type=label
+
+code=maximumrating
+brief=Maksymalny ranking
+type=label
+
+code=maxrating
+brief=Max. ranking
+type=label
+
+code=meanpoints
+brief=Średnia zdobytych punktów
+type=label
+
+code=meanpts
+brief=Średnia punktów
+type=label
+
+code=meanrating
+brief=Średni ranking
+type=label
+
+code=medianrating
+brief=Mediana rankingów
+type=label
+
+code=medrating
+brief=Med. rankingów
+type=label
+
+code=minimumrating
+brief=Minimalny ranking
+type=label
+
+code=minrating
+brief=Min. ranking
+type=label
+
+code=mnrating
+brief=Średni ranking
+type=label
+
+code=more
+brief=więcej
+type=label
+
+code=multipair
+brief=Multi-Round Pairings
+type=label
+
+code=must_be_different_event
+brief=Powinien być on różny od pozostałych identyfikatorów turniejów: %s.
+type=label
+
+code=New_R
+brief=NowyR
+type=label
+
+code=New_Rating
+brief=Nowy<br>ranking
+type=label
+
+code=NewEventsMenuBegin
+brief=Aby rozpocząć podaj kilka niezbędnych informacji o nowym turnieju.
+type=label
+
+code=NewEventsMenuTitle
+brief=Dodaj nowy turniej
+type=label
+
+code=next
+brief=następny
+type=label
+
+code=Next_Game
+brief=Następna gra
+type=label
+
+code=Next_Game_sb
+brief=Następny:
+type=label
+
+code=npeat
+brief=%dpeat
+type=label
+
+code=NumberofRounds
+brief=Ilość rund
+type=label
+
+code=NumberofRoundsNote
+brief=Możesz zmienić tę wartość później. Jeśli nie jesteś pewien ile rund rozegra każdy z graczy, podaj ich przypuszczalną wartość.
+type=label
+
+code=numeric-pairings
+brief=Numeric Pairings
+type=label
+
+code=Numeric_Pairings
+brief=Numeric Pairings
+type=label
+
+code=Old_R
+brief=PoprzedniR
+type=label
+
+code=Old_Rating
+brief=Poprzedni<br>ranking
+type=label
+
+code=OldEventsMenuBegin
+brief=
+type=label
+
+code=OldEventsMenuOpenError
+brief=Nie można otworzyć turnieju z folderu &ldquo;%s&rdquo;. Moduł turniejowy zgłosił następujący błąd: %s.
+type=label
+
+code=OldEventsMenuTitle
+brief=%s (%s)
+type=label
+
+code=Opp
+brief=Przec
+type=label
+
+code=Opp_No
+brief=Nr<br>przec.
+type=label
+
+code=Opp_Rating
+brief=Rank.<br>przec.
+type=label
+
+code=Opp_Score
+brief=Wynik<br>przec.
+type=label
+
+code=OppNo
+brief=Przec. #
+type=label
+
+code=Opponent
+brief=Przeciwnik
+type=label
+
+code=Opponent_Rating
+brief=Ranking<br>przeciwnika
+type=label
+
+code=Opponent_Score
+brief=Wynik<br>przeciwnika
+type=label
+
+code=OpponentName
+brief=Przeciwnik
+type=label
+
+code=ord1st
+brief=%dst
+type=label
+
+code=ord2nd
+brief=%dnd
+type=label
+
+code=ord3rd
+brief=%drd
+type=label
+
+code=ordnth
+brief=%dth
+type=label
+
+code=pairings
+brief=Rozstawienie wg stołów
+type=label
+
+code=PartialResultsTitle
+brief=Wyniki cząstkowe dywizji %s, Rundy %d-%d
+type=label
+
+code=pending
+brief=w trakcie:
+type=label
+
+code=Photo
+brief=Zdjęcie
+type=label
+
+code=photos
+brief=zdjęcia
+type=label
+
+code=photos_off
+brief=off
+type=label
+
+code=photos_on
+brief=on
+type=label
+
+code=Player
+brief=Gracz
+type=label
+
+code=Player_Score
+brief=Wynik<br>gracza
+type=label
+
+code=Players
+brief=Gracze
+type=label
+
+code=pointsscored
+brief=Total Points Scored
+type=label
+
+code=previous
+brief=previous
+type=label
+
+code=Previous_Rank
+brief=Poprzednie<br>Miejsce
+type=label
+
+code=prizes
+brief=Tabela nagród
+type=label
+
+code=Prv
+brief=Poprz
+type=label
+
+code=ptsscored
+brief=Points Scored
+type=label
+
+code=Rank
+brief=M-ce
+type=label
+
+code=Ranked_Pairings
+brief=Rozstawienie wg stołów
+type=label
+
+code=Rankedwallchart
+brief=Ranked Wall Chart
+type=label
+
+code=Rankings
+brief=Rankingi
+type=label
+
+code=ranks
+brief=Ranks
+type=label
+
+code=Rating
+brief=Ranking
+type=label
+
+code=Rating_Ch
+brief=+-R
+type=label
+
+code=Rating_Change
+brief=Zmiana<br>rankingu
+type=label
+
+code=rating_changes
+brief=Rating Changes
+type=label
+
+code=Rating_colon
+brief=Ranking:
+type=label
+
+code=RatingDiff
+brief=Różn
+type=label
+
+code=RatingDifference
+brief=Rating<br>Diff.
+type=label
+
+code=Ratings
+brief=Ranking
+type=label
+
+code=ratings
+brief=Ranking
+type=label
+
+code=Rec-ord
+brief=Rec<br>ord
+type=label
+
+code=refresh_now
+brief=odśwież
+type=label
+
+code=regdplayers
+brief=Reg'd players
+type=label
+
+code=registeredplayers
+brief=Zapisani gracze
+type=label
+
+code=repeat
+brief=powtórz
+type=label
+
+code=Rnd
+brief=Run
+type=label
+
+code=Rnk
+brief=M-ce
+type=label
+
+code=rosters
+brief=Rosters
+type=label
+
+code=roto
+brief=Rotisserie
+type=label
+
+code=round
+brief=runda
+type=label
+
+code=Round
+brief=Runda
+type=label
+
+code=Round_Title
+brief=Runda %d %s
+type=label
+
+code=RoundP12
+brief=Round 1st/2nd
+type=label
+
+code=Rounds
+brief=Rundy
+type=label
+
+code=rows
+brief=rows
+type=label
+
+code=Rtng
+brief=Rnk
+type=label
+
+code=Score
+brief=Wynik
+type=label
+
+code=scoreboard_controls
+brief=scoreboard controls
+type=label
+
+code=scoredplayers
+brief=Scored Players
+type=label
+
+code=scores
+brief=Wyniki
+type=label
+
+code=ScoreSum
+brief=MP
+type=label
+
+code=scrdplayers
+brief=Scored players
+type=label
+
+code=scroll
+brief=scroll
+type=label
+
+code=ScrSum
+brief=MP
+type=label
+
+code=Seat
+brief=Seat
+type=label
+
+code=second
+brief=second
+type=label
+
+code=slower
+brief=slower
+type=label
+
+code=SOS
+brief=SOS
+type=label
+
+code=Sprd
+brief=Różn. MP
+type=label
+
+code=Spread
+brief=Różn. MP
+type=label
+
+code=St
+brief=Seat
+type=label
+
+code=standings
+brief=Klasyfikacja
+type=label
+
+code=Stats
+brief=Statystyki turniejowe
+type=label
+
+code=stats
+brief=Statystyki
+type=label
+
+code=strongerwinp
+brief=Higher Rated Win %%
+type=label
+
+code=strongerwp
+brief=Stronger W%%
+type=label
+
+code=style
+brief=style
+type=label
+
+code=style_compact
+brief=compact
+type=label
+
+code=style_normal
+brief=normal
+type=label
+
+code=T
+brief=T
+type=label
+
+code=Table
+brief=Table
+type=label
+
+code=tally-slips
+brief=Protokoły
+type=label
+
+code=Tbl
+brief=Tbl
+type=label
+
+code=Team
+brief=Drużyna
+type=label
+
+code=teams
+brief=Drużyny
+type=label
+
+code=thaipoints
+brief=Punkty
+type=label
+
+code=thaipts
+brief=Pkty
+type=label
+
+code=Total_Opp_Score
+brief=Total<br>Opponent<br>Score
+type=label
+
+code=Total_Score
+brief=Total<br>Score
+type=label
+
+code=total_teams
+brief=Combined Teams
+type=label
+
+code=Total_teams
+brief=Combined Teams
+type=label
+
+code=TotalOppS
+brief=TotOp
+type=label
+
+code=totaloppscore
+brief=High Total Opponent Scores
+type=label
+
+code=TotalS
+brief=Total
+type=label
+
+code=totalscore
+brief=High Total Scores
+type=label
+
+code=Tuff_Luck
+brief=Całkowita<br>różn. MP
+type=label
+
+code=TuffL
+brief=Suma
+type=label
+
+code=tuffluck
+brief=Tuff Luck
+type=label
+
+code=UnknownQuery
+brief=Nierozpoznane zapytanie: %s
+type=label
+
+code=Unpaired
+brief=Niesparowany
+type=label
+
+code=unpaired
+brief=niesparowany
+type=label
+
+code=unratedplayers
+brief=Bezrankingowcy
+type=label
+
+code=unrplayers
+brief=Unrated
+type=label
+
+code=upsets
+brief=Rating Upsets
+type=label
+
+code=vs
+brief=vs.
+type=label
+
+code=W
+brief=W
+type=label
+
+code=W_L
+brief=DP
+type=label
+
+code=wallchart
+brief=Wall Chart
+type=label
+
+code=Wallchart
+brief=Wall Chart
+type=label
+
+code=was
+brief=was
+type=label
+
+code=Who_Plays_Whom
+brief=Kto z kim
+type=label
+
+code=Winner
+brief=Zwycięzca
+type=label
+
+code=WinnerR
+brief=RZwyc
+type=label
+
+code=WinnerRating
+brief=Ranking<br>zwycięzcy
+type=label
+
+code=Winning_Score
+brief=Wynik<br>zwycięzcy
+type=label
+
+code=Winning_Spreads
+brief=Winning Spreads
+type=label
+
+code=WinningS
+brief=Przegrany
+type=label
+
+code=WinningSs
+brief=Spreads
+type=label
+
+code=Won
+brief=Wygrane
+type=label
+
+code=Won_Lost
+brief=DP
+type=label
+
+code=Words_challenged_colon
+brief=Sprawdzone słowa:
+type=label
+
+code=wwyltd
+brief=Co chcesz zrobić?
+type=label
+

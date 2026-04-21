@@ -1,0 +1,118 @@
+#begintest dryrun
+#beginconfig
+division a a.t
+config max_div_rounds{'A'} = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+perl srand 123
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+cp 4 a
+debug CP 0
+debug CBPF 0
+debug GIB 0
+dryrun
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Liam (#4).
+   2  Chew, Kristen (#2) *draws* vs. Chew, Jamie (#3).
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Jamie (#3).
+   2  Chew, Kristen (#2) vs. Chew, Liam (#4).
+Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Chew, Kristen (#2).
+   2  Chew, Jamie (#3) vs. Chew, Liam (#4).
+Chew, John (#1): 626
+Chew, Kristen (#2): 445
+Chew, Jamie (#3): 312
+Chew, Liam (#4): 175
+Round 1 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 1.0-0.0  +451 1800 1801  +1 Chew, John (#1)    2W:626-175:#4
+  2 1.0-0.0  +133 1300 1301  +1 Chew, Kristen (#2) 1W:445-312:#3
+  3 0.0-1.0  -133  500  499  -1 Chew, Jamie (#3)   2L:312-445:#2
+  4 0.0-1.0  -451    0  877     Chew, Liam (#4)    1L:175-626:#1
+Chew, John (#1): 626 478
+Chew, Kristen (#2): 445 341
+Chew, Jamie (#3): 312 365
+Chew, Liam (#4): 175 286
+Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 2.0-0.0  +564 1800 1801  +1 Chew, John (#1)    1W:478-365:#3
+  2 2.0-0.0  +188 1300 1303  +3 Chew, Kristen (#2) 1W:341-286:#4
+  3 0.0-2.0  -246  500  498  -2 Chew, Jamie (#3)   2L:365-478:#1
+  4 0.0-2.0  -506    0  543     Chew, Liam (#4)    2L:286-341:#2
+Chew, John (#1): 626 478 502
+Chew, Kristen (#2): 445 341 136
+Chew, Jamie (#3): 312 365 369
+Chew, Liam (#4): 175 286 368
+Round 3 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 3.0-0.0  +930 1800 1803  +3 Chew, John (#1)    1W:502-136:#2
+  2 2.0-1.0  -178 1300 1300  +0 Chew, Kristen (#2) 2L:136-502:#1
+  3 1.0-2.0  -245  500  508  +8 Chew, Jamie (#3)   1W:369-368:#4
+  4 0.0-3.0  -507    0  500     Chew, Liam (#4)    2L:368-369:#3
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *draws* vs. Chew, Kristen (#2) repeat.
+   2  Chew, Jamie (#3) *draws* vs. Chew, Liam (#4) repeat.
+Chew, John (#1): 626 478 502 478
+Chew, Kristen (#2): 445 341 136 475
+Chew, Jamie (#3): 312 365 369 349
+Chew, Liam (#4): 175 286 368 357
+Round 4 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player             Last Game
+  1 4.0-0.0  +933 1800 1806  +6 Chew, John (#1)    1W:478-475:#2
+  2 2.0-2.0  -181 1300 1296  -4 Chew, Kristen (#2) 2L:475-478:#1
+  3 1.0-3.0  -253  500  498  -2 Chew, Jamie (#3)   2L:349-357:#4
+  4 1.0-3.0  -499    0  500     Chew, Liam (#4)    1W:357-349:#3
+Round 5 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Jamie (#3) *first* vs. Chew, John (#1) repeat.
+   2  Chew, Kristen (#2) *draws* vs. Chew, Liam (#4) repeat.
+Chew, John (#1): 626 478 502 478 406
+Chew, Kristen (#2): 445 341 136 475 499
+Chew, Jamie (#3): 312 365 369 349 219
+Chew, Liam (#4): 175 286 368 357 363
+Round 5 Ratings
+
+Rnk Won-Lost  Sprd OldR NewR +-R Player             Last Game
+  1 5.0-0.0  +1120 1800 1806  +6 Chew, John (#1)    2W:406-219:#3
+  2 3.0-2.0    -45 1300 1298  -2 Chew, Kristen (#2) 2W:499-363:#4
+  3 1.0-4.0   -440  500  498  -2 Chew, Jamie (#3)   1L:219-406:#1
+  4 1.0-4.0   -635    0  500     Chew, Liam (#4)    1L:363-499:#2
+#endstdout
+#beginstderr
+Error: You still need results for Round 4. [ernos]
+Error: Can't automatically pair Round 4 based on Round 0. [eacpbadr]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: Can't automatically pair Round 4 based on Round 1. [eacpbadr]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Error: If you are sure you want to pair Round 4 based on Round 2, please specify config session_breaks. [eacpnsb]
+Error: No pairings yet for Division A Round 4. [enopryet]
+Warning: You should specify config prize_bands to use this command. [wwant_prize_bands]
+Error: If you are sure you want to pair Round 5 based on Round 3, please specify config session_breaks. [eacpnsb]
+Error: No pairings yet for Division A Round 5. [enopryet]
+#endstderr
+#endtest

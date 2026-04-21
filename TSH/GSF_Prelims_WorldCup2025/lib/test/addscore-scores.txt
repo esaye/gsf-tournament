@@ -1,0 +1,51 @@
+#begintest addscore entry=scores
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2;
+Chew, Kristen 1300 3 4 1;
+Chew, Jamie 500    2 1 0;
+Chew, Liam 0       1 2 0;
+#endifile
+#begincommands
+a 1
+1 1500 4 300
+1 400 4 300
+m
+2 35 3 300
+
+a 2
+1 400 3 300
+2 400 4 500
+
+a 3
+1 400 2 300
+3 50
+4 -50
+l scoring
+
+q
+#endcommands
+#beginstdout
+[1]:pn1 ps1 pn2 ps2 (4 scores left)? [1]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (1.0 +100) - #4 Chew, Liam 300 (0.0 -100): +100.
+[1]:pn1 ps1 pn2 ps2 (2 scores left)? Chew, Kristen (#2) vs. Chew, Jamie (#3)
+[1]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Chew, Kristen 35 (0.0 -265) - #3 Chew, Jamie 300 (1.0 +265): -265.
+[1]:ES|L words|M|division|<return> (no scores left)? [2]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (2.0 +200) - #3 Chew, Jamie 300 (1.0 +165): +100.
+[2]:pn1 ps1 pn2 ps2 (2 scores left)? #2 Chew, Kristen 400 (0.0 -365) - #4 Chew, Liam 500 (1.0 +0): -100.
+[2]:ES|L words|M|division|<return> (no scores left)? [3]:pn1 ps1 pn2 ps2 (4 scores left)? #1 Chew, John 400 (3.0 +300) - #2 Chew, Kristen 300 (0.0 -465): +100.
+[3]:pn1 ps1 pn2 ps2 (2 scores left)? #3 Chew, Jamie +50 (2.0 +215).
+[3]:pn spread (1 score left)? #4 Chew, Liam -50 (1.0 -50).
+[3]:ES|L words|M|division|<return> (no scores left)? The play is acceptable in CSW2015.
+The play is not acceptable in ODS5.
+The play is acceptable in SSWL2016.
+The play is acceptable in TWL2016.
+[3]:ES|L words|M|division|<return> (no scores left)? 
+#endstdout
+#beginstderr
+Error: 1500 is not a valid score. [ebadscore]
+Warning: 35 is a suspiciously low score, but has been accepted. [wlowscore]
+#endstderr
+#endtest

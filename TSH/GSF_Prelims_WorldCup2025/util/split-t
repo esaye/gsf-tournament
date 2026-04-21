@@ -1,0 +1,94 @@
+#!/usr/bin/perl
+
+# Copyright (C) &copy; 2007 by John J. Chew, III <jjchew@math.utoronto.ca>
+# Split a list of contestants in .t file into smaller groups with 
+# designated minimum and maximum division sizes.
+# Written for Trevor Sealy, Director, Oshawa Scrabble Club
+
+use strict;
+use warnings;
+use lib './lib/perl';
+use TFile;
+
+sub FindBestSplit (\@);
+sub Main ();
+
+$config::mindiv = undef;
+$config::maxdiv = undef;
+
+Main;
+
+sub FindBestSplit (\@) {
+  my $psp = shift;
+# printf STDERR "FBSP: %d\n", scalar(@$psp);
+  # not enough for one division
+  if (@$psp < $config::mindiv) { 
+#   warn "not enough for one div\n";
+    return (); 
+    }
+  # exactly enough for a minimal division
+  if (@$psp == $config::mindiv) { return (0, [$psp]); }
+  # not enough for two divisions
+  if (@$psp < $config::mindiv*2) { 
+#   warn "not enough for two divs\n";
+    # but too many for one division
+    if (@$psp > $config::maxdiv) { 
+#     warn "too many for one div\n"; 
+      return (); 
+      }
+    # or one big division is okay
+    else { 
+#     warn "one division is okay\n";
+      return (0, [$psp]); 
+      }
+    }
+  my $bestq = -1000000;
+  my $bestsplit = undef;
+  for (my $i = $config::mindiv; $i <= $config::maxdiv; $i+=2) {
+    last if @$psp - $i < $config::mindiv;
+    my $q = ($psp->[$i-1]->{'rating'} - $psp->[$i]->{'rating'})**2 - 10000;
+    my (@cdr) = @$psp[$i..$#$psp];
+    my ($cdrq, $cdrsplit) = (FindBestSplit @cdr);
+#   printf STDERR "Splitting %d at %d gives q=%d cdrq=%d\n", scalar(@$psp), $i, $q, ((defined $cdrq) ? $cdrq : -1);
+    next unless defined $cdrq;
+    if ($q + $cdrq > $bestq) {
+      $bestq = $q + $cdrq;
+      $bestsplit = [[@$psp[0..$i-1]], @$cdrsplit];
+      }
+    }
+  return ($bestq, $bestsplit);
+  }
+
+sub Main () {
+  if (@::ARGV != 3) {
+    die "Usage: $0 mindiv maxdiv all.t\n";
+    }
+  $config::mindiv = shift @::ARGV;
+  $config::maxdiv = shift @::ARGV;
+  my $allname = shift @::ARGV;
+  my $tf = new TFile $allname;
+  my @p;
+  while (my $datap = $tf->ReadLine()) {
+    push (@p, $datap);
+    }
+  $tf->Close();
+  my ($quality, $splitp) = FindBestSplit @p;
+  my $dir = $allname;
+  $dir = "./$dir" unless $dir =~ /^\//;
+  $dir =~ s/[^\/]+$//;
+  for my $i (0..$#$splitp) {
+    my $divp = $splitp->[$i];
+    if (ref($divp) ne 'ARRAY') { die $divp; }
+    my $fn = sprintf("%s%c.t", $dir, ord('a')+$i);
+    if (-e $fn) {
+      die "$fn exists and will not be overwritten. Please remove it.\n";
+      }
+    open my $fh, ">$fn" or die;
+    for my $p (@$divp) {
+      print $fh TFile::FormatLine($p);
+      }
+    close $fh;
+    }
+  printf STDERR "Q=%d divisions=%s\n",
+    $quality, join(',', map { scalar(@$_) } @$splitp); 
+  }

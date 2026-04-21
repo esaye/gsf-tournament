@@ -1,0 +1,32 @@
+#begintest cambridgepair
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+Player, A 100
+Player, B 200
+#endifile
+#begincommands
+camp a
+sp 1 a
+
+q
+#endcommands
+#beginstdout
+Calculating Cambridge pairings for Division A.
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) vs. Player, B (#6).
+   2  Chew, Kristen (#2) vs. Player, A (#5).
+   3  Chew, Jamie (#3) vs. Chew, Liam (#4).
+#endstdout
+#beginstderr
+#endstderr
+#endtest

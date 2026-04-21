@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+
+# delete a player from a .t file and renumber accordingly
+
+use strict;
+use warnings;
+
+sub Adjust ($$);
+sub Main ();
+sub Usage ();
+
+Main;
+
+sub Adjust ($$) {
+  my $n = shift;
+  my $opps = shift;
+  my (@opps) = split(/\s+/, $opps);
+  for my $opp (@opps) { $opp -- if $opp > $n; }
+  $opps = join(' ', @opps);
+  return $opps;
+  }
+
+sub Main () {
+  my $n = shift @::ARGV;
+  Usage unless $n && $n =~ /^\d+$/;
+  while (<>) {
+    next if $. == $n;
+    s/^(.+?\S\s+\d+(?:[.+]\d+)*\s*)([\d\s]*)(;\s*[-\d\s]*(?:;[^;]*)*)$/$1 . Adjust($n,$2) . $3/e
+#   s/^([^;]+[^ ;\d]\s+\d+\s+)([\s\d]*);/$1 . Adjust($n,$2) . ';'/e
+      or die "Don't know what to do with:\n$_";
+    print;
+    }
+  }
+
+sub Usage () {
+  die "Usage: $0 offset file.t\n";
+  }
+

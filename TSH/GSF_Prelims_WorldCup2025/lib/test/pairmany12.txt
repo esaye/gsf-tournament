@@ -1,0 +1,39 @@
+#begintest pairmany
+#beginconfig
+division a a.t
+config max_rounds = 5
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 0
+autopair a 0 1 ns 0 0 a
+config tables{'A'} = [2,3];
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+pm12 1 a
+1 4
+2 0
+3 0
+
+sp 1 a
+q
+#endcommands
+#beginstdout
+[A1]:pn1 pn2? Chew, John (#1) (0.0 +0) 1st - Chew, Liam (#4) (0.0 +0) 2nd.
+[A1]:pn1 pn2? Chew, Kristen (#2) (0.0 +0) 1st - bye.
+[A1]:pn1 pn2? Chew, Jamie (#3) (0.0 +0) 1st - bye.
+[A1]:pn1 pn2? Round 1 Ranked Pairings
+
+Table Who Plays Whom
+      Chew, Kristen (#2): Bye.
+      Chew, Jamie (#3): Bye.
+   2  Chew, John (#1) *draws* vs. Chew, Liam (#4).
+#endstdout
+#beginstderr
+#endstderr
+#endtest

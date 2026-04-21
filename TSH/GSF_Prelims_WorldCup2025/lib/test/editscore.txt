@@ -1,0 +1,71 @@
+#begintest editscore
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 400
+Chew, Kristen 1300 3 4 1; 300
+Chew, Jamie 500    2 1 0; 200
+Chew, Liam 0       1 2 0; 100
+#endifile
+#begincommands
+editscore john 1
+500 100
+editscore john 1
+rating 1700
+off -60
+on
+first
+
+sc john
+q
+#endcommands
+#beginstdout
+Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  400 100 +300  +300
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [400 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1700)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1700) INACTIVE[-60]
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1700)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1700)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+Chew, John (#1) R1 [500 100 vs. Chew, Liam (#4)] (? for help) Player Scorecard: Chew, John (#1) (1700)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  500 100 +400  +400
+  2  ?   3  500 Chew, Jamie
+  3  ?   2 1300 Chew, Kristen
+#endstdout
+#beginstderr
+Error: Huh? Press enter/return to return to the main tsh> prompt. [eeshuh]
+Error: Huh? Press enter/return to return to the main tsh> prompt. [eeshuh]
+#endstderr
+#endtest

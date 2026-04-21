@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSF Preliminaries Scoresheet</title>
+    <style>
+        @page {
+            margin: 0.5in;
+            size: A4;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-size: 12px;
+        }
+        
+        .scoresheet {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #2c5530;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e31e24 0%, #ffffff 33%, #ffffff 66%, #0c7b93 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #2c5530;
+        }
+        
+        .flag {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 60px;
+            height: 40px;
+            border: 2px solid #333;
+            background: linear-gradient(to bottom, 
+                #e31e24 0%, #e31e24 33.33%, 
+                #ffffff 33.33%, #ffffff 66.66%, 
+                #0c7b93 66.66%, #0c7b93 100%);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .scrabble-board {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            width: 50px;
+            height: 50px;
+            background: #8B4513;
+            border: 2px solid #654321;
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 1px;
+            padding: 2px;
+        }
+        
+        .tile {
+            background: #F5DEB3;
+            border: 1px solid #D2B48C;
+            border-radius: 2px;
+            font-size: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .tile:nth-child(1) { background: #FFB6C1; } /* TW */
+        .tile:nth-child(4) { background: #98FB98; } /* DL */
+        .tile:nth-child(6) { background: #87CEEB; } /* TL */
+        .tile:nth-child(11) { background: #DDA0DD; } /* DW */
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c5530;
+            margin: 0 0 5px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .header h2 {
+            font-size: 18px;
+            color: #e31e24;
+            margin: 0 0 10px 0;
+            font-weight: normal;
+        }
+        
+        .tournament-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-box {
+            border: 2px solid #2c5530;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: white;
+            min-width: 120px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #2c5530;
+            margin-right: 10px;
+        }
+        
+        .players-section {
+            padding: 20px;
+        }
+        
+        .player-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+        
+        .player-info {
+            width: 45%;
+            border: 2px solid #2c5530;
+            border-radius: 8px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        }
+        
+        .player-header {
+            background: #2c5530;
+            color: white;
+            padding: 8px 12px;
+            margin: -15px -15px 10px -15px;
+            border-radius: 6px 6px 0 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .player-field {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .player-field label {
+            font-weight: bold;
+            min-width: 60px;
+            color: #2c5530;
+        }
+        
+        .player-field input {
+            flex: 1;
+            border: none;
+            border-bottom: 2px solid #dee2e6;
+            padding: 5px 0;
+            margin-left: 10px;
+            font-size: 14px;
+            background: transparent;
+        }
+        
+        .player-field input:focus {
+            outline: none;
+            border-bottom-color: #e31e24;
+        }
+        
+        .score-box {
+            text-align: center;
+            border: 3px solid #2c5530;
+            border-radius: 10px;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffffff 100%);
+            width: 8%;
+            align-self: center;
+        }
+        
+        .score-label {
+            font-weight: bold;
+            color: #2c5530;
+            margin-bottom: 10px;
+            font-size: 11px;
+        }
+        
+        .score-input {
+            width: 100%;
+            border: 2px solid #2c5530;
+            border-radius: 5px;
+            padding: 8px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            background: white;
+        }
+        
+        .game-details {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .details-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-item label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #2c5530;
+        }
+        
+        .detail-item input {
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            padding: 5px 8px;
+            background: white;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .signature-box {
+            width: 30%;
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #2c5530;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2c5530;
+            font-size: 11px;
+        }
+        
+        .footer {
+            background: #2c5530;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 11px;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            .scoresheet {
+                border: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scoresheet">
+        <div class="header">
+            <div class="flag"></div>
+            <div class="scrabble-board">
+                <div class="tile">S</div>
+                <div class="tile">C</div>
+                <div class="tile">R</div>
+                <div class="tile">A</div>
+                <div class="tile">B</div>
+                <div class="tile">B</div>
+                <div class="tile">L</div>
+                <div class="tile">E</div>
+                <div class="tile">★</div>
+                <div class="tile">G</div>
+                <div class="tile">S</div>
+                <div class="tile">F</div>
+                <div class="tile">2</div>
+                <div class="tile">0</div>
+                <div class="tile">2</div>
+                <div class="tile">5</div>
+            </div>
+            <h1>GAMBIA SCRABBLE FEDERATION</h1>
+            <h2>Preliminaries for World Scrabble Championships 2025</h2>
+        </div>
+        
+        <div class="tournament-info">
+            <div class="info-row">
+                <div class="detail-item">
+                    <label>Date:</label>
+                    <div class="info-box"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Round:</label>
+                    <div class="info-box"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Game:</label>
+                    <div class="info-box"></div>
+                </div>
+                <div class="detail-item">
+                    <label>Table:</label>
+                    <div class="info-box"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="players-section">
+            <div class="player-row">
+                <div class="player-info">
+                    <div class="player-header">PLAYER 1</div>
+                    <div class="player-field">
+                        <label>Name:</label>
+                        <input type="text" />
+                    </div>
+                    <div class="player-field">
+                        <label>Rating:</label>
+                        <input type="text" />
+                    </div>
+                    <div class="player-field">
+                        <label>ID:</label>
+                        <input type="text" />
+                    </div>
+                </div>
+                
+                <div class="score-box">
+                    <div class="score-label">FINAL<br>SCORE</div>
+                    <input type="number" class="score-input" />
+                </div>
+                
+                <div class="player-info">
+                    <div class="player-header">PLAYER 2</div>
+                    <div class="player-field">
+                        <label>Name:</label>
+                        <input type="text" />
+                    </div>
+                    <div class="player-field">
+                        <label>Rating:</label>
+                        <input type="text" />
+                    </div>
+                    <div class="player-field">
+                        <label>ID:</label>
+                        <input type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-details">
+            <div class="details-row">
+                <div class="detail-item">
+                    <label>Start Time:</label>
+                    <input type="time" />
+                </div>
+                <div class="detail-item">
+                    <label>End Time:</label>
+                    <input type="time" />
+                </div>
+                <div class="detail-item">
+                    <label>Duration:</label>
+                    <input type="text" placeholder="mins" />
+                </div>
+            </div>
+            
+            <div class="details-row">
+                <div class="detail-item">
+                    <label>First Player:</label>
+                    <input type="text" />
+                </div>
+                <div class="detail-item">
+                    <label>Challenges:</label>
+                    <input type="text" placeholder="W/L" />
+                </div>
+                <div class="detail-item">
+                    <label>Overtime:</label>
+                    <input type="text" placeholder="penalty" />
+                </div>
+            </div>
+            
+            <div class="details-row">
+                <div class="detail-item">
+                    <label>Bingos Player 1:</label>
+                    <input type="number" min="0" />
+                </div>
+                <div class="detail-item">
+                    <label>Bingos Player 2:</label>
+                    <input type="number" min="0" />
+                </div>
+                <div class="detail-item">
+                    <label>High Word:</label>
+                    <input type="text" />
+                </div>
+            </div>
+        </div>
+        
+        <div class="signatures">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">Player 1 Signature</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">Tournament Director</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">Player 2 Signature</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Official scoresheet for GSF Preliminaries • World Scrabble Championships 2025 • The Gambia
+        </div>
+    </div>
+</body>
+</html>

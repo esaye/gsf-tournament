@@ -1,0 +1,41 @@
+division a a.t
+config event_name = "GSF National Preliminary Tournament for World Scrabble Championship 2025"
+config event_date = "August 15-17, 2025"
+# used toward end to accelerate pairings
+config track_firsts = 1
+config assign_firsts = 1
+config show_teams = 1
+config initial_exagony = 1
+config scoreboard_teams = 1
+config board_stability = 1
+config no_text_files = 1
+config session_breaks = [1,8,14]
+config force_koth = 1
+config gibson = 1
+config realm = 'thai'
+config prize_bands{'A'} = [1..3]
+config gibson_groups{'A'} = [[1,2]]
+config max_rounds = 30
+# config tables{'A'} = [1,map {$_,$_} 2..50]
+config thai_points = 1
+# config reserved{'A'}[58] = 31
+config port = 8088
+config alpha_pair_page_break = 21
+config prizes_page_break = 16
+# config rating_system = 'wespa'
+config initial_random = 1
+config html_top = '<div style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 2rem; margin-bottom: 2rem; border-radius: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); text-align: center; font-family: Arial, sans-serif;"><div style="font-size: 1.5rem; margin: 0 0.5rem;">🇬🇲</div><div style="font-size: 2.2rem; font-weight: bold; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">GSF NATIONAL PRELIMINARY TOURNAMENT</div><div style="font-size: 1.3rem; color: #b8d4f0; margin-bottom: 1rem;">World Scrabble Championship 2025 Qualifier</div><div style="background: #ff4757; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: bold; display: inline-block; margin: 1rem 0;">🔴 LIVE TOURNAMENT</div><div style="font-size: 1.1rem; background: rgba(255,255,255,0.15); padding: 0.7rem 1.5rem; border-radius: 25px; display: inline-block; margin-top: 1rem;">📅 August 15-17, 2025 | 🏆 Official WSC Qualifier</div></div>'
+config player_photos = 0  # Disabled to avoid download delays
+config photo_database = 'none'
+config check_by_winner = 1
+config hook_addscore_flush = 'sb 1 100 48 30'
+config hook_autopair = 'sb 1 100 48 30'
+# config hook_division_complete{'A'} = 'tweet a 1 10'
+# config currency_symbol = '&dalasis;';
+# automatic FTP update
+config sftp_host ='sftp.ebrimasaye.com'
+config sftp_username = 'ebrimasaye'
+config sftp_path ='htdocs/tournament'
+
+# Manual pairing - no autopair configured
+# Use web interface to generate pairings manually

@@ -1,0 +1,4 @@
+code=Board
+brief=Table
+type=label
+

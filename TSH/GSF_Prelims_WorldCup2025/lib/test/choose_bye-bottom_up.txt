@@ -1,0 +1,30 @@
+#begintest choose_bye-bottom_up
+#beginconfig
+division a a.t
+config bye_method = 'bottom_up'
+perl srand 123
+#endconfig
+#beginifile a.t
+Chew, John 1800    0 ;  50 
+Chew, Kristen 1300 3 ; 300 
+Chew, Jamie 1200   2 ; 200 
+Chew, Liam 1100    5 ; 300
+Sagara, Gary 1000  4 ; 200
+#endifile
+#begincommands
+koth 0 1 a
+sp 2 a
+q
+#endcommands
+#beginstdout
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+      Sagara, Gary (#5): Bye.
+   1  Chew, Kristen (#2) vs. Chew, Liam (#4).
+   2  Chew, John (#1) vs. Chew, Jamie (#3).
+#endstdout
+#beginstderr
+#endstderr
+#endtest
+

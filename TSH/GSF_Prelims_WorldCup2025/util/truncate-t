@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+# truncate a .t file to a specified number of rounds
+
+# The TRUNCATEROUNDS command does almost the same thing, but this
+# version lets you specify a starting round as well, and can be
+# run independently of tsh.
+
+use strict;
+use warnings;
+
+sub Main ();
+
+Main;
+
+sub Main () {
+  my $first;
+  $first = shift @::ARGV if @::ARGV > 1 && "$::ARGV[0]$::ARGV[1]" =~ /^\d+$/;
+  my $rounds = shift @::ARGV;
+  $first = 1 unless defined $first;
+  die "Usage: $0 [first-round] rounds [file.t...]\n"
+    unless (defined $rounds) && $rounds =~ /^\d+$/;
+  my $first0 = $first - 1;
+  while (<>) {
+    next if /^#/;
+    next unless /\S/;
+    my ($namepair, $scores, $etcs) = split(/\s*;\s*/, $_, 3);
+    # pairings
+    $namepair =~ /^(\D+\d+\s*)(.*)/ || die "Can't parse: $namepair";
+    my $namerating = $1;
+    my $pair = $2;
+    my (@pair) = split(/\s+/, $pair);
+    @pair = splice(@pair, $first0, $rounds) if @pair > $rounds;
+    my (@scores) = split(/\s+/, $scores);
+    @scores = splice(@scores, $first0, $rounds) if @scores > $rounds;
+    if ($etcs) {
+      my (@etc) = split(/\s*;\s*/, $etcs);
+      for my $etc (@etc) {
+	my ($type, @args) = split(/\s+/, $etc);
+	if ($type =~ /^(?:board|p12)/) {
+	  @args = splice(@args, $first0, $rounds) if @args > $rounds;
+	  }
+	$etc = join(' ', $type, @args);
+        }
+      $etcs = join(' ; ', '', @etc);
+      }
+    else {
+      $etcs = '';
+      }
+    print "$namerating @pair ; @scores$etcs\n";
+    }
+  }

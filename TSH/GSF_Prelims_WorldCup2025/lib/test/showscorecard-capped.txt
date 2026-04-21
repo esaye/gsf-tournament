@@ -1,0 +1,33 @@
+#begintest showscorecard
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+config spread_cap = [50,100]
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50 ; off -75
+#endifile
+#begincommands
+sc 1
+sc 4
+q
+#endcommands
+#beginstdout
+Player Scorecard: Chew, John (#1) (1800)
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   4    0 Chew, Liam    1.0-0.0  400 100  +50   +50
+  2  ?   3  500 Chew, Jamie   2.0-0.0  400 200 +100  +150
+  3  ?   2 1300 Chew, Kristen 3.0-0.0  400 300 +100  +250
+Player Scorecard: Chew, Liam (#4) (0) INACTIVE[-75]
+Rnd Bd Opp Rtng Opponent Name Won-Lost For Agn Sprd Cumul
+  1  ?   1 1800 Chew, John    0.0-1.0  100 400  -50   -50
+  2  ?   2 1300 Chew, Kristen 0.0-2.0  100 300 -100  -150
+  3  -   -    - bye           0.0-3.0  -50   0  -50  -200
+#endstdout
+#beginstderr
+#endstderr
+#endtest

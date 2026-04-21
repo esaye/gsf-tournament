@@ -1,0 +1,38 @@
+#begintest tuffluck
+#beginconfig
+division a a.t
+config colour = 'no'
+config max_rounds = 3
+config rotofile = 'roto.txt'
+config spitfile{'A'} = 'spit.txt'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+tuff 1 a
+tuff 2 a
+tuff 4 a
+q
+#endcommands
+#beginstdout
+Tuff Luck
+
+Rnk Sum Spreads Won-Lost  Sprd Player
+  1 100 100      2.0- 1.0 +200 Chew, Kristen (#2)
+  1 100 100      1.0- 2.0 -250 Chew, Jamie (#3)
+  3 200 200      0.0- 3.0 -550 Chew, Liam (#4)
+Tuff Luck
+
+Rnk Sum Spreads Won-Lost  Sprd Player
+  1 300 100 200  1.0- 2.0 -250 Chew, Jamie (#3)
+  2 500 200 300  0.0- 3.0 -550 Chew, Liam (#4)
+Tuff Luck
+
+#endstdout
+#beginstderr
+#endstderr
+#endtest

@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# simulate one entire Dover NH tournament
+
+util/truncate-t 0 < dover/d.t > t
+mv t dover/d.t
+# perl -d:DProf ./tsh.pl > sim.$$.out << EOF
+./tsh.pl dover > sim.$$.out << EOF
+debug SP 1
+sp 1 d
+sp 2 d
+sp 3 d
+rand d d d
+sp 4 d
+rand d
+sp 5 d
+rand d
+sp 6 d
+rand d
+sp 7 d
+EOF
+echo '--tourney.pl--' >> sim.$$.out
+tourney.pl -w 1000 dover/d.t >> sim.$$.out
+# util/simreport sim.$$.out

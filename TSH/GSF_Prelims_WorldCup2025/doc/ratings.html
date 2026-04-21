@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Installation</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=here><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Ratings and <cite>tsh</cite></h1>
+<p class=subtitle>How to maintain a rating system using <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<p class=sidebar>
+The
+&ldquo;<code><a href="config.html#rating_system">config rating_system</a></code>&rdquo;
+<a href="config.html#realm">realm-dependent</a>
+configuration option determines which rating system is in effect for your tournament.
+It can be overridden on a per-division basis by
+&ldquo;<code><a href="config.html#division_rating_system">config division_rating_system</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+One of the more popular features of 
+<cite>tsh</cite> is its calculation of tournament ratings.
+When you set up your tournament&rsquo;s 
+<a href="config.html#tfiles">&ldquo;.t&rdquo; files</a>
+with information about your players, 
+you enter their pretournament ratings, and if necessary their career game totals
+(depending on your rating system, you may be able to use the 
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command to do this automatically).
+As your tournament progresses, you can display current ratings using the
+&ldquo;<code><a href="commands.html#ratings">RATings</a></code>&rdquo;
+and
+&ldquo;<code><a href="commands.html#scoreboard">ScoreBoard</a></code>&rdquo;
+commands.
+At the end of your tournament, you can submit ratings data to your
+rating officer using the 
+&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo;
+command (if your rating system is supported),
+or by generating a ratings report using commands like
+&ldquo;<code><a href="commands.html#abspgrid">ABSPgrid</a></code>&rdquo;
+or
+&ldquo;<code><a href="commands.html#aupair">AUPAIR</a></code>&rdquo;
+and emailing the results.
+</p>
+<p class=p1>
+The rest of this section describes in greater technical detail what is
+involved in connecting <cite>tsh</cite> to a rating system, and its intended
+audience includes ratings officers and directors who want to discuss <cite>tsh</cite>
+with their ratings officers.  As always, if there is anything that <cite>tsh</cite>
+doesn&rsquo;t yet do that you would like it to do, please contact John Chew
+at poslfit@gmail.com.  Each one of <cite>tsh</cite>&rsquo;s features is
+there because someone asked for it; if a feature is missing, it&rsquo;s just
+because you haven&rsquo;t asked for it yet.
+</p>
+
+<h2><a name=files>Files</a></h2>
+<p class=p1>
+<cite>tsh</cite> stores pretournament rating information for each player in a tournament&rsquo;s
+<a href="config.html#tfiles">&ldquo;.t&rdquo; data files</a>.
+</p>
+<p class=p1>
+<cite>tsh</cite> stores information about rating systems in its
+&ldquo;lib/ratings&rdquo; folder.  This folder contains one sub-folder per rating system.
+For historical reasons, NASPA ratings are stored as &ldquo;nsa&rdquo;.
+If you want <cite>tsh</cite> to support a new rating system, the first step is to ask John Chew
+to assign you a new, unique rating system name.
+</p>
+<p class=p1>
+Rating system sub-folders contain contain files such as:
+</p>
+<dl>
+  <dt>current.txt</dt>
+  <dd>the <em>current ratings file</em>, a text file that contains current ratings and possibly other information for each rated player</dd>
+  <dt>new.txt</dt>
+  <dd>the <em>new ratings file</em>, a text file that contains locally calculated new ratings and possibly other information for each rated player</dd>
+  <dt>MANIRATS.txt</dt>
+  <dd>the <em>timestamp file</em>, a text file that contains timestamp data used to tell whether or not the current ratings file is obsolete
+</dl>
+
+<h2><a name=manual>Manual Rating Systems</a></h2>
+<p class="subtitle left">Example users: Philippines, Toronto Speed</p>
+
+<p class=p1>
+It&rsquo;s easy to use <cite>tsh</cite> to run a small rating system
+for one or more people to use on one computer.
+</p>
+<ol>
+  <li>
+At the beginning of each rated event, use the
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command.  
+This copies ratings from your current ratings file to your tournament data files.
+</li>
+<li>
+At the end of your tournament, use the
+&ldquo;<code><a href="commands.html#exportratings">EXPORTRATINGS</a></code>&rdquo;
+command.  
+This creates a new ratings file.
+</li>
+<li>
+Finally, save a copy of your old current ratings file
+in case you need to rerate a sequence of events (it happens more
+often than you would think), and replace it with the new ratings file.
+</li>
+</ol>
+
+<h2>
+  Legacy Rating Systems
+</h2>
+<p class="subtitle left">Example users: WESPA</p>
+
+<p class=p1>
+If you have an existing legacy rating system that cannot easily be connected
+to the web, you should determine what ratings data format it uses (<cite>tsh</cite>
+currently supports its native format, Homan, Aupair and ABSP grid formats), 
+and have your tournament directors e-mail the appropriate reports to your
+ratings officer.  If you can persuade your ratings officer to post current
+ratings online, your directors can use the 
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command.
+</p>
+
+<h2>
+  Semiautomated Rating Systems (Type 1)
+</h2>
+<p class="subtitle left">Example users: PSA</p>
+
+<p class=p1>
+If you use more than one computer to run rated events but do not have
+a system set up to automatically receive online rating submissions,
+you can use an FTP client to maintain a shared rating database online.
+</p>
+<p class=p1>
+First, ask John Chew to do the following:
+</p>
+<ul>
+  <li>Set up an FTP account for you where you and your colleagues can
+  store rating data.</li>
+  <li>Set up a webpage that you can visit to register updates to your rating data. Its URL will include &ldquo;update-ratings&rdquo;.</li>
+</ul>
+
+<p class=p1>
+Then, at each rated event:
+</p>
+<ol>
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo;
+command.  
+This fetches the current ratings file from the FTP server.
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command.  
+This copies ratings from your current ratings file to your tournament data files.
+  </li>
+  <li>
+Run your event.
+  </li>
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#exportratings">EXPORTRATINGS</a></code>&rdquo;
+command.  
+This creates a new ratings file.
+  </li>
+  <li>
+  Use your FTP client to upload the new ratings file to your FTP account. 
+  </li>
+  <li>
+  Visit the webpage that registers updates to your rating data.
+  </li>
+</ol>
+
+<h2>
+  Semiautomated Rating Systems (Type 2)
+</h2>
+<p class="subtitle left">Example users: Scrabble Kenya</p>
+
+<p class=p1>
+If you use more than one computer to run rated events but do not have
+a system set up to automatically receive online rating submissions,
+you can use a web client to maintain a shared rating database online.
+</p>
+<p class=p1>
+First, ask John Chew to do the following:
+</p>
+<ul>
+  <li>Set up a webpage that you can visit to post updates to your rating data. Its URL will include &ldquo;post-ratings&rdquo;.</li>
+</ul>
+
+<p class=p1>
+Then, at each rated event:
+</p>
+<ol>
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#updateratings">UPDATERATINGS</a></code>&rdquo;
+command.  
+This fetches the current ratings file from the FTP server.
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command.  
+This copies ratings from your current ratings file to your tournament data files.
+  </li>
+  <li>
+Run your event.
+  </li>
+  <li>
+Use the
+&ldquo;<code><a href="commands.html#exportratings">EXPORTRATINGS</a></code>&rdquo;
+command.  
+This creates a new ratings file.
+  </li>
+  <li>
+  Use your web client to upload the new ratings file.
+  Note that this step could be done by a different individual (a ratings officer) from the previous step, in order to retain more control over the addition of rated events to the rating system.
+  </li>
+</ol>
+
+<h2>
+  Automated Rating Systems
+</h2>
+<p class="subtitle left">Example users: ABSP, NASPA</p>
+
+<p class=p1>
+If you have a large rating system or like automation, you should set up
+(or ask John Chew to set up) a web page to which your tournament directors
+can upload ratings data using the
+&ldquo;<code><a href="commands.html#submit">SUBMIT</a></code>&rdquo;
+command.
+Once it&rsquo;s uploaded, your web site may immediately calculate new ratings
+and make them available for download to the 
+&ldquo;<code><a href="commands.html#useratings">USERATINGS</a></code>&rdquo;
+command,
+or it may hold them for manual verification.
+</p>
+<p class=p1>
+The ABSP rating system uses
+&ldquo;<code><a href="config.html#director_email">config director_email</a></code>&rdquo;
+and optionally
+&ldquo;<code><a href="config.html#tournament_id">config tournament_id</a></code>&rdquo;
+and 
+&ldquo;<code><a href="config.html#ratings_note">config ratings_note</a></code>&rdquo;.
+</p>
+<p class=p1>
+The NASPA rating system uses
+&ldquo;<code><a href="config.html#director_id">config director_id</a></code>&rdquo;
+and 
+&ldquo;<code><a href="config.html#tournament_id">config tournament_id</a></code>&rdquo;
+and optionally
+&ldquo;<code><a href="config.html#director_password">config director_password</a></code>&rdquo;,
+&ldquo;<code><a href="config.html#no_suppress_submit_checks">config no_suppress_submit_checks</a></code>&rdquo;
+&ldquo;<code><a href="config.html#ratings_note">config ratings_note</a></code>&rdquo;.
+</p>
+
+</body>
+</html>

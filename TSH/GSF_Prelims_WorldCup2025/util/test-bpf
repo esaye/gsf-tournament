@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+# test bed for best-possible-finish calculations
+use warnings;
+use strict;
+
+use lib './lib/perl';
+use TSH::Player;
+use TSH::Division;
+use TSH::Tournament;
+use TSH::Command::ChewPair;
+use TSH::Utility qw(DebugOn DebugOff);
+
+sub Main ();
+
+my @data = (
+[21,6,1153],
+[21,6,865],
+[18,9,833],
+[18,9,800],
+[18,9, +681],
+[18,9, +628],
+[17,10,+770],
+[17,10,+626],
+[17,10,+512],
+[17,10,+372],
+[16,11,+417],
+[16,11,+374],
+[16,11,+349],
+# [16,11,+285],
+# [16,11,+199],
+# [16,11,+167],
+# [15.5,11.5,+308],
+# [15.5,11.5,+151],
+# [15.5,11.5, +18],
+# [15,12,+596],
+# [15,12,+520],
+# [15,12,+519],
+# [15,12,+475],
+# [15,12,+462],
+# [15,12,+440],
+# [15,12,+414],
+# [15,12,+397],
+# [15,12,+352],
+# [15,12,+318],
+# [15,12,+158],
+);
+
+Main;
+
+sub Main () {
+  my $command = new TSH::Command::ChewPair();
+  my @ps;
+  my $dp = new TSH::Division();
+  $dp->{'name'} = 'A';
+  my $tournament = new TSH::Tournament('pc1/config.tsh');
+  my $config = $tournament->Config();
+  $config->Value('flight_cap', sub { (($_[0]-1) * 4) || 2 });
+  $config->Value('max_rounds', 31);
+  $config->{'max_rounds'} = 31;
+  $config->Value('player_number_format','%d');
+  $config->Export();
+  $tournament->AddDivision($dp);
+  for my $i (0..$#data) {
+    my $i1 = $i + 1;
+    my $p = new TSH::Player();
+    my $pdatap = $data[$i];
+    $p->{'wins'} = $pdatap->[0];
+    $p->{'losses'} = $pdatap->[1];
+    $p->{'spread'} = $pdatap->[2];
+    $p->{'name'} = "P$i1";
+    $p->{'id'} = $i1;
+    $p->{'division'} = $dp;
+    $dp->{'data'}[$i1] = $p;
+    $p->{'noscores'} = $config::max_rounds - $pdatap->[0] - $pdatap->[1];
+    push(@ps, $p);
+    }
+  $ps[0]->RoundRank($config::max_rounds, 1);
+  DebugOn('CBPF');
+  DebugOff('CP');
+  TSH::Command::ChewPair::CalculateBPFs(\@ps);
+  }
+
+

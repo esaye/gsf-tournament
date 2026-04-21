@@ -1,0 +1,84 @@
+#!/usr/bin/perl 
+
+# combine-serial-t - combine .t files into one long event with more rounds
+#
+# Usage: util/combine-serial-t 31 main-event.t 4 qf.t 4 sf.t 5 me.t
+
+use strict;
+use warnings;
+use lib "./lib/perl";
+use FileHandle;
+use TFile;
+
+sub Main ();
+sub Usage ();
+
+Main;
+
+sub Main () {
+  my (@ps) = (undef);
+  my (%pByName);
+  my $first = 1;
+  my $offset = 0;
+
+  my (%gKnownVectors) = map { $_ => 1 } qw(board newr p12 rrank rtime);
+  my (%gKnownScalars) = map { $_ => 1 } qw(class lifeg off pname sbname time);
+  while (@::ARGV) {
+    my $rounds = shift @::ARGV;
+    my $fname = shift @::ARGV;
+    Usage unless defined $fname;
+    my $oldfh = new FileHandle "<$fname" or die "Can't open $fname: $!";
+    my $rounds0 = $rounds - 1;
+    my (@thisNames);
+    my $lineno = 0;
+    while (<$oldfh>) {
+      $lineno++;
+      my $p = TFile::ParseLine($_, 0);
+      $p->{'id'} = $lineno;
+      $#{$p->{'scores'}} = $rounds0;
+      $#{$p->{'pairings'}} = $rounds0;
+      for my $key (keys %{$p->{'etc'}}) {
+        if ($gKnownScalars{$key}) { next; }
+	elsif (!$gKnownVectors{$key}) { die "Unknown etc field: $key"; }
+        if (@{$p->{'etc'}{$key}} > 1) {
+	  $#{$p->{'etc'}{$key}} = $rounds0;
+	  }
+        }
+      if ($first) {
+        push(@ps, $p);
+	$pByName{$p->{'name'}} = $p;
+        }
+      else {
+        my $oldp = $pByName{$p->{'name'}};
+	$thisNames[$lineno] = $p->{'name'};
+	die "Base file does not include player $p->{'name'}" unless $oldp;
+	@{$oldp->{'scores'}}[$offset..$offset+$rounds0] = @{$p->{'scores'}}[0..$rounds0];
+	@{$oldp->{'pairings'}}[$offset..$offset+$rounds0] = @{$p->{'pairings'}}[0..$rounds0];
+	for my $key (keys %{$p->{'etc'}}) {
+	  @{$oldp->{'etc'}{$key}}[$offset..$offset+$rounds0] = @{$p->{'etc'}{$key}}[0..$rounds0];
+	  }
+        }
+      }
+    if ($first) { $first = 0 }
+    else {
+      for my $i (1..$lineno) {
+	my $name = $thisNames[$i];
+	my $p = $pByName{$name} or die;
+	for my $r0 ($offset..$offset+$rounds0) {
+	  my $oppid = $p->{'pairings'}[$r0];
+	  next unless $oppid;
+	  my $oppName = $thisNames[$oppid] or die;
+	  $p->{'pairings'}[$r0] = $pByName{$oppName}->{'id'} or die;
+	  }
+        }
+      }
+    $offset += $rounds;
+    }
+  for my $i (1..$#ps) {
+    print TFile::FormatLine($ps[$i]);
+    }
+  }
+
+sub Usage () {
+  die "$0 nrounds tfile nrounds tfile ...\n";
+  }

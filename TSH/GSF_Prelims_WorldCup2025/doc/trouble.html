@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Troubleshooting</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+ 
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=here><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Troubleshooting <cite>tsh</cite></h1>
+<p class=subtitle>What to do when things go wrong with <cite>tsh</cite>.</p> 
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+
+<h2>Installation</h2>
+
+<p class=p1>
+It's possible that some OS/X browsers may download a non-executable version
+of this file.  If so, please contact me for instructions.
+If you can't reach me, move your tsh folder to your home directory,
+open a &ldquo;Terminal&rdquo; window, 
+enter the command &ldquo;<code>cd tsh-nnnn</code>&rdquo;
+replacing &ldquo;<code>nnnn</code>&rdquo; with the version number
+that you downloaded,
+and finally enter the command
+&ldquo;<code>chmod a+x osx*</code>&rdquo; to mark the command
+executable.
+</p>
+<p class=p1>
+<a name=firewall>Some</a> security-conscious users may have their personal firewall
+settings set too aggressively to allow the 
+&ldquo;<code><a href="commands.html#update">update</a></code>&rdquo;
+command to function.  <cite>tsh</cite> uses only ports 80 and 443 (the standard
+port for HTTP and HTTPS service), so it should suffice to add tsh and/or Perl
+to the list of applications authorized to connect to this service.
+</p>
+<p class=p1>
+If your update command does not seem to work, try the following in
+order.  
+You may have a corrupt manifest file: 
+move the &lsquo;MANIFEST.txt&rsquo; file out of the <cite>tsh</cite>
+folder to make <cite>tsh</cite> lose track of what files it has,
+rerun <cite>tsh</cite> and the update.
+You may be having networking problems:
+make sure your browser can connect to the <cite>tsh</cite> web site.
+You may be having local system resource problems preventing <cite>tsh</cite>
+from beginning the update process: try restarting your Windows machine.
+You may have encountered a problem I didn't expect: download a fresh
+ZIP archive of either the current development release or the last stable
+release from the <cite>tsh</cite> web site, then copy your event folders
+into it.
+</p>
+
+<h2>Correcting Tournament Data</h2>
+
+<p class=sidebar>
+You can try using the experimental
+&ldquo;<code><a href="commands.html#fix">FIX</code></a>&rdquo;
+command to make many common corrections.
+</p>
+<p class=p1>
+You can delete bad pairings using the &ldquo;<a href="commands.html#unpairround"><code>UnPairRound</code></a>&rdquo; command,
+edit scores (and correct who went first, etc.) using the 
+&ldquo;<a href="commands.html#editscore"><code>EditScore</code></a>&rdquo;
+command (if you are in the middle of 
+<a href="commands.html#addscore">adding scores</a>
+and you want to correct the most recently entered game, just type 
+&ldquo;es&rdquo; at the game score prompt)
+and delete bad scores using the 
+&ldquo;<a href="commands.html#deletescore"><code>DELETEscore</code></a>&rdquo;
+command.
+See the <a href="commands.html">command reference</a> for the syntax
+of those commands.
+</p>
+
+<p class=p1>If you have made a serious error, you can manually revert to
+an earlier version of any tournament data (&ldquo;.t&rdquo;) file.  tsh journals
+a copy of the tournament data file into a subdirectory or folder 
+named "old" after each major change.  
+Quit out of <cite>tsh</cite>, then 
+look for the last good data
+file (either by checking the timestamps or inspecting the contents
+of the files), rename the bad &ldquo;.t&rdquo; file to &ldquo;.t.bad&rdquo; and put a copy
+of the journalled &ldquo;.t.lotsofnumbers&rdquo; file in its place as a new &ldquo;.t&rdquo; file.
+</p>
+
+
+<p class=p1>
+<a name=editt>You</a> can also edit &ldquo;.t&rdquo; files using a text editor
+such as vim, gVim, BBEdit, TextEdit, NotePad, WordPad or emacs.
+If you do so, first quit from <cite>tsh</cite>, because <cite>tsh</cite>
+keeps an internal copy of its data that will overwrite any changes
+you make when <cite>tsh</cite> next updates its files.
+</p>
+
+<h2>Crashes</h2>
+
+<p class=p1>If you are testing a new <cite>tsh</cite> feature,
+it&rsquo;s possible that a program bug may put <cite>tsh</cite> into
+an infinite loop or dump core.
+In the former case, when <cite>tsh</cite> doesn&rsquo;t give you a prompt,
+you&rsquo;ll have to interrupt <cite>tsh</cite> and restart it.
+In OS/X and Unix, you interrupt terminal processes by pressing Control-C.
+In Windows, you can close the window that <cite>tsh</cite> is running in.
+</p>
+<p class=p1>
+Some early versions of some pairings commands took a very long time to
+run.  It&rsquo;s possible that some bugs remain undiscovered.  If you
+find that generating pairings in one particular situation takes 
+excessively long (more than a few seconds), you may interrupt 
+<cite>tsh</cite>, restart it, and then manually enter
+a faster pairing command.
+Allowing an extra repeat should in most cases substantially speed up
+the pairings calculations, or you can use the 
+&ldquo;<code>PAIR</code>&rdquo; command to manually pair key players
+and then a regular command to pair the rest.
+In any case, in the unlikely event that this happens to you, please
+e-mail John a copy of the &ldquo;.t&rdquo; file involved.
+</p>
+<p class=p1>
+As mentioned above, <cite>tsh</cite> journals its data after each major
+command, so if you are unsure about the condition of its files after
+a crash, revert to the last versions that were saved before the crash.
+</p>
+
+<h2><a name=forfeit>Players</a> Who Miss Games</h2>
+<p class=sidebar>
+The spread value for an unplayed game is given here as &plusmn;50 points as
+per NSA rules.
+ABSP rules require &plusmn;75 instead.
+</p>
+<p class=sidebar>
+Here was the old way of doing things.
+For example, if players 1 and 2 in division A were supposed to play
+each other in round 3 but player 1 didn't show up, then
+enter 
+&ldquo;<code>pair 0 1 3 a</code>&rdquo;
+and
+&ldquo;<code>pair 0 2 3 a</code>&rdquo;
+to assign the byes, then when entering scores for division a enter
+&ldquo;<code>1 -50</code>&rdquo;
+and
+&ldquo;<code>2 50</code>&rdquo;
+to set spreads.
+</p>
+<p class=p1>
+If a player misses a paired game (e.g. due to illness or tardiness),
+you should manually repair him and his opponent to assign them both
+byes, then enter appropriate spreads for their scores.
+If you don&rsquo;t do this, the unplayed game will count for ratings,
+and some players may end up getting multiple byes before others get any.
+If players 1 and 2 in division A were supposed to play each other in round 3 but
+player 1 didn&rsquo;t show up, then enter
+&ldquo;<code>floss a 1 3</code>&rdquo;.
+</p>
+<p class=p1>
+If a player gives you notice that he will be missing one or more games,
+or you end up determining that he is a no-show after the tournament has begun,
+you can prevent them from being considered for pairings using the
+&ldquo;<code>EditScore</code>&rdquo;
+command.  If player 4 in division A should no longer be paired, enter
+&ldquo;<code>es a 4 0</code>&rdquo;
+to begin editing the player's scoresheet, then enter 
+&ldquo;<code>off -50</code>&rdquo;
+give them forfeit losses whenever pairings are computed.
+(&ldquo;<code>off 50</code>&rdquo; will give them a 50-point bye,
+and
+&ldquo;<code>off 0</code>&rdquo; will record a missed game without
+assigning a win or loss).
+If the player subsequently returns to the tournament, you can re-enable
+their pairings by entering
+&ldquo;<code>on</code>&rdquo; while editing their scorecard.
+</p>
+
+<h2>Web Server Issues</h2>
+<p class=p1>
+If you are using the <a href="commands.html#mirror_ftp">mirror-ftp</a> command to 
+offer remote access to your tournament reports (including the
+<a href="reports.html#enhancedscoreboard">scoreboard</a>), 
+you may run into the following issues.
+</p>
+<p class=p1>
+<i>Remote server does not update</i>:
+Check the mirror-ftp command window for error messages.
+If they indicate a connectivity issue, make sure you have a network connection to your server, and try running a separate FTP client (such as FileZilla or command-line FTP).
+Also check your operating system&rsquo;s security settings to make sure that this command has permission to create a network connection to an FTP server.
+If there is an authentication issue, make sure that you have specified the correct username and password for your server.
+</p>
+<p class=p1>
+<i>Remote server stops updating</i>:
+This usually indicates that you have lost your Internet connection. 
+</p>
+<p class=p1>
+<i>Some files are missing from remote server</i>:
+You probably uploaded the file, then deleted it, but didn&rsquo;t delete the local <a href="commands.html#flags">flag file</a> indicating that it had been sent.
+Or maybe the upload failed in an unexpected way.
+Delete the flag file and watch the mirror-ftp log to see what happens.
+If no file transfers begin, you may not have generated the <a href="reports.html">reports</a> that you thought you did; 
+try rerunning the <a href="commands.html#reports">report commands</a>.
+If it&rsquo;s just the photos and there is a chance that you accidentally deleted your local copies, quit and rerun <cite>tsh</cite> to restore them.
+</p>
+<p class=p1>
+<i>Reports appear poorly formatted</i>:
+The tsh.css stylesheet file is missing from the server. Delete its 
+<a href="commands.html#flags">flag file</a> and watch the mirror-ftp log.
+</p>
+<p class=p1>
+<i>The index file still shows deleted files</i>:
+If you manually delete reports, the index file will not be updated until the next time you update a report.
+Try running the <a href="commands.html#rosters">ROSTERS</a> command to create a roster report and update the index file.
+</p>
+
+<h2>Errors and Informational Messages</h2>
+
+<p class=p1>
+If you aren't sure what an error message means, look to see if it
+has a code in [square brackets] at its end.
+If so, use the 
+&ldquo;<a href="commands.html#huh"><code>HUH</code></a>&rdquo;
+command to ask for an explanation.
+If not, contact John and ask him to add an explanation.
+</p>
+<p class=p1>
+Many of the more complicated commands log optional debugging information 
+to the console, as controlled by the <a href="commands.html#debug">DEBUG</a> command.
+You can also evaluate arbitary Perl code using the
+<a href="commands.html#eval">EVAL</a> command.
+</p>
+
+<h2>If All Else Fails...</h2>
+
+<p class=p1>
+If you&rsquo;re not sure which manual section has the answer you&rsquo;re looking for,
+make sure you are looking at the <a href="all.html">full manual</a> and not an individual
+section, then do an in-page search for appropriate keywords.
+</p>
+<p class=p1>
+My phone number is +1 416 876 7675, and I am more often in Canada&rsquo;s
+Eastern time zone than not (UTC-4 or -5 depending on the time of year).
+If you arrange with me beforehand, I&rsquo;ll make sure that I&rsquo;m easily
+reachable at that number during your tournament;
+if not, I&rsquo;ll find someone else who can be reached.
+If you didn&rsquo;t prearrange my availability and you&rsquo;re reading this because
+something has just gone unexpectedly wrong during a tournament, please try
+calling me anyway.
+I am also reachable when online by email, Facebook Messenger, Google Chat and 
+(by prearrangement) LINE, Skype, Teams, WhatsApp, or Zoom.
+</p>
+<p class=p1>
+Whether or not you reach me right away, 
+when you have an Internet connection
+please use the &ldquo;<a href="commands.html#bugreport"><code>BUGreport</code></a>&rdquo; command
+to send diagnostic information about any problems that you may encounter, 
+so that I can fix it promptly.
+</p>
+
+</body>
+</html>

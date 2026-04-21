@@ -1,0 +1,36 @@
+#begintest submit
+#beginconfig
+division a a.t
+division b b.t
+config event_name = 'test data'
+config event_date = 'test date'
+config director_id = 'AA00TEST'
+config tournament_id = 25
+config ratings_note = ('tsh regression test: ' . ($::ENV{'USER'}||'?'))
+config division_rating_system{'B'} = 'none'
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Cree, Chris 1900   2 1 4; 200 200 200
+Cree, Carla 1600      1 2 3; 100 100 100
+#endifile
+#beginifile b.t
+Smith, John 1800   4 3 2; 400 400 400
+Smith, Kristen 1300 3 4 1; 300 300 300
+Smith, Jamie 0   2 1 4; 200 200 200
+Smith, Liam 0      1 2 3; 100 100 100
+#endifile
+#begincommands
+submit
+UmucLz7n
+q
+#endcommands
+#beginstdout
+Password: 
+Password incorrect.
+#endstdout
+#beginstderr
+Warning: Not submitting ratings for Division B. [wsubmitnone]
+#endstderr
+#endtest

@@ -1,0 +1,3 @@
+Use this command to generate TourneyMan .LTM files containing data
+equivalent to your .t files.  There is also a separate utility called
+bin/parsetm that can be used to convert .LTM files into .t files.

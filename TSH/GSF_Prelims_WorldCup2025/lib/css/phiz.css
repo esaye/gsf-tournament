@@ -1,0 +1,39 @@
+@media print {
+  div.phiz .head,
+  div.phiz .foot { display: none; }
+  }
+div.phiz { border: 1px solid #0000ff; margin-top: 2em; }
+div.phiz form { margin: 0; }
+div.phiz .error { background-color: #fff0f0; border: 1px solid #ff0000; padding: 0.5em; color: #c00000; margin: 0.5em }
+div.phiz .comment .head { 
+  display: block;
+  background-color: #f0f0ff;
+  border: 1px solid #e0e0ff;
+  font-family: sans-serif;
+  font-size: 90%;
+  padding: 0.5em; 
+  }
+div.phiz .head .created { margin-right: 0.3em; }
+div.phiz .controls label,
+div.phiz .controls span.button { 
+  font-size: 80%;
+  font-family: sans-serif;
+  margin: 0.3em;
+  padding: 0.2em 0.5em;
+  }
+div.phiz .controls label {
+  color: #303090;
+  font-weight: bold;
+  padding-right: 0;
+  }
+div.phiz .controls span.button { 
+  background-color: #303090;
+  border: 1px solid #101030;
+  border-radius: 0.8em;
+  color: white;
+  cursor: pointer; 
+  }
+div.phiz .foot .controls { margin: 0.5em 0 }
+div.phiz .comment .author { }
+div.phiz .comment .created:before { content: ' @ ' }
+div.phiz .comment .text { display: block; padding: 9px; }

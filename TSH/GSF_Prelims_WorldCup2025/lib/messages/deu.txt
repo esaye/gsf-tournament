@@ -1,0 +1,20 @@
+code=iwelcome
+brief=Willkommen auf tsh Version %s.
+detail=This message tells you what version of tsh you are running.  To update to the latest version while connected to the Internet, use the `update' command.
+type=note
+
+code=iloaddiv
+brief=Division %s wird geladen.
+detail=This message tells you what version of tsh you are running.  To update to the latest version while connected to the Internet, use the `update' command.
+type=note
+
+code=ievtname
+brief=Turnier geladen: %s.
+detail=If this is not the event you wanted to load, quit tsh and load a different one.  If you do not specify an event to load, tsh will look for the most recently changed configuration file.
+type=note
+
+code=idivupdok
+brief=%s wird aktualisiert.
+detail=You have changed the data for the given file, and it is being updated. A copy of the previous version of the file will be saved in the journalling directory, usually called 'old'.
+type=note
+

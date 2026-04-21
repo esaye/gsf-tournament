@@ -1,0 +1,707 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use File::Spec;
+
+BEGIN { 
+  if (__FILE__ =~ /[\/\\]/) {
+    my ($volume, $directories, $file) = File::Spec->splitpath(__FILE__);
+    my $basedir = File::Spec->catpath($volume, $directories);
+    chdir $basedir or die "Cannot change directory to $basedir: $!";
+    chdir '..' or die "Cannot change directory to ..: $!";
+    }
+  else { # other branch doesn't work in Windows, which only gives the base name
+    if ((!-r 'tsh.pl') && -r '../tsh.pl') { chdir '..' or die; }
+  }
+  }
+
+use lib './lib/perl';
+use Fcntl ':flock';
+use File::Copy;
+use Getopt::Long;
+use File::Path;
+use File::Temp qw(tempfile);
+use Net::FTP;
+use Carp;
+use TSH::Config;
+use TSH::Tournament;
+use TSH::Utility;
+## plug-ins
+use TSH::PlugInManager;
+our $gPlugInManager;
+BEGIN { $gPlugInManager = new TSH::PlugInManager({'basedir' => './plugins'}); }
+
+sub CheckForPause ($);
+sub CheckForStop ($);
+sub ConnectFTP ($);
+sub CreateRemoteDirectory ($$);
+sub DisconnectAllFTP ($);
+sub DisconnectFTP ($);
+sub Initialise ();
+sub InitialiseTournament (@);
+sub Main ();
+sub MarkUpdated ($$);
+sub NeedsUpdating ($$);
+sub PutFile ($$$$);
+sub UpdateBinary ($$$$);
+sub UpdateConfigFiles ($);
+sub UpdateDir ($$$$);
+sub UpdateHTMLFiles ($);
+sub UpdateTFiles ($);
+sub UpdateText ($$$$);
+sub Usage ();
+
+my %gAuthenticationCache;
+my $gOnce;
+
+Main;
+
+sub CheckForPause ($) {
+  my $ep = shift;
+  my $fn = $ep->{'tourney'}->Config()->MakeRootPath('pause-mirror');
+  if (-f $fn) {
+#   warn "Mirror is paused.\n";
+    return 1;
+    }
+  return 0;
+  }
+
+sub CheckForStop ($) {
+  my $ep = shift;
+  my $fn = $ep->{'tourney'}->Config()->MakeRootPath('stop-mirror');
+  return unless -f $fn;
+  unlink $fn;
+  exit 0;
+  }
+
+sub CreateRemoteDirectory ($$) {
+  my $ftp = shift;
+  my $dir = shift;
+  my $rv = $ftp->mkdir($dir);
+  if ($rv || $ftp->code =~ /^(521|550)$/) {
+    return 1;
+    }
+  else {
+    return 0;
+    }
+  }
+
+sub ConnectFTP ($) {
+  my $ep = shift;
+  return 1 if $ep->{'ftp'};
+  my $config = $ep->{'tourney'}->Config();
+  my $ftp_host = $config->Value('ftp_host');
+  my $ftp_username = $config->Value('ftp_username');
+  my $ftp_password = $config->Value('ftp_password');
+  my $ftp = $ep->{'ftp'} = new Net::FTP(
+    $ftp_host,
+    Debug => 0,
+    Passive => 1,
+    BlockSize => 10240);
+  unless ($ftp) {
+    warn "Cannot connect to FTP host at $ftp_host: $!";
+    return 0;
+    }
+  $ftp_username = '' unless defined $ftp_username;
+  unless ($ftp->login(
+    $ftp_username,
+    $ftp_password,
+    )) {
+    my $message = $ftp->message();
+    if ($message =~ /^Login (?:incorrect|authentication failed)/) {
+      warn "That is not the correct password for user $ftp_username at $ftp_host.\n";
+      sleep 2;
+      exit 1;
+      }
+    if ($message =~ /maximum number of hosts for this user|Connection closed/ or length($message) == 0) {
+      warn "Cannot login to FTP host: $message\n";
+      sleep 15;
+      return 0;
+      }
+    die "Cannot login to FTP host $ftp_host as $ftp_username: " 
+      . $ftp->message();
+    }
+  $ftp->site("umask 022");
+  return 1;
+  }
+
+sub DisconnectAllFTP ($) {
+  my $esp = shift;
+  for my $ep (values %$esp) {
+    DisconnectFTP $ep;
+    }
+  }
+
+sub DisconnectFTP ($) {
+  my $ep = shift;
+  if ($ep->{'ftp'}) {
+    $ep->{'ftp'}->quit();
+    $ep->{'ftp'} = undef;
+    }
+  }
+
+sub Initialise () {
+  my %events;
+  my $username;
+  my $password;
+  my $rawLocalPath;
+  my $rawPassword;
+  my $rawRemotePath;
+  my $rawRemoteServer;
+  my $rawUsername;
+  GetOptions(
+    'username=s' => \$username,
+    'password=s' => \$password,
+    'once' => \$gOnce,
+    'rawlocalpath=s' => \$rawLocalPath,
+    'rawpassword=s' => \$rawPassword,
+    'rawremotepath=s' => \$rawRemotePath,
+    'rawremoteserver=s' => \$rawRemoteServer,
+    'rawusername=s' => \$rawUsername,
+    ) or Usage;
+  if ($rawRemotePath) { # 2015-05-11 NASSC kludge
+    $gAuthenticationCache{$rawRemoteServer} = [$rawUsername, $rawPassword];
+    $events{'raw'} = {
+      'tourney' => new RawTourney(
+	'ftp_path' => $rawRemotePath,
+	'ftp_host' => $rawRemoteServer,
+	'ftp_username' => $rawUsername,
+	'local_path' => $rawLocalPath,
+	'_is_raw' => 1,
+        )
+      };
+    }
+  elsif (@::ARGV) {
+    if (@::ARGV == 1 and $::ARGV[0] eq 'wsc2017') {
+      (@::ARGV) = ('2017-wespac-yo', '2017-wespac-me', '2017-wespac-ko', '2017-wespac-fi', '2017-wespac-no', '2017-wespac-lc', '2017-wespac-wu');
+      }
+    for my $tn (@::ARGV) {
+      my $tp = InitialiseTournament('directory' => $tn, 'username' => $username, 'password' => $password);
+      if ($tp) { $events{$tn} = { 'tourney' => $tp } };
+      }
+    }
+  else {
+    my $tp = InitialiseTournament(
+      'username' => $username, 'password' => $password);
+    if ($tp) { 
+      my $tn = $tp->Config()->RootDirectory();
+      $events{$tn} = { 'tourney' => $tp }; 
+      }
+    }
+  while (my ($en, $ep) = each %events) {
+    my $fn = $ep->{'tourney'}->Config()->MakeRootPath('pause-mirror');
+    unlink $fn;
+    }
+  return \%events;
+  }
+
+sub InitialiseTournament (@) {
+  my (%argv) = @_;
+  my $tn = $argv{'directory'};
+  my $username = $argv{'username'};
+  my $password = $argv{'password'};
+  my $tp = new TSH::Tournament($tn) or die;
+  eval { $tp->LoadConfiguration(); };
+
+  $gPlugInManager->InitialiseAll({'tournament' => $tp});
+  die "Configuration error: $@\n" if $@;
+  my $config = $tp->Config();
+  if (defined $config->Value('ftp_password')) {
+    die "Configuration error: you may not use ftp_password anymore,\nas it results in malware attacks on your website.\nAborting";
+    }
+
+  # try establishing lock
+  {
+    no strict 'refs';
+    local($::SIG{__DIE__}) = sub { CORE::die($_[0]); };
+    my $fn = $config->MakeRootPath('mirror.lock');
+    my $fh = TSH::Utility::OpenFileThreadShared('+>', $fn, {'noencode'=>1})
+      or die "Can't create lock file $fn, probably because of a permission error.\n";
+    $config->Value('_mirror_lockfh', $fh);
+    flock($fh, LOCK_EX | LOCK_NB) or do { warn "It looks like you are already running a mirror for ".$config->RootDirectory()."; you cannot start a second one until that one is closed.\n"; return; };
+    seek($fh, 0, 0) 
+      or die "Can't rewind mirror.lock - something is seriously wrong.\n";
+    TSH::Utility::TruncateFileHandle($fh, 0) 
+      or die "Can't truncate mirror.lock - something is seriously wrong.\n";
+    print $fh "$$\n"
+      or die "Can't update mirror.lock - something is seriously wrong.\n";
+  }
+
+# for my $required (qw(ftp_host ftp_username ftp_password ftp_path)) {
+  for my $required (qw(ftp_host ftp_path)) {
+    unless (defined $config->Value($required)) {
+      my $en = $tn;
+      $en = $config->RootDirectory() unless defined $en;
+      die "Event $en is missing required configuration parameter $required.\n";
+      }
+    }
+  my $host = $config->Value('ftp_host');
+  if (my $cached = $gAuthenticationCache{$host}) {
+    $config->Value('ftp_username', $cached->[0]);
+    $config->Value('ftp_password', $cached->[1]);
+    return $tp;
+    }
+  $config->Value('ftp_username', $username) if defined $username;
+  my $s = $config->Value('ftp_username');
+  unless ((defined $s) && length($s)) {
+    local($|) = 1;
+    print "Username: ";
+    $s = scalar(<STDIN>);
+    chomp $s;
+    $config->Value('ftp_username', $s);
+    }
+  $config->Value('ftp_password', $password) if defined $password;
+  $s = $config->Value('ftp_password');
+  unless ((defined $s) && length($s)) {
+    local($|) = 1;
+    print "Password: ";
+    $s = TSH::Utility::ReadPassword();
+    $config->Value('ftp_password', $s);
+    print "\n";
+    }
+
+  $gAuthenticationCache{$host} 
+    = [$config->Value('ftp_username'), $config->Value('ftp_password')];
+  return $tp;
+  }
+
+our $gSleeping;
+
+sub Main () {
+  my $lastchanged = 0;
+  my $eventsp = Initialise;
+  unless (%$eventsp) { sleep 2; exit 3; }
+  print "Beginning update loop.\n";
+  $gSleeping = 0;
+  $::SIG{'ALRM'} = sub { die "SIGALRM" if $gSleeping };
+  while (1) {
+    my $changed = 0;
+    $changed = 1 if UpdateConfigFiles $eventsp;
+    $changed = 1 if UpdateTFiles $eventsp;
+    $changed = 1 if UpdateHTMLFiles $eventsp;
+    last if $gOnce;
+    if ($changed) {
+      print "Updated, rechecking.\n";
+      eval {
+	$gSleeping = 1;
+	sleep 1;
+	$gSleeping = 0;
+        };
+      $lastchanged = 1;
+      next;
+      }
+#   print "Not updated.\n";
+    if ($lastchanged) {
+      print "Sleeping.\n";
+      $lastchanged = 0;
+      }
+    DisconnectAllFTP $eventsp;
+    eval {
+      $gSleeping = 1;
+      sleep 10;
+      $gSleeping = 0;
+      };
+    }
+  }
+
+sub MarkUpdated ($$) {
+  my $flagfile = shift;
+  my $localfile = shift;
+  
+  my ($volume, $directory, $file) = File::Spec->splitpath($flagfile);
+  my $dirpath = File::Spec->catpath($volume, $directory, '');
+# warn $dirpath;
+  mkpath $dirpath;
+  if (open my $fh, ">$flagfile") {
+    my $mtime = (stat $localfile)[9];
+    close $fh;
+    unless (utime $mtime, $mtime, $flagfile) {
+      warn "utime failed: $!";
+      return 0;
+      }
+    warn "Updated: $localfile ($flagfile, ".scalar(localtime($mtime)).")\n";
+    return 1;
+    }
+  else {
+    warn "Can't update flag file $flagfile: $!";
+    return 0;
+    }
+  }
+
+sub NeedsUpdating ($$) {
+  my $flagfile = shift;
+  my $localfile = shift;
+
+  my $needs = (!-f $flagfile) || -M $flagfile > -M $localfile;
+# warn "NU: $localfile does " . ($needs ? '' : 'not ') . "need to be changed.";
+  return $needs;
+  }
+
+# return true if any files were actually sent
+sub PutFile ($$$$) {
+  my $ep = shift;
+  my $flagfile = shift;
+  my $localfile = shift;
+  my $remotefile = shift;
+# warn "$localfile -> $remotefile";
+  if (($::ENV{'USER'}||'') eq 'jjc' && $remotefile =~ /\/log\.gz$/) { 
+    return 0;
+    }
+  
+  my $ftp = $ep->{'ftp'};
+  my $c_no_overwrite = $ep->{'tourney'}->Config()->Value('ftp_no_overwrite');
+  my $tries = 1;
+  my $tried_making_path = 0;
+  my $remote_tmp = $remotefile;
+  $remote_tmp =~ s/([^\/]+)+$/tsh.tmp/ 
+    or die "$remotefile has no trailing file component";
+# warn "Posting temporary file $remote_tmp";
+  while ($tries <= 10) {
+#   $ftp->delete($remote_tmp) if $c_no_overwrite;
+    # If we have a slow connection, Windows will not let us replace the file 
+    # being posted while it remains open in FTP.  This can lead to significant
+    # data loss if the file is a .t file.
+    if ($^O eq 'MSWin32') {
+      local($/) = undef;
+      # James Burley's Windows 7 machine appears to have read-only /TEMP directory
+      mkdir 'tmp';
+      my ($newfh, $newfn) = tempfile(UNLINK => 1, DIR=>'tmp'); # uncaught croak()
+      unless (copy($localfile, $newfh)) { warn "Cannot make a copy of $localfile: $!\n"; return 0; }
+      $localfile = $newfn;
+      }
+    if (my $rv = eval { $ftp->put($localfile, $remote_tmp)}) {
+      $ftp->delete($remotefile) if $c_no_overwrite;
+      $rv = $ftp->rename($remote_tmp, $remotefile);
+      if ($rv) { 
+	return MarkUpdated $flagfile, $localfile;
+        }
+      else { 
+	my $code = $ftp->code();
+	warn "Received code $code renaming $remote_tmp to $remotefile";
+	return 0;
+	}
+      }
+    my $code = $ftp->code() || '999';
+    if (($code == 550 || $code == 553) && !$tried_making_path) { # bad path
+      $tried_making_path++;
+      $remotefile =~ s/^\/{2,}/\//;
+      my @path_components = split(m!/!, $remotefile);
+      pop @path_components;
+#     while ($path_components[0] eq '') { shift @path_components; }
+      for my $i (0..$#path_components) {
+	my $prefix = join('/', @path_components[0..$i]);
+	CreateRemoteDirectory $ftp, $prefix;
+	}
+      next;
+      }
+    elsif ($code == 426) { # connection reset by peer
+      warn "Got a code 426 on try $tries during PUT $localfile $remotefile.\n";
+      DisconnectFTP $ep;
+      sleep 5;
+      while (1) {
+        ConnectFTP $ep && last;
+	sleep 5;
+        }
+      }
+    elsif ($code == 450) { # requested file action not taken 
+      # Vali gets this sometimes on bad connections
+      warn "Got a code 450 ".$ftp->message()." on try $tries during\nPUT $localfile $remotefile.\n";
+      DisconnectFTP $ep; # just to be safe
+      sleep 5;
+      while (1) {
+        ConnectFTP $ep && last;
+	sleep 5;
+        }
+      }
+    elsif ($code == 150) { # Opening connection - sometimes precedes connection being dropped
+      warn "Got a code 150 on try $tries during PUT $localfile $remotefile.\n";
+      sleep 1;
+      }
+    elsif ($code =~ /^2/) { # Ignore unexpected success
+      warn "Got a code $code on try $tries during PUT $localfile $remotefile.\n";
+      sleep 1;
+      }
+    else {
+      warn "Unexpected error ($code) during PUT $localfile $remotefile:\n" .
+        $ftp->message() . "\nTrying to reconnect.";
+      DisconnectFTP $ep;
+      sleep 5;
+      while (1) {
+        ConnectFTP $ep && last;
+	sleep 5;
+        }
+      return 0;
+      }
+    }
+  continue { $tries++; }
+  warn "Too many retries for PUT $localfile $remotefile.\n"; 
+  return 0;
+  }
+
+sub UpdateBinary ($$$$) {
+  my $ep = shift;
+  my $flagfile = shift;
+  my $localfile = shift;
+  my $remotefile = shift;
+  
+  CheckForStop $ep;
+  my $updated = 0;
+# warn "UB1: $localfile";
+  if (NeedsUpdating($flagfile, $localfile)) {
+    if (CheckForPause $ep) {
+      warn "Would send $localfile if not paused\n" unless $ep->{'pending_resume'}{$localfile}++;
+      return 1;
+      }
+    else {
+      $ep->{'pending_resume'} = {};
+      }
+    while (1) {
+      ConnectFTP $ep && last;
+      sleep 5;
+      }
+    my $ftp = $ep->{'ftp'};
+    $ftp->binary();
+#   warn "UB2: $localfile";
+    $updated = PutFile $ep, $flagfile, $localfile, $remotefile;
+    }
+  return $updated;
+  }
+
+=item UpdateTFiles;
+
+Check all .t files to see if they need to be updated.
+Return true if any files were successfully updated.
+
+=cut
+
+sub UpdateTFiles ($) {
+  my $esp = shift;
+  my $updated = 0;
+  while (my ($en, $ep) = each %$esp) {
+    mkdir "flags/$en";
+    my $tp = $ep->{'tourney'};
+    my $config = $tp->Config();
+    next if $config->Value('_is_raw');
+    my $ftp_path = $config->Value('ftp_path');
+    for my $dp ($tp->Divisions()) {
+      my $fname = $dp->File();
+      my $dpath = $config->MakeRootPath($fname);
+      my $u = UpdateText(
+	$ep,
+	File::Spec->catfile('flags', $dpath),
+	File::Spec->catfile($dpath),
+	"$ftp_path/" . $config->MakeRootPath($fname, '/'),
+        );
+      $updated ||= $u;
+      $dpath =~ s/\.t$/.csv/;
+      if (-f $dpath) {
+	$fname =~ s/\.t$/.csv/;
+	$u = UpdateText(
+	  $ep,
+	  File::Spec->catfile('flags', $dpath),
+	  File::Spec->catfile($dpath),
+	  "$ftp_path/" . $config->MakeRootPath($fname, '/'),
+	  );
+	$updated ||= $u;
+	}
+      }
+    }
+  return $updated;
+  }
+
+sub UpdateDir ($$$$) {
+  my $ep = shift;
+  my $flagdir = shift;
+  my $localdir = shift;
+  my $remotedir = shift;
+  
+  my $updated = 0;
+# warn "UpdateDir($flagdir,$localdir,$remotedir)";
+  opendir(my $dh, $localdir) or confess "Can't opendir($localdir): $!";
+  for my $file (sort { $a =~ /\.js$/ ? -1 : $b =~ /\.js/ ? 1 : 0 } readdir($dh)) {
+    next if $file =~ /^\./;
+    my $path = File::Spec->catfile($localdir, $file);
+#   warn $path;
+    if (-f $path) {
+      if ($file =~ /\.(?:css|csv|html?|t|txt)$/) {
+#     warn "...text";
+	my $u = UpdateText(
+	  $ep, 
+	  File::Spec->catfile($flagdir, $file),
+	  $path, 
+	  "$remotedir/$file"
+	  );
+	$updated ||= $u;
+        }
+      else {
+#     warn "UD: $path is binary";
+	my $u = UpdateBinary(
+	  $ep, 
+	  File::Spec->catfile($flagdir, $file),
+	  $path, 
+	  "$remotedir/$file"
+	  );
+	$updated ||= $u;
+        }
+      }
+    elsif (-d $path) {
+#     warn "...directory";
+      my $u = UpdateDir(
+	$ep, 
+	File::Spec->catfile($flagdir, $file),
+	$path, 
+	"$remotedir/$file"
+	);
+      $updated ||= $u;
+      }
+    else {
+      warn "Skipping: $path";
+      }
+    }
+  closedir($dh);
+  return $updated;
+  }
+
+=item UpdateHTMLFiles;
+
+Check all files in the HTML directory to see if they need to be updated.
+Return true if any files were successfully updated.
+
+=cut
+
+sub UpdateHTMLFiles ($) {
+  my $esp = shift;
+  my $updated = 0;
+  while (my ($en, $ep) = each %$esp) {
+    my $config = $ep->{'tourney'}->Config();
+    my $ftp_path = $config->Value('ftp_path');
+    my $u;
+    if ($config->Value('_is_raw')) {
+      $u = UpdateDir(
+	$ep,
+	File::Spec->catdir('flags', $en),
+	$config->Value('local_path'),
+	$ftp_path,
+	);
+      }
+    else {
+      $u = UpdateDir(
+	$ep,
+	File::Spec->catdir('flags', $en, 'html'),
+	$config->MakeHTMLPath(undef),
+	"$ftp_path/$en/html",
+	);
+      }
+    $updated ||= $u;
+    }
+  return $updated;
+  }
+
+sub UpdateText ($$$$) {
+  my $ep = shift;
+  my $flagfile = shift;
+  my $localfile = shift;
+  my $remotefile = shift;
+  
+  CheckForStop $ep;
+# warn "UpdateText: $flagfile $localfile $remotefile";
+  my $updated = 0;
+  if (NeedsUpdating($flagfile, $localfile)) {
+    if (CheckForPause $ep) {
+      warn "Would send $localfile if not paused\n" unless $ep->{'pending_resume'}{$localfile}++;
+      return 1;
+      }
+    else {
+      $ep->{'pending_resume'} = {};
+      }
+    while (1) {
+      ConnectFTP $ep && last;
+      sleep 5;
+      }
+    my $ftp = $ep->{'ftp'};
+#   $ftp->ascii();
+    $ftp->binary();
+    $updated = PutFile $ep, $flagfile, $localfile, $remotefile;
+    }
+  return $updated;
+  }
+
+=item UpdateConfigFiles;
+
+Check all .t files to see if they need to be updated.
+Return true if any files were successfully updated.
+
+=cut
+
+sub UpdateConfigFiles ($) {
+  my $esp = shift;
+  my $updated = 0;
+  while (my ($en, $ep) = each %$esp) {
+    mkdir "flags/$en";
+    my $config = $ep->{'tourney'}->Config();
+    next if $config->Value('_is_raw');
+    my $ftp_path = $config->Value('ftp_path');
+    my $u = UpdateText(
+      $ep,
+      File::Spec->catfile('flags', $en, 'config.tsh'),
+      File::Spec->catfile($en, 'config.tsh'),
+      "$ftp_path/$en/config.tsh",
+      );
+    $updated ||= $u;
+    }
+  return $updated;
+  }
+
+=item Use $module or die
+
+Carefully evaluate "use $module" and try to explain to a naive user
+the meaning of failure.
+
+=cut
+
+sub Use ($;$) {
+  my $module = shift;
+  my $quiet = shift;
+  eval "use $module";
+  if ($@) {
+    exit 1 if $quiet;
+    sleep 2;
+    die "Couldn't load $module, most likely because your tsh software distribution\nis incomplete.  Please download it again.  Here is what Perl says caused\nthe problem:\n$@";
+    }
+  return 1;
+  }
+
+sub Usage () {
+  die "Usage: $0 [--username username] [--password password] [--once] [event-folder...]\n";
+  }
+
+package RawTourney;
+
+sub new (@) {
+  my $proto = shift;
+  my $class = ref($proto) || $proto;
+  my (%options) = @_;
+  my $this = { 'config' => new RawConfig(%options) };
+  bless $this, $class;
+  return $this;
+  }
+
+sub Config ($) { my $this = shift; return $this->{'config'}; }
+
+package RawConfig;
+
+sub new (@) {
+  my $proto = shift;
+  my $class = ref($proto) || $proto;
+  my (%options) = @_;
+  my $this = \%options;
+  bless $this, $class;
+  return $this;
+  }
+
+sub MakeRootPath ($$) { my $this = shift; my $path = shift;  return "$this->{'local_path'}/$path"; }
+
+sub Value ($$) { my $this = shift; my $key = shift;  return $this->{$key}; }
+

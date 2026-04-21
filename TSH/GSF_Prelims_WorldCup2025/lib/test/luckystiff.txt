@@ -1,0 +1,35 @@
+#begintest luckystiff
+#beginconfig
+division a a.t
+config colour = 'no'
+config max_rounds = 3
+#endconfig
+#beginifile a.t
+Chew, John 1800   4 3 2; 400 400 400
+Chew, Kristen 1300 3 4 1; 300 300 300
+Chew, Jamie 500   2 1 0; 200 200 50
+Chew, Liam 0      1 2 0; 100 100 -50
+#endifile
+#begincommands
+stiff 1 a
+stiff 2 a
+stiff 4 a
+q
+#endcommands
+#beginstdout
+Lucky Stiffs
+
+Rnk Sum Spreads Won-Lost  Sprd Player
+  1 100 100      3.0- 0.0 +600 Chew, John (#1)
+  1 100 100      2.0- 1.0 +200 Chew, Kristen (#2)
+Lucky Stiffs
+
+Rnk Sum Spreads Won-Lost  Sprd Player
+  1 300 100 200  3.0- 0.0 +600 Chew, John (#1)
+  1 300 100 200  2.0- 1.0 +200 Chew, Kristen (#2)
+Lucky Stiffs
+
+#endstdout
+#beginstderr
+#endstderr
+#endtest

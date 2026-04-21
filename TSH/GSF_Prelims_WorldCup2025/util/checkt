@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+
+while (<>) {
+ my ($pid) = /# *(\d+)$/;
+ next if /^SHOW/;
+ die unless $pid;
+ die "mismatch $pid at $.\n" unless $pid == $.;
+ }

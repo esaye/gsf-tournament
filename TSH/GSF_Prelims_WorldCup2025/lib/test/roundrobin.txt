@@ -1,0 +1,99 @@
+#begintest roundrobin
+#beginconfig
+perl srand 127
+division a a.t
+config max_rounds = 10
+config colour = 'no'
+config track_firsts = 1
+config assign_firsts = 1
+autopair a 0 1 rr 1 a
+autopair a 3 4 rr 2 a
+#endconfig
+#beginifile a.t
+Chew, John 1800    
+Chew, Kristen 1300 
+Chew, Jamie 500    
+Chew, Liam 0       
+#endifile
+#begincommands
+smp 1-3 a
+rand a a a
+smp 4-9 a
+q
+#endcommands
+#beginstdout
+Round 1 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. Chew, Liam (#4).
+   2  Chew, Kristen (#2) *first* vs. Chew, Jamie (#3).
+Round 2 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Jamie (#3) *first* vs. Chew, John (#1).
+   2  Chew, Liam (#4) *first* vs. Chew, Kristen (#2).
+Round 3 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Kristen (#2) *first* vs. Chew, John (#1).
+   2  Chew, Jamie (#3) *first* vs. Chew, Liam (#4).
+Division A Pairings: Rounds 1-3
+
+## Player        1st 2nd R1    R2    R3
+1 Chew, John    0   0   4#1@1 3#2@1 2#2@1
+2 Chew, Kristen 0   0   3#1@2 4#2@2 1#1@1
+3 Chew, Jamie   0   0   2#2@2 1#1@1 4#1@2
+4 Chew, Liam    0   0   1#2@1 2#1@2 3#2@2
+Chew, John (#1): 518
+Chew, Kristen (#2): 529
+Chew, Jamie (#3): 333
+Chew, Liam (#4): 180
+Chew, John (#1): 518 472
+Chew, Kristen (#2): 529 466
+Chew, Jamie (#3): 333 264
+Chew, Liam (#4): 180 260
+Chew, John (#1): 518 472 731
+Chew, Kristen (#2): 529 466 237
+Chew, Jamie (#3): 333 264 587
+Chew, Liam (#4): 180 260 441
+Round 4 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. Chew, Liam (#4) repeat.
+   2  Chew, Kristen (#2) *first* vs. Chew, Jamie (#3) repeat.
+Round 5 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Jamie (#3) *first* vs. Chew, John (#1) repeat.
+   2  Chew, Liam (#4) *first* vs. Chew, Kristen (#2) repeat.
+Round 6 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Kristen (#2) *first* vs. Chew, John (#1) repeat.
+   2  Chew, Jamie (#3) *first* vs. Chew, Liam (#4) repeat.
+Round 7 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, Liam (#4) *first* vs. Chew, John (#1) 3peat.
+   2  Chew, Jamie (#3) *first* vs. Chew, Kristen (#2) 3peat.
+Round 8 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. Chew, Jamie (#3) 3peat.
+   2  Chew, Kristen (#2) *first* vs. Chew, Liam (#4) 3peat.
+Round 9 Ranked Pairings
+
+Board Who Plays Whom
+   1  Chew, John (#1) *first* vs. Chew, Kristen (#2) 3peat.
+   2  Chew, Liam (#4) *first* vs. Chew, Jamie (#3) 3peat.
+Division A Pairings: Rounds 4-9
+
+## Player        1st 2nd R4    R5    R6    R7    R8    R9
+1 Chew, John    1   2   4#1@1 3#2@1 2#2@1 4#2@1 3#1@1 2#1@1
+2 Chew, Kristen 2   1   3#1@2 4#2@2 1#1@1 3#2@2 4#1@2 1#2@1
+3 Chew, Jamie   2   1   2#2@2 1#1@1 4#1@2 2#1@2 1#2@1 4#2@2
+4 Chew, Liam    1   2   1#2@1 2#1@2 3#2@2 1#1@1 2#2@2 3#1@2
+#endstdout
+#beginstderr
+#endstderr
+#endtest

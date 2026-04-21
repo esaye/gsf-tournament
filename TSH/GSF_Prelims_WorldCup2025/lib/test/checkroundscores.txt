@@ -1,0 +1,36 @@
+#begintest checkroundscores
+#beginconfig
+division a a.t
+config max_rounds = 3
+config colour = 'no'
+#endconfig
+#beginifile a.t
+Chew, John 1800    4 3 2; 500 200
+Chew, Kristen 1300 3 4 1; 400
+Chew, Jamie 500    2 1 0; 300 300
+Chew, Liam 0       1 2 0; 200
+#endifile
+#begincommands
+crs 1
+crs 2
+crs 4
+q
+#endcommands
+#beginstdout
+Round 1 Scores
+
+Player        ID Score Player      ID Score Sprd
+Chew, John    1    500 Chew, Liam  4    200  300
+Chew, Kristen 2    400 Chew, Jamie 3    300  100
+Round 2 Scores
+
+Player        ID Score Player        ID Score Sprd
+Chew, Kristen 2      0 Chew, Liam    4      0    0
+Chew, Jamie   3    300 Chew, John    1    200  100
+Chew, Liam    4      0 Chew, Kristen 2      0    0
+Usage: crs round
+#endstdout
+#beginstderr
+Error: parser says: 4 is too large to be a round number. [epabr]. [eparse]
+#endstderr
+#endtest

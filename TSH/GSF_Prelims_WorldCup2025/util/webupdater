@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub Main ();
+sub ModTime ($);
+sub Update ($);
+
+%config'htmldir = (
+# '/Library/WebServer/Documents/tso/' => 'tso',
+# '/Library/WebServer/Documents/hc/' => 'hc',
+  '/Library/WebServer/Documents/dallas/' => 'dallas/2007/tsh',
+);
+
+Main;
+
+sub Main () {
+  while (1) {
+    while (my ($dir, $sub) = each %config::htmldir) {
+      chdir $dir or die "chdir failed: $!\n";
+      my $datatime = ModTime "index.html";
+      my $flagtime = ModTime "flag.txt";
+      if ((!defined $flagtime) || $flagtime < $datatime) { 
+	my $time = scalar(localtime($datatime));
+	chomp $time;
+	print "Uploading $sub ($time).\n";
+	Update $sub; 
+	print "Done.\n";
+	}
+      }
+    sleep 15; 
+    }
+  }
+
+sub ModTime ($) {
+  my $fn = shift;
+  return ((stat $fn)[9]);
+  }
+
+sub Update ($) {
+  my $sub = shift;
+  system "ftp -u ftp://user\@www.poslfit.com/$sub *.html *.css >> ftp.log";
+  open my $fh, ">flag.txt" or die "Can't create flag.txt: $!\n";
+  print $fh "testing\n";
+  close $fh;
+  }

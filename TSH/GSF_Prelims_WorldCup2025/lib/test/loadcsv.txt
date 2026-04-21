@@ -1,0 +1,135 @@
+#begintest loadcsv
+#beginconfig
+division a a.t
+division b b.t
+division c c.t
+division d d.t
+config show_teams = 1
+config max_rounds = 5
+config division_rating_system{'A'} = 'none'
+config division_rating_system{'B'} = 'nsa2008'
+config division_rating_system{'C'} = 'nsa2008';
+config division_rating_system{'D'} = 'nsa2008';
+#endconfig
+#beginifile a.t
+#endifile
+#beginifile a.csv
+name,pairings,scores,team
+"Chew, John","0,0","50,50",CAN
+"Show, No","0,0","-50,-50",Unk
+#endifile
+#beginifile b.t
+#endifile
+#beginifile b.csv
+name,rating,pairings,scores,initw,initl,inits
+"Chew, John",1800,"0,0","50,50",5,2,200
+"Show, No",1200,"0,0","-50,-50",4,3,-200
+#endifile
+#beginifile c.t
+Player A 1800
+Player B 1700
+#endifile
+#beginifile c.csv
+bad file
+player row
+#endifile
+#beginifile d.t
+Chew, Kristen 1400
+Chew, Jamie 1000
+#endifile
+#beginifile d.csv
+name,pairing1,score1,pairing2,score2
+"Chew, Kristen",2,500,2,400
+"Chew, Jamie",1,400,1,400
+#endifile
+#begincommands
+lcv a
+rat a
+lcv b
+rat b
+lcv c
+rat c
+mcv d
+rat d
+floss d 1 2 50
+scv d
+q
+#endcommands
+#beginstdout
+Division C Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player
+  1 0.0-0.0    +0 1800 1800  +0 Player A (C1/)
+  2 0.0-0.0    +0 1700 1700  +0 Player B (C2/)
+Division D Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player
+  1 0.0-0.0    +0 1400 1400  +0 Chew, Kristen (D1/)
+  2 0.0-0.0    +0 1000 1000  +0 Chew, Jamie (D2/)
+#endstdout
+#beginstderr
+Error: No such command: lcv. [ebadcmd]
+Error: No such command: lcv. [ebadcmd]
+Error: No such command: lcv. [ebadcmd]
+Error: No such command: mcv. [ebadcmd]
+Error: The next round of pairings that player #1 needs is 1, not 2. [eprbadr]
+Error: No such command: scv. [ebadcmd]
+#endstderr
+#beginofile d.csv
+name,pairing1,score1,pairing2,score2
+"Chew, Kristen",2,500,2,400
+"Chew, Jamie",1,400,1,400
+#endofile
+#plugins plus
+#beginstdout
+Division A Round 2 Rankings
+
+Rnk Won-Lost Sprd Player              Last Game
+  1 2.0-0.0  +100 Chew, John (A1/CAN) bye
+  2 0.0-2.0  -100 Show, No (A2/Unk)   bye
+Division B Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player           Last Game
+  1 7.0-2.0  +300 1800 1800  +0 Chew, John (B1/) bye
+  2 4.0-5.0  -300 1200 1200  +0 Show, No (B2/)   bye
+Division D Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player              Last Game
+  1 1.5-0.5  +100 1400 1399  -1 Chew, Kristen (D1/) T:400-400:D2
+  2 0.5-1.5  -100 1000 1001  +1 Chew, Jamie (D2/)   T:400-400:D1
+#endstdout
+#beginstderr
+Error: CSV file is missing required information (player name) in row 1. [ecsvnof]
+#endstderr
+#beginofile d.csv
+"name","rating","boards","pairings","scores","team","wins","losses","spread","wp","rank","board1","board2","pairing1","pairing2","score1","score2"
+"Chew, Kristen","1400","","2 0","500 -50","","1","1","50","2","1","0","0","2","0","500","-50"
+"Chew, Jamie","1000","","1 0","400 50","","1","1","-50","2","2","0","0","1","0","400","50"
+#endofile
+#plugins plus thai
+#beginstdout
+Division A Round 2 Rankings
+
+Rnk Won-Lost Sprd Player              Last Game
+  1 2.0-0.0  +100 Chew, John (A1/CAN) bye
+  2 0.0-2.0  -100 Show, No (A2/Unk)   bye
+Division B Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player           Last Game
+  1 7.0-2.0  +300 1800 1800  +0 Chew, John (B1/) bye
+  2 4.0-5.0  -300 1200 1200  +0 Show, No (B2/)   bye
+Division D Round 2 Ratings
+
+Rnk Won-Lost Sprd OldR NewR +-R Player              Last Game
+  1 1.5-0.5  +100 1400 1399  -1 Chew, Kristen (D1/) T:400-400:D2
+  2 0.5-1.5  -100 1000 1001  +1 Chew, Jamie (D2/)   T:400-400:D1
+#endstdout
+#beginstderr
+Error: CSV file is missing required information (player name) in row 1. [ecsvnof]
+#endstderr
+#beginofile d.csv
+"name","rating","boards","pairings","scores","team","wins","losses","spread","wp","rank","board1","board2","pairing1","pairing2","score1","score2"
+"Chew, Kristen","1400","","2 0","500 -50","","1","1","50","2","1","0","0","2","0","500","-50"
+"Chew, Jamie","1000","","1 0","400 50","","1","1","-50","2","2","0","0","1","0","400","50"
+#endofile
+#endtest

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Toronto School Scrabble Championship</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=there><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=here><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Toronto School Scrabble Championship using <cite>tsh</cite></h1>
+<p class=subtitle>Managing the TSSC with <cite>tsh</cite>.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+<p class=p1>
+This section discusses specific issues related to running the Toronto
+School Scrabble Championship using <cite>tsh</cite> and may safely
+be ignored if your tournament is not the Toronto School Scrabble
+Championship.
+</p>
+
+<h2>What is the Toronto School Scrabble Championship?</h2>
+
+<p class=p1>
+If you&rsquo;re actually running the TSSC, you really ought to know all this, but maybe you&rsquo;re
+reading this because you want to know if your event can be run like the TSSC.
+Depending on the year, the TSSC is run in one or two phases (if two phases, with two or more qualifier
+events for a final), with each event having 2&ndash;4 divisions separated by grade group
+(further subdivided by class into grades) and 3&ndash;4 rounds.
+It runs locally using a scoreboard and a local photo database, increasing spread caps by round, 
+a prize ceremony slideshow, and overall best school standings across divisions.
+</p>
+
+<h2>Preparing up for the TSSC</h2>
+
+<ul>
+  <li>Make sure you have:
+    <ul>
+      <li>A laptop with the current testing version of TSH</li>
+      <li>A phone that you can tether it to in case you need to download an update, and its charger</li>
+      <li>A phone with a camera (could use the previous phone, but better to have two in case you need to take a photo too far away from your laptop), for taking team photos, and a way to transfer those photos to the laptop</li>
+      <li>A printer for printing pairing reports, and paper and spare ink</li>
+      <li>An HDMI cable for connecting to a projector</li>
+      <li>A projector if the school is not providing one</li>
+      <li>A box of table signs (probably borrowed from John Chew)</li>
+      <li>A long heavy-duty extension cord and a power strip</li>
+      <li>(optional) An external monitor, in case of an issue with the projector, or as a third screen if your laptop supports it</li>
+    </ul>
+  </li>
+  <li>Send the following information to John, and he will reply with a config.tsh file and .t division data files. Make sure that you know how to edit these files using WordPad (Windows) or TextEdit (MacOS).
+    <ul>
+      <li>A close to final player and team roster list with grades, with a description of how much uncertainty there is so that he can leave table number gaps between divisions.</li>
+      <li>Where you want yhour web files saved so that your local webserver can share them</li>
+      <li>What theme prizes you will offer and how many</li>
+      <li>What other prizes you will offer and how many</li>
+    </ul>
+  </li>
+  <li>
+    Test your installation to sure that you can see draft first-round pairings (SP 1 A, SP 1 B, SP 1 C) and the scoreboard (ESB) locally.
+  </li>
+</ul>
+
+<h2>On-site Setup</h2>
+
+<ul>
+  <li>Set up the laptop, printer, projector, and optional monitor.</li>
+  <li>Tether the laptop, check your data connection, plug your phone into the charger.</li>
+  <li>Print current rosters to test your printer, and to use as attendance checklists. Give the attendance copy to someone else, ask them to have each coach verify all of their student names, team names and grades.</li>
+  <li>As reports come back about roster changes, keep the .t files up to date. Remember that you should not edit TSH files while TSH is running; quit before and rerun after.</li>
+  <li>When you think that you are sure that everyone is accounted for, generate first round pairings (SP 1 A, SP 1 B, SP 1 C), print the team pairings (not ranked or alpha), and distribute to the coaches. Ask them to double-check names, make sure they understand how to read the pairings (table and 1st/2nd assignments).</li>
+  <li>Update the .t files with last-minute name changes.</li>
+  <li>Configure the scoreboard on the projector, using the controls at the top right of the screen to split the window into an appropriate number of panes (one per division), and then the gear icon to choose how many rows and columns of players to display in each pane. Make sure photos are enabled. Do this only after the roster is stable, as you may have to redo it after any significant roster change.</li>
+  <li>Print ranked pairing reports for each division, and make them available to staff to check that all teams are seated correctly with the correct opponents and know who goes first. Print an extra copy of yourself to identify teams with in photos.</li>
+</ul>
+
+<h2>During Round 1</h2>
+<ul>
+  <li>Take photographs of approximately half of the teams (you won&rsquo;t have time to do them all). You will eventually need to have the photos named by team number, so you can either take photos of the teams in team number order (much easier and less error-prone) or carefully note the order in which you took the photos on a printed roster as you photograph teams in table number order (less intrusive but more error-prone). Ask players in each photo to pu their heads together, as space between heads will ruin the team photo when cropped.</li>
+  <li>Transfer photos to your laptop, crop them tight and square around the two heads, and save as JPEG files named case-sensitively a01.jpg, a02.jpg, a03.jpg, ..., b01.jpg, b02.jpg, etc. in lib/pix/tssc2025s (if this is 2025 South).</li>
+  <li>Quit and rerun TSH, then type the JSON command to update the scoreboard, make sure all your photos appear within 10 seconds.</li>
+</ul>
+
+<h2>At the End of Round 1</h2>
+<ul>
+  <li>Accept and enter scores into TSH. If you like multitasking, yelling at children, reading illegible handwriting, and typing quickly, ask each pair of teams to provide you with their scoresheets, verbally confirm who won the game, and enter their score using partial names and scores (e.g., shan 400 john 300 100).  If you don't, give someone a printed copy of the ranked pairings, have students stay at their tables at the end of the round, and have the staff person write down the scores on the pairings report for you to subsequently type in; this will take longer but be much calmer, and you can speed it up a little by printing more copies of the reports and dividing up the room.</li>
+  <li>Print Round 2 team pairings and distribute to coaches.</li>
+</ul>
+
+<h2>During Round 2</h2>
+<ul>
+  <li>Take photographs of the rest of the teams, as in Round 1.</li>
+  <li>Transfer photos to your laptop, as in Round 1.</li>
+  <li>Quit and rerun TSH, then type the JSON command to update the scoreboard, make sure all your photos appear within 10 seconds.</li>
+</ul>
+
+<h2>At the End of Round 2</h2>
+<ul>
+  <li>Accept and enter scores into TSH as per Round 1.</li>
+  <li>Print Round 3 team pairings and distribute to coaches.</li>
+</ul>
+
+<h2>During Round 3</h2>
+<ul>
+  <li>(While TSH is not running) Edit the config.tsh file to enter the winners of all theme prizes.  Each "prize signup" line should end in something that looks like "[A05], POTATO" to indicate that team A05 won the category with the word POTATO.
+  <li>Proofread your prize table with by printing the PRZ command output.</li>
+</ul>
+
+<h2>At the End of Round 3</h2>
+<ul>
+  <li>Accept and enter scores into TSH as per Round 2.</li>
+  <li>Run the TTS command to determine the best schools (if awarding prizes for this), quit TSH and edit this information into the config.tsh file.</li>
+  <li>Open the prize slide show from the event coverage index. Use the right and left arrow keys to advance through it in time with the prize presentation, get the photographer to take a photo of each slide before each prizewinner photo; save time by taking group photos e.g. of all the theme prize winners, or all the Grade 5-6 place prize winners.</li>
+</ul>
+
+</body>
+</html>

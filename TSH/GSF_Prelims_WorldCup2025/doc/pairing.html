@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="tshdoc.css">
+<title>tsh: Pairing Theory</title>
+</head>
+<body bgcolor=white>
+<div class=navbar>
+<div class=there><a href="index.html">About <cite>tsh</cite></a></div>
+<div class=there><a href="intro.html">Introduction</a></div>
+<div class=there><a href="commands.html">Commands</a></div>
+<div class=there><a href="entry.html">Data Entry</a></div>
+<div class=there><a href="reports.html">Reports</a></div>
+<div class=there><a href="install.html">Installation</a></div>
+<div class=there><a href="config.html">Configuration</a></div>
+<div class=here><a href="pairing.html">Pairing Theory</a></div>
+<div class=there><a href="ratings.html">Ratings</a></div>
+<div class=there><a href="scoreboard.html">Scoreboard</a></div>
+<div class=there><a href="teams.html">Team Play</a></div>
+<div class=there><a href="news.html">What&rsquo;s New</a></div>
+<div class=there><a href="trouble.html">Troubleshooting</a></div>
+<div class=there><a href="issues.html">Known Issues</a></div>
+</div>
+<h1>Pairing Theory and <cite>tsh</cite></h1>
+<p class=subtitle>Some background on how pairing systems work.</p>
+<p class=version>Updated 
+2025-05-31T12:00:00+00
+for <cite>tsh</cite> 3.340.</p>
+<p class=p1>
+This section discusses the theory behind scheduling pairings for
+tournaments and the details of the pairing systems implemented
+in <cite>tsh</cite>.
+See elsewhere the table of <cite>tsh</cite>&rsquo;s 
+<a href="commands.html#pairing">pairing commands</a>,
+and the discussion of 
+<a href="config.html#pairings">how and when to use them</a>.
+</p>
+
+<h2>Goals</h2>
+
+<p class=p1>
+The following are desirable properties of a pairing system.
+It is impossible to satisfy all of these properties simultaneously.
+</p>
+<table class=commands border=0 cellspacing=0>
+  <tr><th class=name>Property</th><th class=description>Description</th></tr>
+
+<tr><td class=name>&ldquo;Aristomachy&rdquo;</td><td class=description>
+Top players should be paired with each other, especially toward
+the end of the tournament.
+King-of-the-Hill pairings do this best, Round Robin pairings do this worst.
+</td></tr>
+
+<tr><td class=name>Division Sizing</td><td class=description>
+Some pairing systems (notably round robin) require specific numbers
+of players.  
+The number of players is usually not under the director&rsquo;s control,
+though often their assignment to divisions is.
+A small number of large divisions permits smaller number of larger
+prizes but requires players to face opponents of more widely ranging
+ratings.
+</tr>
+
+<tr><td class=name>&ldquo;Exagony&rdquo;</td><td class=description>
+Players travelling together to a tournament do not like to play
+each other, as many players travel to vary their opponents.
+At the World Championships, unnecessarily pairing together players from
+the same country may make it difficult for them to earn an additional
+place at the next WSC.
+</td></tr>
+
+<tr><td class=name>Fairness</td><td class=description>
+The final ranking of players by the customary
+win-loss record and cumulative spread should be equivalent to a
+ranking according to their level of performance in the tournament.
+Three possible ways of measuring the latter are to average the
+final rankings of the opponents of each player 
+(<em>Average Opponent Ranking</em> or <em>AOR</em>,
+to add the number of wins and spread of the opponents of each players
+(<em>Sum of Opponent Scores</em>, <em>SOS</em> or Buchholz),
+and uninitialised iterated performance ratings
+(<em>IPR</em>, the ratings that players would have if they had all arrived at
+the tournament unrated).
+</td></tr>
+
+<tr><td class=name>Implementability</td><td class=description>
+A good human director can pair 50&ndash;100 players by hand if a
+dynamic pairing
+system is not too computationally demanding.
+Computers can currently do brute-force
+exhaustive searches for optimal pairings up to
+groups of about 16 (for which there are 2,027,025 possible pairings),
+use smarter algorithms for very difficult pairing situations involving
+twice as many players,
+and can easily apply complex rules to larger groups to find pairings
+which match well-designed criteria.
+</td></tr>
+
+<tr><td class=name>Incentivization</td><td class=description>
+A player should not be placed in a position where tieing or losing
+is strategically preferably to winning.  
+For example, a player who has clinched a place in a two-player
+final should not be paired with a possibly weak player whose
+victory would send him to the finals.
+</td></tr>
+
+<tr><td class=name>Inclusivity</td><td class=description>
+A player should not needlessly be excluded from contention for a prize
+by being paired with someone who is out of contention.
+For example, if with one round left to play
+the top three players have N, N and N&ndash;1 wins
+and the top two have a 500-point spread advantage over #3,
+then #3 needs to play #1 or #2 in order to have any reasonable
+chance of finishing first.
+</td></tr>
+
+<tr><td class=name>&ldquo;Monagony&rdquo;</td><td class=description>
+Players should play each other as few times as possible.
+Repeat pairings can prevent other players from catching up to the
+repeaters, and do not accurately measure the repeating players&rsquo;
+ability to defeat a wider field.
+Players also do not in general like playing each other in consecutive
+rounds.
+</td></tr>
+
+<tr><td class=name>Monotony</td><td class=description>
+A lower-ranked player should not be paired so as to make it more likely
+that he will become the overall winner than that a higher-ranked player
+will.
+</td></tr>
+
+<tr><td class=name>Suspense</td><td class=description>
+The outcome of the tournament should be determined as late as possible.
+</td></tr>
+
+</table>
+
+<h2><a name=gibsonization>Gibsonization</a></h2>
+
+<p class=p1>
+David Gibson, the all-time top money winner in the history of Scrabble,
+has made a habit of clinching victory in major events without waiting
+for the final round.  
+Because of this, players are said to be &ldquo;Gibsonized&rdquo;
+when after clinching,
+they are paired with lower-ranked players to avoid affecting the ranking
+of runners-up.
+<cite>tsh</cite> has two mechanisms for detecting Gibson situations.
+</p>
+
+<p class=sidebar>
+Use &ldquo;<a href="config.html#options"><code>config prize_bands</code></a>&rdquo; to tell <cite>tsh</cite> how far down you&rsquo;re paying out prizes. If you omit it when it&rsquo;s needed, <cite>tsh</cite> assumes you're giving prizes to the top quarter of the field.
+</p>
+
+<p class=p1>
+The 
+<a href="#chew">Chew pairing system</a>
+automatically detects and assign Gibson pairings.
+Gibson situations are detected based on wins and generalised NASPA
+spread thresholds (a player may hope to win one game by 250 points,
+two games by an average of 175 points, and more games by an average of
+150 points each, or as overridden by the
+&ldquo;<code><a href="config.html#gibson_spread">gibson_spread</a></code>&rdquo; 
+configuration option).
+If there is more than one Gibson, as many of them as possible
+(all of them if the total number is even) 
+are paired with each other <a href="#koth">KOTH</a>
+minimizing rematches and consecutive rematches.
+If all players are still in contention for some sort of prize, it will
+pair any remaining Gibson with the lowest ranked player who has played him/her
+least often.
+If some players are out of contention for any prize, it will pair any
+remaining Gibson with the highest ranked such player who has played him/her
+least often.
+</p>
+
+<p class=sidebar>
+If you have a two-player final, you may want to allow the Gibsonization
+of a player who has clinched a place in the top two, though not necessarily
+the top place.
+If so, use the
+&ldquo;<a href="config.html#gibson_groups"><code>config gibson_groups</code></a>&rdquo;
+configuration option.
+</p>
+
+<p class=p1>
+If you specify &ldquo;<a href="config.html#options"><code>config gibson = 1</code></a>&rdquo; in your configuration file,
+<cite>tsh</cite> will also perform Gibsonization when using
+<a href="#koth">KOTH</a> or <a href="#swiss">Swiss</a> pairings.
+</p>
+
+<p class=p1>
+It is important to note that if you are using Fontes pairings, a
+Gibson situation may develop in round <i>n</i>, paired based on
+round <i>n&ndash;2</i>, as a result of games played in 
+round <i>n&ndash;1</i>.
+<cite>tsh</cite> does not currently check for this situation, and
+in practice the players involved might already even have started
+playing round <i>n</i> before anyone notices what has happened.
+If you do find yourself in this situation, try to manually repair
+the top few boards, if they have not already started their games.
+If no one has started a game,
+use the <a href="commands.html#unpairround">UnPairRound</a> command to 
+remove your previously calculated pairings, 
+use the <a href="commands.html#pair">PAIR</a> command to manually
+pair the Gibson with a reasonable victim, 
+then recompute the pairings for the rest of the division.
+</p>
+
+<h2><a name="systems">Pairing Systems</a></h2>
+
+<p class=p1><cite>tsh</cite> currently supports the following pairing
+systems, in order of increasing sophistication.
+If you have a need for a different pairing system, please contact
+John Chew at least two months in advance of your tournament.
+</p>
+<ul>
+  <li><a href="#none">None</a></li>
+  <li><a href="#random">Random</a></li>
+  <li><a href="#manual">Manual</a></li>
+  <li><a href="#koth">King-of-the-Hill</a> (KOTH)</li>
+  <li><a href="#quartiles">Quartiles</a></li>
+  <li><a href="#factored">Factored</a> (FP)</li>
+  <li><a href="#rr">Round Robin</a> (RR)</li>
+  <li><a href="#lowerroundrobins">Lower Round Robins</a> (LRR)</li>
+  <li><a href="#teamroundrobins">Team Round Robins</a> (TRR)</li>
+  <li><a href="#bracket">Bracket</a></li>
+  <li><a href="#de">Double Elimination</a></li>
+  <li><a href="#green">Green</a></li>
+  <li><a href="#guelph">Guelph</a></li>
+  <li><a href="#nast">NAST</a></li>
+  <li><a href="#basd">BASD</a></li>
+  <li><a href="#swiss">Swiss</a></li>
+  <li><a href="#chew">Chew</a></li>
+</ul>
+
+<h3><a name=none>No Pairings</a></h3>
+
+<p class=p1>
+Although <cite>tsh</cite> began as a program for generating 
+pairings and <a href="reports.html">reports</a>, it can also be used 
+at events like crossword or Sudoku tournaments, where players
+compete separately to attain individual scores.
+If you specify
+&ldquo;<code><a href="config.html#no_pairings">config pairing_system = 'none'</a></code>,
+all players effectively receive unscored byes, and after you 
+<a href="entry.html">enter their scores</a>
+you can view standings reports.
+</p>
+<h3><a name=random>Random Pairings</a></h3>
+
+<p class=p1>
+Random pairings match players based on a statistical hashing 
+function of their name and player number.
+They are random in that who plays whom will not appear to 
+follow any pattern, but only pseudorandom in the sense that
+if you do not change the names and order of your players
+the pairings will always be generated the same way.
+</p>
+
+<p class=p1>
+You might want to use random pairings
+when assigning first-round pairings
+for a group of players who do not have a reliable
+past tournament record.
+</p>
+
+<p class=p1>
+The general command for random pairings in <cite>tsh</cite> is
+&ldquo;<code>randompair repeats based-on-round division</code>&rdquo;.
+For example, to ask for random pairings with no repeats allowed, based on
+standings in round 7 for division D, use the command
+&ldquo;<code>rp 0 7 d</code>&rdquo;.
+This example is somewhat contrived though, as after the first round
+it would be foolish to use random pairings rather than some sort of
+standings-based pairings.
+</p>
+
+<p class=p1>
+See also the 
+&ldquo;<a href="config.html#initial_exagony"><code>config initial_exagony</code></a>&rdquo;
+configuration variable for avoiding pairing players from the same
+<a href="config.html#etc_team">team</a> in the first round.
+If you use this variable and do not assign players to teams,
+pairings will fail because everyone will appear to belong
+to the same unnamed team.
+</p>
+
+<p class=p1>
+As it does with other pairing commands, 
+<cite>tsh</cite> will try to minimize repeats and avoid successive repeats
+where possible, though in the first round this is irrelevant.
+</p>
+
+<h3><a name=manual>Manual Pairings</a></h3>
+
+<p class=p1>
+Sometimes, you can&rsquo;t use a computer to do all your pairings.
+For theatrical purposes you might have the first round&rsquo;s pairings
+be done by a physical draw.
+You might need to tweak computer pairings because someone has taken
+ill after you&rsquo;ve computed your pairings and some people have started
+to play.
+You might want to manually pair a few players and allow the rest to be
+automatically paired.
+Or something really weird and unexpected might have happened.
+</p>
+
+<p class=p1>
+<cite>tsh</cite> provides two commands for manual pairings.
+If you&rsquo;re just doing a few, then use
+&ldquo;<code><a href="commands.html#pair">PAIR p1 p2 round division</a></code>&rdquo;.
+For example, 
+&ldquo;<code>pair 1 2 5 a</code>&rdquo;
+pairs players 1 and 2 in round 5 in Division A.
+To assign a player a bye, pair them against the fictitious player 0.
+</p>
+
+<p class=p1>
+If you need to do a lot of pairings, use the
+&ldquo;<code><a href="commands.html#pairmany">PairMany round division</a></code>&rdquo;
+command.
+For example, 
+&ldquo;<code>pm 3 b</code>&rdquo;
+lets you enter pairings for round 3, division B and prompts
+you to enter pairs of player numbers, one pair per line.
+If you enter a division name by itself, you will switch to entering
+pairings for that division.
+If you enter a round number preceded by an R and a space, e.g.
+&ldquo;<code>r 5</code>&rdquo;
+you will switch to entering pairings for that round.
+If you enter anything else, you will return to the main prompt.
+</p>
+
+<p class=p1>
+You cannot assign pairings for a round until all previous pairings for
+both players have been assigned, and <cite>tsh</cite> will stop you if
+you try.
+You can reassign pairings for players who have already recorded scores,
+but should do so only with extreme caution, and you 
+will likely need to use the 
+&ldquo;<code><a href="commands.html#editscore">EditScore</a></code>&rdquo;
+or
+&ldquo;<code><a href="commands.html#deletescore">DELETEscore</a></code>&rdquo;
+command.
+Use the
+&ldquo;<code>ShowPairings</code>&rdquo;
+command to check your pairings after any manual changes, to make sure
+that all players are paired and none are multiply paired (<cite>tsh</cite>
+will warn you of either situation).
+</p>
+
+<p class=p1>
+If you want to pair partially manually and partially automatically,
+remember that <cite>tsh</cite> invokes its automatic and default
+pairing mechanisms when you use the
+&ldquo;<code><a href="commands.html#showpairings">ShowPairings</a></code>&rdquo;
+command.
+Specify any manual pairings before using that command.
+If you forget and do a
+&ldquo;<code>ShowPairings</code>&rdquo;
+first, then use the
+&ldquo;<code><a href="commands.html#unpairround">UnPairRound</a></code>&rdquo;
+command to un-pair all of the last round&rsquo;s pairings from a division.
+</p>
+
+<h3><a name=koth>King-of-the-Hill Pairings</a></h3>
+
+<p class=p1>
+In King-of-the-Hill (KOTH) pairings, 
+the top two players are paired with each other, 
+then the next two, and so on.
+</p>
+
+<p class=p1>
+KOTH pairings are often used in the final round(s) of a tournament
+to ensure that contenders face each other, often with an extra repeat
+permitted so that contenders face each other again even when they
+have already played each other.
+</p>
+
+<p class=p1>
+The general command for KOTH pairings in <cite>tsh</cite> is
+&ldquo;<code>koth repeats based-on-round division</code>&rdquo;.
+For example, to ask for KOTH with one repeat allowed, based on
+standings in round 11 for division B, use the command
+&ldquo;<code><a href="commands.html#koth">koth 1 11 b</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+If the players who are supposed to play each other have already played
+each other too often, <cite>tsh</cite> will look for the nearest 
+available player, breaking ties to avoid consecutive repeats,
+match starts with replies and minimize repeats.
+If the number of players is odd, <cite>tsh</cite> will assign a
+bye to the lowest-ranked player who has had the fewest byes.
+</p>
+
+<h3><a name=quartiles>Quartile Pairings</a></h3>
+
+<p class=p1>
+Quartile pairings pair the top quartile of the field at random against
+a designated other quartile, and are typically used to begin large
+tournaments with unreliable rating data, such as the World Scrabble Championship.
+</p>
+
+<p class=p1>
+The general command for quartile pairings in <cite>tsh</cite> is 
+&ldquo;<code><a href="commands.html#pairquartiles">PairQuartiles quartile repeats based-on-round division</a></code>&rdquo;.
+For example, to ask for the top quartile to be paired with the bottom, with no repeats allowed, based on
+standings in round 12 for division B, use the command
+&ldquo;<code>pq 4 0 12 b</code>&rdquo;.
+</p>
+
+<h3><a name=factored>Factored Pairings</a></h3>
+
+<p class=p1>
+Factored Pairings (FP) are the same as KOTH except that 
+the optimum rank separation of players is some fixed number
+(the factor) greater than the value of one used in KOTH.
+</p>
+
+<p class=p1>
+A version of FP is used in the (US) NSC in preliminary rounds,
+with factors gradually decreasing from 20 to 2,
+to artificially control the rate at which the contender pool shrinks.
+(At the NSC, pairing is done in groups of four to eight players,
+three or four rounds at a time.)
+</p>
+
+<p class=p1>
+The general command for FP in <cite>tsh</cite> is 
+&ldquo;<code><a href="commands.html#factorpair">FactorPair distance repeats based-on-round division</a></code>&rdquo;.
+For example, to ask for FP(2) with no repeats allowed, based on
+standings in round 14 for division C, use the command
+&ldquo;<code>fp 2 0 14 c</code>&rdquo;.
+The &ldquo;<code><a href="commands.html#pair1324">Pair1324</a></code>&rdquo; command is a synonym for
+&ldquo;<code>fp 2</code>&rdquo;.
+</p>
+
+<p class=p1>
+If the players who are supposed to play each other have already played
+each other too often, <cite>tsh</cite> will look for the nearest 
+available player(s) to the optimum opponent(s), breaking ties to avoid consecutive repeats,
+match starts with replies and minimize repeats.
+If the number of players is odd, <cite>tsh</cite> will assign a
+bye to the lowest-ranked player who has had the fewest byes.
+</p>
+
+<h3><a name=rr>Round Robin Pairings</a></h3>
+
+<p class=p1>
+In Round Robin (RR) pairings, every player plays every other
+player once.
+</p>
+
+<p class=p1>
+RR pairings are used when the number of players is no more than one
+more than the number of rounds scheduled.
+If the number of players is a little less than that number, than 
+the remaining rounds are often paired KOTH.
+While RR pairings are fair and give each player the widest possible
+field of opponents, if the skill levels of the players vary greatly
+then it may be more fair to use a more flexible system that will
+allow the top contenders to play each other more than once.
+It is also difficult but not always impossible to schedule an RR so that
+contenders face each other in the final round.
+</p>
+
+<p class=p1>
+Where the number of rounds is much larger than the number of players,
+RR pairings can be repeated, either with players playing the same
+opponent consecutively, or interleaved (where one RR is completed
+before the next one begins).
+</p>
+
+<p class=p1>
+The general command for RR pairings in <cite>tsh</cite> is
+&ldquo;<code><a href="commands.html#roundrobin">rr n division</a></code>&rdquo;.
+For example, to ask for a double set of RR pairings to be added to division A,
+use the command
+&ldquo;<code>rr 2 a</code>&rdquo;.
+If you leave out the number &ldquo;<code>n</code>&rdquo;, a single set of RR pairings will be added.
+If you want to override the default ordering of round robin rounds, use
+&ldquo;<code><a href="config.html#random_rr_order">config random_rr_order = 1</a></code>&rdquo;
+or
+&ldquo;<code><a href="config.html#round_robin_order">config round_robin_order = [2,3,4,5,6,7,8,9,10]</a></code>&rdquo;.
+If you want interleaved RR pairings, use
+&ldquo;<code><a href="config.html#interleave_rr">config interleave_rr = 1</a></code>&rdquo;.
+</p>
+
+<p class=p1>
+There is also a specialized command for doing partial round robin
+pairings for use at Cambridge ON.
+Use the &ldquo;<code><a href="commands.html#cambridgepair">camp division</a></code>&rdquo;
+command to add fixed pairings for a seven-round tournament with any number
+of players.
+</p>
+
+<p class=p1>
+<a name="lowerroundrobins">If</a> you want to assign round robin groups
+to noncontenders toward the end of your tournament, you can use 
+the &ldquo;<code>LowerRoundrobins starting-rank rounds division</code>&rdquo;
+command.  For example, if you want players to play three-round
+round robins in groups of four if they are ranked 41st or below
+in Division B, 
+use the command &ldquo;<code><a href="commands.html#lowerroundrobins">lrr 41 3 b</a></code>&rdquo;.
+It is a better idea however to use Fontes pairings (either Swiss
+or Chew) instead, because they will not cause any greater delay
+in the running of your event, and they do not involve using as stale
+results.  
+<!-- ? They look fine as of 2014-05-26
+Also, at time of writing,
+the &ldquo;<code>LowerRoundRobins</code>&rdquo; command does not 
+correctly assign board numbers.
+--> 
+</p>
+
+<p class=p1>
+In fact, if you want to assign round robins throughout the entire
+field (subject to the caveat in the preceding paragraph explaining
+why it is a bad idea to do so), you can use the 
+the &ldquo;<code>LowerRoundRobins starting-rank rounds division</code>&rdquo;
+command with starting-rank 1.
+For example, if you want everyone in Division C to play five-round
+round robins in groups of six,
+use the command &ldquo;<code>lrr 1 5 b</code>&rdquo;.
+</p>
+
+<p class=p1>
+<a name="teamroundrobins">If</a> you have an even number of teams of equal
+size, and you would like each player to play every player on every other team
+you can use 
+the &ldquo;<code><a href="commands.html#teamroundrobin">teamroundrobin repeats division</a></code>&rdquo;
+command.  For example, if you want the teams in division C to
+play each other twice,
+use the command &ldquo;<code>trr 2 c</code>&rdquo;.
+If you want to do something like
+&ldquo;<code><a href="commands.html#lowerroundrobins">LowerRoundRobins</a></code>&rdquo; for teams, see the
+&ldquo;<code><a href="commands.html#teammultipleroundrobin">TeamMultipleRoundRobin</a></code>&rdquo; command.
+</p>
+
+<h3><a name=bracket>Bracket Pairings</a></h3>
+
+<p class=p1>
+<a href="config.html#bracket_pairings">Bracket pairings</a> match players in a single-elimination format,
+with players out of contention playing KOTH.
+They can be tuned using the configuration options
+&ldquo;<code><a href="config.html#bracket_order">bracket_order</a></code>,
+  &ldquo;<code><a href="config.html#bracket_prelims">bracket_prelims</a></code> and
+  &ldquo;<code><a href="config.html#bracket_repeats">bracket_repeats</a></code>.
+</p>
+<p class=p1>
+There is a manual command 
+&ldquo;<code><a href="commands.html#bracketpair">BRACKetpair</a></code>&rdquo;
+that implements the pairing system,
+but you should never need to use it. 
+It is available so that it can be invoked if you specify a bracket-paired event by adding the
+line
+&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'bracket'</a></code>&rdquo;
+to your configuration file.
+</p>
+
+<h3><a name=de>Double Elimination Pairings</a></h3>
+<p class=p1>
+Double elimination pairings were developed for Craig Beevers in 
+Prague. They pair contenders randomly within win group;
+noncontenders are paired KOTH with minimal repeats. 
+Players are removed from pairings after their second loss, 
+and an alternate player is included whenever the total number of
+players would otherwise be odd.
+</p>
+<p class=p1>
+The &ldquo;<code><a href="commands.html#doubleelimination">DoubleElimination</a></code>&rdquo; command implements the pairing system.
+</p>
+<p class=p1>
+To specify that the alternate is player <code>42</code> in division <code>D</code>, add the
+line
+&ldquo;<code><a href="config.html#de_alternate">config de_alternate{'D'} = 42</a></code>&rdquo;
+to your configuraiton file.
+</p>
+
+<h3><a name=green>Green Pairings</a></h3>
+
+<p class=p1>
+John Green&rsquo;s tournaments in Florida
+use a <a href="config.html#green_pairings">system</a>
+which pairs groups of six to eight players
+over six rounds, beginning with five fixed rounds.
+</p>
+<p class=p1>
+There is a manual command 
+&ldquo;<code><a href="commands.html#green">GREEN</a></code>&rdquo;
+that implements the pairing system,
+but you should never need to use it. 
+It is available so that it can be invoked if you specify a Green-paired event by adding the
+line
+&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'green'</a></code>&rdquo;
+to your configuration file.
+</p>
+
+<h3><a name=guelph>Guelph Pairings</a></h3>
+
+<p class=p1>
+Andy Saunders&rsquo; tournaments in Guelph, Ontario 
+use a <a href="config.html#guelph_pairings">system</a>
+which pairs groups of six, eight or ten players over six rounds.
+</p>
+<p class=p1>
+Six-player groups play a round robin followed by KOTH with repeats.
+</p>
+<p class=p1>
+Eight-player groups play as follows.
+In rounds 1&ndash;3, 1458 (A) and 2367 (B) each play a round robin.
+In round 4: A1&ndash;B2 B1&ndash;A2 A3&ndash;B4 A4&ndash;B3.
+In round 5: A1&ndash;B1 A2&ndash;B2 A3&ndash;B3 A4&ndash;B4.
+In round 6: KOTH with infinite repeats and Gibsonization.
+</p>
+<p class=p1>
+Ten-player groups play a depleted five-round round robin followed
+by KOTH with repeats.
+</p>
+<p class=p1>
+There is a manual command 
+&ldquo;<code><a href="commands.html#guelph">GUELPH</a></code>&rdquo;
+that implements the pairing system,
+but you should never need to use it. 
+It is available so that it can be invoked if you specify a Guelph-paired event by adding the
+line
+&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'guelph'</a></code>&rdquo;
+to your configuration file.
+</p>
+
+<h3><a name=nast>NAST Pairings</a></h3>
+
+<p class=p1>
+The late Steve Pellinen&rsquo;s North American Scrabble Tour prescribed
+a specific <a href="config.html#nast_pairings">hybrid pairing system</a> for its satellite events.
+For most division sizes, this consists of four fixed rounds
+of pairings, one swiss-paired round with repeats allowed, and
+one KOTH round with unlimited repeats allowed.
+</p>
+<p class=p1>
+There is a manual command 
+&ldquo;<code><a href="commands.html#nast">NAST</a></code>&rdquo;
+that generates the initial fixed schedule of four or five rounds,
+but you should never need to use it. 
+It is available so that it can be invoked if you specify a NAST event by adding the
+line
+&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'nast'</a></code>&rdquo;
+to your configuration file.
+</p>
+
+<h3><a name=basd>BASD Pairings</a></h3>
+
+<p class=p1>
+Ira Freehof&rsquo;s Big Apple Showdown has its own pairing system.
+Players are divided into two round robin groups in a first phase,
+semifinalists play each other while everyone else plays small round
+robins in a second phase, and finalists play each other while everyone
+else plays factored pairings in a third and final phase.
+</p>
+<p class=p1>
+This is implemented using the
+&ldquo;<code><a href="config.html#pairing_system">config pairing_system = 'basd'</a></code>&rdquo;
+configuration option, which invokes the
+&ldquo;<code><a href="commands.html#basdsemi">BASDSemi</a></code>&rdquo;
+and
+&ldquo;<code><a href="commands.html#basdfinal">BASDFinal</a></code>&rdquo;
+pairings commands.
+</p>
+
+<h3><a name=swiss>Swiss Pairings</a></h3>
+
+<p class=p1>
+In Swiss pairings, players are divided into &ldquo;win groups&rdquo;
+according to how many wins they have scored.
+The top half of each win group plays the bottom half, in order.
+</p>
+
+<p class=p1>
+Several different systems of Swiss pairings are popular in Chess,
+where Swiss pairings originated.
+Swiss pairings work well for divisions where the number of players is
+large and the number of rounds is small.
+</p>
+<p class=p1>
+Regular Swiss pairings cause delays in tournaments because the pairings
+for the next round cannot be computed until all the results are in for
+the previous round.
+Fontes (or Portland) Swiss pairings trade off some pairings accuracy for
+speed by computing pairings based on the second previous round&rsquo;s
+results.
+As a compromise, some directors use regular Swiss pairings immediately
+after session breaks and Fontes Swiss pairings at other times.
+</p>
+
+<p class=p1>
+The general command for Swiss pairings in <cite>tsh</cite> is
+&ldquo;<code>ns repeats based-on-round division</code>&rdquo;.
+For example, to ask for Swiss pairings with two repeats allowed, based on
+standings in round 17 for division C, use the command
+&ldquo;<code>ns 2 17 c</code>&rdquo;.
+</p>
+
+<p class=p1>
+If you ask for Swiss pairings based on round 0, <cite>tsh</cite>
+will rank players by pretournament rankings, breaking ties randomly.
+This effectively pairs the top half of the field against the bottom,
+which may be something you want to do even if you aren&rsquo;t pairing
+the rest of the tournament Swiss.
+</p>
+
+<p class=p1>
+There is a special command for starting a Fontes Swiss tournament.
+Because you will need at least two rounds of scores before you can
+pair Fontes Swiss, the
+&ldquo;<code><a href="commands.html#initfontes">InitFontes number-of-rounds division</a></code>&rdquo;
+command divides players into groups of four and schedules them
+to play in <a href="#rr">round robins</a>.
+This takes three rounds (3 is the recommended value for
+<code>number-of-rounds</code>) and provides a fair start to
+the Swiss system,
+as well as giving you three hours to get used to doing data entry
+before you need to worry about pairings.
+If the number of players is not divisible by four, there may be
+a group of six players who play a partial round robin.
+The players in each group are chosen randomly, one from
+each quartile (or sextile).
+</p>
+
+<p class=p1>
+Early in the tournament, you should use 0 repeats.
+At some point in a long tournament, you should start increasing the
+number of repeats or else the top players will begin playing much 
+lower-ranked players because they have already all played each other.
+You can try <a href="config.html#dryrun">simulating</a>
+the outcome of the tournament to get a feel for when this is likely
+to happen, use your intuition based on past similar tournaments,
+or keep an eye on who the top-ranked player is playing each round
+and decide for example once they are paired with someone out of the
+top ten.
+Most Swiss tournaments end with one or two rounds of <a href="#koth">KOTH</a>
+to ensure that contenders play each other often enough.
+</p>
+
+<p class=p1>
+<cite>tsh</cite> chooses an opponent within the win group who 
+(in decreasing order of importance): 
+minimizes repeats, 
+is not the previous round&rsquo;s opponent,
+is due to play first if the current player is due to play second
+(and vice versa, but in either case only if 
+&ldquo;<code>config track_firsts</code>&rdquo; is active),
+and is as close as possible to half a win group away in ranking.
+For the sake of computational efficiency, <cite>tsh</cite> looks for
+opponents first for those players who have the fewest candidate
+opponents (with ties broken by current ranking).
+If a win group is odd, the top player in the next group is promoted
+to join it.
+If a win group cannot be paired, two more players are promoted.
+If the entire division cannot be paired in one big group, an error
+message is displayed, and you should increase the number of allowed
+repeats.
+If the number of players is odd, <cite>tsh</cite> will assign a
+bye to the lowest-ranked player who has had the fewest byes.
+</p>
+
+<p class=p1>
+By default, <cite>tsh</cite> pairs first the top win group, then
+the bottom win group, then the next win group at the top, then the
+next win group at the bottom, and so on.  This saves time, because
+when the bottom players have all played each other, it saves <cite>tsh</cite>
+having to backtrack from every possible pairing of the higher ranked
+players.  This optimization does however come at the cost of sometimes
+giving suboptimal pairings for mid-ranked players, especially in small
+divisions.  To disable the optimization, use
+&ldquo;<a href="config.html#top_down_swiss"><code>config top_down_swiss = 1</code></a>&rdquo;.
+</p>
+
+<p class=p1>
+By default, <cite>tsh</cite> pairs players within a win group by trying to
+match each player with an opponent who will balance firsts/seconds who is
+closest in rank to half the size of the win group away from the player.
+This behaviour can be changed using the
+&ldquo;<a href="config.html#swiss_order"><code>config swiss_order</code></a>&rdquo;
+configuration option, either to pair the top half in fixed order against
+the bottom half, or to minimize opponent rank distance.
+</p>
+
+<h3><a name=chew>Chew Pairings</a></h3>
+
+<p class=p1>
+Chew pairings draw on Swiss pairings and the 
+two-victor &ldquo;Basic Approach&rdquo; pairing system 
+developed for the 2003 CNSC and refined at the 2004 NSC,
+2005 CNSC and 2005 NSC.
+Tournament simulations determine which players are still in contention;
+the minimum number of repeats required to pair those players is computed;
+the contenders are split into leaders and nonleaders so as to minimize
+the number of leaders while not increasing the required number of repeats.
+Beginning at the top, each leader is paired with the lowest-ranked
+other leader who can catch up to him/her;
+the nonleaders are paired Swiss.
+</p>
+
+<p class=p1>
+Chew (or similar) pairings should be used in tournaments where after
+a number of preliminary rounds two or more top players are selected
+to compete in final rounds.
+They are also sufficiently flexible that they may be used in any
+sort of tournament, and are therefore used as <cite>tsh</cite>&rsquo;s
+default pairing algorithm.
+As with Swiss pairings, they may be computed based on the immediately
+preceding round&rsquo;s standings or those of the second preceding
+round, depending on event scheduling.
+</p>
+
+<p class=p1>
+The general command for Chew pairings in <cite>tsh</cite> is
+&ldquo;<code>cp based-on-round division</code>&rdquo;.
+For example, to ask for Chew pairings based on round 5 in division D,
+use the command
+&ldquo;<code>cp 5 d</code>&rdquo;.
+As explained in the discussion on
+<a href="config.html#default_pairings">default pairings</a>,
+if you do not specify any pairing system, manual or automatic,
+<cite>tsh</cite> will use <a href="config.html#chew_pairings">Chew pairings</a>.
+You must specify
+&ldquo;<a href="config.html#max_rounds"><code>config max_rounds</code></a>&rdquo;
+and should specify
+&ldquo;<a href="config.html#gibson_groups"><code>config gibson_groups</code></a>&rdquo;,
+&ldquo;<a href="config.html#initial_schedule"><code>config initial_schedule</code></a>&rdquo;
+and
+&ldquo;<a href="config.html#prize_bands"><code>config prize_bands</code></a>&rdquo;
+when using Chew pairings.
+</p>
+
+<p class=p1>
+Here is a very sketchy version of how Chew pairing works.
+We calculate who is still in contention for top prize
+money and try to pair them with each other, pairing everyone else Swiss. The number of contenders
+is typically capped to 8 in the antepenultimate round, 4 in the penultimate
+round and 2 in the last round, making the last round KOTH at the top
+of the field, barring Gibsonization. The contenders are divided into
+two groups, called the leaders and the non-leaders, if this can be
+done without increasing the number of repeats. The leaders are paired
+by pairing each top unpaired player with the lowest ranked player who
+can catch him; the non-leaders are paired Swiss.
+</p>
+<p class=p1>
+For example, suppose six people are in contention in the next-to-last
+round. This is too many for that round, so only the top four players
+are paired with each other. The top four players can be paired by
+allowing repeats but not threepeats. They can also be split into (1,2)
+and (3,4) without requiring threepeats, i.e. the 1-2, 3-4 pairing does
+not involve threepeats. So we pair 1-2 and 3-4. If (1,2), (3,4) did
+require threepeats, then (1,2,3,4) would be paired together. If 4 can
+still catch 1, then 1-4, 2-3; else if 3 can still catch 1 then 1-3,
+2-4; else 1-2, 3-4.
+</p>
+
+<p class=p1>Here is the Chew pairing algorithm in greater detail.</p>
+<ul>
+  <li>Sort players according to standing in the specified round.</li>
+  <li>Repeat while players remain unpaired.
+    <ul>
+      <li>Count Gibsons based on wins and spread.  
+      The largest possible number of Gibsons is determined by the number
+      of ranks that are declared to be equivalent using
+      &ldquo;<code>config gibson_groups</code>&rdquo;
+      and is typically 0, 1 or 2.
+      That number is reduced by one at a time
+      while the lowest-ranked possible Gibson
+      can be caught by the next-ranked player.
+      To try to catch a Gibson, a player is assumed to be paired
+      repeatedly with that player, and to win all his/her games
+      with a spread of +250 in one round, +175/round in two rounds,
+      or +150/round for more rounds
+      (these values may be overridden 
+      by the &ldquo;<code><a href="config.html#gibson_spread">config gibson_spread</a></code>&rdquo; 
+      configuration option).
+      </li>
+      <li>Pair any Gibsons.
+      If the number of Gibsons is even and positive, pair them with
+      each other KOTH but minimizing repeats and consecutive repeats;
+      else if the number is odd, pair all but the lowest ranked one
+      in this way, then pair the last one with either the highest-ranked
+      player in the lowest prize band (if nonempty) or the lowest-ranked
+      player overall, in each case choosing only from the candidate
+      opponents who have played the Gibson least often.
+      If the number of unpaired players is odd, give an odd Gibson the bye.
+      </li>
+      <li>If the number of unpaired players is now odd,
+      give a bye to the lowest ranked among the players with the fewest byes.
+      </li>
+      <li>Determine the highest prize band that is still being contended.</li>
+      <li>Count how many contenders there are to reach that prize band.
+      Add one if odd.
+      Cap at 2, 4, 8, 12, 12, 12, ... players when there are 1, 2, 3... rounds
+      left
+      (this may be overridden in the configuration file using
+      &ldquo;<code><a href="config.html#flight_cap">config flight_cap</a></code>&rdquo;).
+      Note that when there is one round left, this means that contenders are
+      paired KOTH.
+      </li>
+      <li>Determine the minimum number of repeats necessary to pair
+      all the contenders with each other with no other constraints.</li>
+      <li>If all remaining players are contenders (or if there are six or fewer noncontenders, and no more than twice as many contenders, and they cannot play each other without repeats) and &ldquo;<code><a href="config.html#chew_no_swiss_all">config chew_no_swiss_all</a></code>&rdquo; is not in effect
+      <ul><li>pair them Swiss with that many repeats permitted.</li></ul>
+      </li>
+      <li>Else (some players are out of contention)
+      <ul><li>Divide the contenders into leaders and nonleaders,
+	minimizing the number of leaders (but keeping at least 
+	four where possible) as long as the subgroup of
+	leaders and the subgroup of nonleaders can each be paired 
+	amongst themselves without exceeding the minimum repeats
+	for the whole group of contenders.</li>
+	<li>Pair the leaders as a group by repeatedly matching the top player
+	with the lowest ranked player who can catch him/her, while
+	not exceeding the minimum repeats and where possible avoiding 
+	consecutive repeats.
+	</li>
+	<li>Pair the nonleaders Swiss, not exceeding the minimum
+	repeats, and where possible minimizing repeats, 
+	avoiding consecutive repeats
+	and matching players due to start with those due to reply.</li>
+      </ul>
+      </li>
+    </ul>
+
+  </li>
+
+</ul>
+
+<!--
+
+Some of this should be edited and added back in.
+
+<h2>Theory</h2>
+
+<p class=p1>
+Consider the following scenario.
+Nine rounds have been played of a 10-round tournament, with no
+repeats so far.  The top four players are 7&ndash;2 and the
+next four players are 6&ndash;3, and each group has players
+with spreads +700, +500, +300 and +100.
+If only victor (overall prizewinner, a term I use to avoid confusion
+with the winner of an individual game), how should the players be
+paired in the final round?
+</p>
+<p class=p1>
+It would not be uncommon practice to pair the players king-of-the-hill,
+allowing repeats, that is, 1&ndash;2, 3&ndash;4, 5&ndash;6 and 7&ndash;8.
+While this violates inclusivity by shutting #5&ndash;8 out of contention,
+many would argue that #1&ndash;4 have earned the right to contend
+amongst themselves.
+</p>
+<p class=p1>
+Suppose however that #1 has already played #2&ndash;4 and
+#3 has already played #4, but none of #1&ndash;4 have played
+any of #5&ndash;8.
+Pairing 1&ndash;5 and 4&ndash;6 would better satisfy both
+monagony and inclusivity.
+Or to put it negatively, pairing 1&ndash;2 instead of 1&ndash;5 
+would give #6 two reasons to complain: that he was unfairly
+shut out of contention, and that the winning player didn&rsquo;t play
+a wide field.
+</p>
+<p class=p1>
+This is the inspiration behind Chew pairings, and here is the basic idea:
+</p>
+<ol>
+  <li>Calculate who the currently lowest-ranked possible victor <em>L</em> is.</li>
+  <li>Calculate the smallest number of repeats <em>R</em> that can be permitted
+  in a pairing of all the players from #1 down to <em>L</em>.</li>
+  <li>Calculate the smallest <em>N</em> for which #1&ndash;N can be paired
+  with at most <em>R</em> repeats.</li>
+  <li>Pair #1&ndash;N.</li>
+</ol>
+
+<h3>Ranked Too High To Contend</h3>
+
+<p class=p1>
+Curiously, it is possible for a player to be eliminated from contention
+while one or more players ranked immediately below them are still in contention.
+Here&rsquo;s an actual example from Albany NY, July 2005.
+</p>
+<p class=p1>
+With one round left to play, the top six players in the
+second division had the following wins
+and spreads: 14/+868, 14/+256, 13/+1469, 13/+509, 13/+376, 12/+538.
+If we try pairing the top four, then player #4 cannot win.
+In a 1&ndash;2 3&ndash;4 pairing, the winner of the 1&ndash;2 game
+will win the tournament.
+In either of the other pairings, #1 and #2 only need to win their
+last game, and if neither does then #3 will win.
+</p>
+<p class=p1>
+Now suppose that the top flight includes #5.
+Then because we have to include #6 to even out the flight,
+it's quite possible for #4, #5 and #6 to beat #1, #2 and #3
+and for #5 to end up having the highest cumulative spread
+among the players who end up at 14 wins.
+</p>
+<p class=p1>Here&rsquo;s another example from the sample tournament.
+With one round left to play, the top eight players in the third 
+division had the following records:
+12/+465, 12/+332, 12/+200, 12/+194, 11/+301, 11/+279, 11/+113 and
+11/+103.
+If we pair the top N, for varying values of N from 2 to 8,
+then the Nth ranked player has a chance at winning for N equal
+to 1, 2, 3, 4, 7 and 8 but not 5 or 6.
+The reasons why are left as an exercise for the reader.
+</p>
+-->
+
+</body>
+</html>
