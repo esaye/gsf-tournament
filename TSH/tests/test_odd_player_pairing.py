@@ -1,7 +1,9 @@
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import tsh_tournament_manager as manager_module
+
 
 def test_odd_player_pairing(tmp_path):
     db_file = str(tmp_path / "test_odd.db")

@@ -1,8 +1,9 @@
 import sqlite3
 from typing import List, Tuple, Any
 
+
 class TournamentDatabase:
-    def __init__(self, db_path: str = ':memory:'):
+    def __init__(self, db_path: str = ":memory:"):
         self.db_path = db_path
         self.conn = sqlite3.connect(self.db_path)
         self.conn.row_factory = sqlite3.Row
@@ -10,20 +11,20 @@ class TournamentDatabase:
 
     def _ensure_schema(self):
         cur = self.conn.cursor()
-        cur.execute('''
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS tournaments (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL
             )
-        ''')
-        cur.execute('''
+        """)
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS players (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 tournament_id INTEGER,
                 name TEXT
             )
-        ''')
-        cur.execute('''
+        """)
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS games (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 tournament_id INTEGER,
@@ -33,8 +34,8 @@ class TournamentDatabase:
                 score1 INTEGER DEFAULT 0,
                 score2 INTEGER DEFAULT 0
             )
-        ''')
-        cur.execute('''
+        """)
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS rankings (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 tournament_id INTEGER,
@@ -42,7 +43,7 @@ class TournamentDatabase:
                 wins INTEGER DEFAULT 0,
                 total_score INTEGER DEFAULT 0
             )
-        ''')
+        """)
         self.conn.commit()
 
     def execute_query(self, sql: str, params: Tuple = ()) -> List[Tuple[Any, ...]]:
@@ -63,12 +64,15 @@ class TournamentManager:
         self.db = db or TournamentDatabase()
 
     def create_tournament(self, name: str) -> int:
-        tid = self.db.execute_write("INSERT INTO tournaments (name) VALUES (?)", (name,))
+        tid = self.db.execute_write(
+            "INSERT INTO tournaments (name) VALUES (?)", (name,)
+        )
         return tid
 
     def add_player(self, tournament_id: int, player_name: str) -> int:
         pid = self.db.execute_write(
-            "INSERT INTO players (tournament_id, name) VALUES (?, ?)", (tournament_id, player_name)
+            "INSERT INTO players (tournament_id, name) VALUES (?, ?)",
+            (tournament_id, player_name),
         )
         # Ensure a rankings row exists
         self.db.execute_write(
@@ -79,7 +83,10 @@ class TournamentManager:
 
     def generate_round_pairings(self, tournament_id: int, round_number: int):
         # Simple pairing: pair players by id order
-        rows = self.db.execute_query("SELECT id FROM players WHERE tournament_id = ? ORDER BY id", (tournament_id,))
+        rows = self.db.execute_query(
+            "SELECT id FROM players WHERE tournament_id = ? ORDER BY id",
+            (tournament_id,),
+        )
         ids = [r[0] for r in rows]
         pairings = []
         for i in range(0, len(ids), 2):
@@ -99,10 +106,13 @@ class TournamentManager:
     def update_game_score(self, game_id: int, score1: int, score2: int):
         # Update game
         self.db.execute_write(
-            "UPDATE games SET score1 = ?, score2 = ? WHERE id = ?", (score1, score2, game_id)
+            "UPDATE games SET score1 = ?, score2 = ? WHERE id = ?",
+            (score1, score2, game_id),
         )
         # Fetch game
-        rows = self.db.execute_query("SELECT tournament_id, player1, player2 FROM games WHERE id = ?", (game_id,))
+        rows = self.db.execute_query(
+            "SELECT tournament_id, player1, player2 FROM games WHERE id = ?", (game_id,)
+        )
         if not rows:
             return
         tournament_id, p1, p2 = rows[0]
@@ -127,6 +137,7 @@ class TournamentManager:
                     "UPDATE rankings SET wins = wins + 1 WHERE tournament_id = ? AND player_id = ?",
                     (tournament_id, p2),
                 )
+
 
 # Backwards-compatible top-level API
 __all__ = ["TournamentDatabase", "TournamentManager"]

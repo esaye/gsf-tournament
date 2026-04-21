@@ -1,4 +1,3 @@
-import sqlite3
 import sys
 from pathlib import Path
 
@@ -28,7 +27,9 @@ def test_pairings_and_rankings(tmp_path):
     assert len(pairings) >= 2
 
     # Verify game records created
-    games = db.execute_query("SELECT id FROM games WHERE tournament_id = ? AND round_number = ?", (t_id, 1))
+    games = db.execute_query(
+        "SELECT id FROM games WHERE tournament_id = ? AND round_number = ?", (t_id, 1)
+    )
     assert len(games) >= 1
     game_id = games[0][0]
 
@@ -36,7 +37,9 @@ def test_pairings_and_rankings(tmp_path):
     mgr.update_game_score(game_id, 100, 80)
 
     # Verify rankings reflect a win and total_score updated
-    ranks = db.execute_query("SELECT wins, total_score FROM rankings WHERE tournament_id = ?", (t_id,))
+    ranks = db.execute_query(
+        "SELECT wins, total_score FROM rankings WHERE tournament_id = ?", (t_id,)
+    )
     total_wins = sum(r[0] for r in ranks)
     total_score = sum(r[1] for r in ranks)
 

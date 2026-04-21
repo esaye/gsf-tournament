@@ -1,7 +1,9 @@
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import tsh_tournament_manager as manager_module
+
 
 def test_draw_scores_do_not_count_as_wins(tmp_path):
     db_file = str(tmp_path / "test_draw.db")
@@ -19,7 +21,9 @@ def test_draw_scores_do_not_count_as_wins(tmp_path):
 
     mgr.update_game_score(game_id, 50, 50)
 
-    ranks = db.execute_query("SELECT wins, total_score FROM rankings WHERE tournament_id = ?", (t_id,))
+    ranks = db.execute_query(
+        "SELECT wins, total_score FROM rankings WHERE tournament_id = ?", (t_id,)
+    )
     total_wins = sum(r[0] for r in ranks)
     total_score = sum(r[1] for r in ranks)
 

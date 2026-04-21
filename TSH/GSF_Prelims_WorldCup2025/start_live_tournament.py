@@ -11,20 +11,22 @@ import webbrowser
 import threading
 import time
 
+
 class TournamentHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path == '/' or self.path == '/index.html':
-            self.path = '/live_tournament.html'
-        
+        if self.path == "/" or self.path == "/index.html":
+            self.path = "/live_tournament.html"
+
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
+
 
 def start_server():
     """Start the tournament web server"""
     PORT = 8090
     tournament_dir = "/home/ebrimasaye/TSH/GSF_Prelims_WorldCup2025"
-    
+
     os.chdir(tournament_dir)
-    
+
     with socketserver.TCPServer(("", PORT), TournamentHandler) as httpd:
         print("🇬🇲 GSF NATIONAL PRELIMINARY TOURNAMENT - LIVE SERVER")
         print("=" * 60)
@@ -47,29 +49,32 @@ def start_server():
         print("   3. Enter scores as games complete")
         print("   4. Export results after each round")
         print()
-        print("⚠️  Note: This runs independently from your league at scrabble.ebrimasaye.com")
+        print(
+            "⚠️  Note: This runs independently from your league at scrabble.ebrimasaye.com"
+        )
         print("🔄 Press Ctrl+C to stop the server")
         print()
-        
+
         # Try to open browser automatically
         def open_browser():
             time.sleep(2)
             try:
-                webbrowser.open(f'http://localhost:{PORT}')
+                webbrowser.open(f"http://localhost:{PORT}")
                 print("🚀 Browser opened automatically!")
             except:
                 print("📝 Please manually open your browser to the URL above")
-        
+
         browser_thread = threading.Thread(target=open_browser)
         browser_thread.daemon = True
         browser_thread.start()
-        
+
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
             print("\n\n🏁 Tournament server stopped!")
             print("📊 Thank you for using the GSF Tournament System")
             print("🇬🇲 Good luck to all players!")
+
 
 if __name__ == "__main__":
     start_server()

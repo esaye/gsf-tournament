@@ -12,7 +12,6 @@ Notes:
 """
 
 import argparse
-import os
 import subprocess
 import time
 import shutil
@@ -47,11 +46,30 @@ def process_csv_file(path: Path, update_script: Path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--watch-dir", default=str(DEFAULT_RESULTS_DIR), help="Directory to watch for result CSVs")
-    parser.add_argument("--timeout", type=int, default=300, help="Seconds to wait for results (0 = no wait)")
-    parser.add_argument("--poll-interval", type=int, default=15, help="Seconds between polls")
-    parser.add_argument("--once", action="store_true", help="Run once (generate pairings + process any existing CSVs) and exit")
-    parser.add_argument("--deploy", action="store_true", help="Run deploy script (deploy_tournament_online.py or deploy_to_web.sh) after processing")
+    parser.add_argument(
+        "--watch-dir",
+        default=str(DEFAULT_RESULTS_DIR),
+        help="Directory to watch for result CSVs",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=300,
+        help="Seconds to wait for results (0 = no wait)",
+    )
+    parser.add_argument(
+        "--poll-interval", type=int, default=15, help="Seconds between polls"
+    )
+    parser.add_argument(
+        "--once",
+        action="store_true",
+        help="Run once (generate pairings + process any existing CSVs) and exit",
+    )
+    parser.add_argument(
+        "--deploy",
+        action="store_true",
+        help="Run deploy script (deploy_tournament_online.py or deploy_to_web.sh) after processing",
+    )
 
     args = parser.parse_args()
 
@@ -66,7 +84,9 @@ def main():
         if rc != 0:
             print("[automate] Pairings generation failed (rc=", rc, ")")
     else:
-        print("[automate] generate_next_round.py not found; skipping pairings generation")
+        print(
+            "[automate] generate_next_round.py not found; skipping pairings generation"
+        )
 
     # Step 2: process any CSV files in results_dir
     update_script = HERE / "update_scores.py"
@@ -120,5 +140,6 @@ def deploy():
     else:
         print("[automate] No deploy script found; skipping deploy")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

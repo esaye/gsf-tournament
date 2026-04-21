@@ -5,9 +5,7 @@ Deploy GSF Prelims WorldCup 2025 Tournament to scrabble.ebrimasaye.com
 
 import subprocess
 import os
-import shutil
-from pathlib import Path
-import json
+
 
 class TournamentDeployer:
     def __init__(self):
@@ -15,39 +13,42 @@ class TournamentDeployer:
         self.domain = "scrabble.ebrimasaye.com"
         self.remote_path = "htdocs/tournament"
         self.html_dir = f"{self.tournament_dir}/html"
-        
+
     def generate_html_files(self):
         """Generate HTML files for the tournament"""
         print("📄 Generating HTML files...")
-        
+
         # Ensure HTML directory exists
         os.makedirs(self.html_dir, exist_ok=True)
-        
+
         # Generate basic tournament files using TSH
         try:
             # Run TSH commands to generate HTML files
             os.chdir(self.tournament_dir)
-            
+
             # Set environment
             env = os.environ.copy()
-            env['PERL5LIB'] = '/home/ebrimasaye/TSH/lib/perl'
-            
+            env["PERL5LIB"] = "/home/ebrimasaye/TSH/lib/perl"
+
             # Generate standings page
-            result = subprocess.run([
-                'perl', '/home/ebrimasaye/TSH/tsh.pl', '.', 'standings', 'a'
-            ], capture_output=True, text=True, env=env)
-            
+            result = subprocess.run(
+                ["perl", "/home/ebrimasaye/TSH/tsh.pl", ".", "standings", "a"],
+                capture_output=True,
+                text=True,
+                env=env,
+            )
+
             print("✅ HTML files prepared")
             return True
-            
+
         except Exception as e:
             print(f"⚠️ Warning generating HTML: {e}")
             return True  # Continue anyway
-    
+
     def create_index_page(self):
         """Create a beautiful index page for the tournament"""
         print("🎨 Creating tournament landing page...")
-        
+
         index_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -393,33 +394,33 @@ class TournamentDeployer:
     </script>
 </body>
 </html>"""
-        
+
         # Save the index page
         index_path = f"{self.html_dir}/index.html"
-        with open(index_path, 'w') as f:
+        with open(index_path, "w") as f:
             f.write(index_html)
-            
+
         print("✅ Beautiful landing page created!")
         return True
-    
+
     def sync_to_website(self):
         """Sync tournament files to scrabble.ebrimasaye.com"""
         print(f"🚀 Deploying to {self.domain}...")
-        
+
         try:
             # Create rsync command to sync files
             rsync_command = [
-                'rsync', 
-                '-avz',
-                '--delete',
+                "rsync",
+                "-avz",
+                "--delete",
                 f"{self.html_dir}/",
-                f"ebrimasaye@{self.domain}:{self.remote_path}/"
+                f"ebrimasaye@{self.domain}:{self.remote_path}/",
             ]
-            
+
             print(f"Running: {' '.join(rsync_command)}")
-            
+
             result = subprocess.run(rsync_command, capture_output=True, text=True)
-            
+
             if result.returncode == 0:
                 print("✅ Successfully deployed to website!")
                 print(f"🌐 Your tournament is live at: https://{self.domain}")
@@ -427,40 +428,42 @@ class TournamentDeployer:
             else:
                 print(f"❌ Deployment failed: {result.stderr}")
                 return False
-                
+
         except Exception as e:
             print(f"❌ Deployment error: {e}")
             return False
-    
+
     def deploy(self):
         """Run complete deployment process"""
         print("🎯 DEPLOYING GSF PRELIMS WORLDCUP 2025 TO LIVE WEBSITE")
         print("=" * 60)
-        
+
         steps = [
             ("Generate HTML Files", self.generate_html_files),
             ("Create Landing Page", self.create_index_page),
-            ("Sync to Website", self.sync_to_website)
+            ("Sync to Website", self.sync_to_website),
         ]
-        
+
         for step_name, step_func in steps:
             print(f"\n📋 {step_name}...")
             if not step_func():
                 print(f"❌ {step_name} failed!")
                 return False
-        
+
         print("\n🎉 DEPLOYMENT COMPLETE!")
         print(f"🌐 Tournament URL: https://{self.domain}")
-        print(f"📱 Mobile friendly: Yes")
-        print(f"🔄 Auto-refresh: 30 seconds")
-        print(f"🎨 Beautiful design: ✅")
-        
+        print("📱 Mobile friendly: Yes")
+        print("🔄 Auto-refresh: 30 seconds")
+        print("🎨 Beautiful design: ✅")
+
         return True
+
 
 def main():
     deployer = TournamentDeployer()
     success = deployer.deploy()
     return 0 if success else 1
+
 
 if __name__ == "__main__":
     exit(main())
