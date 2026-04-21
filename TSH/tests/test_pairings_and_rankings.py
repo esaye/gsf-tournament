@@ -3,7 +3,7 @@ from pathlib import Path
 
 # Ensure TSH module files are importable
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import tsh_tournament_manager as manager_module
+import tsh_tournament_manager as manager_module  # noqa: E402
 
 
 def test_pairings_and_rankings(tmp_path):
@@ -17,10 +17,10 @@ def test_pairings_and_rankings(tmp_path):
 
     # Create tournament and players
     t_id = mgr.create_tournament("Unit Test Tourney")
-    p1 = mgr.add_player(t_id, "Alice")
-    p2 = mgr.add_player(t_id, "Bob")
-    p3 = mgr.add_player(t_id, "Carol")
-    p4 = mgr.add_player(t_id, "Dave")
+    mgr.add_player(t_id, "Alice")
+    mgr.add_player(t_id, "Bob")
+    mgr.add_player(t_id, "Carol")
+    mgr.add_player(t_id, "Dave")
 
     # Generate pairings for round 1
     pairings = mgr.generate_round_pairings(t_id, 1)

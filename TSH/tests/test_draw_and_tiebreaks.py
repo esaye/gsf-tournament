@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import tsh_tournament_manager as manager_module
+import tsh_tournament_manager as manager_module  # noqa: E402
 
 
 def test_draw_scores_do_not_count_as_wins(tmp_path):
@@ -12,8 +12,8 @@ def test_draw_scores_do_not_count_as_wins(tmp_path):
     mgr.db = db
 
     t_id = mgr.create_tournament("Draw Test")
-    p1 = mgr.add_player(t_id, "A")
-    p2 = mgr.add_player(t_id, "B")
+    mgr.add_player(t_id, "A")
+    mgr.add_player(t_id, "B")
 
     pairings = mgr.generate_round_pairings(t_id, 1)
     assert len(pairings) >= 1
