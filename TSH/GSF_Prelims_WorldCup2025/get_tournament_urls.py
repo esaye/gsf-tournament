@@ -17,20 +17,20 @@ def get_local_ip():
         local_ip = s.getsockname()[0]
         s.close()
         return local_ip
-    except Exception:
-try:
+    except:
+        try:
             # Fallback method
             hostname = socket.gethostname()
             local_ip = socket.gethostbyname(hostname)
             if local_ip.startswith("127."):
                 # Try another method
-                subprocess.run(
+                result = subprocess.run(
                     ["hostname", "-I"], capture_output=True, text=True
                 )
                 local_ip = result.stdout.strip().split()[0]
             return local_ip
-        except Exception:
-return "192.168.1.100"  # Fallback IP
+        except:
+            return "192.168.1.100"  # Fallback IP
 
 
 def main():
@@ -70,13 +70,13 @@ def main():
 
     # Show all network interfaces
     try:
-        subprocess.run(["hostname", "-I"], capture_output=True, text=True)
+        result = subprocess.run(["hostname", "-I"], capture_output=True, text=True)
         all_ips = result.stdout.strip().split()
         for i, ip in enumerate(all_ips[:3]):  # Show first 3 IPs
             if ip != local_ip:
                 print(f"      Alternative {i + 1}: http://{ip}:8090")
-    except Exception:
-pass
+    except:
+        pass
 
     print()
     print("✅ Ready to start your tournament!")

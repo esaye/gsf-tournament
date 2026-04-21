@@ -31,7 +31,7 @@ class TournamentDeployer:
             env["PERL5LIB"] = "/home/ebrimasaye/TSH/lib/perl"
 
             # Generate standings page
-            subprocess.run(
+            result = subprocess.run(
                 ["perl", "/home/ebrimasaye/TSH/tsh.pl", ".", "standings", "a"],
                 capture_output=True,
                 text=True,
@@ -62,20 +62,20 @@ class TournamentDeployer:
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-
+        
         .hero {
             background: white;
             border-radius: 20px;
@@ -84,25 +84,25 @@ class TournamentDeployer:
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
         }
-
+        
         .flag {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
-
+        
         .tournament-title {
             font-size: 2.5rem;
             color: #2c3e50;
             margin-bottom: 1rem;
             font-weight: 700;
         }
-
+        
         .tournament-subtitle {
             font-size: 1.3rem;
             color: #7f8c8d;
             margin-bottom: 2rem;
         }
-
+        
         .live-badge {
             background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             color: white;
@@ -114,26 +114,26 @@ class TournamentDeployer:
             animation: pulse 2s infinite;
             text-decoration: none;
         }
-
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-
+        
         .dates {
             font-size: 1.1rem;
             color: #34495e;
             margin-top: 1rem;
         }
-
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin: 2rem 0;
         }
-
+        
         .stat-card {
             background: white;
             border-radius: 15px;
@@ -142,11 +142,11 @@ class TournamentDeployer:
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
-
+        
         .stat-card:hover {
             transform: translateY(-5px);
         }
-
+        
         .stat-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
@@ -154,19 +154,19 @@ class TournamentDeployer:
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
+        
         .stat-number {
             font-size: 2.5rem;
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 0.5rem;
         }
-
+        
         .stat-label {
             color: #7f8c8d;
             font-size: 1.1rem;
         }
-
+        
         .players-section {
             background: white;
             border-radius: 15px;
@@ -174,7 +174,7 @@ class TournamentDeployer:
             margin: 2rem 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
+        
         .section-title {
             font-size: 1.8rem;
             color: #2c3e50;
@@ -185,13 +185,13 @@ class TournamentDeployer:
             justify-content: center;
             gap: 1rem;
         }
-
+        
         .players-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
         }
-
+        
         .player-card {
             background: #f8f9fa;
             border-radius: 10px;
@@ -200,30 +200,30 @@ class TournamentDeployer:
             border-left: 4px solid #667eea;
             transition: all 0.3s ease;
         }
-
+        
         .player-card:hover {
             background: #e9ecef;
             transform: translateX(5px);
         }
-
+        
         .player-name {
             font-weight: bold;
             color: #2c3e50;
             font-size: 1.1rem;
         }
-
+        
         .player-rating {
             color: #7f8c8d;
             margin-top: 0.5rem;
         }
-
+        
         .actions {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin: 2rem 0;
         }
-
+        
         .action-btn {
             background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
@@ -238,28 +238,28 @@ class TournamentDeployer:
             justify-content: center;
             gap: 0.5rem;
         }
-
+        
         .action-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
-
+        
         .footer {
             text-align: center;
             color: white;
             margin-top: 3rem;
             opacity: 0.8;
         }
-
+        
         @media (max-width: 768px) {
             .tournament-title {
                 font-size: 1.8rem;
             }
-
+            
             .hero {
                 padding: 2rem 1rem;
             }
-
+            
             .stats-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 1rem;
@@ -278,11 +278,11 @@ class TournamentDeployer:
                 LIVE TOURNAMENT - VIEW NOW
             </a>
             <div class="dates">
-                <i class="fas fa-calendar"></i> August 15-17, 2025 |
+                <i class="fas fa-calendar"></i> August 15-17, 2025 | 
                 <i class="fas fa-trophy"></i> Official WSC Qualifier
             </div>
         </div>
-
+        
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon">
@@ -291,7 +291,7 @@ class TournamentDeployer:
                 <div class="stat-number">8</div>
                 <div class="stat-label">Elite Players</div>
             </div>
-
+            
             <div class="stat-card">
                 <div class="stat-icon">
                     <i class="fas fa-chess-board"></i>
@@ -299,7 +299,7 @@ class TournamentDeployer:
                 <div class="stat-number">15</div>
                 <div class="stat-label">Tournament Rounds</div>
             </div>
-
+            
             <div class="stat-card">
                 <div class="stat-icon">
                     <i class="fas fa-flag-checkered"></i>
@@ -307,7 +307,7 @@ class TournamentDeployer:
                 <div class="stat-number">1</div>
                 <div class="stat-label">Current Round</div>
             </div>
-
+            
             <div class="stat-card">
                 <div class="stat-icon">
                     <i class="fas fa-gamepad"></i>
@@ -316,7 +316,7 @@ class TournamentDeployer:
                 <div class="stat-label">Active Games</div>
             </div>
         </div>
-
+        
         <div class="players-section">
             <h2 class="section-title">
                 <i class="fas fa-star"></i>
@@ -358,7 +358,7 @@ class TournamentDeployer:
                 </div>
             </div>
         </div>
-
+        
         <div class="actions">
             <a href="/division/a/" class="action-btn">
                 <i class="fas fa-eye"></i>
@@ -377,19 +377,19 @@ class TournamentDeployer:
                 Main Tournament Portal
             </a>
         </div>
-
+        
         <div class="footer">
             <p><i class="fas fa-globe"></i> Hosted at scrabble.ebrimasaye.com</p>
             <p>Powered by Tournament Shell (TSH) • Gambia Scrabble Federation</p>
         </div>
     </div>
-
+    
     <script>
         // Auto-refresh every 30 seconds to show live updates
         setTimeout(function(){
             window.location.reload(1);
         }, 30000);
-
+        
         console.log('🇬🇲 GSF Tournament System - Live and Ready!');
     </script>
 </body>
@@ -419,7 +419,7 @@ class TournamentDeployer:
 
             print(f"Running: {' '.join(rsync_command)}")
 
-            subprocess.run(rsync_command, capture_output=True, text=True)
+            result = subprocess.run(rsync_command, capture_output=True, text=True)
 
             if result.returncode == 0:
                 print("✅ Successfully deployed to website!")

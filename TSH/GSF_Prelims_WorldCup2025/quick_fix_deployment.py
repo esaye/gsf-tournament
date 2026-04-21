@@ -42,7 +42,7 @@ def quick_deploy():
 
         print(f"Running: {' '.join(rsync_command)}")
 
-        subprocess.run(
+        result = subprocess.run(
             rsync_command, capture_output=True, text=True, timeout=30
         )
 
@@ -74,7 +74,7 @@ def quick_deploy():
         ]
 
         print("Creating archive...")
-        subprocess.run(tar_command, capture_output=True, text=True)
+        result = subprocess.run(tar_command, capture_output=True, text=True)
 
         if result.returncode == 0:
             # Upload the tar file
@@ -85,7 +85,7 @@ def quick_deploy():
             ]
 
             print("Uploading archive...")
-            subprocess.run(
+            result = subprocess.run(
                 scp_command, capture_output=True, text=True, timeout=30
             )
 

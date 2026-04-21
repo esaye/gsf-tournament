@@ -34,7 +34,7 @@ class TournamentManager:
         # Get tournament info
         cursor.execute(
             """
-            SELECT name, format, rounds, status, created_at, settings
+            SELECT name, format, rounds, status, created_at, settings 
             FROM tournaments WHERE id = ?
         """,
             (self.tournament_id,),
@@ -62,8 +62,8 @@ class TournamentManager:
         # Get games status
         cursor.execute(
             """
-            SELECT status, COUNT(*) FROM games
-            WHERE tournament_id = ?
+            SELECT status, COUNT(*) FROM games 
+            WHERE tournament_id = ? 
             GROUP BY status
         """,
             (self.tournament_id,),
@@ -84,9 +84,9 @@ class TournamentManager:
 
         cursor.execute(
             """
-            SELECT name, rating, phone, registered_at
-            FROM players
-            WHERE tournament_id = ?
+            SELECT name, rating, phone, registered_at 
+            FROM players 
+            WHERE tournament_id = ? 
             ORDER BY name
         """,
             (self.tournament_id,),
@@ -114,8 +114,8 @@ class TournamentManager:
 
         cursor.execute(
             """
-            SELECT name, rating FROM players
-            WHERE tournament_id = ?
+            SELECT name, rating FROM players 
+            WHERE tournament_id = ? 
             ORDER BY rating DESC, name
         """,
             (self.tournament_id,),
@@ -152,8 +152,8 @@ class TournamentManager:
             else:
                 print("⚠️  TSH web server may not be running.")
                 print("   Start it with: perl tsh.pl . server")
-        except Exception:
-print("⚠️  TSH web server may not be running.")
+        except:
+            print("⚠️  TSH web server may not be running.")
             print("   Start it with: perl tsh.pl . server")
 
         return players
@@ -176,7 +176,7 @@ print("⚠️  TSH web server may not be running.")
 
         try:
             # Use the existing SFTP configuration from config.tsh
-            subprocess.run(
+            result = subprocess.run(
                 ["perl", self.tsh_path, "upload"],
                 capture_output=True,
                 text=True,
