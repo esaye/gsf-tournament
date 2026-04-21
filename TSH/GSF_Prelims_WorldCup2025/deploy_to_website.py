@@ -31,12 +31,7 @@ class TournamentDeployer:
             env["PERL5LIB"] = "/home/ebrimasaye/TSH/lib/perl"
 
             # Generate standings page
-            result = subprocess.run(
-                ["perl", "/home/ebrimasaye/TSH/tsh.pl", ".", "standings", "a"],
-                capture_output=True,
-                text=True,
-                env=env,
-            )
+            subprocess.run(["perl", "/home/ebrimasaye/TSH/tsh.pl", ".", "standings", "a"], capture_output=True, text=True, env=env)
 
             print("✅ HTML files prepared")
             return True
@@ -54,8 +49,7 @@ class TournamentDeployer:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GSF National Preliminary Tournament - World Scrabble Championship 2025</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>GSF National Preliminary Tournament — WSC 2025</title>
     <style>
         * {
             margin: 0;
